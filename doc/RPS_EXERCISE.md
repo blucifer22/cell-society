@@ -106,11 +106,3 @@ Something thing = new Something();
 Value v = thing.getValue();
 v.update(13);
 ```
-
-*   A new game is added to the system, with its own relationships for its all its "weapons".
-
-```java
-Something thing = new Something();
-Value v = thing.getValue();
-v.update(13);
-```
