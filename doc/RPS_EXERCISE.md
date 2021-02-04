@@ -2,7 +2,7 @@
 
 ## Rock Paper Scissors
 
-##
+## Names and NetIDs
 
 Marc Chmielewski (msc68), David Coffman (djc70), Joshua Petitma (jmp157)
 
