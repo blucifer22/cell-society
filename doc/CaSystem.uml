@@ -1,27 +1,27 @@
 @startuml
-class Node<T extends State> {
+class Cell<T extends State> {
 	- T myState;
 	- T nextState;
 	- StateRule<T>
 
-	+addNeighbor(Node n);
+	+addNeighbor(Cell n);
 	+getState(): T;
 	+determineNextState();
 	+advanceState();
 	+get<AspectOfState>();
 }
 
-note top of NodeManager
-	arranges nodes and assigns
+note top of CellManager
+	arranges cells and assigns
 	neighbors based on shape 
-	and node amounts. Does
-	EVERYTHING with nodes
+	and cell amounts. Does
+	EVERYTHING with cells
 end note
-abstract class NodeManager<T extends State> {
-	-ArrayList<Node<T>> nodes;
+abstract class CellManager<T extends State> {
+	-ArrayList<Cell<T>> cells;
 	-StateRules<T> rules;
-	+addNode(Node<T> node);
-	+updateNodes();
+	+addCell(Cell<T> cell);
+	+updateCells();
 }
 
 note top of SimulationSystem
@@ -33,17 +33,17 @@ note top of SimulationSystem
 end note
 
 class SimulationSystem {
-	-NodeManager manager
+	-CellManager manager
 	-StateRules<T> rules;
 	+setConfiguration(String name, double value) : double
 	+getConfigurations() : List<MapEntries<String, String>>
 	+reset()
 }
 note bottom of RectangularManager
-	When nodes are added their neighbors
+	When cells are added their neighbors
 	are configured in a rectangular pattern.
 end note
-class RectangularManager<T extends State> extends NodeManager {
+class RectangularManager<T extends State> extends CellManager {
 
 }
 
@@ -92,13 +92,10 @@ enum CONWAY_STATE {
 
 note top of StateRule
 	A Possible way of updating
-	the state of nodes during the
+	the state of cells during the
 	simulation?
 end note
 abstract class StateRule<T extends State> {
-	-int rule1; //arbitrary fields
-	-double rule2; 
-	-int changeChance; 
 }
 
 class FireRule<FireState> extends StateRule implements Spreadable {
