@@ -1,0 +1,33 @@
+@startuml
+abstract class Node<T extends State> {
+	- T myState;
+	- T nextState;
+
+	+addNeighbor(Node n);
+	+determineNextState();
+	+advanceState();
+	+get<AspectOfState>();
+}
+
+
+abstract class State {
+}
+
+abstract class NodeManager<T extends State> {
+	-ArrayList<Node<T>> nodes;
+	#StateModifier<T> modifier;
+
+	+addNode(T node);
+	+updateNodes();
+}
+
+class StateModifier<T extends State> {
+	-int rule1; //arbitrary fields
+	-double rule2; 
+	-int changeChance; 
+
+	+updateState(T state);
+	+updateState(ArrayList<Node<T>> states);
+}
+
+@enduml
