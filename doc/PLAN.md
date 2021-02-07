@@ -15,17 +15,9 @@ dragged and dropped on each other triggers a swap
 
 Here is a graphical look at my design:
 
-![This is cool, too bad you can't see it](online-shopping-uml-example.png "An initial UI")
+![](uml-diagram.svg)
 
-made from [a tool that generates UML from existing code](http://staruml.io/).
-
-Here is our amazing UI:
-
-![This is cool, too bad you can't see it](29-sketched-ui-wireframe.jpg "An alternate design")
-
-taken
-from [Brilliant Examples of Sketched UI Wireframes and Mock-Ups](https://onextrapixel.com/40-brilliant-examples-of-sketched-ui-wireframes-and-mock-ups/)
-.
+Yes, it's small sorry, right click and select view image pls!
 
 ## Introduction
 
@@ -250,3 +242,15 @@ The roles within the code are delegated as follows:
 * David Coffman
     * Primary: GUI/XML
     * Secondary: Managing rules and interaction
+
+### Use Cases
+
+* Marc Chmielewski
+
+![](marc-usecases.jpg)
+
+* Joshua Petitma
+
+![](josh-usecases.svg)
+
+

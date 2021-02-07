@@ -1,0 +1,25 @@
+@startuml
+package UpdateProbability {
+	(System) as s
+	(Manager) as m
+	(Cell) as c
+	s --> (m) : updateNodes()
+	(m) --> (c) : determineNextState()
+}
+
+note top of UpdateProbability
+	Within the determineNextState method, the cell
+	uses the percent chance that is within the StateRule
+	to potentially change its state
+end note
+
+rectangle "Load Configuration" {
+	(XMLParser) as x
+	(SystemManager) as sm
+	(FireSystem) as fs
+	(FireRule) as fr
+	sm <--> x : parseConfig(File)
+	sm --> fs : new System(Map)
+	fs --> (fr) : Map Configuration
+}
+@enduml

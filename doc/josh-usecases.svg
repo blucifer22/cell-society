@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="474px" preserveAspectRatio="none" style="width:786px;height:474px;" version="1.1" viewBox="0 0 786 474" width="786px" zoomAndPan="magnify"><defs><filter height="300%" id="f1qzip2ms2avkx" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[8f8619a79c07631e34f65903700adacd]
+cluster UpdateProbability--><polygon fill="#FFFFFF" filter="url(#f1qzip2ms2avkx)" points="175,157.5,320,157.5,327,179.7969,409,179.7969,409,467.5,175,467.5,175,157.5" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="175" x2="327" y1="179.7969" y2="179.7969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="139" x="179" y="172.4951">UpdateProbability</text><!--MD5=[3ca498cbf25fe6b8cf1d254670736309]
+cluster Load Configuration--><rect fill="#FFFFFF" filter="url(#f1qzip2ms2avkx)" height="344.5" style="stroke:#000000;stroke-width:1.5;" width="333" x="441" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="150" x="532.5" y="21.9951">Load Configuration</text><ellipse cx="257.0624" cy="215.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="39.0624" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="51" x="231.5624" y="219.6721">System</text><ellipse cx="254.9264" cy="321.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="45.4264" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="60" x="224.9264" y="325.6721">Manager</text><ellipse cx="242.1777" cy="429.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="20.6777" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="25" x="229.6777" y="433.6721">Cell</text><ellipse cx="510.9117" cy="215.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="53.9117" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="72" x="474.9117" y="219.6721">XMLParser</text><ellipse cx="584.8489" cy="58.7698" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="71.8489" ry="16.7698" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="111" x="529.3489" y="63.4182">SystemManager</text><ellipse cx="657.2401" cy="215.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="56.7401" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="76" x="619.2401" y="219.6721">FireSystem</text><ellipse cx="640.098" cy="321.0236" fill="#FEFECE" filter="url(#f1qzip2ms2avkx)" rx="42.598" ry="14.5236" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="56" x="612.098" y="325.6721">FireRule</text><path d="M6,31.5 L6,86.8984 L360,86.8984 L360,41.5 L350,31.5 L6,31.5 " fill="#FBFB77" filter="url(#f1qzip2ms2avkx)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M350,31.5 L350,41.5 L360,41.5 L350,31.5 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="306" x="12" y="48.5669">Within the determineNextState method, the cell</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="333" x="12" y="63.6997">uses the percent chance that is within the StateRule</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="190" x="12" y="78.8325">to potentially change its state</text><!--MD5=[a14c124e954b3aabbcb4d564a61b0e99]
+link s to m--><path d="M256.74,229.6 C256.39,247.89 255.76,280.52 255.36,301.17 " fill="none" id="s-to-m" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="255.26,306.4,259.4392,297.4818,255.36,301.401,251.4408,297.3218,255.26,306.4" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="96" x="257" y="272.5669">updateNodes()</text><!--MD5=[537e01a82e9240f1bb1b7ad7276191e9]
+link m to c--><path d="M253.3,335.86 C250.99,354.69 246.85,388.42 244.28,409.42 " fill="none" id="m-to-c" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="243.66,414.47,248.7125,406.0159,244.2608,409.5062,240.7704,405.0546,243.66,414.47" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="141" x="250" y="380.5669">determineNextState()</text><!--MD5=[220e04faec05b8f1b5c6015c4d7e39c1]
+link GMN9 to UpdateProbability--><path d="M183,86.82 C183,97.68 183,110.8969 183,124.653 C183,131.531 183,138.5439 183,145.4643 C183,148.9245 183,152.3617 183,155.7473 C183,156.1705 183,156.5929 183,157.0144 " fill="none" id="GMN9-UpdateProbability" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><!--MD5=[34b501ecf55e388050ee1977449f246f]
+link sm to x--><path d="M542.19,75.8 C524.24,84.81 505.21,98.04 495,116.5 C481.17,141.52 492.12,175.28 501.46,195.8 " fill="none" id="sm-x" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="503.66,200.47,503.4516,190.6233,501.5331,195.9449,496.2115,194.0264,503.66,200.47" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="546.72,73.61,536.8768,73.9441,542.2225,75.7945,540.372,81.1402,546.72,73.61" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="107" x="496" y="129.5669">parseConfig(File)</text><!--MD5=[b733a9c9ea1dddebb38dcc30c30a3942]
+link sm to fs--><path d="M592.57,76.19 C606.07,105.07 634.23,165.29 648.42,195.65 " fill="none" id="sm-to-fs" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="650.58,200.26,650.3971,190.4128,648.4648,195.7294,643.1482,193.7972,650.58,200.26" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="115" x="619" y="129.5669">new System(Map)</text><!--MD5=[41232af998725e6765ef96b1fbfc931d]
+link fs to fr--><path d="M654.78,229.6 C651.77,247.97 646.41,280.8 643.03,301.43 " fill="none" id="fs-to-fr" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="642.22,306.4,647.6297,298.1699,643.0327,301.4665,639.7361,296.8695,642.22,306.4" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="116" x="650" y="272.5669">Map Configuration</text><!--MD5=[f003dfe2a535fa4d1b22c0b2ebf9fec5]
+@startuml
+package UpdateProbability {
+	(System) as s
+	(Manager) as m
+	(Cell) as c
+	s - -> (m) : updateNodes()
+	(m) - -> (c) : determineNextState()
+}
+
+note top of UpdateProbability
+	Within the determineNextState method, the cell
+	uses the percent chance that is within the StateRule
+	to potentially change its state
+end note
+
+rectangle "Load Configuration" {
+	(XMLParser) as x
+	(SystemManager) as sm
+	(FireSystem) as fs
+	(FireRule) as fr
+	sm <- -> x : parseConfig(File)
+	sm - -> fs : new System(Map)
+	fs - -> (fr) : Map Configuration
+}
+@enduml
+
+PlantUML version 1.2020.22(Sun Dec 06 04:36:27 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
