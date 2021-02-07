@@ -10,17 +10,6 @@
 </properties>
 
 <build>
-    <sourceDirectory>src</sourceDirectory>
-    <resources>
-        <!-- external data files -->
-        <resource>
-            <directory>data</directory>
-        </resource>
-        <!-- internal resource files also need to be included, but not directly -->
-        <resource>
-            <directory>src</directory>
-        </resource>
-    </resources>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
