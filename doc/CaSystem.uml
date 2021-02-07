@@ -1,26 +1,91 @@
 @startuml
-abstract class Node<T extends State> {
+class Node<T extends State> {
 	- T myState;
 	- T nextState;
 
 	+addNeighbor(Node n);
+	+getState(): T;
 	+determineNextState();
 	+advanceState();
 	+get<AspectOfState>();
 }
 
-
-abstract class State {
-}
-
+note top of NodeManager
+	arranges nodes and assigns
+	neighbors based on shape 
+	and node amounts.
+end note
 abstract class NodeManager<T extends State> {
 	-ArrayList<Node<T>> nodes;
 	#StateModifier<T> modifier;
 
-	+addNode(T node);
+	+addNode(Node<T> node);
 	+updateNodes();
 }
 
+note bottom of RectangularManager
+	When nodes are added their neighbors
+	are configured in a rectangular pattern.
+end note
+class RectangularManager<T extends State> extends NodeManager {
+
+}
+
+note top of SimulationManager
+	Set the simulation and the system
+	the goes with it.
+end note
+class SimulationManager {
+	+resetSimulation()
+	+getConfigurations();
+	+setConfiguration(String config, double value);
+	+setSystem(SYSTEM system);
+	+availableSystems();
+}
+
+note top of SimulationSystem
+	getConfigurations()
+	returns a map of
+	the value and how
+	to represent it 
+	(i.e. a slider or whatever)
+end note
+
+class SimulationSystem {
+	-NodeManager manager
+	+setConfiguration(String name, double value) : double
+	+getConfigurations() : Map<String, String>
+	+reset()
+}
+
+class FireSystem extends SimulationSystem {
+	-int flamibility
+	+get<Configuration>(String name) : Value
+}
+
+abstract class State {
+}
+
+class FireState extends State {
+	-FIRE_STATE state;
+	-double flamability
+	-
+}
+
+note top of FIRE_STATE
+	Nested in
+	FireState class
+end note
+enum FIRE_STATE {
+	ONFIRE, BURNT, NORMAL
+}
+
+
+note top of StateModifier
+	A Possible way of updating
+	the state of nodes during the
+	simulation?
+end note
 class StateModifier<T extends State> {
 	-int rule1; //arbitrary fields
 	-double rule2; 
