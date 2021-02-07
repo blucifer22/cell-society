@@ -2,6 +2,7 @@
 class Node<T extends State> {
 	- T myState;
 	- T nextState;
+	- StateRule<T>
 
 	+addNeighbor(Node n);
 	+getState(): T;
@@ -13,34 +14,14 @@ class Node<T extends State> {
 note top of NodeManager
 	arranges nodes and assigns
 	neighbors based on shape 
-	and node amounts.
+	and node amounts. Does
+	EVERYTHING with nodes
 end note
 abstract class NodeManager<T extends State> {
 	-ArrayList<Node<T>> nodes;
-	#StateModifier<T> modifier;
-
+	-StateRules<T> rules;
 	+addNode(Node<T> node);
 	+updateNodes();
-}
-
-note bottom of RectangularManager
-	When nodes are added their neighbors
-	are configured in a rectangular pattern.
-end note
-class RectangularManager<T extends State> extends NodeManager {
-
-}
-
-note top of SimulationManager
-	Set the simulation and the system
-	the goes with it.
-end note
-class SimulationManager {
-	+resetSimulation()
-	+getConfigurations();
-	+setConfiguration(String config, double value);
-	+setSystem(SYSTEM system);
-	+availableSystems();
 }
 
 note top of SimulationSystem
@@ -53,9 +34,30 @@ end note
 
 class SimulationSystem {
 	-NodeManager manager
+	-StateRules<T> rules;
 	+setConfiguration(String name, double value) : double
-	+getConfigurations() : Map<String, String>
+	+getConfigurations() : List<MapEntries<String, String>>
 	+reset()
+}
+note bottom of RectangularManager
+	When nodes are added their neighbors
+	are configured in a rectangular pattern.
+end note
+class RectangularManager<T extends State> extends NodeManager {
+
+}
+
+note top of SimulationManager
+	Set the simulation and the system
+	the goes with it.
+end note
+
+class SimulationManager {
+	+resetSimulation()
+	+getConfigurations();
+	+setConfiguration(String config, double value);
+	+setSystem(SYSTEM system);
+	+availableSystems();
 }
 
 class FireSystem extends SimulationSystem {
@@ -80,19 +82,50 @@ enum FIRE_STATE {
 	ONFIRE, BURNT, NORMAL
 }
 
+note top of CONWAY_STATE
+	Nested in
+	ConwayState class
+end note
+enum CONWAY_STATE {
+	DEAD, ALIVE
+}
 
-note top of StateModifier
+note top of StateRule
 	A Possible way of updating
 	the state of nodes during the
 	simulation?
 end note
-class StateModifier<T extends State> {
+abstract class StateRule<T extends State> {
 	-int rule1; //arbitrary fields
 	-double rule2; 
 	-int changeChance; 
+}
 
-	+updateState(T state);
-	+updateState(ArrayList<Node<T>> states);
+class FireRule<FireState> extends StateRule implements Spreadable {
+	-double flamability
+	-double stuff
+	+getters()
+	+setters()
+}
+
+class ConwayRule<ConwayState> extends StateRule {
+	-numPeopleDead
+}
+
+interface Spreadable {
+	+getSpreadChance()
+	+setSpreadChance()
 }
 
 @enduml
+
+- Select Simulation File
+- System manager parses XML
+- System manager creates system with configuration from XML
+FireSystem(Map<String, Double> config) - Blank values default
+- Start/Reset button gui Pressed 
+- SystemManger.start() called which calls start on the specific System
+
+for each neighbor
+
+n.s
