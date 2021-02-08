@@ -22,15 +22,15 @@ Yes, it's small sorry, right click and select view image pls!
 ## Introduction
 
 Cellular automata (CA) are a powerful way of modelling both trivial and impactful systems that we
-experience on a day-to-day basis. As such, a system that allows us to model CA would be a great 
-asset to both academic and entertainment pursuits. Cell Societies is a way to model these CA in a 
+experience on a day-to-day basis. As such, a system that allows us to model CA would be a great
+asset to both academic and entertainment pursuits. Cell Societies is a way to model these CA in a
 general sense, that upon its final implementation should be able to model any CA, within reason,
 that we throw at it.
 
-In general, we have opted to take a modular design approach, that is, the design is generally open 
+In general, we have opted to take a modular design approach, that is, the design is generally open
 and extensible, but the internal state and behavior is generally closed an encapsulated. We have
 also attempted to implement the model, view, controller (MVC) design pattern, as that allows us to
-keep functionality relatively separate, and as such keep our code DRY and SHY. 
+keep functionality relatively separate, and as such keep our code DRY and SHY.
 
 ## Overview
 
@@ -257,4 +257,18 @@ General:
 
 ![](josh-usecases.svg)
 
+#### Cell State Swapping (David)
+- In the Segregation CA, cells swap states with each other.
+- After a cell determines that it needs to be swapped:
+  - The `Cell` calls `CellManager::requestSwapWithCellInState`, providing the "empty" state as a parameter.
+  - The body of `CellManager::requestSwapWithCellInState` finds a `Cell` with the "empty" state (in its maintained list) and returns it
+  - The `Cell` then calls `Cell::swapState` on the "empty" `Cell`, swapping the cells' instance `State` objects such that the previously occupied `Cell` is now in an "empty" state and the previously empty `Cell` is now in an occupied state.
 
+#### Neighbor Relationships (David)
+- In a hypothetical version of the Percolation CA that obeys gravity, cells would "care" about the *relationship* of their neigbors to themselves; water would not percolate upwar, but could percolate sideways or downwards.
+- Alternatively, neighbor relationships are also relevant to the 256 ["elementary cellular automata"](https://mathworld.wolfram.com/CellularAutomaton.html).
+- In either case, cells would need to know whether a neighbor was its "top," "bottom," "left," "right," or other type of neighbor.
+- To determine state updates based in a simulation where relationships are important:
+  - A cell receives a `Cell::calculate` call.
+  - The cell then examines its neighbors as appropriate to the specific simulation rule. In the gravity percolation example, the `Cell` would then call `Cell::getPublicState` on each of the `left`, `right`, and `top` neighbors, perform a logical `||` on those neighbors, and set its own state accordingly.
+    - These relationships (`left`, `right`, and `top`) would be defined in the `Cell`'s `Map<String, Cell>` and could be retrieved with a call like `neighbors.get("top");` or some similar `enum`-based retrieval method.
