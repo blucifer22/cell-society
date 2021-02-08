@@ -245,6 +245,10 @@ The roles within the code are delegated as follows:
 
 ### Use Cases
 
+General:
+
+![](usecases-1.png)
+![](usecases-2.png)
 * Marc Chmielewski
 
 ![](marc-usecases.jpg)
