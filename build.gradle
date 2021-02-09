@@ -13,8 +13,22 @@ javafx {
 	modules = ['javafx.controls']
 }
 
+dependencies {
+	testImplementation(platform('org.junit:junit-bom:5.4.2'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
 application {
 	mainClass= 'cellsociety.Main'
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		showStandardStreams = true
+		events "passed", "skipped", "failed"
+		exceptionFormat = 'full'
+	}
 }
 
 mainClassName= 'cellsociety/cellsociety.Main'
