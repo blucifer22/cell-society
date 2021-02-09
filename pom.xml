@@ -37,6 +37,18 @@
                     <artifactId>checkstyle</artifactId>
                     <version>8.40</version>
                 </dependency>
+				<dependency>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+					<version>4.13</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+					<version>5.4.2</version>
+					<scope>compile</scope>
+				</dependency>
             </dependencies>
             <configuration>
                 <configLocation>google_checks.xml</configLocation>
@@ -53,6 +65,14 @@
                     </goals>
                 </execution>
             </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+        </plugin>
+        <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.22.2</version>
         </plugin>
     </plugins>
 </build>
