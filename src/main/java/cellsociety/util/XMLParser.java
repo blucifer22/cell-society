@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.util;
 
 public class XMLParser {
 

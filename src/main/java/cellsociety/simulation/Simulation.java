@@ -1,10 +1,11 @@
-package cellsociety;
+package cellsociety.simulation;
 
 import java.util.List;
 
 public abstract class Simulation {
-  private List<Rule> rules;
-  private CellGrid cellGrid;
+  protected List<StateRule> rules;
+  protected CellGrid cellGrid;
+
   public abstract void computeState();
   public abstract void commitState();
 
