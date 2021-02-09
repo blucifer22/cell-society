@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.simulation;
 
 public abstract class StateRule {
 }
