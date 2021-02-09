@@ -1,5 +1,7 @@
 package cellsociety;
 
-public class GraphicalCellGrid {
+import java.util.List;
 
+public class GraphicalCellGrid {
+  private List<List<GraphicalCell>> graphicalCellGrid;
 }
