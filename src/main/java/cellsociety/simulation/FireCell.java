@@ -11,4 +11,8 @@ public abstract class FireCell extends Cell<FireState> {
   public FireCell(FireState state) {
 	  super(state);
   }
+
+  public void computeNextState() {
+
+  }
 }
