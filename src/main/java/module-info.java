@@ -4,4 +4,5 @@ module cellsociety {
   opens cellsociety.simulation;
 
   requires javafx.controls;
+  requires java.xml;
 }
