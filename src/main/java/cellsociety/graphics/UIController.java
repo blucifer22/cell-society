@@ -1,6 +1,7 @@
 package cellsociety.graphics;
 
 import cellsociety.graphics.scenes.SimSelectScene;
+import cellsociety.simulation.SimulationManager;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import javafx.scene.control.Alert;
@@ -50,7 +51,7 @@ public class UIController {
       return;
     }
     try {
-      XMLParser p = new XMLParser(simulationConfigurationFile);
+      SimulationManager sm = new SimulationManager(simulationConfigurationFile);
       // kick the XMLParser over to the Simulation controller; start simulation
       /*
       ENTRY POINT FOR SIMULATION!
