@@ -1,25 +1,20 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.scenes.SimSelectScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class UIMain {
+  private static final double WINDOW_WIDTH = 600;
+  private static final double WINDOW_HEIGHT = 750;
   private Stage primaryStage;
 
   public UIMain(Stage primaryStage) {
     this.primaryStage = primaryStage;
-
     setTitle("Launch");
-
-    Button btn = new Button();
-    btn.setText("Say 'Hello World'");
-    btn.setOnAction(event -> System.out.println("Hello World!"));
-
-    StackPane root = new StackPane();
-    root.getChildren().add(btn);
-    primaryStage.setScene(new Scene(root, 600, 750));
+    primaryStage.setScene(new SimSelectScene(WINDOW_WIDTH, WINDOW_HEIGHT));
     primaryStage.show();
   }
 
