@@ -9,6 +9,9 @@ import java.io.File;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * The XMLParser class generates simulation metadata, initial grid states, and simulation
@@ -37,10 +40,10 @@ public class XMLParser {
    * Sole constructor for XMLParser. Called with a String parameter indicating the filepath of
    * the file to be parsed.
    *
-   * @param filepath the path to the XML file to parse
+   * @param f the XML file to parse
    * @throws Exception thrown if the XML file is malformed
    */
-  public XMLParser(String filepath) throws Exception {
+  public XMLParser(File f) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setIgnoringElementContentWhitespace(true);
     dbf.setCoalescing(true);
@@ -48,7 +51,13 @@ public class XMLParser {
     dbf.setExpandEntityReferences(true);
 
     DocumentBuilder db = dbf.newDocumentBuilder();
-    this.doc = db.parse(new File(filepath));
+    try {
+      db.setErrorHandler(null);
+      this.doc = db.parse(f);
+
+    } catch (Exception e) {
+      throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
+    }
     parseSimulationInformation();
   }
 
@@ -165,7 +174,7 @@ public class XMLParser {
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
-        throw new Exception("malformed XML: one or more simulation parameters invalid.");
+        throw new Exception("malformed XML: one or more simulation parameters are invalid.");
       }
     }
     this.simulationParameters = simulationParameters;

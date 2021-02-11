@@ -1,9 +1,11 @@
 package cellsociety.graphics;
 
 import cellsociety.graphics.scenes.SimSelectScene;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import cellsociety.util.XMLParser;
+import java.io.File;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class UIController {
@@ -21,4 +23,19 @@ public class UIController {
     primaryStage.setTitle("CASim v0.0"+(title == null ? "" : " > "+title));
   }
 
+  public void selectSimulationFile() {
+    final FileChooser fc = new FileChooser();
+    Stage s = new Stage();
+    File sf = fc.showOpenDialog(s);
+    try {
+      XMLParser p = new XMLParser(sf);
+    } catch (Exception e) {
+      exceptionAlert(e);
+    }
+  }
+
+  public void exceptionAlert(Exception e) {
+    Alert a = new Alert(AlertType.ERROR, e.getMessage());
+    a.show();
+  }
 }

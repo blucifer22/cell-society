@@ -1,16 +1,11 @@
 package cellsociety.graphics.scenes;
 
 import cellsociety.graphics.UIController;
-import java.io.File;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class SimSelectScene extends Scene {
   private final UIController controller;
@@ -33,7 +28,7 @@ public class SimSelectScene extends Scene {
 
     Button fileLoadButton = new Button();
     fileLoadButton.setText("Load Simulation XML");
-    fileLoadButton.setOnAction(event -> selectFile());
+    fileLoadButton.setOnAction(event -> controller.selectSimulationFile());
     sp.getChildren().add(fileLoadButton);
     sp.setPrefWidth(width);
     sp.setPrefHeight(height);
@@ -42,15 +37,5 @@ public class SimSelectScene extends Scene {
 
   private void renderNode(Node n) {
     root.getChildren().add(n);
-  }
-
-  private File selectFile() {
-    final FileChooser fc = new FileChooser();
-    Stage s = new Stage();
-    return fc.showOpenDialog(s);
-  }
-
-  public void alert(String errMsg) {
-
   }
 }
