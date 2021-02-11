@@ -61,6 +61,11 @@ public class XMLParser {
     parseSimulationInformation();
   }
 
+  @Deprecated
+  public XMLParser(String filepath) throws Exception{
+    this(new File(filepath));
+  }
+
   // Gets the XML root from the top-level document nodes.
   private Node getXMLRoot() {
     Node xmlNode = null;

@@ -52,7 +52,11 @@ public class UIController {
     try {
       XMLParser p = new XMLParser(simulationConfigurationFile);
       // kick the XMLParser over to the Simulation controller; start simulation
-      // ENTRY POINT FOR SIMULATION
+      /*
+      ENTRY POINT FOR SIMULATION!
+      NOTE: UIController SHOULD ONLY EVER BE EXPOSED TO THE SIMULATION CONTROLLER (WHATEVER
+      WE'RE CALLING IT)
+       */
     } catch (Exception e) {
       exceptionAlert(e);
     }
