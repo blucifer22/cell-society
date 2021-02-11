@@ -10,6 +10,8 @@ import javafx.scene.paint.Paint;
  * A container class for <code>GraphicalCell</code>s that allows for rendering. Instantiated by a
  * <code>GraphicalCellGrid</code>. Primarily responsible for the initial layout of the
  * <code>GraphicalCell</code>s.
+ *
+ * @author David Coffman
  */
 public class GraphicalCellGrid {
   private final List<List<GraphicalCell>> graphicalCells;

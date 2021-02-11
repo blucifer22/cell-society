@@ -27,6 +27,8 @@ import org.w3c.dom.Node;
  *     // pipe Exception to GUI
  *   }
  * </code>
+ *
+ * @author David Coffman
  */
 public class XMLParser {
   private final Document doc;

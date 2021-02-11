@@ -12,6 +12,8 @@ import javafx.scene.shape.Shape;
 /**
  * A wrapper for model <code>Cell</code>s that allows for rendering. Instantiated by a
  * <code>GraphicalCellGrid</code>.
+ *
+ * @author David Coffman
  */
 public class GraphicalCell {
   private static final double MARGIN = 2.0;
