@@ -4,6 +4,8 @@ import cellsociety.simulation.Cell;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 
 /**
@@ -15,6 +17,7 @@ import javafx.scene.paint.Paint;
  */
 public class GraphicalCellGrid {
   private final List<List<GraphicalCell>> graphicalCells;
+  private final Group renderGroup;
   private final Map<Integer, Paint> colorMap;
   private final double gridWidth;
   private final double gridHeight;
@@ -32,6 +35,7 @@ public class GraphicalCellGrid {
     this.gridWidth = gridWidth;
     this.gridHeight = gridHeight;
     this.colorMap = colorMap;
+    this.renderGroup = new Group();
     this.graphicalCells = configureGraphicalCells(cells);
   }
 
@@ -45,12 +49,17 @@ public class GraphicalCellGrid {
       ArrayList<GraphicalCell> inner = new ArrayList<>();
       for(int j = 0; j < cells.get(0).size(); j++) {
         Cell thisCell = cells.get(i).get(j);
-        inner.add(new GraphicalCell(thisCell, colorMap, j*cellWidth, i*cellHeight, cellWidth,
-            cellHeight));
+        GraphicalCell gc = new GraphicalCell(thisCell, colorMap, j*cellWidth, i*cellHeight,
+            cellWidth, cellHeight);
+        inner.add(gc);
+        renderGroup.getChildren().add(gc.getNode());
       }
       ret.add(inner);
     }
     return ret;
   }
 
+  public Node getNode() {
+    return this.renderGroup;
+  }
 }

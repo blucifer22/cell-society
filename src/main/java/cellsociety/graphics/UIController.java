@@ -1,10 +1,15 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.scenes.SimDisplayScene;
 import cellsociety.graphics.scenes.SimSelectScene;
+import cellsociety.simulation.Cell;
 import cellsociety.simulation.SimulationManager;
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -49,8 +54,11 @@ public class UIController {
     if(simulationConfigurationFile == null) {
       return;
     }
+
+    SimulationManager sm;
+
     try {
-      SimulationManager sm = new SimulationManager(simulationConfigurationFile);
+      sm = new SimulationManager(simulationConfigurationFile);
       // kick the XMLParser over to the Simulation controller; start simulation
       /*
       ENTRY POINT FOR SIMULATION!
@@ -59,7 +67,16 @@ public class UIController {
        */
     } catch (Exception e) {
       exceptionAlert(e);
+      return;
     }
+
+
+  }
+
+  public void displaySimulationScene(List<List<Cell>> cells, Map<Integer, Paint> colorMap) {
+    SimDisplayScene sds = new SimDisplayScene(this, cells, colorMap, WINDOW_WIDTH,
+        WINDOW_HEIGHT);
+    this.primaryStage.setScene(sds);
   }
 
   // Opens a FileChooser window that allows the user to select the appropriate XML file
