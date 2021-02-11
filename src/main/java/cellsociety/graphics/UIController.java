@@ -2,7 +2,6 @@ package cellsociety.graphics;
 
 import cellsociety.graphics.scenes.SimSelectScene;
 import cellsociety.simulation.SimulationManager;
-import cellsociety.util.XMLParser;
 import java.io.File;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
