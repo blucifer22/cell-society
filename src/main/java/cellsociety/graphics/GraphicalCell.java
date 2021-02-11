@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.graphics;
 
 import java.util.Map;
 import javafx.scene.paint.Color;

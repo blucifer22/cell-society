@@ -1,0 +1,31 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Conway's Game of Life</Name>
+    <Type>Cyclic</Type>
+    <Author>John D. Sample</Author>
+    <Description>This is a cool simulation.</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>50</Height>
+    <Width>50</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <AliveNumberMin>2</AliveNumberMin>
+    <AliveNumberMax>3</AliveNumberMax>
+    <SpawnNumberMin>3</SpawnNumberMin>
+    <SpawnNumberMax>3</SpawnNumberMax>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+    <Cell>
+      <Row>25</Row>
+      <Column>25</Column>
+      <State>1</State>
+    </Cell>
+  </InitialStates>
+</xml>
