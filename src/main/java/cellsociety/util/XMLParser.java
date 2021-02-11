@@ -17,7 +17,8 @@ import org.w3c.dom.Node;
  * Usage:
  * <code>
  *   try {
- *     XMLParser p = new XMLParser("data/test.xml"); // may throw an Exception
+ *     File f = new File("path/to/file.xml");
+ *     XMLParser p = new XMLParser(f); // may throw an Exception
  *     HashMap<String, String> simulationMetadata = p.getSimulationMetadata();
  *     HashMap<String, Double> simulationParameters = p.getSimulationParameters();
  *     ArrayList<int[]> cellsWithInitialNonDefaultStates = p.getInitialNonDefaultStates();
@@ -26,6 +27,8 @@ import org.w3c.dom.Node;
  *     // pipe Exception to GUI
  *   }
  * </code>
+ *
+ * @author David Coffman
  */
 public class XMLParser {
   private final Document doc;
@@ -37,10 +40,10 @@ public class XMLParser {
    * Sole constructor for XMLParser. Called with a String parameter indicating the filepath of
    * the file to be parsed.
    *
-   * @param filepath the path to the XML file to parse
+   * @param f the XML file to parse
    * @throws Exception thrown if the XML file is malformed
    */
-  public XMLParser(String filepath) throws Exception {
+  public XMLParser(File f) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setIgnoringElementContentWhitespace(true);
     dbf.setCoalescing(true);
@@ -48,8 +51,19 @@ public class XMLParser {
     dbf.setExpandEntityReferences(true);
 
     DocumentBuilder db = dbf.newDocumentBuilder();
-    this.doc = db.parse(new File(filepath));
+    try {
+      db.setErrorHandler(null);
+      this.doc = db.parse(f);
+
+    } catch (Exception e) {
+      throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
+    }
     parseSimulationInformation();
+  }
+
+  @Deprecated
+  public XMLParser(String filepath) throws Exception{
+    this(new File(filepath));
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -165,7 +179,7 @@ public class XMLParser {
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
-        throw new Exception("malformed XML: one or more simulation parameters invalid.");
+        throw new Exception("malformed XML: one or more simulation parameters are invalid.");
       }
     }
     this.simulationParameters = simulationParameters;
