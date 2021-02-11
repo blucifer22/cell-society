@@ -9,9 +9,6 @@ import java.io.File;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  * The XMLParser class generates simulation metadata, initial grid states, and simulation
@@ -20,7 +17,8 @@ import org.xml.sax.SAXParseException;
  * Usage:
  * <code>
  *   try {
- *     XMLParser p = new XMLParser("data/test.xml"); // may throw an Exception
+ *     File f = new File("path/to/file.xml");
+ *     XMLParser p = new XMLParser(f); // may throw an Exception
  *     HashMap<String, String> simulationMetadata = p.getSimulationMetadata();
  *     HashMap<String, Double> simulationParameters = p.getSimulationParameters();
  *     ArrayList<int[]> cellsWithInitialNonDefaultStates = p.getInitialNonDefaultStates();
