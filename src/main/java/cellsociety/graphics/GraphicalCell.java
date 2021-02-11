@@ -3,6 +3,7 @@ package cellsociety.graphics;
 import cellsociety.simulation.Cell;
 import java.util.Map;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -23,7 +24,7 @@ public class GraphicalCell {
 
   protected void update() {
     // change once an API for getting the cell's integer-encoded state exists
-    this.renderingShape.setFill(colorMap.get(0));
+    this.renderingShape.setFill(colorMap.getOrDefault(0, Color.BLACK));
   }
 
   protected Node getNode() {
