@@ -32,13 +32,24 @@ public abstract class Simulation<T extends Cell> {
    */
   protected abstract void initialize();
 
-  protected void computeState() {}
+  protected void computeState() {
+	  for (Cell cell : cells) {
+		  cell.computeNextState();
+	  }
+  }
 
-  protected void commitState() {}
+  protected void commitState() {
+	  for (Cell cell : cells) {
+		  cell.updateState();
+	  }
+  }
 
   public List<T> getCells() {
 	  return this.cells;
   }
 
-  public void step() {}
+  public void step() {
+	  computeState();
+	  commitState();
+  }
 }
