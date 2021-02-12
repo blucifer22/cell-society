@@ -59,23 +59,6 @@ public class XMLParser {
     parseSimulationInformation();
   }
 
-  public void createConfiguration(File f) throws Exception {
-    dbf.setIgnoringElementContentWhitespace(true);
-    dbf.setCoalescing(true);
-    dbf.setIgnoringComments(true);
-    dbf.setExpandEntityReferences(true);
-
-    DocumentBuilder db = dbf.newDocumentBuilder();
-    try {
-      db.setErrorHandler(null);
-      this.doc = db.parse(f);
-
-    } catch (Exception e) {
-      throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
-    }
-    parseSimulationInformation();
-  }
-
   // Gets the XML root from the top-level document nodes.
   private Node getXMLRoot() {
     Node xmlNode = null;
