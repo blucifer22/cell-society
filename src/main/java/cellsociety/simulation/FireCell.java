@@ -1,5 +1,14 @@
 package cellsociety.simulation;
 
+import cellsociety.simulation.FireState.STATE;
+
+/**
+ * This class handles the behavior of cells in the fire spreading simulation and thus the state
+ * transitions therein.
+ *
+ * @author Joshua Petitma
+ * @author Marc Chmielewski
+ */
 public class FireCell extends Cell<FireState> {
 
   /**
@@ -27,16 +36,29 @@ public class FireCell extends Cell<FireState> {
     super(state);
   }
 
+  /**
+   * Computes the next state of this Cell by inspecting its neighbors and then determining the
+   * transition accordingly.
+   *
+   * If a neighboring Cell is BURNING, and this Cell is NORMAL then there is a chance that this Cell
+   * will catch fire and transition to BURNING. This behavior is established in the FireRule, which
+   * is loaded in from the parsed XML.
+   */
   public void computeNextState() {
-    for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
-        catchFire();
+    if(state.getState() == STATE.NORMAL) {
+      for (Cell cell : neighbors) {
+        if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
+          catchFire();
+        }
       }
+    }
+    else if(state.getState() == STATE.BURNING) {
+      state.setState(STATE.BURNT);
     }
   }
 
   private void catchFire() {
-    if (Math.random() > rule.getFlammability()) {
+    if (Math.random() > rule.getFlammability() && nextState.getState() != STATE.BURNING) {
       nextState = new FireState(FireState.STATE.BURNING);
     }
   }
