@@ -9,7 +9,9 @@ class TestXMLParsing {
   @Test
   public void test() {
     try {
-      XMLParser p = new XMLParser(new File("data/test.xml"));
+      XMLParser p = new XMLParser();
+	  File file = new File("data/test.xml");
+	  p.createConfiguration(file);
       System.out.println(p.getSimulationParameters());
       System.out.println(p.getInitialNonDefaultStates());
       System.out.println(p.getSimulationMetadata());
