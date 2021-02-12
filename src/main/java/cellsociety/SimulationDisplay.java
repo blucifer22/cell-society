@@ -6,11 +6,17 @@ import javafx.scene.Group;
 public class SimulationDisplay extends Group {
   private Simulation simulation;
 
-  public void step() {}
+  public void step() {
+	  System.out.println("Stepped");
+  }
 
-  public void play() {}
+  public void play() {
+	  System.out.println("Playing");
+  }
 
-  public void pause() {}
+  public void pause() {
+	  System.out.println("Pausing");
+  }
 
   public void setSimulation(Simulation simulation) {
     this.simulation = simulation;
