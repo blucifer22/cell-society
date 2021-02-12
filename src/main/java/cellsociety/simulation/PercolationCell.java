@@ -39,8 +39,12 @@ public class PercolationCell extends Cell<PercolationState>{
    * If the Cell is FULL, it will remain FULL.
    */
   public void computeNextState() {
+    int numFullNeighbors = 0;
     for(Cell cell : neighbors) {
-      if(cell.getCurrentState().getState() == STATE.FULL && state.getState() != STATE.FULL) {
+      if(cell.getCurrentState().getState() == STATE.FULL) {
+        numFullNeighbors++;
+      }
+      if((numFullNeighbors >= rule.getFillNumber()) && state.getState() != STATE.FULL) {
         nextState.setState(STATE.FULL);
         break;
       }
