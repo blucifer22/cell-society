@@ -76,5 +76,8 @@ public class SegregationCell extends Cell<SegregationState>{
           cell.nextState.setState(stateToSwap);
         }
     }
+    if(this.nextState.getState() != STATE.EMPTY) { // If there are no possible empty cells to swap into
+      this.nextState.setState(this.getCurrentState().getState()); // Hold on to current state
+    }
   }
 }

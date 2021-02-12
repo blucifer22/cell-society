@@ -8,7 +8,7 @@ import cellsociety.simulation.PercolationState.STATE;
  *
  * @author Marc Chmielewski
  */
-public class PercolationCell extends Cell<PercolationState>{
+public class PercolationCell extends Cell<PercolationState> {
   public static PercolationRule rule;
 
   /**
@@ -40,11 +40,11 @@ public class PercolationCell extends Cell<PercolationState>{
    */
   public void computeNextState() {
     int numFullNeighbors = 0;
-    for(Cell cell : neighbors) {
-      if(cell.getCurrentState().getState() == STATE.FULL) {
+    for (Cell cell : neighbors) {
+      if (cell.getCurrentState().getState() == STATE.FULL) {
         numFullNeighbors++;
       }
-      if((numFullNeighbors >= rule.getFillNumber()) && state.getState() != STATE.FULL) {
+      if ((numFullNeighbors >= rule.getFillNumber()) && state.getState() != STATE.FULL) {
         nextState.setState(STATE.FULL);
         break;
       }
