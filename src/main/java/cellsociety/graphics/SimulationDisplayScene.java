@@ -20,15 +20,12 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class SimulationDisplayScene extends Scene {
   private final UIController controller;
-  private final Simulation simulation;
   private final List<GraphicalCell> graphicalCells;
 
-  public SimulationDisplayScene(UIController controller,
-      List<GraphicalCell> graphicalCells, double width,
-      double height) {
+  public SimulationDisplayScene(UIController controller, List<GraphicalCell> graphicalCells,
+      double width, double height) {
     super(new Group(), width, height);
-    this.simulation = simulation;
-    this.graphicalCells = simulation.getGraphicalCells();
+    this.controller = controller;
     ObservableList<Node> rootChildren = ((Group) this.getRoot()).getChildren();
     for(GraphicalCell g: graphicalCells) {
       rootChildren.add(g.getNode());
@@ -49,7 +46,7 @@ public class SimulationDisplayScene extends Scene {
 
   private Pane createButtonPane() {
     HBox row = new HBox(10);
-    Button loadButton = new Button("load");
+    Button loadButton = new Button("Load New Simulation");
     Button playButton = new Button("Play");
     Button pauseButton = new Button("Pause");
     Button stepButton = new Button("Step");
