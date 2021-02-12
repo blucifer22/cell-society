@@ -89,9 +89,16 @@ public class CellGrid<T extends Cell> {
     return this.grid;
   }
 
+  /**
+   * Returns a cell in a specific grid position.
+   * Returns null if that position is not found
+   * within the grid.
+   * @param x - The column the cell is found within
+   * @param y = The row the cell is found within
+   */
   protected T getCell(int x, int y) {
-	  if (inBounds(x, y)) {
-		  return grid.get(x).get(y);
+	  if (inBounds(y, x)) {
+		  return grid.get(y).get(x);
 	  } else {
 		  return null;
 	  }
