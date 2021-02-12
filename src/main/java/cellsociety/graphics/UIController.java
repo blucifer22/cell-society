@@ -1,6 +1,6 @@
 package cellsociety.graphics;
 
-import cellsociety.simulation.SimulationManager;
+import cellsociety.simulation.SimulationController;
 import java.io.File;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,7 +12,7 @@ public class UIController {
   private static final double WINDOW_HEIGHT = 750;
 
   private final Stage stage;
-  private SimulationManager simulationManager;
+  private SimulationController simulationController;
 
   /**
    * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing
@@ -28,6 +28,7 @@ public class UIController {
   // Loads the simulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT));
+    this.stage.show();
   }
 
   /**
@@ -50,15 +51,15 @@ public class UIController {
       return;
     }
     try {
-      this.simulationManager = new SimulationManager(simulationConfigurationFile);
-      showSimulation(simulationManager);
+      this.simulationController = new SimulationController(simulationConfigurationFile);
+      showSimulation(simulationController);
     } catch (Exception e) {
       error(e);
     }
   }
 
-  private void showSimulation(SimulationManager simulationManager) {
-    SimulationDisplayScene sds = new SimulationDisplayScene(this, simulationManager.getGraphicalCells(),
+  private void showSimulation(SimulationController simulationController) {
+    SimulationDisplayScene sds = new SimulationDisplayScene(this, simulationController.getGraphicalCells(),
         WINDOW_WIDTH, WINDOW_HEIGHT);
     this.stage.setScene(sds);
   }
