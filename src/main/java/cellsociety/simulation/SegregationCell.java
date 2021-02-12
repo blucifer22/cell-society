@@ -35,8 +35,9 @@ public class SegregationCell extends Cell<SegregationState> {
    *
    * <p>Segregation Rules are as follows:
    *
-   * <p>If a Cell is EMPTY and it has a neighbor that is FULL, the Cell's next state will be FULL.
-   * If the Cell is FULL, it will remain FULL.
+   * <p>If this Cell is surrounded by more than cutoffPercentage other cells of its own type it
+   * remains in place. Otherwise, if there is an available, adjacent empty cell it will attempt to
+   * swap to that Cell.
    */
   public void computeNextState() {
     double numTypeA = 0;
