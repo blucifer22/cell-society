@@ -59,10 +59,6 @@ public class XMLParser {
     parseSimulationInformation();
   }
 
-  public XMLParser() {
-    dbf = DocumentBuilderFactory.newInstance();
-  }
-
   public void createConfiguration(File f) throws Exception {
     dbf.setIgnoringElementContentWhitespace(true);
     dbf.setCoalescing(true);
@@ -78,11 +74,6 @@ public class XMLParser {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
     parseSimulationInformation();
-  }
-
-  @Deprecated
-  public XMLParser(String filepath) throws Exception {
-    this(new File(filepath));
   }
 
   // Gets the XML root from the top-level document nodes.
