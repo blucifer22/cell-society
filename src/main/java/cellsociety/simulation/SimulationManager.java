@@ -1,31 +1,22 @@
 package cellsociety.simulation;
 
-import cellsociety.graphics.GraphicalCell;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class SimulationManager {
   private XMLParser parser;
-  private List<Simulation> simulationList;
-  private Map<CellState, Color> colorMap;
 
-  public SimulationManager(File f) throws Exception {
-    this.parser = new XMLParser(f);
-  }
-
-  public Map<Integer, Paint> getColorMap() {
-    return null;
-  }
-
-  public List<GraphicalCell> getGraphicalCells() {
-    return null;
-  }
-
-  public void startSimulation() {
-
+  public Simulation createSimulation(File file) {
+	  try {
+		  XMLParser parser = new XMLParser(file);
+		  Map<String, String> metaData = parser.getSimulationMetadata();
+		  Map<String, Double> config = parser.getSimulationParameters();
+		  List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
+		  return new Simulation(metaData, config, nonDefaultStates);
+	  } catch(Exception e) {
+		  return null;
+	  }
   }
 }
