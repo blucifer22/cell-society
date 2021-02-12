@@ -1,13 +1,20 @@
 package cellsociety.simulation;
 
-public abstract class Simulation {
-  protected CellGrid cellGrid;
+import java.util.List;
+import java.util.Map;
 
-  public Simulation(CellGrid cellGrid) {
-    this.cellGrid = cellGrid;
+public class Simulation {
+  protected CellGrid cellGrid;
+  protected List<Cell> cells;
+
+  public Simulation(
+      Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates) {
+	
   }
 
-  public abstract void computeState();
+  public void computeState() {}
 
-  public abstract void commitState();
+  public void commitState() {}
+
+  public void step() {}
 }
