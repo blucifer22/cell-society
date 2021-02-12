@@ -1,10 +1,20 @@
 package cellsociety;
 
 import cellsociety.simulation.Simulation;
+import java.util.List;
+import java.util.ArrayList;
+import cellsociety.simulation.Cell;
 import javafx.scene.Group;
 
 public class SimulationDisplay extends Group {
   private Simulation simulation;
+  private List<Cell> cells;
+  private List<GraphicalCell> graphicalCells;
+
+  public SimulationDisplay() {
+	  this.graphicalCells = new ArrayList<>();
+	  this.cells = new ArrayList<>();
+  }
 
   /**
    * Steps the current simulation forward once.
@@ -43,6 +53,12 @@ public class SimulationDisplay extends Group {
    */
   public void setSimulation(Simulation simulation) {
     this.simulation = simulation;
-    // ... more stuff
+	cells.clear();
+	graphicalCells.clear();
+	cells = simulation.getCells();
+	for (Cell cell : cells) {
+		graphicalCells.add(new GraphicalCell(cell));
+	}
+	this.getChildren().addAll(graphicalCells);
   }
 }
