@@ -12,6 +12,10 @@ public class WatorState extends CellState<WatorState.STATE> {
     super(state);
   }
 
+  public WatorState() {
+    super(WatorState.STATE.WATER);
+  }
+
   enum STATE {
     WATER,
     FISH,

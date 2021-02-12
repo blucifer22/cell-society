@@ -10,4 +10,8 @@ public class FireState extends CellState<FireState.STATE> {
 	public FireState(FireState.STATE state) {
 		super(state);
 	}
+
+	public FireState() {
+		super(FireState.STATE.NORMAL);
+	}
 }

@@ -12,6 +12,10 @@ public class SegregationState extends CellState<SegregationState.STATE> {
     super(state);
   }
 
+  public SegregationState() {
+    super(SegregationState.STATE.EMPTY);
+  }
+
   enum STATE {
     EMPTY,
     TYPE_A,

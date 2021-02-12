@@ -12,6 +12,10 @@ public class ConwayState extends CellState<ConwayState.STATE> {
     super(state);
   }
 
+  public ConwayState() {
+    super(ConwayState.STATE.DEAD);
+  }
+
   enum STATE {
     DEAD,
     ALIVE
