@@ -53,13 +53,13 @@ public class FireCell extends Cell<FireState> {
       }
     }
     else if(state.getState() == STATE.BURNING) {
-      state.setState(STATE.BURNT);
+	  nextState = new FireState(FireState.STATE.BURNT);
     }
   }
 
   private void catchFire() {
-    if (Math.random() > rule.getFlammability() && nextState.getState() != STATE.BURNING) {
-      nextState = new FireState(FireState.STATE.BURNING);
+    if (Math.random() > rule.getFlammability()) {
+      nextState.setState(FireState.STATE.BURNING);
     }
   }
 }
