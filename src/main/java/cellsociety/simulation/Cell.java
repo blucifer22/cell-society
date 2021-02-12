@@ -55,19 +55,19 @@ public abstract class Cell<T extends CellState> {
    * <p>If the cell has no {@link #nextState} then this cell does not advance. Must call {@link
    * #computeNextState} before calling.
    */
-  public void updateState() {
+  protected void updateState() {
     if (nextState != null) {
       state = nextState;
     }
   }
 
-  public void setNextState(T state) {
+  protected void setNextState(T state) {
 	  if (state != null) {
 		  nextState = state;
 	  }
   }
 
-  public void setState(T state) {
+  protected void setState(T state) {
 	  if (state != null) {
 		  this.state = state;
 	  }
@@ -78,7 +78,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be added to the list.
    */
-  public void addNeighbor(Cell<T> neighbor) {
+  protected void addNeighbor(Cell<T> neighbor) {
     neighbors.add(neighbor);
   }
 
@@ -87,7 +87,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be removed from the list.
    */
-  public void removeNeighbor(Cell<T> neighbor) {
+  protected void removeNeighbor(Cell<T> neighbor) {
     neighbors.remove(neighbor);
   }
 
@@ -99,11 +99,11 @@ public abstract class Cell<T extends CellState> {
 	  return posY;
   }
 
-  public void setX(int posX) {
+  protected void setX(int posX) {
 	  this.posX = posX;
   }
 
-  public void setY(int posY) {
+  protected void setY(int posY) {
 	  this.posY = posY;
   }
 }
