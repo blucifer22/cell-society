@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.graphics;
 
 import cellsociety.simulation.Simulation;
 import java.util.List;

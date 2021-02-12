@@ -1,5 +1,6 @@
 package cellsociety;
 
+import cellsociety.graphics.SimulationDisplay;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationManager;
 import java.io.File;
