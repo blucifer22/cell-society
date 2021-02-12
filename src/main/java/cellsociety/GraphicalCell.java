@@ -5,7 +5,6 @@ import java.util.Map;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 /**
  * A wrapper for model <code>Cell</code>s that allows for rendering. Instantiated by a <code>
@@ -15,6 +14,7 @@ import javafx.scene.shape.Shape;
  */
 public class GraphicalCell extends Rectangle {
   private static final double MARGIN = 2.0;
+  public static int CELL_SIZE = 50;
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
 
@@ -31,16 +31,13 @@ public class GraphicalCell extends Rectangle {
    * @param width the <code>GraphicalCell</code>'s width
    * @param height the <code>GraphicalCell</code>'s height
    */
-  public GraphicalCell(
-      Cell simulationCell,
-      Map<Integer, Paint> colorMap,
-      double x,
-      double y,
-      double width,
-      double height) {
-
-    super(x + MARGIN, y + MARGIN, width - 2.0 * MARGIN, height - 2.0 * MARGIN);
-    this.simCell = simulationCell;
+  public GraphicalCell(Cell cell, Map<Integer, Paint> colorMap, double width, double height) {
+    super();
+    setX(cell.getX() * CELL_SIZE + MARGIN);
+    setY(cell.getY() * CELL_SIZE + MARGIN);
+	setWidth(CELL_SIZE);
+	setHeight(CELL_SIZE);
+    this.simCell = cell;
     this.colorMap = colorMap;
   }
 
