@@ -6,9 +6,8 @@ import java.util.List;
 /**
  * A general cell type.
  *
- * Cells hold state and examine their neighboring states to determine whether or not
- * they must change state.
- *
+ * <p>Cells hold state and examine their neighboring states to determine whether or not they must
+ * change state.
  */
 public abstract class Cell<T extends CellState> {
   protected List<Cell<T>> neighbors;
@@ -25,7 +24,6 @@ public abstract class Cell<T extends CellState> {
    *
    * @param state - The initial state of the cell.
    */
-
   protected Cell(T state) {
     this.state = state;
     neighbors = new ArrayList<>();
@@ -39,7 +37,6 @@ public abstract class Cell<T extends CellState> {
   public T getCurrentState() {
     return state;
   }
-
 
   /**
    * Determines the next state of this cell.
@@ -58,19 +55,20 @@ public abstract class Cell<T extends CellState> {
   protected void updateState() {
     if (nextState != null) {
       state = nextState;
+      nextState = null;
     }
   }
 
   protected void setNextState(T state) {
-	  if (state != null) {
-		  nextState = state;
-	  }
+    if (state != null) {
+      nextState = state;
+    }
   }
 
   protected void setState(T state) {
-	  if (state != null) {
-		  this.state = state;
-	  }
+    if (state != null) {
+      this.state = state;
+    }
   }
 
   /**
@@ -92,18 +90,18 @@ public abstract class Cell<T extends CellState> {
   }
 
   public int getX() {
-	  return posX;
+    return posX;
   }
 
   public int getY() {
-	  return posY;
+    return posY;
   }
 
   protected void setX(int posX) {
-	  this.posX = posX;
+    this.posX = posX;
   }
 
   protected void setY(int posY) {
-	  this.posY = posY;
+    this.posY = posY;
   }
 }
