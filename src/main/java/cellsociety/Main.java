@@ -1,6 +1,7 @@
 package cellsociety;
 
-import cellsociety.graphics.SimulationDisplay;
+import cellsociety.graphics.SimulationDisplayScene;
+import cellsociety.graphics.UIController;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationManager;
 import java.io.File;
@@ -18,13 +19,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-  private SimulationManager simulationManager;
-  public static final int SCENE_WIDTH = 500;
-  public static final int SCENE_HEIGHT = 500;
-  private Simulation simulation;
-  private SimulationDisplay simDisplay;
-  private Scene scene;
-  private Stage primaryStage;
+  private UIController controller;
 
   public static void main(String[] args) {
     launch(args);
@@ -32,9 +27,11 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+    this.controller = new UIController(primaryStage);
+
     this.primaryStage = primaryStage;
     simulationManager = new SimulationManager();
-    simDisplay = new SimulationDisplay();
+    simDisplay = new SimulationDisplayScene();
     BorderPane pane = new BorderPane();
     pane.setCenter(simDisplay);
     pane.setBottom(createButtonPane());
@@ -69,11 +66,6 @@ public class Main extends Application {
     }
   }
 
-  private void error(String error) {
-    Alert a = new Alert(AlertType.ERROR, error);
-    a.show();
-  }
-
   private void loadSimulation() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Select Simulation");
@@ -84,17 +76,5 @@ public class Main extends Application {
     if (selectedFile != null) {
       newSimulation(selectedFile);
     }
-  }
-
-  private void playSimulation() {
-    simDisplay.play();
-  }
-
-  private void pauseSimulation() {
-    simDisplay.pause();
-  }
-
-  private void stepSimulation() {
-    simDisplay.step();
   }
 }

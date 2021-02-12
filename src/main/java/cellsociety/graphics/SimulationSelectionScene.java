@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
  *
  * @author David Coffman
  */
-public class SimSelectScene extends Scene {
+public class SimulationSelectionScene extends Scene {
   private final UIController controller;
   private final Group root;
   private final double width;
@@ -27,7 +27,7 @@ public class SimSelectScene extends Scene {
    * @param width the width of the <code>SimSelectScene</code>
    * @param height the height of the <code>SimSelectScene</code>
    */
-  public SimSelectScene(UIController controller, double width, double height) {
+  public SimulationSelectionScene(UIController controller, double width, double height) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.width = width;
@@ -43,7 +43,7 @@ public class SimSelectScene extends Scene {
 
     Button fileLoadButton = new Button();
     fileLoadButton.setText("Load Simulation XML");
-    fileLoadButton.setOnAction(event -> controller.initializeAndConfigureSimulation());
+    fileLoadButton.setOnAction(event -> controller.initializeSimulation());
     sp.getChildren().add(fileLoadButton);
     sp.setPrefWidth(width);
     sp.setPrefHeight(height);

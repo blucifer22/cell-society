@@ -46,7 +46,6 @@ public class GraphicalCell {
    * to refresh their graphical appearance.
    */
   public void update() {
-    // change once an API for getting the cell's integer-encoded state exists
     this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.BLACK));
   }
 

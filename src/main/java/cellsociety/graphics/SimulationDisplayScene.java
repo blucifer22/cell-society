@@ -11,11 +11,11 @@ import javafx.scene.Scene;
  * @author David Coffman
  */
 
-public class SimulationDisplay extends Scene {
+public class SimulationDisplayScene extends Scene {
   private final Simulation simulation;
   private final List<GraphicalCell> graphicalCells;
 
-  public SimulationDisplay(Simulation simulation, double width, double height) {
+  public SimulationDisplayScene(Simulation simulation, double width, double height) {
     super(new Group(), width, height);
     this.simulation = simulation;
     this.graphicalCells = simulation.getGraphicalCells();

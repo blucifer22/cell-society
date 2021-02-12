@@ -13,6 +13,13 @@ import java.util.Map;
  */
 public class SimulationManager {
   private XMLParser parser;
+  private Simulation simulation;
+
+  public SimulationManager(File f) throws Exception {
+    parser = new XMLParser(f);
+    // one of you guys is going to need to fix this; I don't know what's going on here
+    // this codebase is a labyrinth
+  }
 
   /**
    * Creates a simulation with the configurations specified from an XML file.
