@@ -14,10 +14,6 @@ import java.util.Map;
 public class SimulationManager {
   private XMLParser parser;
 
-  public SimulationManager() {
-    parser = new XMLParser();
-  }
-
   /**
    * Creates a simulation with the configurations specified from an XML file.
    *
