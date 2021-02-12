@@ -67,6 +67,12 @@ public abstract class Cell<T extends CellState> {
 	  }
   }
 
+  public void setState(T state) {
+	  if (state != null) {
+		  this.state = state;
+	  }
+  }
+
   /**
    * Adds a neighbor to the list of neighboring cells.
    *
