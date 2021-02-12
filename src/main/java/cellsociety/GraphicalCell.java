@@ -1,9 +1,8 @@
-package cellsociety.graphics;
+package cellsociety;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -14,31 +13,31 @@ import javafx.scene.shape.Rectangle;
  */
 public class GraphicalCell extends Rectangle {
   private static final double MARGIN = 2.0;
-  public static int CELL_SIZE = 50;
+  public static int CELL_SIZE = 2;
   private final Cell simCell;
-  private final Map<Integer, Paint> colorMap;
+  private final Map<Integer, Color> colorMap;
 
   /**
    * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
    * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
    * and size of the <code>GraphicalCell</code>.
    *
-   * @param simulationCell the model <code>Cell</code> to render
-   * @param colorMap the <code>Map</code> indicating the appearances of <code>Cell</code>s in
-   *     different states
-   * @param x the x-position of the <code>GraphicalCell</code>'s top left corner
-   * @param y the y-position of the <code>GraphicalCell</code>'s top left corner
-   * @param width the <code>GraphicalCell</code>'s width
-   * @param height the <code>GraphicalCell</code>'s height
+   * @param cell the model <code>Cell</code> to render
+   * @param size the <code>GraphicalCell</code>'s width and height
    */
-  public GraphicalCell(Cell cell, Map<Integer, Paint> colorMap, double width, double height) {
+  public GraphicalCell(Cell cell) {
+    this(cell, CELL_SIZE);
+  }
+
+  public GraphicalCell(Cell cell, double size) {
     super();
     setX(cell.getX() * CELL_SIZE + MARGIN);
     setY(cell.getY() * CELL_SIZE + MARGIN);
-	setWidth(CELL_SIZE);
-	setHeight(CELL_SIZE);
+    setWidth(size);
+    setHeight(size);
     this.simCell = cell;
-    this.colorMap = colorMap;
+    this.colorMap = Map.of(0, Color.BLACK, 1, Color.GREEN, 2, Color.BLUE);
+	update();
   }
 
   /**
@@ -46,7 +45,7 @@ public class GraphicalCell extends Rectangle {
    * refresh their graphical appearance.
    */
   public void update() {
-    // change once an API for getting the cell's integer-encoded state exists
-    this.setFill(colorMap.getOrDefault(0, Color.BLACK));
+    int newColor = simCell.getEncoding();
+    this.setFill(colorMap.getOrDefault(newColor, Color.YELLOW));
   }
 }
