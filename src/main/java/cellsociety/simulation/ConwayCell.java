@@ -34,13 +34,11 @@ public class ConwayCell extends Cell<ConwayState> {
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
    *
-   * Conway's Rules are as follows:
+   * <p>Conway's Rules are as follows:
    *
-   * <p>Any live cell with two or three live neighbours survives.
-   * Any dead cell with three live
-   * neighbours becomes a live cell.
-   * All other live cells die in the next generation.
-   * Similarly, all other dead cells stay dead.
+   * <p>Any live cell with two or three live neighbours survives. Any dead cell with three live
+   * neighbours becomes a live cell. All other live cells die in the next generation. Similarly, all
+   * other dead cells stay dead.
    */
   public void computeNextState() {
     int numLiveNeighbors = 0;
@@ -49,13 +47,15 @@ public class ConwayCell extends Cell<ConwayState> {
         numLiveNeighbors++;
       }
     }
-    if(state.getState() == STATE.ALIVE && numLiveNeighbors >= 2 && numLiveNeighbors <= 3) {
+    if (state.getState() == STATE.ALIVE
+        && numLiveNeighbors >= rule.getAliveNumberMin()
+        && numLiveNeighbors <= rule.getAliveNumberMax()) {
       nextState.setState(STATE.ALIVE);
-    }
-    else if(state.getState() == STATE.DEAD && numLiveNeighbors == 3) {
+    } else if (state.getState() == STATE.DEAD
+        && numLiveNeighbors >= rule.getSpawnNumberMin()
+        && numLiveNeighbors <= rule.getSpawnNumberMax()) {
       nextState.setState(STATE.ALIVE);
-    }
-    else {
+    } else {
       nextState.setState(STATE.DEAD);
     }
   }
