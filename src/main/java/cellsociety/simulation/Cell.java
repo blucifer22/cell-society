@@ -39,6 +39,15 @@ public abstract class Cell<T extends CellState> {
   }
 
   /**
+   * Returns the current state of the cell.
+   *
+   * @return The current state of the cell.
+   */
+  protected T getNextState() {
+    return nextState;
+  }
+
+  /**
    * Determines the next state of this cell.
    *
    * <p>This cell uses its rules to determine what state it should advance to on the next generation
