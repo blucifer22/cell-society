@@ -53,10 +53,10 @@ public class ConwayCell extends Cell<ConwayState> {
       nextState.setState(STATE.ALIVE);
     }
     else if(state.getState() == STATE.DEAD && numLiveNeighbors == 3) {
-      nextState.setState(STATE.DEAD);
+      nextState.setState(STATE.ALIVE);
     }
     else {
-      nextState.setState(state.getState());
+      nextState.setState(STATE.DEAD);
     }
   }
 }
