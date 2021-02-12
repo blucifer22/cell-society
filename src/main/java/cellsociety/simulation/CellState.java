@@ -14,4 +14,8 @@ public abstract class CellState<T> {
 	public void setState(T state) {
 		this.state = state;
 	}
+
+	public String toString() {
+		return (state.toString());
+	}
 }
