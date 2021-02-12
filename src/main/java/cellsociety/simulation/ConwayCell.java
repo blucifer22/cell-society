@@ -50,13 +50,15 @@ public class ConwayCell extends Cell<ConwayState> {
     if (state.getState() == STATE.ALIVE
         && numLiveNeighbors >= rule.getAliveNumberMin()
         && numLiveNeighbors <= rule.getAliveNumberMax()) {
-      nextState.setState(STATE.ALIVE);
+      nextState = null; //null states remain the same
     } else if (state.getState() == STATE.DEAD
         && numLiveNeighbors >= rule.getSpawnNumberMin()
         && numLiveNeighbors <= rule.getSpawnNumberMax()) {
-      nextState.setState(STATE.ALIVE);
+      nextState = new ConwayState(STATE.ALIVE);
     } else {
-      nextState.setState(STATE.DEAD);
+      if (state.getState() != STATE.DEAD) {
+        nextState = new ConwayState(STATE.DEAD);
+      }
     }
   }
 }
