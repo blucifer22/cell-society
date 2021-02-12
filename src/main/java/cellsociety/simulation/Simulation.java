@@ -36,5 +36,9 @@ public abstract class Simulation<T extends Cell> {
 
   protected void commitState() {}
 
+  public List<T> getCells() {
+	  return this.cells;
+  }
+
   public void step() {}
 }
