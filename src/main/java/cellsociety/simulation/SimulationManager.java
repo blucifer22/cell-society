@@ -18,21 +18,26 @@ public class SimulationManager {
     parser = new XMLParser();
   }
 
+  /**
+   * Creates a simulation with the configurations specified from an XML file.
+   *
+   * @param file - An XML file that will be parsed to create a new simulation.
+   */
   public Simulation createSimulation(File file) {
     try {
       parser.createConfiguration(file);
       Map<String, String> metaData = parser.getSimulationMetadata();
       Map<String, Double> config = parser.getSimulationParameters();
       List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
-	  Simulation simulation = null;
+      Simulation simulation = null;
 
-	  switch(metaData.get("Name")) {
-		  case "Fire Simulation":
-			  simulation = new FireSimulation(metaData, config, nonDefaultStates);
-			  break;
-		  default:
-	  }
-	  simulation.initialize();
+      switch (metaData.get("Name")) {
+        case "Fire Simulation":
+          simulation = new FireSimulation(metaData, config, nonDefaultStates);
+          break;
+        default:
+      }
+      simulation.initialize();
       return simulation;
     } catch (Exception e) {
       return null;
