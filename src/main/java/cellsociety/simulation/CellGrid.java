@@ -17,15 +17,15 @@ public class CellGrid<T extends Cell> {
   protected double platformWidth;
   protected double platformHeight;
 
-  /** Constructs a rectangular grid with the specified configuration. 
+  /**
+   * Constructs a rectangular grid with the specified configuration.
    *
-   * Cell grids expect the maps they are passed to contain a "width"
-   * and "height" field, if not the height defaults to {@value #DEFAULT_HEIGHT}
-   * and the width to {@value #DEFAULT_WIDTH}.
+   * <p>Cell grids expect the maps they are passed to contain a "width" and "height" field, if not
+   * the height defaults to {@value #DEFAULT_HEIGHT} and the width to {@value #DEFAULT_WIDTH}.
    *
    * @param cells - The list of cells to be configured in a grid pattern.
    * @param configuration - The geometric patterns for this grid.
-   * */
+   */
   public CellGrid(List<T> cells, Map<String, Double> configuration) {
     this.grid = new ArrayList<>();
     this.configuration = configuration;
@@ -34,6 +34,8 @@ public class CellGrid<T extends Cell> {
     for (int i = 0, count = 0; i < DEFAULT_HEIGHT && count < cells.size(); i++) {
       grid.add(new ArrayList<>());
       for (int j = 0; j < DEFAULT_WIDTH && count < cells.size(); j++, count++) {
+        cells.get(count).setY(i);
+        cells.get(count).setX(j);
         grid.get(i).add(cells.get(count));
       }
     }
