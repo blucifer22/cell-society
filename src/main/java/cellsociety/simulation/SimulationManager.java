@@ -1,31 +1,41 @@
 package cellsociety.simulation;
 
-import cellsociety.graphics.GraphicalCell;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
+/**
+ * The controller class that creates the simulation model for the view to use.
+ *
+ * <p>This class contains an XML parser and can create {@link cellsociety.simulation.Simulation}
+ * objects.
+ */
 public class SimulationManager {
   private XMLParser parser;
-  private List<Simulation> simulationList;
-  private Map<CellState, Color> colorMap;
 
-  public SimulationManager(File f) throws Exception {
-    this.parser = new XMLParser(f);
+  public SimulationManager() {
+    parser = new XMLParser();
   }
 
-  public Map<Integer, Paint> getColorMap() {
-    return null;
-  }
+  public Simulation createSimulation(File file) {
+    try {
+      parser.createConfiguration(file);
+      Map<String, String> metaData = parser.getSimulationMetadata();
+      Map<String, Double> config = parser.getSimulationParameters();
+      List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
+	  Simulation simulation = null;
 
-  public List<GraphicalCell> getGraphicalCells() {
-    return null;
-  }
-
-  public void startSimulation() {
-
+	  switch(metaData.get("Name")) {
+		  case "Fire Simulation":
+			  simulation = new FireSimulation(metaData, config, nonDefaultStates);
+			  break;
+		  default:
+	  }
+	  simulation.initialize();
+      return simulation;
+    } catch (Exception e) {
+      return null;
+    }
   }
 }
