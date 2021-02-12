@@ -3,13 +3,12 @@ package cellsociety.simulation;
 import cellsociety.simulation.ConwayState.STATE;
 
 /**
- * This class handles the behavior of Cells in Conway's Game of Life, and thus the state
- * transitions therein.
+ * This class handles the behavior of Cells in Conway's Game of Life, and thus the state transitions
+ * therein.
  *
- * @author Joshua Petitma
  * @author Marc Chmielewski
  */
-public class ConwayCell extends Cell<ConwayState>{
+public class ConwayCell extends Cell<ConwayState> {
 
   public static ConwayRule rule;
 
