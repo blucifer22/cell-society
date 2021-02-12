@@ -12,9 +12,14 @@ public class FireSimulation extends Simulation<FireCell> {
 	public void initialize() {
 		for (int i = 0; i < numCells; i++) {
 			cells.add(new FireCell());
-			System.out.println("IT'S WORKING!");
 		}
 		cellGrid = new CellGrid(cells, config);
 		FireRule rule = new FireRule(config);
+		FireCell.rule = rule;
+		for (int[] arr : nonDefaultStates) {
+			FireState state = new FireState(FireState.STATE.BURNING);
+			FireCell cell = cellGrid.getCell(arr[0], arr[1]);
+			cell.setState(state);
+		}
 	}
 }
