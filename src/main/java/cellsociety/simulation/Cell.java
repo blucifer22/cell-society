@@ -14,6 +14,8 @@ public abstract class Cell<T extends CellState> {
   protected List<Cell<T>> neighbors;
   protected T state;
   protected T nextState;
+  protected int posX;
+  protected int posY;
 
   /**
    * Constructs a cell with the specified state.
@@ -23,6 +25,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param state - The initial state of the cell.
    */
+
   protected Cell(T state) {
     this.state = state;
     neighbors = new ArrayList<>();
@@ -36,6 +39,7 @@ public abstract class Cell<T extends CellState> {
   public T getCurrentState() {
     return state;
   }
+
 
   /**
    * Determines the next state of this cell.
@@ -79,5 +83,21 @@ public abstract class Cell<T extends CellState> {
    */
   public void removeNeighbor(Cell<T> neighbor) {
     neighbors.remove(neighbor);
+  }
+
+  public int getX() {
+	  return posX;
+  }
+
+  public int getY() {
+	  return posY;
+  }
+
+  public void setX(int posX) {
+	  this.posX = posX;
+  }
+
+  public void setY(int posY) {
+	  this.posY = posY;
   }
 }
