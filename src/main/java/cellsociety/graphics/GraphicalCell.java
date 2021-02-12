@@ -17,7 +17,6 @@ import javafx.scene.shape.Shape;
  */
 public class GraphicalCell {
   private static final double MARGIN = 2.0;
-
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
   private final Shape renderingShape;
@@ -35,7 +34,7 @@ public class GraphicalCell {
    * @param width the <code>GraphicalCell</code>'s width
    * @param height the <code>GraphicalCell</code>'s height
    */
-  protected GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
+  public GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
       double width, double height) {
     this.simCell = simulationCell;
     this.colorMap = colorMap;
@@ -46,7 +45,7 @@ public class GraphicalCell {
    * Called by a controller after cells have finished committing their <code>State</code> updates
    * to refresh their graphical appearance.
    */
-  protected void update() {
+  public void update() {
     // change once an API for getting the cell's integer-encoded state exists
     this.renderingShape.setFill(colorMap.getOrDefault(0, Color.BLACK));
   }
@@ -57,7 +56,7 @@ public class GraphicalCell {
    *
    * @return the <code>GraphicalCell</code>'s rendering <code>Node</code>
    */
-  protected Node getNode() {
+  public Node getNode() {
     return this.renderingShape;
   }
 }
