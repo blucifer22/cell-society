@@ -41,11 +41,17 @@ public class SimulationController {
     }
   }
 
-  public void startSimulation() {}
+  public void startSimulation() {
+    // TODO: Implement this!
+  }
 
-  public void pauseSimulation() {}
+  public void pauseSimulation() {
+    // TODO: Implement this!
+  }
 
-  public void step() {}
+  public void step() {
+    // TODO: Implement this!
+  }
 
   public Map<Integer, Paint> getPaintMap() {
     return Collections.unmodifiableMap(new HashMap<Integer, Paint>());

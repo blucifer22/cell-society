@@ -46,7 +46,9 @@ public class UIController {
    * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request to
    * start a simulation based on an input file.
    */
-  public void loadNewSimulation() {}
+  public void loadNewSimulation() {
+    // TODO: Implement this!
+  }
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
