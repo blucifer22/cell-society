@@ -8,7 +8,7 @@ import cellsociety.simulation.PercolationState.STATE;
  *
  * @author Marc Chmielewski
  */
-public class PercolationCell extends Cell<PercolationState>{
+public class PercolationCell extends Cell<PercolationState> {
   public static PercolationRule rule;
 
   /**
@@ -39,10 +39,12 @@ public class PercolationCell extends Cell<PercolationState>{
    * If the Cell is FULL, it will remain FULL.
    */
   public void computeNextState() {
-    for(Cell cell : neighbors) {
-      if(cell.getCurrentState().getState() == STATE.FULL && state.getState() != STATE.FULL) {
-        nextState.setState(STATE.FULL);
-        break;
+    if (state.getState() != STATE.FULL) {
+      for (Cell cell : neighbors) {
+        if (cell.getCurrentState().getState() == STATE.FULL) {
+          nextState = new PercolationState(STATE.FULL);
+          break;
+        }
       }
     }
   }

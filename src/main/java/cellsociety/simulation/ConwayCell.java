@@ -34,13 +34,11 @@ public class ConwayCell extends Cell<ConwayState> {
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
    *
-   * Conway's Rules are as follows:
+   * <p>Conway's Rules are as follows:
    *
-   * <p>Any live cell with two or three live neighbours survives.
-   * Any dead cell with three live
-   * neighbours becomes a live cell.
-   * All other live cells die in the next generation.
-   * Similarly, all other dead cells stay dead.
+   * <p>Any live cell with two or three live neighbours survives. Any dead cell with three live
+   * neighbours becomes a live cell. All other live cells die in the next generation. Similarly, all
+   * other dead cells stay dead.
    */
   public void computeNextState() {
     int numLiveNeighbors = 0;
@@ -49,14 +47,18 @@ public class ConwayCell extends Cell<ConwayState> {
         numLiveNeighbors++;
       }
     }
-    if(state.getState() == STATE.ALIVE && numLiveNeighbors >= 2 && numLiveNeighbors <= 3) {
-      nextState.setState(STATE.ALIVE);
-    }
-    else if(state.getState() == STATE.DEAD && numLiveNeighbors == 3) {
-      nextState.setState(STATE.DEAD);
-    }
-    else {
-      nextState.setState(state.getState());
+    if (state.getState() == STATE.ALIVE
+        && numLiveNeighbors >= rule.getAliveNumberMin()
+        && numLiveNeighbors <= rule.getAliveNumberMax()) {
+      nextState = null; //null states remain the same
+    } else if (state.getState() == STATE.DEAD
+        && numLiveNeighbors >= rule.getSpawnNumberMin()
+        && numLiveNeighbors <= rule.getSpawnNumberMax()) {
+      nextState = new ConwayState(STATE.ALIVE);
+    } else {
+      if (state.getState() != STATE.DEAD) {
+        nextState = new ConwayState(STATE.DEAD);
+      }
     }
   }
 }
