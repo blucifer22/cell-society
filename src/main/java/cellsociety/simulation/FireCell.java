@@ -1,12 +1,12 @@
 package cellsociety.simulation;
 
-
 public class FireCell extends Cell<FireState> {
 
-  /** The rule all firecells follow to change their states.
+  /**
+   * The rule all firecells follow to change their states.
    *
-   * This value is set by the {@link cellsociety.simulation.Simulation}
-   * */
+   * <p>This value is set by the {@link cellsociety.simulation.Simulation}
+   */
   public static FireRule rule;
 
   /**
@@ -27,15 +27,11 @@ public class FireCell extends Cell<FireState> {
     super(state);
   }
 
-  public boolean onFire() {
-    return state.getState() == FireState.STATE.BURNING;
-  }
-
   public void computeNextState() {
     for (Cell cell : neighbors) {
-      if (cell instanceof FireCell && ((FireCell) cell).onFire()) {
-          catchFire();
-        }
+      if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
+        catchFire();
+      }
     }
   }
 
