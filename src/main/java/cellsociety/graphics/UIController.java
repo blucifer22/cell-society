@@ -49,7 +49,6 @@ public class UIController {
     if(simulationConfigurationFile == null) {
       return;
     }
-
     try {
       this.simulationManager = new SimulationManager(simulationConfigurationFile);
       showSimulation(simulationManager);

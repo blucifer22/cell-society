@@ -48,6 +48,7 @@ public class SimulationSelectionScene extends Scene {
     sp.setPrefWidth(width);
     sp.setPrefHeight(height);
     renderNode(sp);
+    System.out.println("Hello?");
   }
 
   // Adds the Node parameter to the root Group of the Scene
