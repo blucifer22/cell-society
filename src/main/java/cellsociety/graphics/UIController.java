@@ -2,11 +2,8 @@ package cellsociety.graphics;
 
 import cellsociety.simulation.SimulationManager;
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,29 +44,24 @@ public class UIController {
    * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request
    * to start a simulation based on an input file.
    */
-  public void initializeAndConfigureSimulation() {
+  public void initializeSimulation() {
     File simulationConfigurationFile = selectSimulationFile();
     if(simulationConfigurationFile == null) {
       return;
     }
 
     try {
-      SimulationManager sm;
-      sm = new SimulationManager(simulationConfigurationFile);
-      Map<Integer, Paint> colorMap = sm.getColorMap();
-      List<GraphicalCell> graphicalCells = sm.getGraphicalCells();
-      displaySimulationScene(graphicalCells, colorMap);
-      sm.startSimulation();
+      this.simulationManager = new SimulationManager(simulationConfigurationFile);
+      showSimulation(simulationManager);
     } catch (Exception e) {
-      exceptionAlert(e);
-
+      error(e);
     }
   }
 
-  private void displaySimulationScene(List<GraphicalCell> cells, Map<Integer, Paint> colorMap) {
-    SimDisplayScene sds = new SimDisplayScene(this, cells, colorMap, WINDOW_WIDTH,
-        WINDOW_HEIGHT);
-    this.primaryStage.setScene(sds);
+  private void showSimulation(SimulationManager simulationManager) {
+    SimulationDisplayScene sds = new SimulationDisplayScene(this, simulationManager.getGraphicalCells(),
+        WINDOW_WIDTH, WINDOW_HEIGHT);
+    this.stage.setScene(sds);
   }
 
   // Opens a FileChooser window that allows the user to select the appropriate XML file
@@ -77,6 +69,10 @@ public class UIController {
     FileChooser fc = new FileChooser();
     Stage s = new Stage();
     return fc.showOpenDialog(s);
+  }
+
+  public void refresh(double elapsedTime) {
+
   }
 
   /**
