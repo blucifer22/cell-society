@@ -1,6 +1,6 @@
 package cellsociety.graphics.scenes;
 
-import cellsociety.graphics.GraphicalCellGrid;
+import cellsociety.graphics.GraphicalCell;
 import cellsociety.graphics.UIController;
 import cellsociety.simulation.Cell;
 import java.util.List;
@@ -24,21 +24,17 @@ public class SimDisplayScene extends Scene {
    * @param width the width of the <code>SimDisplayScene</code>
    * @param height the height of the <code>SimDisplayScene</code>
    */
-  public SimDisplayScene(UIController controller, List<List<Cell>> simulationCells,
+  public SimDisplayScene(UIController controller, List<GraphicalCell> simulationCells,
       Map<Integer, Paint> colorMap, double width, double height) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.width = width;
     this.height = height;
     this.controller = controller;
-    buildGraphicalCellGrid(simulationCells, colorMap);
-  }
 
-  private void buildGraphicalCellGrid(List<List<Cell>> simulationCells,
-      Map<Integer, Paint> colorMap) {
-    GraphicalCellGrid gcGrid = new GraphicalCellGrid(simulationCells, Math.min(width, height),
-        Math.min(width, height), colorMap);
-    renderNode(gcGrid.getNode());
+    for(GraphicalCell gc: simulationCells) {
+      renderNode(gc.getNode());
+    }
   }
 
   private void renderNode(Node n) {

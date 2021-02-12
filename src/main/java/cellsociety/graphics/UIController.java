@@ -55,25 +55,20 @@ public class UIController {
       return;
     }
 
-    SimulationManager sm;
-
     try {
+      SimulationManager sm;
       sm = new SimulationManager(simulationConfigurationFile);
-      // kick the XMLParser over to the Simulation controller; start simulation
-      /*
-      ENTRY POINT FOR SIMULATION!
-      NOTE: UIController SHOULD ONLY EVER BE EXPOSED TO THE SIMULATION CONTROLLER (WHATEVER
-      WE'RE CALLING IT)
-       */
+      Map<Integer, Paint> colorMap = sm.getColorMap();
+      List<GraphicalCell> graphicalCells = sm.getGraphicalCells();
+      displaySimulationScene(graphicalCells, colorMap);
+      sm.startSimulation();
     } catch (Exception e) {
       exceptionAlert(e);
-      return;
+
     }
-
-
   }
 
-  public void displaySimulationScene(List<List<Cell>> cells, Map<Integer, Paint> colorMap) {
+  private void displaySimulationScene(List<GraphicalCell> cells, Map<Integer, Paint> colorMap) {
     SimDisplayScene sds = new SimDisplayScene(this, cells, colorMap, WINDOW_WIDTH,
         WINDOW_HEIGHT);
     this.primaryStage.setScene(sds);
