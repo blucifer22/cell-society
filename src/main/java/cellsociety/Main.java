@@ -64,7 +64,7 @@ public class Main extends Application {
     if (simulation != null) {
       simDisplay.setSimulation(simulation);
     } else {
-		error("Invalid XML File");
+      error("Invalid XML File");
     }
   }
 
@@ -85,11 +85,15 @@ public class Main extends Application {
     }
   }
 
-  private void playSimulation() {}
+  private void playSimulation() {
+    simDisplay.play();
+  }
 
-  private void pauseSimulation() {}
+  private void pauseSimulation() {
+    simDisplay.pause();
+  }
 
   private void stepSimulation() {
-    System.out.println("Step Simulation");
+    simDisplay.step();
   }
 }
