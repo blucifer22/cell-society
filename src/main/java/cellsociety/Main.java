@@ -1,16 +1,16 @@
 package cellsociety;
 
-import cellsociety.simulation.SimulationManager;
 import cellsociety.simulation.Simulation;
+import cellsociety.simulation.SimulationManager;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.control.Button;
-import javafx.scene.Group;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class Main extends Application {
   private SimulationManager manager;
@@ -27,24 +27,40 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     manager = new SimulationManager();
-	simDisplay = new SimulationDisplay();
-	BorderPane pane = new BorderPane();
-	pane.setCenter(simDisplay);
-	pane.setBottom(createButtonPane());
+    simDisplay = new SimulationDisplay();
+    BorderPane pane = new BorderPane();
+    pane.setCenter(simDisplay);
+    pane.setBottom(createButtonPane());
 
     scene = new Scene(pane, SCENE_WIDTH, SCENE_HEIGHT);
-	primaryStage.setScene(scene);
-	primaryStage.show();
+    primaryStage.setScene(scene);
+    primaryStage.show();
   }
 
-  public Pane createButtonPane() {
-	  HBox row = new HBox(10);
-	  Button loadButton = new Button("load");
-	  Button playButton = new Button("Play");
-	  Button pauseButton = new Button("Pause");
-	  Button stepButton = new Button("Step");
-	  row.getChildren().addAll(loadButton, playButton, pauseButton, stepButton);
-	  row.setAlignment(Pos.CENTER);
-	  return row;
+  private Pane createButtonPane() {
+    HBox row = new HBox(10);
+    Button loadButton = new Button("load");
+    Button playButton = new Button("Play");
+    Button pauseButton = new Button("Pause");
+    Button stepButton = new Button("Step");
+    row.getChildren().addAll(loadButton, playButton, pauseButton, stepButton);
+
+    loadButton.setOnAction(e -> loadSimulation());
+    playButton.setOnAction(e -> playSimulation());
+    pauseButton.setOnAction(e -> pauseSimulation());
+    stepButton.setOnAction(e -> stepSimulation());
+    row.setAlignment(Pos.CENTER);
+    return row;
+  }
+
+  private void loadSimulation() {
+  }
+
+  private void playSimulation() {}
+
+  private void pauseSimulation() {}
+
+  private void stepSimulation() {
+    System.out.println("Step Simulation");
   }
 }
