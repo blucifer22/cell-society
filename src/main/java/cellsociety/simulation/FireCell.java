@@ -58,8 +58,8 @@ public class FireCell extends Cell<FireState> {
   }
 
   private void catchFire() {
-    if (nextState == null && Math.random() > rule.getFlammability()) {
-      nextState = new FireState(FireState.STATE.BURNING);
+    if (Math.random() > rule.getFlammability()) {
+      nextState.setState(FireState.STATE.BURNING);
     }
   }
 }
