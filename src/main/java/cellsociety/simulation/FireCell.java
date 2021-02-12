@@ -1,14 +1,12 @@
 package cellsociety.simulation;
 
-import java.util.List;
-
 public class FireCell extends Cell<FireState> {
-  protected List<Cell> neighbors;
 
-  /** The rule all firecells follow to change their states.
+  /**
+   * The rule all firecells follow to change their states.
    *
-   * This value is set by the {@link cellsociety.simulation.Simulation}
-   * */
+   * <p>This value is set by the {@link cellsociety.simulation.Simulation}
+   */
   public static FireRule rule;
 
   /**
@@ -29,10 +27,17 @@ public class FireCell extends Cell<FireState> {
     super(state);
   }
 
-  /**
-   * Computes the next state for this cell.
-   *
-   * <p>Reference its current state and the rules for Fire simulations to se its next state.
-   */
-  public void computeNextState() {}
+  public void computeNextState() {
+    for (Cell cell : neighbors) {
+      if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
+        catchFire();
+      }
+    }
+  }
+
+  private void catchFire() {
+    if (Math.random() > rule.getFlammability()) {
+      nextState = new FireState(FireState.STATE.BURNING);
+    }
+  }
 }
