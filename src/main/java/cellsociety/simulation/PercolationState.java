@@ -12,6 +12,10 @@ public class PercolationState extends CellState<PercolationState.STATE> {
     super(state);
   }
 
+  public PercolationState() {
+    super(PercolationState.STATE.EMPTY);
+  }
+
   enum STATE {
     EMPTY,
     FULL

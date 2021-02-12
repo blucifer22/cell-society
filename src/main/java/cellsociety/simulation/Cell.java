@@ -89,18 +89,38 @@ public abstract class Cell<T extends CellState> {
     neighbors.remove(neighbor);
   }
 
-  public int getX() {
-    return posX;
-  }
-
+  /**
+   * The internal Y position of this cell.
+   *
+   * <p>Returns the Y placement this cell has within the simulation grid.
+   */
   public int getY() {
     return posY;
   }
 
+  /**
+   * The internal X position of this cell.
+   *
+   * <p>Returns the X placement this cell has within the simulation grid.
+   */
+  public int getX() {
+    return posX;
+  }
+
+  /**
+   * Sets the internal X position of this cell.
+   *
+   * @param posX - The placement X this cell has within a grid.
+   */
   protected void setX(int posX) {
     this.posX = posX;
   }
 
+  /**
+   * Sets the internal Y position of this cell.
+   *
+   * @param posY - The placement Y this cell has within a grid.
+   */
   protected void setY(int posY) {
     this.posY = posY;
   }

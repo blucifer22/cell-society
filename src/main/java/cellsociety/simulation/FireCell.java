@@ -24,7 +24,7 @@ public class FireCell extends Cell<FireState> {
    * <p>The default state for FireCells is NORMAL.
    */
   public FireCell() {
-    super(new FireState(FireState.STATE.NORMAL));
+    super(new FireState());
   }
 
   /**
@@ -40,26 +40,25 @@ public class FireCell extends Cell<FireState> {
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
    *
-   * If a neighboring Cell is BURNING, and this Cell is NORMAL then there is a chance that this Cell
-   * will catch fire and transition to BURNING. This behavior is established in the FireRule, which
-   * is loaded in from the parsed XML.
+   * <p>If a neighboring Cell is BURNING, and this Cell is NORMAL then there is a chance that this
+   * Cell will catch fire and transition to BURNING. This behavior is established in the FireRule,
+   * which is loaded in from the parsed XML.
    */
   public void computeNextState() {
-    if(state.getState() == STATE.NORMAL) {
+    if (state.getState() == STATE.NORMAL) {
       for (Cell cell : neighbors) {
         if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
           catchFire();
         }
       }
-    }
-    else if(state.getState() == STATE.BURNING) {
-	  nextState = new FireState(FireState.STATE.BURNT);
+    } else if (state.getState() == STATE.BURNING) {
+      nextState = new FireState(FireState.STATE.BURNT);
     }
   }
 
   private void catchFire() {
     if (Math.random() > rule.getFlammability()) {
-      nextState.setState(FireState.STATE.BURNING);
+      nextState = new FireState(FireState.STATE.BURNING);
     }
   }
 }
