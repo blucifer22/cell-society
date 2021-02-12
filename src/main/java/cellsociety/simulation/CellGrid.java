@@ -89,6 +89,14 @@ public class CellGrid<T extends Cell> {
     return this.grid;
   }
 
+  protected T getCell(int x, int y) {
+	  if (inBounds(x, y)) {
+		  return grid.get(x).get(y);
+	  } else {
+		  return null;
+	  }
+  }
+
   /**
    * Verifies that a row and column fall within the grid bounds.
    *

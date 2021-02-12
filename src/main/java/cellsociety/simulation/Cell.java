@@ -6,9 +6,8 @@ import java.util.List;
 /**
  * A general cell type.
  *
- * Cells hold state and examine their neighboring states to determine whether or not
- * they must change state.
- *
+ * <p>Cells hold state and examine their neighboring states to determine whether or not they must
+ * change state.
  */
 public abstract class Cell<T extends CellState> {
   protected List<Cell<T>> neighbors;
@@ -25,7 +24,6 @@ public abstract class Cell<T extends CellState> {
    *
    * @param state - The initial state of the cell.
    */
-
   protected Cell(T state) {
     this.state = state;
     neighbors = new ArrayList<>();
@@ -39,7 +37,6 @@ public abstract class Cell<T extends CellState> {
   public T getCurrentState() {
     return state;
   }
-
 
   /**
    * Determines the next state of this cell.
@@ -55,16 +52,23 @@ public abstract class Cell<T extends CellState> {
    * <p>If the cell has no {@link #nextState} then this cell does not advance. Must call {@link
    * #computeNextState} before calling.
    */
-  public void updateState() {
+  protected void updateState() {
     if (nextState != null) {
       state = nextState;
+      nextState = null;
     }
   }
 
-  public void setNextState(T state) {
-	  if (state != null) {
-		  nextState = state;
-	  }
+  protected void setNextState(T state) {
+    if (state != null) {
+      nextState = state;
+    }
+  }
+
+  protected void setState(T state) {
+    if (state != null) {
+      this.state = state;
+    }
   }
 
   /**
@@ -72,7 +76,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be added to the list.
    */
-  public void addNeighbor(Cell<T> neighbor) {
+  protected void addNeighbor(Cell<T> neighbor) {
     neighbors.add(neighbor);
   }
 
@@ -81,23 +85,23 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be removed from the list.
    */
-  public void removeNeighbor(Cell<T> neighbor) {
+  protected void removeNeighbor(Cell<T> neighbor) {
     neighbors.remove(neighbor);
   }
 
   public int getX() {
-	  return posX;
+    return posX;
   }
 
   public int getY() {
-	  return posY;
+    return posY;
   }
 
-  public void setX(int posX) {
-	  this.posX = posX;
+  protected void setX(int posX) {
+    this.posX = posX;
   }
 
-  public void setY(int posY) {
-	  this.posY = posY;
+  protected void setY(int posY) {
+    this.posY = posY;
   }
 }
