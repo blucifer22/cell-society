@@ -24,7 +24,16 @@ public class SimulationManager {
       Map<String, String> metaData = parser.getSimulationMetadata();
       Map<String, Double> config = parser.getSimulationParameters();
       List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
-      return new Simulation(metaData, config, nonDefaultStates);
+	  Simulation simulation = null;
+
+	  switch(metaData.get("Name")) {
+		  case "Fire Simulation":
+			  simulation = new FireSimulation(metaData, config, nonDefaultStates);
+			  break;
+		  default:
+	  }
+	  simulation.initialize();
+      return simulation;
     } catch (Exception e) {
       return null;
     }
