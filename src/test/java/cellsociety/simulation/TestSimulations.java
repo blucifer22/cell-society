@@ -23,6 +23,15 @@ class TestSimulation {
 			oneBurning = true;
 		}
 	}
+
+	sim.step();
+	sim.step();
+	sim.step();
+
+	for (Cell cell : cells) {
+		System.out.println(cell.getCurrentState());
+	}
+
 	assertTrue(oneBurning);
   }
 }
