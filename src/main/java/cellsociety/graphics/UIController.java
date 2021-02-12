@@ -15,13 +15,14 @@ public class UIController {
   private SimulationController simulationController;
 
   /**
-   * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing
-   * initial application setup.
+   * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing initial
+   * application setup.
    *
    * @param primaryStage the JavaFX application's primary <code>Stage</code>
    */
   public UIController(Stage primaryStage) {
     this.stage = primaryStage;
+    this.simulationController = new SimulationController(this);
     presentLoadSimScene();
   }
 
@@ -32,52 +33,43 @@ public class UIController {
   }
 
   /**
-   * Allows instantiated <code>Scene</code>s to set the title of the application window depending
-   * on the content currently being displayed to the user.
+   * Allows instantiated <code>Scene</code>s to set the title of the application window depending on
+   * the content currently being displayed to the user.
    *
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("CASim v0.0"+(title == null ? "" : " > "+title));
+    stage.setTitle("CASim v0.0" + (title == null ? "" : " > " + title));
   }
 
   /**
-   * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request
-   * to start a simulation based on an input file.
+   * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request to
+   * start a simulation based on an input file.
    */
-  public void initializeSimulation() {
-    File simulationConfigurationFile = selectSimulationFile();
-    if(simulationConfigurationFile == null) {
-      return;
-    }
-    try {
-      this.simulationController = new SimulationController(simulationConfigurationFile);
-      showSimulation(simulationController);
-    } catch (Exception e) {
-      error(e);
-    }
-  }
+  public void loadNewSimulation() {}
 
-  private void showSimulation(SimulationController simulationController) {
-    SimulationDisplayScene sds = new SimulationDisplayScene(this, simulationController.getGraphicalCells(),
-        WINDOW_WIDTH, WINDOW_HEIGHT);
+  public void showSimulation(SimulationController simulationController) {
+    SimulationDisplayScene sds =
+        new SimulationDisplayScene(
+            simulationController,
+            simulationController.getGraphicalCells(),
+            WINDOW_WIDTH,
+            WINDOW_HEIGHT);
     this.stage.setScene(sds);
   }
 
   // Opens a FileChooser window that allows the user to select the appropriate XML file
-  private File selectSimulationFile() {
+  public File selectSimulationFile() {
     FileChooser fc = new FileChooser();
     Stage s = new Stage();
     return fc.showOpenDialog(s);
   }
 
-  public void refresh(double elapsedTime) {
-
-  }
+  public void refresh(double elapsedTime) {}
 
   /**
-   * Allows <code>Scene</code>s and other controllers to notify the user about exceptions related
-   * to his/her own actions (i.e. selecting a malformed XML file).
+   * Allows <code>Scene</code>s and other controllers to notify the user about exceptions related to
+   * his/her own actions (i.e. selecting a malformed XML file).
    *
    * @param e the <code>Exception</code> to notify the user about
    */

@@ -1,7 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.graphics.GraphicalCell;
-import cellsociety.util.XMLParser;
+import cellsociety.graphics.UIController;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,13 +18,27 @@ import javafx.scene.paint.Paint;
  *
  * @author Joshua Petitma
  * @author David Coffman
- * @author Marc
+ * @author Marc Chmielewski
  */
 public class SimulationController {
   private Simulation simulation;
+  private UIController uiController;
 
-  public SimulationController(File f) throws Exception {
-    this.simulation = (new SimulationFactory()).createSimulation(f);
+  public SimulationController(UIController uiController) {
+    this.uiController = uiController;
+  }
+
+  public void loadSimulation() {
+    File simulationConfigurationFile = uiController.selectSimulationFile();
+    if (simulationConfigurationFile == null) {
+      return;
+    }
+    try {
+      this.simulation = (new SimulationFactory()).createSimulation(simulationConfigurationFile);
+      uiController.showSimulation(this);
+    } catch (Exception e) {
+      uiController.error(e);
+    }
   }
 
   public void startSimulation() {}
@@ -33,7 +47,7 @@ public class SimulationController {
 
   public void step() {}
 
-  public Map<Integer, Paint> getPaintMap(){
+  public Map<Integer, Paint> getPaintMap() {
     return Collections.unmodifiableMap(new HashMap<Integer, Paint>());
   }
 

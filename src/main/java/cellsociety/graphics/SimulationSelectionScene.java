@@ -1,6 +1,5 @@
 package cellsociety.graphics;
 
-import cellsociety.graphics.UIController;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -43,7 +42,7 @@ public class SimulationSelectionScene extends Scene {
 
     Button fileLoadButton = new Button();
     fileLoadButton.setText("Load Simulation XML");
-    fileLoadButton.setOnAction(event -> controller.initializeSimulation());
+    fileLoadButton.setOnAction(event -> controller.loadNewSimulation());
     sp.getChildren().add(fileLoadButton);
     sp.setPrefWidth(width);
     sp.setPrefHeight(height);

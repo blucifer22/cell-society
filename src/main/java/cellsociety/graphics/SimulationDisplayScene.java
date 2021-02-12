@@ -1,7 +1,6 @@
 package cellsociety.graphics;
 
-import cellsociety.simulation.Simulation;
-import java.io.File;
+import cellsociety.simulation.SimulationController;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -11,51 +10,40 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * @author David Coffman
+ * @author Marc Chmielewski
  */
-
 public class SimulationDisplayScene extends Scene {
-  private final UIController controller;
+  private final SimulationController simulationController;
 
-  public SimulationDisplayScene(UIController controller, List<GraphicalCell> graphicalCells,
-      double width, double height) {
+  public SimulationDisplayScene(
+      SimulationController simulationController,
+      List<GraphicalCell> graphicalCells,
+      double width,
+      double height) {
     super(new Group(), width, height);
-    this.controller = controller;
+    this.simulationController = simulationController;
     ObservableList<Node> rootChildren = ((Group) this.getRoot()).getChildren();
-    for(GraphicalCell g: graphicalCells) {
+    for (GraphicalCell g : graphicalCells) {
       rootChildren.add(g.getNode());
     }
   }
 
-//  private Pane createButtonPane() {
-//    HBox row = new HBox(10);
-//    Button loadButton = new Button("Load New Simulation");
-//    Button playButton = new Button("Play");
-//    Button pauseButton = new Button("Pause");
-//    Button stepButton = new Button("Step");
-//    row.getChildren().addAll(loadButton, playButton, pauseButton, stepButton);
-//
-//    loadButton.setOnAction(e -> loadSimulation());
-//    playButton.setOnAction(e -> playSimulation());
-//    pauseButton.setOnAction(e -> pauseSimulation());
-//    stepButton.setOnAction(e -> stepSimulation());
-//    row.setAlignment(Pos.CENTER);
-//    return row;
-//  }
+  private Pane createButtonPane() {
+    HBox row = new HBox(10);
+    Button loadButton = new Button("Load New Simulation");
+    Button playButton = new Button("Play");
+    Button pauseButton = new Button("Pause");
+    Button stepButton = new Button("Step");
+    row.getChildren().addAll(loadButton, playButton, pauseButton, stepButton);
 
-//  private void loadSimulation() {
-//    FileChooser fileChooser = new FileChooser();
-//    fileChooser.setTitle("Select Simulation");
-//    fileChooser
-//        .getExtensionFilters()
-//        .addAll(new ExtensionFilter("XML Files", "*.xml"), new ExtensionFilter("All Files", ".*"));
-//    File selectedFile = fileChooser.showOpenDialog(primaryStage);
-//    if (selectedFile != null) {
-//      newSimulation(selectedFile);
-//    }
-//  }
+    loadButton.setOnAction(e -> simulationController.loadSimulation());
+    playButton.setOnAction(e -> simulationController.startSimulation());
+    pauseButton.setOnAction(e -> simulationController.pauseSimulation());
+    stepButton.setOnAction(e -> simulationController.step());
+    row.setAlignment(Pos.CENTER);
+    return row;
+  }
 }
