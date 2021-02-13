@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,9 @@ public class WatorCell extends Cell {
    * <p>If this cell is a fish check to see if it is ready to spawn. If so, and there's an space
    * available, spawn another fish. Else, reset the counter.
    *
+   * <p>If this cell is a shark, check to see if it can move into a space that has a fish. If so,
+   *
+   *
    *
    */
   public void computeNextCellState() {
@@ -68,7 +72,10 @@ public class WatorCell extends Cell {
 
         // Check SHARK spawn
         if(currentState.getEnergyLevel() >= rule.getSharkSpawnEnergy()) {
-          spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2, occupiedNeighbors);
+          boolean success = spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2, occupiedNeighbors);
+          if(success) {
+            currentState.setEnergyLevel(currentState.getEnergyLevel() / 2);
+          }
         }
 
         // Check SHARK death
@@ -117,8 +124,18 @@ public class WatorCell extends Cell {
     }
   }
 
-  private void spawn(int cellType, double energyLevel, Set<Cell> occupiedNeighbors) {
-    // TODO: Implement this!
+  private boolean spawn(int cellType, double energyLevel, Set<Cell> occupiedNeighbors) {
+    HashSet<Cell> availableNeighbors = new HashSet<>(neighbors);
+    availableNeighbors.removeAll(occupiedNeighbors);
+    for(Cell neighbor : availableNeighbors) {
+      if(neighbor.getCurrentCellState().getState() == WatorState.WATER &&
+          (neighbor.getNextCellState().getState() == WatorState.WATER ||
+              neighbor.getNextCellState() == null)) {
+        neighbor.setNextCellState(new WatorState(cellType, energyLevel));
+        return true;
+      }
+    }
+    return false;
   }
 
 
