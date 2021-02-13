@@ -1,14 +1,9 @@
 package cellsociety.simulation;
 
-import cellsociety.graphics.GraphicalCell;
+import cellsociety.graphics.GraphicalCellRectangularGrid;
 import cellsociety.graphics.UIController;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javafx.scene.paint.Paint;
 
 /**
  * The controller class that creates the simulation model for the view to use.
@@ -21,9 +16,10 @@ import javafx.scene.paint.Paint;
  * @author Marc Chmielewski
  */
 public class SimulationController {
-  private Simulation simulation;
-  private SimulationFactory simFactory;
   private final UIController uiController;
+  private final SimulationFactory simFactory;
+  private Simulation simulation;
+  private GraphicalCellRectangularGrid graphicalCellGrid;
 
   public SimulationController(UIController uiController) {
     this.uiController = uiController;
@@ -57,11 +53,8 @@ public class SimulationController {
     // TODO: Implement this!
   }
 
-  public Map<Integer, Paint> getPaintMap() {
-    return Collections.unmodifiableMap(new HashMap<Integer, Paint>());
-  }
-
-  public List<GraphicalCell> getGraphicalCells() {
-    return new ArrayList<GraphicalCell>();
+  public GraphicalCellRectangularGrid graphicalCellGridFactory(double width, double height) {
+    return new GraphicalCellRectangularGrid(simulation.getCells(), new HashMap<>(), width, height,
+        simulation.getNumRows(), simulation.getNumCols());
   }
 }

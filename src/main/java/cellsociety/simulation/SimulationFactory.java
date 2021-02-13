@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class SimulationFactory {
   private Simulation sim;
-  private List<GraphicalCell> graphicalCells;
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -18,7 +17,6 @@ public class SimulationFactory {
    */
   public void loadSimulationFile(File file) throws Exception {
     this.sim = null;
-    this.graphicalCells = null;
 
     XMLParser parser = new XMLParser(file);
     Map<String, String> metadata = parser.getSimulationMetadata();
@@ -44,16 +42,4 @@ public class SimulationFactory {
     assert this.sim != null;
     return this.sim;
   }
-
-  /**
-   * Returns a successfully constructed {@link cellsociety.simulation.Simulation}'s associated
-   * {@link cellsociety.graphics.GraphicalCell}s.
-   *
-   * @return the simulated {@link cellsociety.graphics.GraphicalCell}s
-   */
-  public List<GraphicalCell> getGraphicalCells() {
-    assert this.graphicalCells != null;
-    return this.graphicalCells;
-  }
-
 }

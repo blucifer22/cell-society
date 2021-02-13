@@ -13,10 +13,12 @@ public class GraphicalCellRectangularGrid {
   private Map<Integer, Paint> paintMap;
   private Group root;
 
-  public GraphicalCellRectangularGrid(List<Cell> cells, double width, double height,
-      int numRows, int numCols) {
+  public GraphicalCellRectangularGrid(List<Cell> cells, Map<Integer, Paint> paintMap, double width,
+      double height, int numRows, int numCols) {
     this.root = new Group();
     this.graphicalCells = new ArrayList<>();
+    this.paintMap = paintMap;
+
     assert cells.size() == numRows*numCols;
 
     double cellWidth = width/numCols;
