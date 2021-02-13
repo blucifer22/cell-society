@@ -28,6 +28,7 @@ class TestSimulation {
 
 			for (Cell cell : cells) {
 				System.out.println(cell.getCurrentCellState());
+				System.out.println(cell.getEncoding());
 			}
 
 			assertTrue(oneBurning);

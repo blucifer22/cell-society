@@ -18,7 +18,7 @@ public class WatorState extends CellState {
    *
    * @param state - The state which this object is created with.
    */
-  public WatorState(int state, int energyLevel) {
+  public WatorState(int state, double energyLevel) {
     super(state);
     this.energyLevel = energyLevel;
   }
