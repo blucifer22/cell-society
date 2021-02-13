@@ -9,10 +9,10 @@ import java.util.List;
  * <p>Cells hold state and examine their neighboring states to determine whether or not they must
  * change state.
  */
-public abstract class Cell<T extends CellState> {
-  protected List<Cell<T>> neighbors;
-  protected T state;
-  protected T nextState;
+public abstract class Cell {
+  protected List<Cell> neighbors;
+  protected CellState cellState;
+  protected CellState nextCellState;
   protected int posX;
   protected int posY;
 
@@ -22,10 +22,10 @@ public abstract class Cell<T extends CellState> {
    * <p>Cells must contain state and have neighbors, the list of neighbors for this cell is
    * instantiated within this constructor
    *
-   * @param state - The initial state of the cell.
+   * @param cellState - The initial state of the cell.
    */
-  protected Cell(T state) {
-    this.state = state;
+  protected Cell(CellState cellState) {
+    this.cellState = cellState;
     neighbors = new ArrayList<>();
   }
 
@@ -34,8 +34,8 @@ public abstract class Cell<T extends CellState> {
    *
    * @return The current state of the cell.
    */
-  public T getCurrentState() {
-    return state;
+  public CellState getCurrentCellState() {
+    return cellState;
   }
 
   /**
@@ -54,8 +54,8 @@ public abstract class Cell<T extends CellState> {
    *
    * @return The current state of the cell.
    */
-  protected T getNextState() {
-    return nextState;
+  protected CellState getNextCellState() {
+    return nextCellState;
   }
 
   /**
@@ -64,30 +64,30 @@ public abstract class Cell<T extends CellState> {
    * <p>This cell uses its rules to determine what state it should advance to on the next generation
    * iteration.
    */
-  public abstract void computeNextState();
+  public abstract void computeNextCellState();
 
   /**
    * Moves a cell to its currently cached state.
    *
-   * <p>If the cell has no {@link #nextState} then this cell does not advance. Must call {@link
-   * #computeNextState} before calling.
+   * <p>If the cell has no {@link #nextCellState} then this cell does not advance. Must call {@link
+   * #computeNextCellState} before calling.
    */
-  protected void updateState() {
-    if (nextState != null) {
-      state = nextState;
-      nextState = null;
+  protected void updateCellState() {
+    if (nextCellState != null) {
+      cellState = nextCellState;
+      nextCellState = null;
     }
   }
 
-  protected void setNextState(T state) {
+  protected void setNextCellState(CellState state) {
     if (state != null) {
-      nextState = state;
+      nextCellState = state;
     }
   }
 
-  protected void setState(T state) {
+  protected void setCellState(CellState state) {
     if (state != null) {
-      this.state = state;
+      this.cellState = state;
     }
   }
 
@@ -96,7 +96,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be added to the list.
    */
-  protected void addNeighbor(Cell<T> neighbor) {
+  protected void addNeighbor(Cell neighbor) {
     neighbors.add(neighbor);
   }
 
@@ -105,7 +105,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be removed from the list.
    */
-  protected void removeNeighbor(Cell<T> neighbor) {
+  protected void removeNeighbor(Cell neighbor) {
     neighbors.remove(neighbor);
   }
 
@@ -132,7 +132,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param posX - The placement X this cell has within a grid.
    */
-  protected void setX(int posX) {
+  public void setX(int posX) {
     this.posX = posX;
   }
 

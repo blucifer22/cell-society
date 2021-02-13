@@ -9,11 +9,9 @@ import java.util.Map;
 class TestXMLParsing {
   @Test
   public void test() {
-    XMLParser p = new XMLParser();
-
-    File file = new File("data/test.xml");
     try {
-      p.createConfiguration(file);
+      File file = new File("data/test.xml");
+      XMLParser p = new XMLParser(file);
       Map<String, Double> params = p.getSimulationParameters();
       assertNotNull(params.get("AliveNumberMin"));
       assertEquals(params.get("AliveNumberMin"), 2.0);

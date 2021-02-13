@@ -13,21 +13,21 @@ class TestSimulation {
 		try {
 			File file = new File("data/fireSimulation.xml");
 			SimulationFactory sm = new SimulationFactory();
-			Simulation sim = sm.createSimulation(file);
-			List<Cell> cells = sim.getCells();
+			sm.loadSimulationFile(file);
+      List<Cell> cells = sm.getSimulation().getCells();
 			boolean oneBurning = false;
 			for (Cell cell : cells) {
-				if (cell.getCurrentState().toString().equals("BURNING")) {
+				if (cell.getCurrentCellState().toString().equals("BURNING")) {
 					oneBurning = true;
 				}
 			}
 
-			sim.step();
-			sim.step();
-			sim.step();
+			sm.getSimulation().step();
+			sm.getSimulation().step();
+			sm.getSimulation().step();
 
 			for (Cell cell : cells) {
-				System.out.println(cell.getCurrentState());
+				System.out.println(cell.getCurrentCellState());
 			}
 
 			assertTrue(oneBurning);

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Simulation<T extends Cell> {
+public abstract class Simulation {
   public static final double DEFAULT_CELL_NUMBER = 10;
-  protected CellGrid<T> cellGrid;
-  protected List<T> cells;
+  protected CellGrid cellGrid;
+  protected List<Cell> cells;
   protected String name;
   protected double numCells;
   protected Map<String, Double> config;
@@ -36,17 +36,17 @@ public abstract class Simulation<T extends Cell> {
 
   protected void computeState() {
 	  for (Cell cell : cells) {
-		  cell.computeNextState();
+		  cell.computeNextCellState();
 	  }
   }
 
   protected void commitState() {
 	  for (Cell cell : cells) {
-		  cell.updateState();
+		  cell.updateCellState();
 	  }
   }
 
-  public List<T> getCells() {
+  public List<Cell> getCells() {
 	  return this.cells;
   }
 

@@ -9,10 +9,10 @@ import java.util.Map;
  *
  * <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
  */
-public class CellGrid<T extends Cell> {
+public class CellGrid {
   public static final double DEFAULT_HEIGHT = 5;
   public static final double DEFAULT_WIDTH = 5;
-  protected List<List<T>> grid;
+  protected List<List<Cell>> grid;
   protected Map<String, Double> configuration;
   protected double platformWidth;
   protected double platformHeight;
@@ -26,7 +26,7 @@ public class CellGrid<T extends Cell> {
    * @param cells - The list of cells to be configured in a grid pattern.
    * @param configuration - The geometric patterns for this grid.
    */
-  public CellGrid(List<T> cells, Map<String, Double> configuration) {
+  public CellGrid(List<Cell> cells, Map<String, Double> configuration) {
     this.grid = new ArrayList<>();
     this.configuration = configuration;
     this.platformWidth = configuration.getOrDefault("width", DEFAULT_WIDTH);
@@ -43,8 +43,8 @@ public class CellGrid<T extends Cell> {
   }
 
   private void createNeighbors() {
-    List<T> row;
-    T cell;
+    List<Cell> row;
+    Cell cell;
     for (int i = 0; i < grid.size(); i++) {
       row = grid.get(i);
       for (int j = 0; j < row.size(); j++) {
@@ -74,7 +74,7 @@ public class CellGrid<T extends Cell> {
    * @param row - The row in the grid in which this cell is found
    * @param column - The column within the grid this cell is found
    */
-  private void addCellNeighbor(T cell, int row, int column) {
+  private void addCellNeighbor(Cell cell, int row, int column) {
     if (inBounds(row, column)) {
       cell.addNeighbor(grid.get(row).get(column));
     }
@@ -85,7 +85,7 @@ public class CellGrid<T extends Cell> {
    *
    * @return A 2D-Array of cells configured with the constructed height and width.
    */
-  protected List<List<T>> getCells() {
+  protected List<List<Cell>> getCells() {
     return this.grid;
   }
 
@@ -96,7 +96,7 @@ public class CellGrid<T extends Cell> {
    * @param x - The column the cell is found within
    * @param y = The row the cell is found within
    */
-  protected T getCell(int x, int y) {
+  protected Cell getCell(int x, int y) {
 	  if (inBounds(y, x)) {
 		  return grid.get(y).get(x);
 	  } else {

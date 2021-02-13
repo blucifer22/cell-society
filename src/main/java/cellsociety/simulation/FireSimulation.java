@@ -2,7 +2,7 @@ package cellsociety.simulation;
 import java.util.List;
 import java.util.Map;
 
-public class FireSimulation extends Simulation<FireCell> {
+public class FireSimulation extends Simulation {
 	public FireSimulation(
 	    Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates) {
 		super(metaData, config, nonDefaultStates);
@@ -17,9 +17,9 @@ public class FireSimulation extends Simulation<FireCell> {
 		FireRule rule = new FireRule(config);
 		FireCell.rule = rule;
 		for (int[] arr : nonDefaultStates) {
-			FireState state = new FireState(FireState.STATE.BURNING);
-			FireCell cell = cellGrid.getCell(arr[0], arr[1]);
-			cell.setState(state);
+			FireState state = new FireState(FireState.BURNING);
+			FireCell cell = (FireCell)cellGrid.getCell(arr[0], arr[1]);
+			cell.setCellState(state);
 		}
 	}
 }

@@ -5,19 +5,30 @@ package cellsociety.simulation;
  *
  * @author Marc Chmielewski
  */
-public class PercolationState extends CellState<PercolationState.STATE> {
-  private PercolationState.STATE state;
+public class PercolationState extends CellState {
+  public static final int EMPTY = 0;
+  public static final int FULL = 1;
 
-  public PercolationState(PercolationState.STATE state) {
+  public PercolationState(int state) {
     super(state);
   }
 
   public PercolationState() {
-    super(PercolationState.STATE.EMPTY);
+    super(EMPTY);
   }
 
-  enum STATE {
-    EMPTY,
-    FULL
+  /**
+   * Implements a toString for FireState
+   */
+  public String toString() {
+    switch (getState()) {
+      case EMPTY -> {
+        return "EMPTY";
+      }
+      case FULL -> {
+        return "FULL";
+      }
+    }
+    return "INVALID STATE";
   }
 }

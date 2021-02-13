@@ -1,21 +1,20 @@
 package cellsociety.simulation;
 
-public abstract class CellState<T> {
-	protected T state;
+public abstract class CellState {
 
-	public CellState(T state) {
+	private int state;
+
+	public CellState(int state) {
 		this.state = state;
 	}
 
-	public T getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(T state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
-	public String toString() {
-		return (state.toString());
-	}
+	public abstract String toString();
 }

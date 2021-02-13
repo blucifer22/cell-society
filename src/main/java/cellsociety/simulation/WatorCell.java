@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
-import cellsociety.simulation.WatorState.STATE;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class handles the behavior of Cells in the Wa-Tor World simulation, and thus the state
@@ -8,7 +9,7 @@ import cellsociety.simulation.WatorState.STATE;
  *
  * @author Marc Chmielewski
  */
-public class WatorCell extends Cell<WatorState>{
+public class WatorCell extends Cell {
   public static WatorRule rule;
 
   /**
@@ -17,7 +18,7 @@ public class WatorCell extends Cell<WatorState>{
    * <p>The default state for WatorCells is WATER.
    */
   public WatorCell() {
-    super(new WatorState(STATE.WATER));
+    super(new WatorState(WatorState.WATER, 0));
   }
 
   /**
@@ -33,14 +34,48 @@ public class WatorCell extends Cell<WatorState>{
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
    *
-   * <p>Segregation Rules are as follows:
+   * <p>Wa-Tor World Rules are as follows:
    *
-   * <p>If this Cell is surrounded by more than cutoffPercentage other cells of its own type it
-   * remains in place. Otherwise, if there is an available, adjacent empty cell it will attempt to
-   * swap to that Cell.
+   * <p>If this cell is a fish check to see if it is ready to spawn. If so, and there's an space
+   * available, spawn another fish. Else, reset the counter.
+   *
+   *
    */
-  public void computeNextState() {
+  public void computeNextCellState() {
+    Set<Cell> occupiedNeighbors = new HashSet<>();
+    findOccupiedNeighbors(occupiedNeighbors);
+    WatorState currentState = (WatorState) this.getCurrentCellState();
+    switch (currentState.getState()) {
+      case WatorState.FISH -> {
+        if(currentState.getNumberRoundsTillSpawn() == 0) {
+          spawnFish();
+          currentState.setNumberRoundsTillSpawn(rule.getFishBreedingCycle());
+        }
+        else {
+          currentState.setNumberRoundsTillSpawn(currentState.getNumberRoundsTillSpawn() - 1);
+        }
+        checkFishMove(occupiedNeighbors);
+      }
+      case WatorState.SHARK -> {
 
+      }
+    }
+  }
+
+  private void checkFishMove(Set<Cell> occupiedNeighbors) {
+    // TODO: Impelment this
+  }
+
+  private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
+    for(Cell cell : neighbors) {
+      if(cell.getCurrentCellState().getState() != WatorState.WATER) {
+        occupiedNeighbors.add(cell);
+      }
+    }
+  }
+
+  private void spawnFish() {
+    // TODO: Implement this!
   }
 
 
