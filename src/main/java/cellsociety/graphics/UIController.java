@@ -47,16 +47,12 @@ public class UIController {
    * start a simulation based on an input file.
    */
   public void loadNewSimulation() {
-    // TODO: Implement this!
+    simulationController.loadSimulation();
   }
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
-        new SimulationDisplayScene(
-            simulationController,
-            simulationController.getGraphicalCells(),
-            WINDOW_WIDTH,
-            WINDOW_HEIGHT);
+        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT);
     this.stage.setScene(sds);
   }
 
@@ -75,7 +71,8 @@ public class UIController {
    *
    * @param e the <code>Exception</code> to notify the user about
    */
-  public void error(Exception e) {
+  public void notifyUserOfException(Exception e) {
     Alert a = new Alert(AlertType.ERROR, e.getMessage());
+    a.show();
   }
 }

@@ -29,7 +29,7 @@ that we throw at it.
 
 In general, we have opted to take a modular design approach, that is, the design is generally open
 and extensible, but the internal state and behavior is generally closed an encapsulated. We have
-also attempted to implement the model, view, controller (MVC) design pattern, as that allows us to
+also attempted to implement the model, view, uiController (MVC) design pattern, as that allows us to
 keep functionality relatively separate, and as such keep our code DRY and SHY.
 
 ## Overview

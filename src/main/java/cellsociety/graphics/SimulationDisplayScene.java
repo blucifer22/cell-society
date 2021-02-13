@@ -1,7 +1,6 @@
 package cellsociety.graphics;
 
 import cellsociety.simulation.SimulationController;
-import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,19 +15,17 @@ import javafx.scene.layout.Pane;
  * @author Marc Chmielewski
  */
 public class SimulationDisplayScene extends Scene {
+
   private final SimulationController simulationController;
 
-  public SimulationDisplayScene(
-      SimulationController simulationController,
-      List<GraphicalCell> graphicalCells,
-      double width,
+  public SimulationDisplayScene(SimulationController simulationController, double width,
       double height) {
     super(new Group(), width, height);
     this.simulationController = simulationController;
     ObservableList<Node> rootChildren = ((Group) this.getRoot()).getChildren();
-    for (GraphicalCell g : graphicalCells) {
-      rootChildren.add(g.getNode());
-    }
+//    for (GraphicalCell g : graphicalCells) {
+//      rootChildren.add(g.getNode());
+//    }
   }
 
   private Pane createButtonPane() {

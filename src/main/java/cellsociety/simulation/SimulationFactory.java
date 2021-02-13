@@ -12,25 +12,22 @@ public class SimulationFactory {
    *
    * @param file - An XML file that will be parsed to create a new simulation.
    */
-  public Simulation createSimulation(File file) {
-    try {
-      XMLParser parser = new XMLParser(file);
-      Map<String, String> metaData = parser.getSimulationMetadata();
-      Map<String, Double> config = parser.getSimulationParameters();
-      List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
-      Simulation simulation = null;
+  public Simulation createSimulation(File file) throws Exception {
+    XMLParser parser = new XMLParser(file);
+    Map<String, String> metaData = parser.getSimulationMetadata();
+    Map<String, Double> config = parser.getSimulationParameters();
+    List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
+    Simulation simulation = null;
 
-      switch (metaData.get("Name")) {
-        case "Fire Simulation":
-          simulation = new FireSimulation(metaData, config, nonDefaultStates);
-          break;
-        default:
-      }
-      simulation.initialize();
-      return simulation;
-    } catch (Exception e) {
-      return null;
+    switch (metaData.get("Name")) {
+      case "Fire Simulation":
+        simulation = new FireSimulation(metaData, config, nonDefaultStates);
+        break;
+      default:
     }
+    if(simulation == null) throw new Exception("Invalid simulation type specified.");
+    simulation.initialize();
+    return simulation;
   }
 
 }

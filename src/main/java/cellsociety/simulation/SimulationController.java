@@ -22,7 +22,7 @@ import javafx.scene.paint.Paint;
  */
 public class SimulationController {
   private Simulation simulation;
-  private UIController uiController;
+  private final UIController uiController;
 
   public SimulationController(UIController uiController) {
     this.uiController = uiController;
@@ -30,6 +30,7 @@ public class SimulationController {
 
   public void loadSimulation() {
     File simulationConfigurationFile = uiController.selectSimulationFile();
+    System.out.println(simulationConfigurationFile);
     if (simulationConfigurationFile == null) {
       return;
     }
@@ -37,7 +38,7 @@ public class SimulationController {
       this.simulation = (new SimulationFactory()).createSimulation(simulationConfigurationFile);
       uiController.showSimulation(this);
     } catch (Exception e) {
-      uiController.error(e);
+      uiController.notifyUserOfException(e);
     }
   }
 

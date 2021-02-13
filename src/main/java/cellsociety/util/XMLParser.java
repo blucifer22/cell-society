@@ -28,11 +28,10 @@ import org.w3c.dom.Node;
  * @author David Coffman
  */
 public class XMLParser {
-  private Document doc;
+  private final Document doc;
   private HashMap<String, String> simulationMetadata;
   private ArrayList<int[]> initialNonDefaultStates;
   private HashMap<String, Double> simulationParameters;
-  DocumentBuilderFactory dbf;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -47,12 +46,10 @@ public class XMLParser {
     dbf.setCoalescing(true);
     dbf.setIgnoringComments(true);
     dbf.setExpandEntityReferences(true);
-
     DocumentBuilder db = dbf.newDocumentBuilder();
     try {
       db.setErrorHandler(null);
       this.doc = db.parse(f);
-
     } catch (Exception e) {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
@@ -88,7 +85,7 @@ public class XMLParser {
 
   // Parses the metadata node in the XML root
   private void parseMetadata(Node gennode) {
-    HashMap<String, String> metadata = new HashMap<String, String>();
+    HashMap<String, String> metadata = new HashMap<>();
     for (int i = 0; i < gennode.getChildNodes().getLength(); i++) {
       Node n = gennode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
