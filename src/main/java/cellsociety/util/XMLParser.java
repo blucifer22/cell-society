@@ -32,6 +32,8 @@ public class XMLParser {
   private HashMap<String, String> simulationMetadata;
   private ArrayList<int[]> initialNonDefaultStates;
   private HashMap<String, Double> simulationParameters;
+  private int numRows;
+  private int numCols;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -81,6 +83,8 @@ public class XMLParser {
         case "InitialStates" -> parseInitialStates(n);
       }
     }
+    simulationParameters.put("Width", (double) numCols);
+    simulationParameters.put("Height", (double) numRows);
   }
 
   // Parses the metadata node in the XML root
@@ -99,21 +103,27 @@ public class XMLParser {
   }
 
   // Parses the geometric configuration node in the XML root
-  private void parseGeometricConfiguration(Node gcnode) {
+  private void parseGeometricConfiguration(Node gcnode) throws Exception {
+    this.numRows = -1;
+    this.numCols = -1;
+
     for (int i = 0; i < gcnode.getChildNodes().getLength(); i++) {
       Node n = gcnode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
-
-      switch (nodeName) {
-        case "CellShape" -> {
+      try {
+        switch (nodeName) {
+          case "Height" -> this.numRows = Integer.parseInt(childValue);
+          case "Width" -> this.numCols = Integer.parseInt(childValue);
         }
-        case "Height" -> {
-        }
-        case "Width" -> {
-        }
+      } catch (Exception e) {
+        throw new Exception("malformed XML: field "+nodeName+" must be an integer.");
       }
+    }
+    if(numRows < 1 || numCols < 1) {
+      throw new Exception("malformed XML: geometric configuration required; number of rows and "
+          + "columns must both be >=1");
     }
   }
 
