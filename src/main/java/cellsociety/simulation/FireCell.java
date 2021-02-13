@@ -43,21 +43,21 @@ public class FireCell extends Cell {
    * Cell will catch fire and transition to BURNING. This behavior is established in the FireRule,
    * which is loaded in from the parsed XML.
    */
-  public void computeNextState() {
-    if (state.getState() == FireState.UNBURNT) {
+  public void computeNextCellState() {
+    if (cellState.getState() == FireState.UNBURNT) {
       for (Cell cell : neighbors) {
-        if (cell.getCurrentState().getState() == FireState.BURNING) {
+        if (cell.getCurrentCellState().getState() == FireState.BURNING) {
           catchFire();
         }
       }
-    } else if (state.getState() == FireState.BURNING) {
-      nextState = new FireState(FireState.BURNT);
+    } else if (cellState.getState() == FireState.BURNING) {
+      nextCellState = new FireState(FireState.BURNT);
     }
   }
 
   private void catchFire() {
     if (Math.random() > rule.getFlammability()) {
-      nextState = new FireState(FireState.BURNING);
+      nextCellState = new FireState(FireState.BURNING);
     }
   }
 }

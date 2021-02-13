@@ -37,27 +37,27 @@ public class SegregationCell extends Cell {
    * remains in place. Otherwise, if there is an available, adjacent empty cell it will attempt to
    * swap to that Cell.
    */
-  public void computeNextState() {
+  public void computeNextCellState() {
     double numTypeA = 0;
     double numTypeB = 0;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == SegregationState.TYPE_A) {
+      if (cell.getCurrentCellState().getState() == SegregationState.TYPE_A) {
         numTypeA++;
-      } else if (cell.getCurrentState().getState() == SegregationState.TYPE_B) {
+      } else if (cell.getCurrentCellState().getState() == SegregationState.TYPE_B) {
         numTypeB++;
       }
     }
-    switch (this.getCurrentState().getState()) {
+    switch (this.getCurrentCellState().getState()) {
       case SegregationState.TYPE_A -> {
         if ((numTypeA / neighbors.size()) >= rule.getCutoffPercentage()) {
-          this.nextState = null; // null states remain the same
+          this.nextCellState = null; // null states remain the same
         } else {
           swapWithEmpty();
         }
       }
       case SegregationState.TYPE_B -> {
         if ((numTypeB / neighbors.size()) >= rule.getCutoffPercentage()) {
-          this.nextState = null;
+          this.nextCellState = null;
         } else {
           swapWithEmpty();
         }
@@ -67,15 +67,16 @@ public class SegregationCell extends Cell {
 
   private void swapWithEmpty() {
     for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == SegregationState.EMPTY
-          && cell.getNextState().getState() == SegregationState.EMPTY) {
-        nextState = cell.getCurrentState();
-		cell.setNextState(this.state);
+      if (cell.getCurrentCellState().getState() == SegregationState.EMPTY
+          && cell.getNextCellState().getState() == SegregationState.EMPTY) {
+        nextCellState = cell.getCurrentCellState();
+		    cell.setNextCellState(this.cellState);
+		    break;
       }
     }
-    if (this.nextState.getState()
+    if (this.nextCellState.getState()
         != SegregationState.EMPTY) { // If there are no possible empty cells to swap into
-      this.nextState = null;
+      this.nextCellState = null;
     }
   }
 }

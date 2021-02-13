@@ -38,24 +38,24 @@ public class ConwayCell extends Cell {
    * neighbours becomes a live cell. All other live cells die in the next generation. Similarly, all
    * other dead cells stay dead.
    */
-  public void computeNextState() {
+  public void computeNextCellState() {
     int numLiveNeighbors = 0;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == ConwayState.ALIVE) {
+      if (cell.getCurrentCellState().getState() == ConwayState.ALIVE) {
         numLiveNeighbors++;
       }
     }
-    if (state.getState() == ConwayState.ALIVE
+    if (cellState.getState() == ConwayState.ALIVE
         && numLiveNeighbors >= rule.getAliveNumberMin()
         && numLiveNeighbors <= rule.getAliveNumberMax()) {
-      nextState = null; // null states remain the same
-    } else if (state.getState() == ConwayState.DEAD
+      nextCellState = null; // null states remain the same
+    } else if (cellState.getState() == ConwayState.DEAD
         && numLiveNeighbors >= rule.getSpawnNumberMin()
         && numLiveNeighbors <= rule.getSpawnNumberMax()) {
-      nextState = new ConwayState(ConwayState.ALIVE);
+      nextCellState = new ConwayState(ConwayState.ALIVE);
     } else {
-      if (state.getState() != ConwayState.DEAD) {
-        nextState = new ConwayState(ConwayState.DEAD);
+      if (cellState.getState() != ConwayState.DEAD) {
+        nextCellState = new ConwayState(ConwayState.DEAD);
       }
     }
   }

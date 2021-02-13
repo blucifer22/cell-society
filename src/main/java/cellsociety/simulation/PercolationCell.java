@@ -37,11 +37,11 @@ public class PercolationCell extends Cell {
    * <p>If a Cell is EMPTY and it has a neighbor that is FULL, the Cell's next state will be FULL.
    * If the Cell is FULL, it will remain FULL.
    */
-  public void computeNextState() {
-    if (state.getState() != PercolationState.FULL) {
+  public void computeNextCellState() {
+    if (cellState.getState() != PercolationState.FULL) {
       for (Cell cell : neighbors) {
-        if (cell.getCurrentState().getState() == PercolationState.FULL) {
-          nextState = new PercolationState(PercolationState.FULL);
+        if (cell.getCurrentCellState().getState() == PercolationState.FULL) {
+          nextCellState = new PercolationState(PercolationState.FULL);
           break;
         }
       }

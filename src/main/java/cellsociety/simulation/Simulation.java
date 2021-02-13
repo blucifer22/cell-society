@@ -36,13 +36,13 @@ public abstract class Simulation {
 
   protected void computeState() {
 	  for (Cell cell : cells) {
-		  cell.computeNextState();
+		  cell.computeNextCellState();
 	  }
   }
 
   protected void commitState() {
 	  for (Cell cell : cells) {
-		  cell.updateState();
+		  cell.updateCellState();
 	  }
   }
 

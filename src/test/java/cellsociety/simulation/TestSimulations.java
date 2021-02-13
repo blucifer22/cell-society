@@ -17,7 +17,7 @@ class TestSimulation {
       List<Cell> cells = sm.getSimulation().getCells();
 			boolean oneBurning = false;
 			for (Cell cell : cells) {
-				if (cell.getCurrentState().toString().equals("BURNING")) {
+				if (cell.getCurrentCellState().toString().equals("BURNING")) {
 					oneBurning = true;
 				}
 			}
@@ -27,7 +27,7 @@ class TestSimulation {
 			sm.getSimulation().step();
 
 			for (Cell cell : cells) {
-				System.out.println(cell.getCurrentState());
+				System.out.println(cell.getCurrentCellState());
 			}
 
 			assertTrue(oneBurning);
