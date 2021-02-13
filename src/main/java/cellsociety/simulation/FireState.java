@@ -1,5 +1,11 @@
 package cellsociety.simulation;
 
+/**
+ * A class that extends CellState for the Fire Spreading simulation
+ *
+ * @author Marc Chmielewski
+ * @author Joshua Petitma
+ */
 public class FireState extends CellState {
   public static final int UNBURNT = 0;
   public static final int BURNING = 1;

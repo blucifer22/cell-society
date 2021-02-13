@@ -1,14 +1,12 @@
 package cellsociety.simulation;
 
-import cellsociety.simulation.ConwayState.STATE;
-
 /**
  * This class handles the behavior of Cells in Conway's Game of Life, and thus the state transitions
  * therein.
  *
  * @author Marc Chmielewski
  */
-public class ConwayCell extends Cell<ConwayState> {
+public class ConwayCell extends Cell {
 
   public static ConwayRule rule;
 
@@ -18,7 +16,7 @@ public class ConwayCell extends Cell<ConwayState> {
    * <p>The default state for ConwayCells is DEAD.
    */
   public ConwayCell() {
-    super(new ConwayState(STATE.DEAD));
+    super(new ConwayState(ConwayState.DEAD));
   }
 
   /**
@@ -43,21 +41,21 @@ public class ConwayCell extends Cell<ConwayState> {
   public void computeNextState() {
     int numLiveNeighbors = 0;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == STATE.ALIVE) {
+      if (cell.getCurrentState().getState() == ConwayState.ALIVE) {
         numLiveNeighbors++;
       }
     }
-    if (state.getState() == STATE.ALIVE
+    if (state.getState() == ConwayState.ALIVE
         && numLiveNeighbors >= rule.getAliveNumberMin()
         && numLiveNeighbors <= rule.getAliveNumberMax()) {
-      nextState = null; //null states remain the same
-    } else if (state.getState() == STATE.DEAD
+      nextState = null; // null states remain the same
+    } else if (state.getState() == ConwayState.DEAD
         && numLiveNeighbors >= rule.getSpawnNumberMin()
         && numLiveNeighbors <= rule.getSpawnNumberMax()) {
-      nextState = new ConwayState(STATE.ALIVE);
+      nextState = new ConwayState(ConwayState.ALIVE);
     } else {
-      if (state.getState() != STATE.DEAD) {
-        nextState = new ConwayState(STATE.DEAD);
+      if (state.getState() != ConwayState.DEAD) {
+        nextState = new ConwayState(ConwayState.DEAD);
       }
     }
   }
