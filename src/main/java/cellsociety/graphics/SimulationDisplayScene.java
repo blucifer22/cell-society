@@ -37,7 +37,7 @@ public class SimulationDisplayScene extends Scene {
     Button stepButton = new Button("Step");
     row.getChildren().addAll(loadButton, playButton, pauseButton, stepButton);
 
-    loadButton.setOnAction(e -> simulationController.loadSimulation());
+    loadButton.setOnAction(e -> simulationController.loadSimulation(600, 600));
     playButton.setOnAction(e -> simulationController.startSimulation());
     pauseButton.setOnAction(e -> simulationController.pauseSimulation());
     stepButton.setOnAction(e -> simulationController.step());
