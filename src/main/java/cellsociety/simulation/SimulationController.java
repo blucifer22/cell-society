@@ -44,6 +44,7 @@ public class SimulationController {
       this.graphicalCellGrid = new GraphicalCellRectangularGrid(simulation.getCells(),
           new HashMap<>(), displayWidth, displayHeight, simulation.getNumRows(),
           simulation.getNumCols());
+      graphicalCellGrid.update();
       uiController.showSimulation(this);
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
