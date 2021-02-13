@@ -5,15 +5,17 @@ package cellsociety.simulation;
  *
  * @author Marc Chmielewski
  */
-public class SegregationState extends CellState<SegregationState.STATE> {
-  private SegregationState.STATE state;
+public class SegregationState extends CellState {
+  public static final int EMPTY = 0;
+  public static final int TYPE_A = 1;
+  public static final int TYPE_B = 2;
 
   /**
    * Constructs a segregation state with the specified state.
    *
    * @param state - The state which this object is created with.
    */
-  public SegregationState(SegregationState.STATE state) {
+  public SegregationState(int state) {
     super(state);
   }
 
@@ -23,12 +25,24 @@ public class SegregationState extends CellState<SegregationState.STATE> {
    * <p>This constructor creates a state object representing an empty state.
    */
   public SegregationState() {
-    super(SegregationState.STATE.EMPTY);
+    super(EMPTY);
   }
 
-  enum STATE {
-    EMPTY,
-    TYPE_A,
-    TYPE_B
+  /**
+   * Implements a toString for FireState
+   */
+  public String toString() {
+    switch (getState()) {
+      case EMPTY -> {
+        return "EMPTY";
+      }
+      case TYPE_A -> {
+        return "TYPE_A";
+      }
+      case TYPE_B -> {
+        return "TYPE_B";
+      }
+    }
+    return "INVALID STATE";
   }
 }

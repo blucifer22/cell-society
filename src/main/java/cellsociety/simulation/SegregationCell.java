@@ -1,14 +1,12 @@
 package cellsociety.simulation;
 
-import cellsociety.simulation.SegregationState.STATE;
-
 /**
  * This class handles the behavior of Cells in the Segregation simulation, and thus the state
  * transitions therein.
  *
  * @author Marc Chmielewski
  */
-public class SegregationCell extends Cell<SegregationState> {
+public class SegregationCell extends Cell {
   public static SegregationRule rule;
 
   /**
@@ -17,7 +15,7 @@ public class SegregationCell extends Cell<SegregationState> {
    * <p>The default state for SegregationCells is EMPTY.
    */
   public SegregationCell() {
-    super(new SegregationState(SegregationState.STATE.EMPTY));
+    super(new SegregationState(SegregationState.EMPTY));
   }
 
   /**
@@ -43,21 +41,21 @@ public class SegregationCell extends Cell<SegregationState> {
     double numTypeA = 0;
     double numTypeB = 0;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentState().getState() == STATE.TYPE_A) {
+      if (cell.getCurrentState().getState() == SegregationState.TYPE_A) {
         numTypeA++;
-      } else if (cell.getCurrentState().getState() == STATE.TYPE_B) {
+      } else if (cell.getCurrentState().getState() == SegregationState.TYPE_B) {
         numTypeB++;
       }
     }
     switch (this.getCurrentState().getState()) {
-      case TYPE_A -> {
+      case SegregationState.TYPE_A -> {
         if ((numTypeA / neighbors.size()) >= rule.getCutoffPercentage()) {
           this.nextState = null; // null states remain the same
         } else {
           swapWithEmpty();
         }
       }
-      case TYPE_B -> {
+      case SegregationState.TYPE_B -> {
         if ((numTypeB / neighbors.size()) >= rule.getCutoffPercentage()) {
           this.nextState = null;
         } else {
@@ -68,15 +66,15 @@ public class SegregationCell extends Cell<SegregationState> {
   }
 
   private void swapWithEmpty() {
-    for (Cell<SegregationState> cell : neighbors) {
-      if (cell.getCurrentState().getState() == STATE.EMPTY
-          && cell.getNextState().getState() == STATE.EMPTY) {
+    for (Cell cell : neighbors) {
+      if (cell.getCurrentState().getState() == SegregationState.EMPTY
+          && cell.getNextState().getState() == SegregationState.EMPTY) {
         nextState = cell.getCurrentState();
 		cell.setNextState(this.state);
       }
     }
     if (this.nextState.getState()
-        != STATE.EMPTY) { // If there are no possible empty cells to swap into
+        != SegregationState.EMPTY) { // If there are no possible empty cells to swap into
       this.nextState = null;
     }
   }
