@@ -79,7 +79,7 @@ public class WatorCell extends Cell {
     }
 
     // Attempt to move SHARK
-    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors);
+    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors, currentState);
     if(sharkMove != null) {
       move(sharkMove);
     }
@@ -111,12 +111,16 @@ public class WatorCell extends Cell {
     newCell.setNextCellState(getCurrentCellState());
   }
 
-  private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
+  private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors,
+      WatorState currentState) {
+    // Check for fish and eat it if available
     for(Cell neighbor : occupiedNeighbors) {
       if(neighbor.getCurrentCellState().getState() == WatorState.FISH) {
+        currentState.setEnergyLevel(currentState.getEnergyLevel() + rule.getFishEnergyGain());
         return neighbor;
       }
     }
+    // If not, settle for water
     for(Cell neighbor : unoccupiedNeighbors) {
       if(neighbor.getCurrentCellState().getState() == WatorState.WATER) {
         return neighbor;
