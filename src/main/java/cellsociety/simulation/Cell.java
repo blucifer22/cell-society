@@ -46,7 +46,7 @@ public abstract class Cell {
    * @return - An integer representing the cell's state.
    */
   public int getEncoding() {
-	  return 0;
+	  return getCurrentCellState().getState();
   }
 
   /**

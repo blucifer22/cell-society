@@ -43,7 +43,6 @@ public abstract class Simulation {
 
   protected void commitState() {
 	  for (Cell cell : cells) {
-	    assert(cell.nextCellState != null);
 		  cell.updateCellState();
 	  }
   }
