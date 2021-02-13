@@ -56,6 +56,10 @@ public class SimulationController {
     // TODO: Implement this!
   }
 
+  public void exitSimulation() {
+    uiController.exitSimulation();
+  }
+
   public GraphicalCellRectangularGrid graphicalCellGridForCurrentSimulation() {
     assert this.graphicalCellGrid != null;
     return this.graphicalCellGrid;
