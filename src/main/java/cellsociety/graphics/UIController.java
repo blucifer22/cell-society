@@ -42,6 +42,10 @@ public class UIController {
     stage.setTitle("CASim v0.0" + (title == null ? "" : " > " + title));
   }
 
+  public void exitSimulation() {
+    stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT));
+  }
+
   /**
    * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request to
    * start a getSimulation based on an input file.
@@ -73,6 +77,7 @@ public class UIController {
    */
   public void notifyUserOfException(Exception e) {
     Alert a = new Alert(AlertType.ERROR, e.getMessage());
+    e.printStackTrace();
     a.show();
   }
 }

@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeType;
 
 
 /**
@@ -16,7 +17,7 @@ import javafx.scene.shape.Shape;
  * @author David Coffman
  */
 public class GraphicalCell {
-  private static final double MARGIN = 2.0;
+  private static final double MARGIN = 1.0;
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
   private final Shape renderingShape;
@@ -39,6 +40,10 @@ public class GraphicalCell {
     this.simCell = simulationCell;
     this.colorMap = colorMap;
     this.renderingShape = new Rectangle(x+MARGIN, y+MARGIN, width-2.0*MARGIN, height-2.0*MARGIN);
+    this.renderingShape.setStroke(Color.BLACK);
+    this.renderingShape.setStrokeWidth(1.0);
+    this.renderingShape.setStrokeType(StrokeType.INSIDE);
+    update();
   }
 
   /**
@@ -46,7 +51,7 @@ public class GraphicalCell {
    * to refresh their graphical appearance.
    */
   public void update() {
-    this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.BLACK));
+    this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
   }
 
   /**
