@@ -2,7 +2,7 @@
 <xml>
   <General>
     <Name>Conway's Game of Life</Name>
-    <Type>Cyclic</Type>
+    <Type>Conway</Type>
     <Author>John D. Sample</Author>
     <Description>This is a cool simulation.</Description>
   </General>

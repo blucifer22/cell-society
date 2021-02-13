@@ -2,7 +2,7 @@
 <xml>
   <General>
     <Name>Conway Simulation</Name>
-    <Type>Cyclic</Type>
+    <Type>Conway</Type>
     <Author>Someone</Author>
     <Description>Cool</Description>
   </General>
