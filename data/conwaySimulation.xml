@@ -27,5 +27,20 @@
       <Column>2</Column>
       <State>1</State>
     </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
   </InitialStates>
 </xml>
