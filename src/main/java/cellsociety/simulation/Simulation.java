@@ -24,6 +24,7 @@ public abstract class Simulation {
     this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);
     this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
     this.numCells = numCols * numRows;
+    System.out.println(numRows+" "+numCols+" "+config);
     cells = new ArrayList<>();
   }
 
@@ -42,7 +43,6 @@ public abstract class Simulation {
 
   protected void commitState() {
 	  for (Cell cell : cells) {
-	    assert(cell.nextCellState != null);
 		  cell.updateCellState();
 	  }
   }

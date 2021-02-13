@@ -51,7 +51,12 @@ public class GraphicalCell {
    * to refresh their graphical appearance.
    */
   public void update() {
-    this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
+    //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
+    if(simCell.getEncoding() == 0) {
+      this.renderingShape.setFill(Color.WHITE);
+    } else {
+      this.renderingShape.setFill(Color.BLACK);
+    }
   }
 
   /**

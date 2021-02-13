@@ -67,7 +67,9 @@ public class UIController {
     return fc.showOpenDialog(s);
   }
 
-  public void refresh(double elapsedTime) {}
+  public void refresh(double elapsedTime) {
+    simulationController.update(elapsedTime);
+  }
 
   /**
    * Allows <code>Scene</code>s and other controllers to notify the user about exceptions related to

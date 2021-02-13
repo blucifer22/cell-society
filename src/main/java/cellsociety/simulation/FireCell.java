@@ -35,6 +35,7 @@ public class FireCell extends Cell {
     super(state);
   }
 
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.

@@ -16,10 +16,15 @@ import java.util.HashMap;
  * @author Marc Chmielewski
  */
 public class SimulationController {
+  private static final double SECONDS_PER_STEP = 1;
+
   private final UIController uiController;
   private final SimulationFactory simFactory;
   private Simulation simulation;
   private GraphicalCellRectangularGrid graphicalCellGrid;
+
+  private double timer;
+  private boolean stepEnabled;
 
   public SimulationController(UIController uiController) {
     this.uiController = uiController;
@@ -27,6 +32,7 @@ public class SimulationController {
   }
 
   public void loadSimulation(double displayWidth, double displayHeight) {
+    clearState();
     File simulationConfigurationFile = uiController.selectSimulationFile();
     System.out.println(simulationConfigurationFile);
     if (simulationConfigurationFile == null) {
@@ -38,6 +44,7 @@ public class SimulationController {
       this.graphicalCellGrid = new GraphicalCellRectangularGrid(simulation.getCells(),
           new HashMap<>(), displayWidth, displayHeight, simulation.getNumRows(),
           simulation.getNumCols());
+      graphicalCellGrid.update();
       uiController.showSimulation(this);
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
@@ -45,19 +52,37 @@ public class SimulationController {
   }
 
   public void startSimulation() {
-    // TODO: Implement this!
+    stepEnabled = true;
   }
 
   public void pauseSimulation() {
-    // TODO: Implement this!
+    stepEnabled = false;
   }
 
   public void step() {
-    // TODO: Implement this!
+    simulation.step();
+    graphicalCellGrid.update();
   }
 
   public void exitSimulation() {
     uiController.exitSimulation();
+  }
+
+  public void update(double elapsedTime) {
+    if(simulation == null || graphicalCellGrid == null) {
+      return;
+    }
+    timer = timer + elapsedTime;
+    if(timer > SECONDS_PER_STEP && stepEnabled) {
+      timer = 0;
+      step();
+    }
+  }
+
+  private void clearState() {
+    this.simulation = null;
+    this.graphicalCellGrid = null;
+    this.stepEnabled = false;
   }
 
   public GraphicalCellRectangularGrid graphicalCellGridForCurrentSimulation() {
