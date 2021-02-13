@@ -26,7 +26,7 @@ public class SimulationController {
     this.simFactory = new SimulationFactory();
   }
 
-  public void loadSimulation() {
+  public void loadSimulation(double displayWidth, double displayHeight) {
     File simulationConfigurationFile = uiController.selectSimulationFile();
     System.out.println(simulationConfigurationFile);
     if (simulationConfigurationFile == null) {
@@ -35,6 +35,9 @@ public class SimulationController {
     try {
       simFactory.loadSimulationFile(simulationConfigurationFile);
       this.simulation = simFactory.getSimulation();
+      this.graphicalCellGrid = new GraphicalCellRectangularGrid(simulation.getCells(),
+          new HashMap<>(), displayWidth, displayHeight, simulation.getNumRows(),
+          simulation.getNumCols());
       uiController.showSimulation(this);
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
@@ -53,8 +56,12 @@ public class SimulationController {
     // TODO: Implement this!
   }
 
-  public GraphicalCellRectangularGrid graphicalCellGridFactory(double width, double height) {
-    return new GraphicalCellRectangularGrid(simulation.getCells(), new HashMap<>(), width, height,
-        simulation.getNumRows(), simulation.getNumCols());
+  public void exitSimulation() {
+    uiController.exitSimulation();
+  }
+
+  public GraphicalCellRectangularGrid graphicalCellGridForCurrentSimulation() {
+    assert this.graphicalCellGrid != null;
+    return this.graphicalCellGrid;
   }
 }

@@ -12,8 +12,8 @@ public abstract class Simulation {
   protected double numCells;
   protected Map<String, Double> config;
   protected Map<String, String> metaData;
-  private int numRows;
-  private int numCols;
+  private final int numRows;
+  private final int numCols;
   List<int[]> nonDefaultStates;
 
   public Simulation(

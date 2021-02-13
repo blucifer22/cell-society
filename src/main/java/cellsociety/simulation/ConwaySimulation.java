@@ -20,7 +20,7 @@ public class ConwaySimulation extends Simulation{
 		for (int[] arr : nonDefaultStates) {
 			ConwayState state = new ConwayState(ConwayState.ALIVE);
 			ConwayCell cell = (ConwayCell) cellGrid.getCell(arr[0], arr[1]);
-			cell.setCellState(state);
+			if(cell != null) cell.setCellState(state);
 		}
 	}
 }
