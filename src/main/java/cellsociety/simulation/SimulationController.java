@@ -72,7 +72,7 @@ public class SimulationController {
       return;
     }
     timer = timer + elapsedTime;
-    if(timer > SECONDS_PER_STEP) {
+    if(timer > SECONDS_PER_STEP && stepEnabled) {
       timer = 0;
       step();
     }

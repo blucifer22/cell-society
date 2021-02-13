@@ -52,6 +52,7 @@ public class GraphicalCell {
    */
   public void update() {
     this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
+    System.out.println(simCell.getEncoding());
   }
 
   /**
