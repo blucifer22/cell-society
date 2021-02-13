@@ -9,10 +9,10 @@ import java.util.List;
  * <p>Cells hold state and examine their neighboring states to determine whether or not they must
  * change state.
  */
-public abstract class Cell<T extends CellState> {
-  protected List<Cell<T>> neighbors;
-  protected T state;
-  protected T nextState;
+public abstract class Cell {
+  protected List<Cell> neighbors;
+  protected CellState state;
+  protected CellState nextState;
   protected int posX;
   protected int posY;
 
@@ -24,7 +24,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param state - The initial state of the cell.
    */
-  protected Cell(T state) {
+  protected Cell(CellState state) {
     this.state = state;
     neighbors = new ArrayList<>();
   }
@@ -34,7 +34,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @return The current state of the cell.
    */
-  public T getCurrentState() {
+  public CellState getCurrentState() {
     return state;
   }
 
@@ -54,7 +54,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @return The current state of the cell.
    */
-  protected T getNextState() {
+  protected CellState getNextState() {
     return nextState;
   }
 
@@ -79,13 +79,13 @@ public abstract class Cell<T extends CellState> {
     }
   }
 
-  protected void setNextState(T state) {
+  protected void setNextState(CellState state) {
     if (state != null) {
       nextState = state;
     }
   }
 
-  protected void setState(T state) {
+  protected void setState(CellState state) {
     if (state != null) {
       this.state = state;
     }
@@ -96,7 +96,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be added to the list.
    */
-  protected void addNeighbor(Cell<T> neighbor) {
+  protected void addNeighbor(Cell neighbor) {
     neighbors.add(neighbor);
   }
 
@@ -105,7 +105,7 @@ public abstract class Cell<T extends CellState> {
    *
    * @param neighbor - The cell to be removed from the list.
    */
-  protected void removeNeighbor(Cell<T> neighbor) {
+  protected void removeNeighbor(Cell neighbor) {
     neighbors.remove(neighbor);
   }
 
