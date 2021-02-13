@@ -47,7 +47,7 @@ public class UIController {
    * start a getSimulation based on an input file.
    */
   public void loadNewSimulation() {
-    simulationController.loadSimulation();
+    simulationController.loadSimulation(600, 600);
   }
 
   public void showSimulation(SimulationController simulationController) {
