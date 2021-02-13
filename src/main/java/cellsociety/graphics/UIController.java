@@ -26,7 +26,7 @@ public class UIController {
     presentLoadSimScene();
   }
 
-  // Loads the simulation loading screen onto the primary stage
+  // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT));
     this.stage.show();
@@ -44,7 +44,7 @@ public class UIController {
 
   /**
    * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request to
-   * start a simulation based on an input file.
+   * start a getSimulation based on an input file.
    */
   public void loadNewSimulation() {
     simulationController.loadSimulation();

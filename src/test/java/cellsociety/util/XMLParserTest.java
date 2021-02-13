@@ -26,7 +26,7 @@ class TestXMLParsing {
       assertEquals(meta.get("Name"), "Conway's Game of Life");
       assertEquals(meta.get("Type"), "Cyclic");
       assertEquals(meta.get("Author"), "John D. Sample");
-      assertEquals(meta.get("Description"), "This is a cool simulation.");
+      assertEquals(meta.get("Description"), "This is a cool getSimulation.");
     } catch (Exception e) {
       e.printStackTrace();
     }

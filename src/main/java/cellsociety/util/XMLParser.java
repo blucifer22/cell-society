@@ -9,8 +9,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
- * The XMLParser class generates simulation metadata, initial grid states, and simulation parameters
- * given a filepath to a simulation configuration XML file.
+ * The XMLParser class generates simulation metadata, initial grid states, and simulation
+ * parameters given a filepath to a getSimulation configuration XML file.
  *
  * <p>Usage: <code>
  *   try {
@@ -157,7 +157,7 @@ public class XMLParser {
     }
   }
 
-  // Parses the simulation parameters node in the XML root.
+  // Parses the getSimulation parameters node in the XML root.
   private void parseSimulationParameters(Node simParamsNode) throws Exception {
     HashMap<String, Double> simulationParameters = new HashMap<>();
     for (int i = 0; i < simParamsNode.getChildNodes().getLength(); i++) {
@@ -170,7 +170,7 @@ public class XMLParser {
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
-        throw new Exception("malformed XML: one or more simulation parameters are invalid.");
+        throw new Exception("malformed XML: one or more getSimulation parameters are invalid.");
       }
     }
     this.simulationParameters = simulationParameters;

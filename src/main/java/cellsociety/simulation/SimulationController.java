@@ -22,10 +22,12 @@ import javafx.scene.paint.Paint;
  */
 public class SimulationController {
   private Simulation simulation;
+  private SimulationFactory simFactory;
   private final UIController uiController;
 
   public SimulationController(UIController uiController) {
     this.uiController = uiController;
+    this.simFactory = new SimulationFactory();
   }
 
   public void loadSimulation() {
@@ -35,7 +37,8 @@ public class SimulationController {
       return;
     }
     try {
-      this.simulation = (new SimulationFactory()).createSimulation(simulationConfigurationFile);
+      simFactory.loadSimulationFile(simulationConfigurationFile);
+      this.simulation = simFactory.getSimulation();
       uiController.showSimulation(this);
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
