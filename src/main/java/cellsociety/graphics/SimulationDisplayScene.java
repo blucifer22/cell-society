@@ -17,15 +17,18 @@ import javafx.scene.layout.Pane;
 public class SimulationDisplayScene extends Scene {
 
   private final SimulationController simulationController;
+  private final Group root;
 
   public SimulationDisplayScene(SimulationController simulationController, double width,
       double height) {
     super(new Group(), width, height);
+    this.root = (Group) this.getRoot();
     this.simulationController = simulationController;
     ObservableList<Node> rootChildren = ((Group) this.getRoot()).getChildren();
 //    for (GraphicalCell g : graphicalCells) {
 //      rootChildren.add(g.getNode());
 //    }
+    this.root.getChildren().add(createButtonPane());
   }
 
   private Pane createButtonPane() {

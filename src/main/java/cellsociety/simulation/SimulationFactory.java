@@ -21,15 +21,14 @@ public class SimulationFactory {
     this.graphicalCells = null;
 
     XMLParser parser = new XMLParser(file);
-    Map<String, String> metaData = parser.getSimulationMetadata();
+    Map<String, String> metadata = parser.getSimulationMetadata();
     Map<String, Double> config = parser.getSimulationParameters();
     List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
     Simulation simulation;
 
-    switch (metaData.get("Name")) {
-      case "Fire" -> simulation = new FireSimulation(metaData, config, nonDefaultStates);
-      case "Conway" -> simulation = new ConwaySimulation(metaData, config, nonDefaultStates);
-
+    switch (metadata.get("Type")) {
+      case "Fire" -> simulation = new FireSimulation(metadata, config, nonDefaultStates);
+      case "Conway" -> simulation = new ConwaySimulation(metadata, config, nonDefaultStates);
       default -> throw new Exception("Invalid simulation type specified.");
     }
     simulation.initialize();
