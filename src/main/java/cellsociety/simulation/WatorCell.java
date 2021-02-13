@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,6 +47,8 @@ public class WatorCell extends Cell {
   public void computeNextCellState() {
     Set<Cell> occupiedNeighbors = new HashSet<>();
     findOccupiedNeighbors(occupiedNeighbors);
+    HashSet<Cell> unoccupiedNeighbors = new HashSet<>(neighbors);
+    unoccupiedNeighbors.removeAll(occupiedNeighbors);
     WatorState currentState = (WatorState) this.getCurrentCellState();
 
     switch (currentState.getState()) {
@@ -55,7 +56,7 @@ public class WatorCell extends Cell {
 
         // Check FISH spawn
         if(currentState.getNumberRoundsTillSpawn() == 0) {
-          spawn(WatorState.FISH, 0, occupiedNeighbors);
+          spawn(WatorState.FISH, 0, occupiedNeighbors, unoccupiedNeighbors);
           currentState.setNumberRoundsTillSpawn(rule.getFishBreedingCycle());
         }
         else {
@@ -72,7 +73,7 @@ public class WatorCell extends Cell {
 
         // Check SHARK spawn
         if(currentState.getEnergyLevel() >= rule.getSharkSpawnEnergy()) {
-          boolean success = spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2, occupiedNeighbors);
+          boolean success = spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2, occupiedNeighbors, unoccupiedNeighbors);
           if(success) {
             currentState.setEnergyLevel(currentState.getEnergyLevel() / 2);
           }
@@ -85,7 +86,7 @@ public class WatorCell extends Cell {
         }
 
         // Attempt to move SHARK
-        Cell sharkMove = checkSharkMove(occupiedNeighbors);
+        Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors);
         if(sharkMove != null) {
           moveShark();
         }
@@ -94,16 +95,25 @@ public class WatorCell extends Cell {
   }
 
   private void killShark() {
-    // TODO: Implement this
+    nextCellState.setState(WatorState.WATER);
   }
 
   private void moveShark() {
     // TODO: Implement this
   }
 
-  private Cell checkSharkMove(Set<Cell> occupiedNeighbors) {
-    // TODO: Implement this
-    return new WatorCell();
+  private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
+    for(Cell neighbor : occupiedNeighbors) {
+      if(neighbor.getCurrentCellState().getState() == WatorState.FISH) {
+        return neighbor;
+      }
+    }
+    for(Cell neighbor : unoccupiedNeighbors) {
+      if(neighbor.getCurrentCellState().getState() == WatorState.WATER) {
+        return neighbor;
+      }
+    }
+    return null;
   }
 
   private void moveFish() {
@@ -124,10 +134,8 @@ public class WatorCell extends Cell {
     }
   }
 
-  private boolean spawn(int cellType, double energyLevel, Set<Cell> occupiedNeighbors) {
-    HashSet<Cell> availableNeighbors = new HashSet<>(neighbors);
-    availableNeighbors.removeAll(occupiedNeighbors);
-    for(Cell neighbor : availableNeighbors) {
+  private boolean spawn(int cellType, double energyLevel, Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
+    for(Cell neighbor : unoccupiedNeighbors) {
       if(neighbor.getCurrentCellState().getState() == WatorState.WATER &&
           (neighbor.getNextCellState().getState() == WatorState.WATER ||
               neighbor.getNextCellState() == null)) {
