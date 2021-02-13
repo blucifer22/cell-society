@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-import cellsociety.graphics.GraphicalCell;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.util.List;
