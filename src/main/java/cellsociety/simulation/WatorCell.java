@@ -1,14 +1,12 @@
 package cellsociety.simulation;
 
-import cellsociety.simulation.WatorState.STATE;
-
 /**
  * This class handles the behavior of Cells in the Wa-Tor World simulation, and thus the state
  * transitions therein.
  *
  * @author Marc Chmielewski
  */
-public class WatorCell extends Cell<WatorState>{
+public class WatorCell extends Cell {
   public static WatorRule rule;
 
   /**
@@ -17,7 +15,7 @@ public class WatorCell extends Cell<WatorState>{
    * <p>The default state for WatorCells is WATER.
    */
   public WatorCell() {
-    super(new WatorState(STATE.WATER));
+    super(new WatorState(WatorState.WATER, 0));
   }
 
   /**

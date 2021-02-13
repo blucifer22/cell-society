@@ -31,6 +31,4 @@ public class PercolationState extends CellState {
     }
     return "INVALID STATE";
   }
-
-
 }
