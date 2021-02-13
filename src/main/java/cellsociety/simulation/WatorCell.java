@@ -43,21 +43,33 @@ public class WatorCell extends Cell {
    */
   public void computeNextCellState() {
     Set<Cell> occupiedNeighbors = new HashSet<>();
-    for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState().getState() != WatorState.WATER) {
-        occupiedNeighbors.add(cell);
-      }
-    }
+    findOccupiedNeighbors(occupiedNeighbors);
     WatorState currentState = (WatorState) this.getCurrentCellState();
     switch (currentState.getState()) {
       case WatorState.FISH -> {
         if(currentState.getNumberRoundsTillSpawn() == 0) {
           spawnFish();
-
+          currentState.setNumberRoundsTillSpawn(rule.getFishBreedingCycle());
         }
+        else {
+          currentState.setNumberRoundsTillSpawn(currentState.getNumberRoundsTillSpawn() - 1);
+        }
+        checkFishMove(occupiedNeighbors);
       }
       case WatorState.SHARK -> {
 
+      }
+    }
+  }
+
+  private void checkFishMove(Set<Cell> occupiedNeighbors) {
+    // TODO: Impelment this
+  }
+
+  private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
+    for(Cell cell : neighbors) {
+      if(cell.getCurrentCellState().getState() != WatorState.WATER) {
+        occupiedNeighbors.add(cell);
       }
     }
   }

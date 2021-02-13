@@ -132,7 +132,7 @@ public abstract class Cell {
    *
    * @param posX - The placement X this cell has within a grid.
    */
-  protected void setX(int posX) {
+  public void setX(int posX) {
     this.posX = posX;
   }
 

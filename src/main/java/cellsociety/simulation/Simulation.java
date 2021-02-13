@@ -6,7 +6,7 @@ import java.util.Map;
 
 public abstract class Simulation {
   public static final double DEFAULT_CELL_NUMBER = 10;
-  protected CellGrid<Cell> cellGrid;
+  protected CellGrid cellGrid;
   protected List<Cell> cells;
   protected String name;
   protected double numCells;

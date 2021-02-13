@@ -12,16 +12,16 @@ class TestGrids {
 
   @Test
   void testCoolStuff() {
-	  List<FireCell> cells = new ArrayList<>();
+	  List<Cell> cells = new ArrayList<>();
 	  for (int i = 0; i < 25; i++) {
 		  cells.add(new FireCell());
 	  }
 	  Map<String, Double> config = new HashMap<>();
 	  config.put("width", 5.0);
 	  config.put("height", 5.0);
-	  CellGrid<FireCell> grid = new CellGrid<>(cells, config);
+	  CellGrid grid = new CellGrid(cells, config);
 
-	  List<List<FireCell>> res = grid.getCells();
+	  List<List<Cell>> res = grid.getCells();
 
 	  assertEquals(res.size(), 5);
 	  for (int i = 0; i < 5; i++) {
