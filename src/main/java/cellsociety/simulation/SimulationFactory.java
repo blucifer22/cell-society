@@ -1,13 +1,14 @@
 package cellsociety.simulation;
 
+import cellsociety.graphics.GraphicalCell;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.paint.Paint;
 
 public class SimulationFactory {
   private Simulation sim;
+  private List<GraphicalCell> graphicalCells;
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -17,20 +18,20 @@ public class SimulationFactory {
    */
   public void loadSimulationFile(File file) throws Exception {
     this.sim = null;
+    this.graphicalCells = null;
 
     XMLParser parser = new XMLParser(file);
     Map<String, String> metaData = parser.getSimulationMetadata();
     Map<String, Double> config = parser.getSimulationParameters();
     List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
-    Simulation simulation = null;
+    Simulation simulation;
 
     switch (metaData.get("Name")) {
-      case "Fire Simulation":
-        simulation = new FireSimulation(metaData, config, nonDefaultStates);
-        break;
-      default:
+      case "Fire" -> simulation = new FireSimulation(metaData, config, nonDefaultStates);
+      case "Conway" -> simulation = new ConwaySimulation(metaData, config, nonDefaultStates);
+
+      default -> throw new Exception("Invalid simulation type specified.");
     }
-    if(simulation == null) throw new Exception("Invalid getSimulation type specified.");
     simulation.initialize();
     this.sim = simulation;
   }
@@ -43,6 +44,17 @@ public class SimulationFactory {
   public Simulation getSimulation() {
     assert this.sim != null;
     return this.sim;
+  }
+
+  /**
+   * Returns a successfully constructed {@link cellsociety.simulation.Simulation}'s associated
+   * {@link cellsociety.graphics.GraphicalCell}s.
+   *
+   * @return the simulated {@link cellsociety.graphics.GraphicalCell}s
+   */
+  public List<GraphicalCell> getGraphicalCells() {
+    assert this.graphicalCells != null;
+    return this.graphicalCells;
   }
 
 }
