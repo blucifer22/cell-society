@@ -31,11 +31,9 @@ public class WatorCell extends Cell {
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
    *
-   * <p>Segregation Rules are as follows:
+   * <p>Wa-Tor World Rules are as follows:
    *
-   * <p>If this Cell is surrounded by more than cutoffPercentage other cells of its own type it
-   * remains in place. Otherwise, if there is an available, adjacent empty cell it will attempt to
-   * swap to that Cell.
+   * <p>If this cell is a fish
    */
   public void computeNextState() {
 

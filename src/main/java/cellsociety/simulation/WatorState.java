@@ -11,6 +11,7 @@ public class WatorState extends CellState {
   public static final int SHARK = 2;
 
   private int energyLevel;
+  private int numberRoundsTillSpawn;
 
   /**
    * Constructs a state with the specified state.
@@ -66,5 +67,23 @@ public class WatorState extends CellState {
    */
   public void setEnergyLevel(int energyLevel) {
     this.energyLevel = energyLevel;
+  }
+
+  /**
+   * For Fish type cells, gets the number of rounds till the fish will spawn
+   *
+   * @return The number of rounds till the fish will spawn a new fish
+   */
+  public int getNumberRoundsTillSpawn() {
+    return numberRoundsTillSpawn;
+  }
+
+  /**
+   * For Fish type cells, sets the number of rounds till the fish will spawn
+   *
+   * @param numberRoundsTillSpawn  The number of rounds till the fish will spawn a new fish
+   */
+  public void setNumberRoundsTillSpawn(int numberRoundsTillSpawn) {
+    this.numberRoundsTillSpawn = numberRoundsTillSpawn;
   }
 }
