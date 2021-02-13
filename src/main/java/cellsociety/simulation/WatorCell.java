@@ -45,36 +45,79 @@ public class WatorCell extends Cell {
     Set<Cell> occupiedNeighbors = new HashSet<>();
     findOccupiedNeighbors(occupiedNeighbors);
     WatorState currentState = (WatorState) this.getCurrentCellState();
+
     switch (currentState.getState()) {
       case WatorState.FISH -> {
+
+        // Check FISH spawn
         if(currentState.getNumberRoundsTillSpawn() == 0) {
-          spawnFish();
+          spawn(WatorState.FISH, 0, occupiedNeighbors);
           currentState.setNumberRoundsTillSpawn(rule.getFishBreedingCycle());
         }
         else {
           currentState.setNumberRoundsTillSpawn(currentState.getNumberRoundsTillSpawn() - 1);
         }
-        checkFishMove(occupiedNeighbors);
+
+        // Attempt to move FISH
+        Cell fishMove = checkFishMove(occupiedNeighbors);
+        if(fishMove != null) {
+          moveFish();
+        }
       }
       case WatorState.SHARK -> {
 
+        // Check SHARK spawn
+        if(currentState.getEnergyLevel() >= rule.getSharkSpawnEnergy()) {
+          spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2, occupiedNeighbors);
+        }
+
+        // Check SHARK death
+        if(currentState.getEnergyLevel() <= 0) {
+          killShark();
+          break;
+        }
+
+        // Attempt to move SHARK
+        Cell sharkMove = checkSharkMove(occupiedNeighbors);
+        if(sharkMove != null) {
+          moveShark();
+        }
       }
     }
   }
 
-  private void checkFishMove(Set<Cell> occupiedNeighbors) {
-    // TODO: Impelment this
+  private void killShark() {
+    // TODO: Implement this
+  }
+
+  private void moveShark() {
+    // TODO: Implement this
+  }
+
+  private Cell checkSharkMove(Set<Cell> occupiedNeighbors) {
+    // TODO: Implement this
+    return new WatorCell();
+  }
+
+  private void moveFish() {
+    // TODO: Implement this
+  }
+
+  private Cell checkFishMove(Set<Cell> occupiedNeighbors) {
+    // TODO: Implement this
+    return new WatorCell();
   }
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
     for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState().getState() != WatorState.WATER) {
+      if(cell.getCurrentCellState().getState() != WatorState.WATER ||
+          cell.getNextCellState().getState() != WatorState.WATER) {
         occupiedNeighbors.add(cell);
       }
     }
   }
 
-  private void spawnFish() {
+  private void spawn(int cellType, double energyLevel, Set<Cell> occupiedNeighbors) {
     // TODO: Implement this!
   }
 
