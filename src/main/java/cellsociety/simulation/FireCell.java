@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-import cellsociety.simulation.FireState.STATE;
 
 /**
  * This class handles the behavior of cells in the fire spreading simulation and thus the state
@@ -9,7 +8,7 @@ import cellsociety.simulation.FireState.STATE;
  * @author Joshua Petitma
  * @author Marc Chmielewski
  */
-public class FireCell extends Cell<FireState> {
+public class FireCell extends Cell {
 
   /**
    * The rule all firecells follow to change their states.
@@ -45,20 +44,20 @@ public class FireCell extends Cell<FireState> {
    * which is loaded in from the parsed XML.
    */
   public void computeNextState() {
-    if (state.getState() == STATE.NORMAL) {
+    if (state.getState() == FireState.UNBURNT) {
       for (Cell cell : neighbors) {
-        if (cell.getCurrentState().getState() == FireState.STATE.BURNING) {
+        if (cell.getCurrentState().getState() == FireState.BURNING) {
           catchFire();
         }
       }
-    } else if (state.getState() == STATE.BURNING) {
-      nextState = new FireState(FireState.STATE.BURNT);
+    } else if (state.getState() == FireState.BURNING) {
+      nextState = new FireState(FireState.BURNT);
     }
   }
 
   private void catchFire() {
     if (Math.random() > rule.getFlammability()) {
-      nextState = new FireState(FireState.STATE.BURNING);
+      nextState = new FireState(FireState.BURNING);
     }
   }
 }

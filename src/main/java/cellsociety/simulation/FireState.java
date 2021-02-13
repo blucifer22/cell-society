@@ -1,20 +1,16 @@
 package cellsociety.simulation;
 
-public class FireState extends CellState<FireState.STATE> {
-  private FireState.STATE state;
-
-  enum STATE {
-    NORMAL,
-    BURNT,
-    BURNING
-  }
+public class FireState extends CellState {
+  public static final int UNBURNT = 0;
+  public static final int BURNING = 1;
+  public static final int BURNT = 2;
 
   /**
    * Constructs State Object with the specified state.
    *
    * @param state - The state which this object is created with.
    */
-  public FireState(FireState.STATE state) {
+  public FireState(int state) {
     super(state);
   }
 
@@ -24,6 +20,24 @@ public class FireState extends CellState<FireState.STATE> {
    * <p>This constructor creates a state object representing an empty state.
    */
   public FireState() {
-    super(FireState.STATE.NORMAL);
+    super(UNBURNT);
+  }
+
+  /**
+   * Implements a toString for FireState
+   */
+  public String toString() {
+    switch (getState()) {
+      case UNBURNT -> {
+        return "UNBURNT";
+      }
+      case BURNING -> {
+        return "BURNING";
+      }
+      case BURNT -> {
+        return "BURNT";
+      }
+    }
+    return "INVALID STATE";
   }
 }
