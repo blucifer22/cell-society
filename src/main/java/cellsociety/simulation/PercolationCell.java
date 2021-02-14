@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-
 /**
  * This class handles the behavior of Cells in the Percolation simulation, and thus the state
  * transitions therein.
@@ -11,6 +10,7 @@ public class PercolationCell extends Cell {
   public static PercolationRule rule;
   public static final int EMPTY = 0;
   public static final int FULL = 1;
+  public static final int BLOCKED = 2;
 
   /**
    * Construct this cell with its default state.
@@ -40,13 +40,17 @@ public class PercolationCell extends Cell {
    * If the Cell is FULL, it will remain FULL.
    */
   public void computeNextCellState() {
-    if (cellState != FULL) {
+    if (cellState == EMPTY) {
       for (Cell cell : neighbors) {
         if (cell.getCurrentCellState() == FULL) {
           nextCellState = FULL;
           break;
         }
       }
+    } else if (cellState == FULL) {
+      nextCellState = FULL;
+    } else {
+      nextCellState = BLOCKED;
     }
   }
 }
