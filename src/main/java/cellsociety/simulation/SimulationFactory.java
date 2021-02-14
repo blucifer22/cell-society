@@ -13,7 +13,9 @@ public class SimulationFactory {
   public static final String FIRE = "Fire";
   public static final String CONWAY = "Conway";
   public static final String PERC = "Percolation";
-  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC);
+  public static final String WATOR = "Wator";
+  public static final String SEG = "Segregation";
+  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC, WATOR, SEG);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -53,6 +55,8 @@ public class SimulationFactory {
       case FIRE -> FireCell.rule = new FireRule(rule);
       case CONWAY -> ConwayCell.rule = new ConwayRule(rule);
       case PERC -> PercolationCell.rule = new PercolationRule(rule);
+      case WATOR -> WatorCell.rule = new WatorRule(rule);
+      case SEG -> SegregationCell.rule = new SegregationRule(rule);
       default -> {
       }
     }
@@ -63,6 +67,8 @@ public class SimulationFactory {
       case FIRE -> new FireCell();
       case CONWAY -> new ConwayCell();
       case PERC -> new PercolationCell();
+	  case WATOR -> new WatorCell();
+	  case SEG -> new SegregationCell();
       default -> null;
     };
   }
