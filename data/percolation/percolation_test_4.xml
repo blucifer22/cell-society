@@ -13,7 +13,7 @@
     <Width>10</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <FillNumber>1</FillNumber>
+    <FillNumber>4</FillNumber>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
