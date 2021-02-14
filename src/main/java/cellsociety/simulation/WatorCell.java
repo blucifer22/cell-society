@@ -185,7 +185,7 @@ public class WatorCell extends Cell {
     }
     // If not, settle for water
     for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == WATER) {
+      if(neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -222,6 +222,7 @@ public class WatorCell extends Cell {
         else if(cellType == SHARK) {
           Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);
           neighbor.setNextCellState(SHARK, data);
+          System.out.println("SPAWNING SHARK!!!");
         }
         return true;
       }
