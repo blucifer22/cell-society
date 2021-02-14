@@ -9,6 +9,8 @@ package cellsociety.simulation;
  */
 public class PercolationCell extends Cell {
   public static PercolationRule rule;
+  public static final int EMPTY = 0;
+  public static final int FULL = 1;
 
   /**
    * Construct this cell with its default state.
@@ -16,7 +18,7 @@ public class PercolationCell extends Cell {
    * <p>The default state for PercolationCells is EMPTY.
    */
   public PercolationCell() {
-    super(new PercolationState(PercolationState.EMPTY));
+    super(EMPTY);
   }
 
   /**
@@ -24,7 +26,7 @@ public class PercolationCell extends Cell {
    *
    * @param state - The state to use for this cell.
    */
-  public PercolationCell(PercolationState state) {
+  public PercolationCell(int state) {
     super(state);
   }
 
@@ -38,10 +40,10 @@ public class PercolationCell extends Cell {
    * If the Cell is FULL, it will remain FULL.
    */
   public void computeNextCellState() {
-    if (cellState.getState() != PercolationState.FULL) {
+    if (cellState != FULL) {
       for (Cell cell : neighbors) {
-        if (cell.getCurrentCellState().getState() == PercolationState.FULL) {
-          nextCellState = new PercolationState(PercolationState.FULL);
+        if (cell.getCurrentCellState() == FULL) {
+          nextCellState = FULL;
           break;
         }
       }

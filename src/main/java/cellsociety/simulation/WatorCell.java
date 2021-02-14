@@ -11,6 +11,12 @@ import java.util.Set;
  */
 public class WatorCell extends Cell {
   public static WatorRule rule;
+  public static final int WATER = 0;
+  public static final int FISH = 1;
+  public static final int SHARK = 2;
+
+  private double energyLevel;
+  private double roundsTillSpawn;
 
   /**
    * Construct this cell with its default state.
@@ -18,7 +24,9 @@ public class WatorCell extends Cell {
    * <p>The default state for WatorCells is WATER.
    */
   public WatorCell() {
-    super(new WatorState(WatorState.WATER, 0));
+    super(WATER);
+    energyLevel = 0;
+    roundsTillSpawn = 0;
   }
 
   /**
@@ -26,7 +34,7 @@ public class WatorCell extends Cell {
    *
    * @param state - The state to use for this cell.
    */
-  public WatorCell(WatorState state) {
+  public WatorCell(int state) {
     super(state);
   }
 
@@ -49,50 +57,49 @@ public class WatorCell extends Cell {
     findOccupiedNeighbors(occupiedNeighbors);
     HashSet<Cell> unoccupiedNeighbors = new HashSet<>(neighbors);
     unoccupiedNeighbors.removeAll(occupiedNeighbors);
-    WatorState currentState = (WatorState) this.getCurrentCellState();
 
-    switch (currentState.getState()) {
-      case WatorState.FISH -> {
-        updateFishState(unoccupiedNeighbors, currentState);
+    switch (cellState) {
+      case FISH -> {
+        updateFishState(unoccupiedNeighbors, cellState);
       }
-      case WatorState.SHARK -> {
-        updateSharkState(occupiedNeighbors, unoccupiedNeighbors, currentState);
+      case SHARK -> {
+        updateSharkState(occupiedNeighbors, unoccupiedNeighbors, cellState);
       }
     }
   }
 
   private void updateSharkState(Set<Cell> occupiedNeighbors, HashSet<Cell> unoccupiedNeighbors,
-      WatorState currentState) {
+      int currentState) {
     // Check SHARK spawn
-    if(currentState.getEnergyLevel() >= rule.getSharkSpawnEnergy()) {
-      boolean success = spawn(WatorState.SHARK, currentState.getEnergyLevel() / 2,
+    if(currentState >= rule.getSharkSpawnEnergy()) {
+      boolean success = spawn(SHARK, energyLevel / 2,
           unoccupiedNeighbors);
       if(success) {
-        currentState.setEnergyLevel(currentState.getEnergyLevel() / 2);
+        energyLevel/=2;
       }
     }
 
     // Check SHARK death
-    if(currentState.getEnergyLevel() <= 0) {
+    if(energyLevel <= 0) {
       killShark();
       return;
     }
 
     // Attempt to move SHARK
-    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors, currentState);
+    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors, cellState);
     if(sharkMove != null) {
       move(sharkMove);
     }
   }
 
-  private void updateFishState(HashSet<Cell> unoccupiedNeighbors, WatorState currentState) {
+  private void updateFishState(HashSet<Cell> unoccupiedNeighbors, int currentState) {
     // Check FISH spawn
-    if(currentState.getNumberRoundsTillSpawn() == 0) {
-      spawn(WatorState.FISH, 0, unoccupiedNeighbors);
-      currentState.setNumberRoundsTillSpawn(rule.getFishBreedingCycle());
+    if( roundsTillSpawn == 0) {
+      spawn(FISH, 0, unoccupiedNeighbors);
+      roundsTillSpawn = rule.getFishBreedingCycle();
     }
     else {
-      currentState.setNumberRoundsTillSpawn(currentState.getNumberRoundsTillSpawn() - 1);
+      roundsTillSpawn--;
     }
 
     // Attempt to move FISH
@@ -102,8 +109,13 @@ public class WatorCell extends Cell {
     }
   }
 
+  public void setNextCellState(int state, double energyLevel) {
+    this.cellState = state;
+    this.energyLevel = energyLevel;
+  }
+
   private void killShark() {
-    nextCellState.setState(WatorState.WATER);
+    nextCellState = WATER;
   }
 
   private void move(Cell newCell) {
@@ -111,18 +123,22 @@ public class WatorCell extends Cell {
     newCell.setNextCellState(getCurrentCellState());
   }
 
+  public void setEnergyLevel(double energyLevel) {
+    this.energyLevel = energyLevel;
+  }
+
   private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors,
-      WatorState currentState) {
+      int currentState) {
     // Check for fish and eat it if available
     for(Cell neighbor : occupiedNeighbors) {
-      if(neighbor.getCurrentCellState().getState() == WatorState.FISH) {
-        currentState.setEnergyLevel(currentState.getEnergyLevel() + rule.getFishEnergyGain());
+      if(neighbor.getCurrentCellState() == FISH) {
+        setEnergyLevel(energyLevel + rule.getFishEnergyGain());
         return neighbor;
       }
     }
     // If not, settle for water
     for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState().getState() == WatorState.WATER) {
+      if(neighbor.getCurrentCellState() == WATER) {
         return neighbor;
       }
     }
@@ -131,7 +147,7 @@ public class WatorCell extends Cell {
 
   private Cell checkFishMove(Set<Cell> unoccupiedNeighbors) {
     for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState().getState() == WatorState.WATER) {
+      if(neighbor.getCurrentCellState() == WATER) {
         return neighbor;
       }
     }
@@ -140,8 +156,8 @@ public class WatorCell extends Cell {
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
     for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState().getState() != WatorState.WATER ||
-          cell.getNextCellState().getState() != WatorState.WATER) {
+      if(cell.getCurrentCellState() != WATER ||
+          cell.getNextCellState() != WATER) {
         occupiedNeighbors.add(cell);
       }
     }
@@ -149,10 +165,11 @@ public class WatorCell extends Cell {
 
   private boolean spawn(int cellType, double energyLevel, Set<Cell> unoccupiedNeighbors) {
     for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState().getState() == WatorState.WATER &&
-          (neighbor.getNextCellState().getState() == WatorState.WATER ||
-              neighbor.getNextCellState() == null)) {
-        neighbor.setNextCellState(new WatorState(cellType, energyLevel));
+      if(neighbor.getCurrentCellState() == WATER &&
+          (neighbor.getNextCellState() == WATER )) {
+        if (neighbor instanceof WatorCell) {
+          ((WatorCell) (neighbor)).setNextCellState(cellType, energyLevel);
+        }
         return true;
       }
     }
