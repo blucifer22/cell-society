@@ -44,12 +44,18 @@ public class SimulationDisplayScene extends Scene {
     HBox row = new HBox(10);
     Button exitButton = new Button("Exit Simulation");
     Button playButton = new Button("Play");
+    Button speedUpButton = new Button("Speed Up");
+    Button slowDownButton = new Button("Slow Down");
     Button pauseButton = new Button("Pause");
     Button stepButton = new Button("Step");
-    row.getChildren().addAll(exitButton, playButton, pauseButton, stepButton);
+
+    row.getChildren().addAll(exitButton, playButton, speedUpButton, slowDownButton, pauseButton,
+        stepButton);
 
     exitButton.setOnAction(e -> simulationController.exitSimulation());
     playButton.setOnAction(e -> simulationController.startSimulation());
+    speedUpButton.setOnAction(e -> simulationController.speedUpSimulation());
+    slowDownButton.setOnAction(e ->simulationController.slowDownSimulation());
     pauseButton.setOnAction(e -> simulationController.pauseSimulation());
     stepButton.setOnAction(e -> simulationController.step());
     row.setAlignment(Pos.CENTER);
