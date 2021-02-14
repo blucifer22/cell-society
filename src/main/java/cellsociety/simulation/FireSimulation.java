@@ -18,7 +18,7 @@ public class FireSimulation extends Simulation {
 		FireCell.rule = rule;
 		for (int[] arr : nonDefaultStates) {
 			FireState state = new FireState(FireState.BURNING);
-			FireCell cell = (FireCell)cellGrid.getCell(arr[0], arr[1]);
+			FireCell cell = (FireCell)cellGrid.getCell(arr[1], arr[0]);
 			cell.setCellState(state);
 		}
 	}

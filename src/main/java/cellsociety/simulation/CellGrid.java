@@ -29,11 +29,11 @@ public class CellGrid {
   public CellGrid(List<Cell> cells, Map<String, Double> configuration) {
     this.grid = new ArrayList<>();
     this.configuration = configuration;
-    this.platformWidth = configuration.getOrDefault("width", DEFAULT_WIDTH);
-    this.platformHeight = configuration.getOrDefault("height", DEFAULT_HEIGHT);
-    for (int i = 0, count = 0; i < DEFAULT_HEIGHT && count < cells.size(); i++) {
+    this.platformWidth = configuration.getOrDefault("Width", DEFAULT_WIDTH);
+    this.platformHeight = configuration.getOrDefault("Height", DEFAULT_HEIGHT);
+    for (int i = 0, count = 0; i < platformHeight && count < cells.size(); i++) {
       grid.add(new ArrayList<>());
-      for (int j = 0; j < DEFAULT_WIDTH && count < cells.size(); j++, count++) {
+      for (int j = 0; j < platformWidth && count < cells.size(); j++, count++) {
         cells.get(count).setY(i);
         cells.get(count).setX(j);
         grid.get(i).add(cells.get(count));
@@ -97,11 +97,7 @@ public class CellGrid {
    * @param y = The row the cell is found within
    */
   protected Cell getCell(int x, int y) {
-	  if (inBounds(y, x)) {
 		  return grid.get(y).get(x);
-	  } else {
-		  return null;
-	  }
   }
 
   /**
