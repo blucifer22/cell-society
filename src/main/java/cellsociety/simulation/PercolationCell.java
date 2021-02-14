@@ -41,8 +41,12 @@ public class PercolationCell extends Cell {
    */
   public void computeNextCellState() {
     if (cellState == EMPTY) {
+      int countFillNeighbors = 0;
       for (Cell cell : neighbors) {
         if (cell.getCurrentCellState() == FULL) {
+          countFillNeighbors++;
+        }
+        if(countFillNeighbors >= rule.getFillNumber()) {
           nextCellState = FULL;
           break;
         }
