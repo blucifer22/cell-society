@@ -29,8 +29,8 @@ public class CellGrid {
   public CellGrid(List<Cell> cells, Map<String, Double> configuration) {
     this.grid = new ArrayList<>();
     this.configuration = configuration;
-    this.platformWidth = configuration.getOrDefault("width", DEFAULT_WIDTH);
-    this.platformHeight = configuration.getOrDefault("height", DEFAULT_HEIGHT);
+    this.platformWidth = configuration.getOrDefault("Width", DEFAULT_WIDTH);
+    this.platformHeight = configuration.getOrDefault("Height", DEFAULT_HEIGHT);
     for (int i = 0, count = 0; i < DEFAULT_HEIGHT && count < cells.size(); i++) {
       grid.add(new ArrayList<>());
       for (int j = 0; j < DEFAULT_WIDTH && count < cells.size(); j++, count++) {

@@ -54,6 +54,8 @@ public class GraphicalCell {
     //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
     if(simCell.getEncoding() == 0) {
       this.renderingShape.setFill(Color.WHITE);
+    } else if(simCell.getEncoding() == 1) {
+      this.renderingShape.setFill(Color.RED);
     } else {
       this.renderingShape.setFill(Color.BLACK);
     }
