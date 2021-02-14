@@ -65,6 +65,9 @@ public class WatorCell extends Cell {
     } else if (state == SHARK) {
       energyLevel = values.getOrDefault(ENERGY_LEVEL, rule.getSharkSpawnEnergy() / 2);
       roundsTillSpawn = 0;
+    } else {
+      energyLevel = 0;
+      roundsTillSpawn = 0;
     }
     nextCellState = state;
   }
@@ -91,39 +94,43 @@ public class WatorCell extends Cell {
 
     switch (cellState) {
       case FISH -> {
-        updateFishState(unoccupiedNeighbors, cellState);
+        updateFishState(unoccupiedNeighbors);
       }
       case SHARK -> {
-        updateSharkState(occupiedNeighbors, unoccupiedNeighbors, cellState);
+        System.out.println("XY: " + this.posX + " " + this.posY + " SHARK ENERGY LEVEL: " + energyLevel);
+        updateSharkState(occupiedNeighbors, unoccupiedNeighbors);
       }
     }
   }
 
-  private void updateSharkState(Set<Cell> occupiedNeighbors, HashSet<Cell> unoccupiedNeighbors,
-      int currentState) {
-    // Check SHARK spawn
-    if(currentState >= rule.getSharkSpawnEnergy()) {
-      boolean success = spawn(SHARK, energyLevel / 2,
-          unoccupiedNeighbors);
-      if(success) {
-        energyLevel/=2;
-      }
-    }
+  private void updateSharkState(Set<Cell> occupiedNeighbors, HashSet<Cell> unoccupiedNeighbors) {
+
+    // Decrement SHARK energy level
+    energyLevel--;
 
     // Check SHARK death
     if(energyLevel <= 0) {
-      killShark();
+      killShark(this);
       return;
     }
 
-    // Attempt to move SHARK
-    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors, cellState);
+    // Check SHARK spawn
+    if(energyLevel >= rule.getSharkSpawnEnergy()) {
+      boolean success = spawn(SHARK, energyLevel / 2,
+          unoccupiedNeighbors);
+      if(success) {
+        energyLevel /= 2;
+      }
+    }
+
+    // Attempt to move SHARK and eat a FISH if possible
+    Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors);
     if(sharkMove != null) {
       move(sharkMove);
     }
   }
 
-  private void updateFishState(HashSet<Cell> unoccupiedNeighbors, int currentState) {
+  private void updateFishState(HashSet<Cell> unoccupiedNeighbors) {
     // Check FISH spawn
     if(roundsTillSpawn == 0) {
       spawn(FISH, 0, unoccupiedNeighbors);
@@ -140,16 +147,18 @@ public class WatorCell extends Cell {
     }
   }
 
-  private void killFish() {
-    nextCellState = WATER;
+  private void killFish(Cell cell) {
+    cell.setCellState(WATER);
   }
 
-  private void killShark() {
-    nextCellState = WATER;
+  private void killShark(Cell cell) {
+    Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, 0.0, ENERGY_LEVEL, 0.0);
+    cell.setCellState(WATER);
+    cell.setNextCellState(WATER, data);
   }
 
   private void move(Cell newCell) {
-    setNextCellState(WATER);
+    this.setNextCellState(WATER);
     if(this.cellState == FISH) {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, this.roundsTillSpawn, ENERGY_LEVEL, 0.0);
       newCell.setNextCellState(FISH, data);
@@ -158,19 +167,19 @@ public class WatorCell extends Cell {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, 0.0, ENERGY_LEVEL, this.energyLevel);
       newCell.setNextCellState(SHARK, data);
     }
+    this.setCellState(WATER);
   }
 
   public void setEnergyLevel(double energyLevel) {
     this.energyLevel = energyLevel;
   }
 
-  private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors,
-      int currentState) {
+  private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
     // Check for fish and eat it if available
     for(Cell neighbor : occupiedNeighbors) {
       if(neighbor.getCurrentCellState() == FISH) {
         setEnergyLevel(energyLevel + rule.getFishEnergyGain());
-        killFish();
+        killFish(neighbor);
         return neighbor;
       }
     }
@@ -208,6 +217,7 @@ public class WatorCell extends Cell {
         if(cellType == FISH) {
             Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
             neighbor.setNextCellState(FISH, data);
+            System.out.println("SPAWNING FISH!!!!");
         }
         else if(cellType == SHARK) {
           Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);
