@@ -16,7 +16,7 @@
   <SimulationParameters>
     <FishBreedingCycle>3</FishBreedingCycle>
     <FishEnergyGain>5</FishEnergyGain>
-    <SharkSpawnEnergy>10</SharkSpawnEnergy>
+    <SharkSpawnEnergy>3</SharkSpawnEnergy>
     <SharkEnergyLoss>1</SharkEnergyLoss>
   </SimulationParameters>
   <!--

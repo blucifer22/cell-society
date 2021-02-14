@@ -24,9 +24,9 @@ public class WatorCell extends Cell {
    * <p>The default state for WatorCells is WATER.
    */
   public WatorCell() {
-    super(WATER);
-    energyLevel = 0;
-    roundsTillSpawn = 0;
+    this(WATER);
+    energyLevel = 15;
+    roundsTillSpawn = 3;
   }
 
   /**
