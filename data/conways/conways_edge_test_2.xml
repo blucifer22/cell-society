@@ -1,7 +1,7 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>Conway's Game of Life: Cambridge Pulsar</Name>
+    <Name>Conway's Game of Life: Cambridge Pulsar (Corner Edition)</Name>
     <Type>Conway</Type>
     <Author>Marc Chmielewski</Author>
     <Description>This is an implementation of the Cambridge Pulsar</Description>
@@ -23,8 +23,108 @@
    -->
   <InitialStates>
     <Cell>
-      <Row>5</Row>
+      <Row>0</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>4</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>8</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>9</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>10</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>5</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
       <Column>7</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>12</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>5</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>7</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>12</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>5</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>7</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>12</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>5</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>5</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>5</Row>
+      <Column>4</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -39,22 +139,32 @@
     </Cell>
     <Cell>
       <Row>5</Row>
-      <Column>13</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>5</Row>
-      <Column>14</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>5</Row>
-      <Column>15</Column>
+      <Column>10</Column>
       <State>1</State>
     </Cell>
     <Cell>
       <Row>7</Row>
-      <Column>5</Column>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>7</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>7</Row>
+      <Column>4</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>7</Row>
+      <Column>8</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>7</Row>
+      <Column>9</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -63,13 +173,8 @@
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>7</Row>
-      <Column>12</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>7</Row>
-      <Column>17</Column>
+      <Row>8</Row>
+      <Column>0</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -79,7 +184,7 @@
     </Cell>
     <Cell>
       <Row>8</Row>
-      <Column>10</Column>
+      <Column>7</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -88,8 +193,8 @@
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>8</Row>
-      <Column>17</Column>
+      <Row>9</Row>
+      <Column>0</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -99,7 +204,7 @@
     </Cell>
     <Cell>
       <Row>9</Row>
-      <Column>10</Column>
+      <Column>7</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -108,8 +213,13 @@
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>9</Row>
-      <Column>17</Column>
+      <Row>10</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>10</Row>
+      <Column>5</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -119,32 +229,22 @@
     </Cell>
     <Cell>
       <Row>10</Row>
-      <Column>8</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>10</Row>
-      <Column>9</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>10</Row>
-      <Column>13</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>10</Row>
-      <Column>14</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>10</Row>
-      <Column>15</Column>
+      <Column>12</Column>
       <State>1</State>
     </Cell>
     <Cell>
       <Row>12</Row>
-      <Column>7</Column>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>12</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>12</Row>
+      <Column>4</Column>
       <State>1</State>
     </Cell>
     <Cell>
@@ -159,107 +259,7 @@
     </Cell>
     <Cell>
       <Row>12</Row>
-      <Column>13</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>12</Row>
-      <Column>14</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>12</Row>
-      <Column>15</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>13</Row>
-      <Column>5</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>13</Row>
       <Column>10</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>13</Row>
-      <Column>12</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>13</Row>
-      <Column>17</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>14</Row>
-      <Column>5</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>14</Row>
-      <Column>10</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>14</Row>
-      <Column>12</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>14</Row>
-      <Column>17</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>15</Row>
-      <Column>5</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>15</Row>
-      <Column>10</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>15</Row>
-      <Column>12</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>15</Row>
-      <Column>17</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>7</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>8</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>9</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>13</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>14</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>17</Row>
-      <Column>15</Column>
       <State>1</State>
     </Cell>
   </InitialStates>
