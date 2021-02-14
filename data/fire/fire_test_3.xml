@@ -12,7 +12,7 @@
     <Width>50</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <Flammability>.9</Flammability>
+    <Flammability>.3</Flammability>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
@@ -31,6 +31,11 @@
     </Cell>
     <Cell>
       <Row>10</Row>
+      <Column>10</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
       <Column>10</Column>
       <State>1</State>
     </Cell>
