@@ -11,7 +11,7 @@ class TestSimulation {
   @Test
   void testFire() {
     try {
-      File file = new File("data/fireSimulation.xml");
+      File file = new File("data/fire/fire_test_1.xml");
       SimulationFactory sm = new SimulationFactory();
       sm.loadSimulationFile(file);
       List<Cell> cells = sm.getSimulation().getCells();
@@ -25,11 +25,6 @@ class TestSimulation {
       sm.getSimulation().step();
       sm.getSimulation().step();
       sm.getSimulation().step();
-
-      for (Cell cell : cells) {
-        System.out.println(cell.getCurrentCellState());
-        System.out.println(cell.getEncoding());
-      }
 
       assertTrue(oneBurning);
     } catch (Exception e) {
@@ -52,16 +47,6 @@ class TestSimulation {
       }
 
 	  assertEquals(counter, 4);
-
-      sm.getSimulation().step();
-      sm.getSimulation().step();
-      sm.getSimulation().step();
-
-      for (Cell cell : cells) {
-        System.out.println(cell.getCurrentCellState());
-        System.out.println(cell.getEncoding());
-      }
-
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
@@ -75,22 +60,19 @@ class TestSimulation {
       SimulationFactory sm = new SimulationFactory();
       sm.loadSimulationFile(file);
       List<Cell> cells = sm.getSimulation().getCells();
-
+	  Simulation sim = sm.getSimulation();
       for (int i = 0; i < 25; i++) {
         System.out.print(cells.get(i).getCurrentCellState());
       }
-      System.out.println();
-      sm.getSimulation().step();
+      sim.step();
       for (int i = 0; i < 25; i++) {
         System.out.print(cells.get(i).getCurrentCellState());
       }
-      System.out.println();
-      sm.getSimulation().step();
+      sim.step();
       for (int i = 0; i < 25; i++) {
         System.out.print(cells.get(i).getCurrentCellState());
       }
-      System.out.println();
-      sm.getSimulation().step();
+      sim.step();
       for (int i = 0; i < 25; i++) {
         System.out.print(cells.get(i).getCurrentCellState());
       }
