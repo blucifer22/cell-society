@@ -97,7 +97,6 @@ public class WatorCell extends Cell {
         updateFishState(unoccupiedNeighbors);
       }
       case SHARK -> {
-        System.out.println("XY: " + this.posX + " " + this.posY + " SHARK ENERGY LEVEL: " + energyLevel);
         updateSharkState(occupiedNeighbors, unoccupiedNeighbors);
       }
     }
@@ -119,7 +118,7 @@ public class WatorCell extends Cell {
       boolean success = spawn(SHARK, energyLevel / 2,
           unoccupiedNeighbors);
       if(success) {
-        energyLevel /= 2;
+        this.energyLevel /= 2;
       }
     }
 
@@ -131,10 +130,11 @@ public class WatorCell extends Cell {
   }
 
   private void updateFishState(HashSet<Cell> unoccupiedNeighbors) {
+
     // Check FISH spawn
     if(roundsTillSpawn == 0) {
       spawn(FISH, 0, unoccupiedNeighbors);
-      roundsTillSpawn = rule.getFishBreedingCycle();
+      roundsTillSpawn = rule.getFishBreedingCycle(); // Reset counter regardless of success
     }
     else {
       roundsTillSpawn--;
@@ -217,12 +217,10 @@ public class WatorCell extends Cell {
         if(cellType == FISH) {
             Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
             neighbor.setNextCellState(FISH, data);
-            System.out.println("SPAWNING FISH!!!!");
         }
         else if(cellType == SHARK) {
           Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);
           neighbor.setNextCellState(SHARK, data);
-          System.out.println("SPAWNING SHARK!!!");
         }
         return true;
       }
