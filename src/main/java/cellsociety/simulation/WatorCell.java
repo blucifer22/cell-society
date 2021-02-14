@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -25,8 +26,8 @@ public class WatorCell extends Cell {
    */
   public WatorCell() {
     this(WATER);
-    energyLevel = 15;
-    roundsTillSpawn = 3;
+    energyLevel = 0;
+    roundsTillSpawn = 0;
   }
 
   /**
@@ -36,6 +37,33 @@ public class WatorCell extends Cell {
    */
   public WatorCell(int state) {
     super(state);
+  }
+
+  @Override
+  protected void setCellState(int state) {
+    if(state == FISH) {
+      energyLevel = 0;
+      roundsTillSpawn = rule.getFishBreedingCycle();
+    }
+    else if(state == SHARK) {
+      energyLevel = rule.getSharkSpawnEnergy() / 2;
+      roundsTillSpawn = 0;
+    }
+    else {
+      energyLevel = 0;
+      roundsTillSpawn = 0;
+    }
+  }
+
+  @Override
+  protected void setCellState(int state, Map<String, Double> values) {
+    if(state == FISH) {
+      energyLevel = 0;
+      roundsTillSpawn = values.getOrDefault("RoundsTillSpawn", rule.getFishBreedingCycle());
+    } else if (state == SHARK) {
+      energyLevel = values.getOrDefault("energyLevel", rule.getSharkSpawnEnergy() / 2);
+      roundsTillSpawn = 0;
+    }
   }
 
   /**
