@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Simulation {
+public class Simulation {
   public static final double DEFAULT_CELL_NUMBER = 10;
   protected CellGrid cellGrid;
   protected List<Cell> cells;
@@ -24,8 +24,6 @@ public abstract class Simulation {
     this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);
     this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
     this.numCells = numCols * numRows;
-    System.out.println(numRows+" "+numCols+" "+config);
-    cells = new ArrayList<>();
   }
 
   /**
@@ -33,12 +31,23 @@ public abstract class Simulation {
    *
    * <p>Allows the simulation to create its needed fields and rules to run.
    */
-  protected abstract void initialize();
+  protected void initialize(List<Cell> cells) {
+	  this.cells = cells;
+	  this.cellGrid = new CellGrid(cells, config);
+		for (int[] arr : nonDefaultStates) {
+			Cell cell =  cellGrid.getCell(arr[1], arr[0]);
+			cell.setCellState(arr[2]);
+		}
+  }
 
   protected void computeState() {
 	  for (Cell cell : cells) {
 		  cell.computeNextCellState();
 	  }
+  }
+
+  public double getNumCells() {
+    return numCells;
   }
 
   protected void commitState() {
