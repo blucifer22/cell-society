@@ -1,18 +1,18 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>Segregation Edge Test 1</Name>
+    <Name>Segregation Edge Test 2</Name>
     <Type>Segregation</Type>
     <Author>Marc Chmielewski</Author>
-    <Description>View the progress of segregation, with a higher cutoff percentage but no space.</Description>
+    <Description>View the progress of segregation, with a higher cutoff percentage.</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
-    <Height>3</Height>
-    <Width>3</Width>
+    <Height>5</Height>
+    <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <CutoffPercentage>.5</CutoffPercentage>
+    <CutoffPercentage>.4</CutoffPercentage>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
