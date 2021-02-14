@@ -37,8 +37,8 @@ public class SimulationFactory {
     }
 
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
-    initializeCells(simulation, type);
     initializeRule(config, type);
+    initializeCells(simulation, type);
     this.sim = simulation;
   }
 

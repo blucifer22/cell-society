@@ -2,6 +2,7 @@ package cellsociety.simulation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A general cell type.
@@ -82,6 +83,10 @@ public abstract class Cell {
 
   protected void setCellState(int state) {
       this.cellState = state;
+  }
+
+  protected void setNextCellState(int state, Map<String, Double> values) {
+
   }
 
   /**

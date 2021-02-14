@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>Wator Simulation</Name>
+    <Name>Wator Simulation 3</Name>
     <Type>Wator</Type>
-    <Author>Josh</Author>
-    <Description>You can watch the circle of life :(</Description>
+    <Author>Marc Chmielewski</Author>
+    <Description>Just one fish and one shark!</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
@@ -27,7 +25,7 @@
     <Cell>
       <Row>2</Row>
       <Column>2</Column>
-      <State>1</State>
+      <State>2</State>
     </Cell>
     <Cell>
       <Row>2</Row>
@@ -35,24 +33,14 @@
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>1</Row>
-      <Column>1</Column>
+      <Row>3</Row>
+      <Column>3</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>2</Row>
+      <Row>1</Row>
       <Column>1</Column>
-      <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>2</Row>
-      <Column>0</Column>
-      <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>2</Row>
-      <Column>4</Column>
-      <State>2</State>
+      <State>1</State>
     </Cell>
   </InitialStates>
 </xml>

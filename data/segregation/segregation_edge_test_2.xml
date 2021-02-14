@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>Wator Simulation</Name>
-    <Type>Wator</Type>
-    <Author>Josh</Author>
-    <Description>You can watch the circle of life :(</Description>
+    <Name>Segregation Edge Test 2</Name>
+    <Type>Segregation</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>View the progress of segregation, with a higher cutoff percentage.</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
@@ -14,10 +12,7 @@
     <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <FishBreedingCycle>2</FishBreedingCycle>
-    <FishEnergyGain>5</FishEnergyGain>
-    <SharkSpawnEnergy>3</SharkSpawnEnergy>
-    <SharkEnergyLoss>1</SharkEnergyLoss>
+    <CutoffPercentage>.4</CutoffPercentage>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
@@ -25,14 +20,24 @@
    -->
   <InitialStates>
     <Cell>
-      <Row>2</Row>
+      <Row>0</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>1</Column>
+      <State>2</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
       <Column>2</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>2</Row>
-      <Column>3</Column>
-      <State>1</State>
+      <Row>1</Row>
+      <Column>0</Column>
+      <State>2</State>
     </Cell>
     <Cell>
       <Row>1</Row>
@@ -40,19 +45,24 @@
       <State>1</State>
     </Cell>
     <Cell>
+      <Row>1</Row>
+      <Column>2</Column>
+      <State>2</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
       <Row>2</Row>
       <Column>1</Column>
       <State>2</State>
     </Cell>
     <Cell>
       <Row>2</Row>
-      <Column>0</Column>
-      <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>2</Row>
-      <Column>4</Column>
-      <State>2</State>
+      <Column>2</Column>
+      <State>1</State>
     </Cell>
   </InitialStates>
 </xml>

@@ -70,16 +70,17 @@ public class SegregationCell extends Cell {
   }
 
   private void swapWithEmpty() {
+    boolean swapSuccess = false;
     for (Cell cell : neighbors) {
       if (cell.getCurrentCellState() == EMPTY
           && cell.getNextCellState() == EMPTY) {
         nextCellState = cell.getCurrentCellState();
 		    cell.setNextCellState(this.cellState);
+		    swapSuccess = true;
 		    break;
       }
     }
-    if (this.nextCellState
-        != EMPTY) {
+    if (!swapSuccess) {
       this.nextCellState = cellState;
     }
   }
