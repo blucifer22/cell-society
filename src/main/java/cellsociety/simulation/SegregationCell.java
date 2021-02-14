@@ -8,6 +8,9 @@ package cellsociety.simulation;
  */
 public class SegregationCell extends Cell {
   public static SegregationRule rule;
+  public static final int EMPTY = 0;
+  public static final int TYPE_A = 1;
+  public static final int TYPE_B = 2;
 
   /**
    * Construct this cell with its default state.
@@ -15,7 +18,7 @@ public class SegregationCell extends Cell {
    * <p>The default state for SegregationCells is EMPTY.
    */
   public SegregationCell() {
-    super(new SegregationState(SegregationState.EMPTY));
+    super(EMPTY);
   }
 
   /**
@@ -23,7 +26,7 @@ public class SegregationCell extends Cell {
    *
    * @param state - The state to use for this cell.
    */
-  public SegregationCell(SegregationState state) {
+  public SegregationCell(int state) {
     super(state);
   }
 
@@ -41,23 +44,23 @@ public class SegregationCell extends Cell {
     double numTypeA = 0;
     double numTypeB = 0;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentCellState().getState() == SegregationState.TYPE_A) {
+      if (cell.getCurrentCellState() == TYPE_A) {
         numTypeA++;
-      } else if (cell.getCurrentCellState().getState() == SegregationState.TYPE_B) {
+      } else if (cell.getCurrentCellState() == TYPE_B) {
         numTypeB++;
       }
     }
-    switch (this.getCurrentCellState().getState()) {
-      case SegregationState.TYPE_A -> {
+    switch (this.getCurrentCellState()) {
+      case TYPE_A -> {
         if ((numTypeA / neighbors.size()) >= rule.getCutoffPercentage()) {
-          this.nextCellState = null; // null states remain the same
+          this.nextCellState = TYPE_A; // remains the same
         } else {
           swapWithEmpty();
         }
       }
-      case SegregationState.TYPE_B -> {
+      case TYPE_B -> {
         if ((numTypeB / neighbors.size()) >= rule.getCutoffPercentage()) {
-          this.nextCellState = null;
+          this.nextCellState = TYPE_B; // remains the same
         } else {
           swapWithEmpty();
         }
@@ -67,16 +70,16 @@ public class SegregationCell extends Cell {
 
   private void swapWithEmpty() {
     for (Cell cell : neighbors) {
-      if (cell.getCurrentCellState().getState() == SegregationState.EMPTY
-          && cell.getNextCellState().getState() == SegregationState.EMPTY) {
+      if (cell.getCurrentCellState() == EMPTY
+          && cell.getNextCellState() == EMPTY) {
         nextCellState = cell.getCurrentCellState();
 		    cell.setNextCellState(this.cellState);
 		    break;
       }
     }
-    if (this.nextCellState.getState()
-        != SegregationState.EMPTY) { // If there are no possible empty cells to swap into
-      this.nextCellState = null;
+    if (this.nextCellState
+        != EMPTY) {
+      this.nextCellState = cellState;
     }
   }
 }

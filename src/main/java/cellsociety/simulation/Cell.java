@@ -11,8 +11,8 @@ import java.util.List;
  */
 public abstract class Cell {
   protected List<Cell> neighbors;
-  protected CellState cellState;
-  protected CellState nextCellState;
+  protected int cellState;
+  protected int nextCellState;
   protected int posX;
   protected int posY;
 
@@ -24,7 +24,7 @@ public abstract class Cell {
    *
    * @param cellState - The initial state of the cell.
    */
-  protected Cell(CellState cellState) {
+  protected Cell(int cellState) {
     this.cellState = cellState;
     neighbors = new ArrayList<>();
   }
@@ -34,7 +34,7 @@ public abstract class Cell {
    *
    * @return The current state of the cell.
    */
-  public CellState getCurrentCellState() {
+  public int getCurrentCellState() {
     return cellState;
   }
 
@@ -46,7 +46,7 @@ public abstract class Cell {
    * @return - An integer representing the cell's state.
    */
   public int getEncoding() {
-	  return getCurrentCellState().getState();
+	  return getCurrentCellState();
   }
 
   /**
@@ -54,7 +54,7 @@ public abstract class Cell {
    *
    * @return The current state of the cell.
    */
-  protected CellState getNextCellState() {
+  protected int getNextCellState() {
     return nextCellState;
   }
 
@@ -73,22 +73,15 @@ public abstract class Cell {
    * #computeNextCellState} before calling.
    */
   protected void updateCellState() {
-    if (nextCellState != null) {
       cellState = nextCellState;
-      nextCellState = null;
-    }
   }
 
-  protected void setNextCellState(CellState state) {
-    if (state != null) {
+  protected void setNextCellState(int state) {
       nextCellState = state;
-    }
   }
 
-  protected void setCellState(CellState state) {
-    if (state != null) {
+  protected void setCellState(int state) {
       this.cellState = state;
-    }
   }
 
   /**

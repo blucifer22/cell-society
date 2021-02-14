@@ -7,7 +7,8 @@ package cellsociety.simulation;
  * @author Marc Chmielewski
  */
 public class ConwayCell extends Cell {
-
+  public static final int DEAD = 0;
+  public static final int ALIVE = 1;
   public static ConwayRule rule;
 
   /**
@@ -16,7 +17,7 @@ public class ConwayCell extends Cell {
    * <p>The default state for ConwayCells is DEAD.
    */
   public ConwayCell() {
-    super(new ConwayState(ConwayState.DEAD));
+    super(DEAD);
   }
 
   /**
@@ -24,7 +25,7 @@ public class ConwayCell extends Cell {
    *
    * @param state - The state to use for this cell.
    */
-  public ConwayCell(ConwayState state) {
+  public ConwayCell(int state) {
     super(state);
   }
 
@@ -42,21 +43,21 @@ public class ConwayCell extends Cell {
     int numLiveNeighbors = 0;
     System.out.println("Neighbors: " + neighbors.size());
     for (Cell cell : neighbors) {
-      if (cell.getCurrentCellState().getState() == ConwayState.ALIVE) {
+      if (cell.getCurrentCellState() == ALIVE) {
         numLiveNeighbors++;
       }
     }
-    if (cellState.getState() == ConwayState.ALIVE
+    if (cellState == ALIVE
         && numLiveNeighbors >= rule.getAliveNumberMin()
         && numLiveNeighbors <= rule.getAliveNumberMax()) {
-      nextCellState = null; // null states remain the same
-    } else if (cellState.getState() == ConwayState.DEAD
+      nextCellState = ALIVE;
+    } else if (cellState == DEAD
         && numLiveNeighbors >= rule.getSpawnNumberMin()
         && numLiveNeighbors <= rule.getSpawnNumberMax()) {
-      nextCellState = new ConwayState(ConwayState.ALIVE);
+      nextCellState = ALIVE;
     } else {
-      if (cellState.getState() != ConwayState.DEAD) {
-        nextCellState = new ConwayState(ConwayState.DEAD);
+      if (cellState != DEAD) {
+        nextCellState = DEAD;
       }
     }
   }
