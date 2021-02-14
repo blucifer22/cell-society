@@ -67,4 +67,36 @@ class TestSimulation {
 			System.err.println(e.getMessage());
 		}
 	}
+
+	@Test
+	void testConwayStabilization() {
+		try {
+			File file = new File("data/conways_test_1.xml");
+			SimulationFactory sm = new SimulationFactory();
+			sm.loadSimulationFile(file);
+			List<Cell> cells = sm.getSimulation().getCells();
+
+
+			for(int i = 0; i < 25; i++) {
+				System.out.print(cells.get(i).getCurrentCellState().getState());
+			}
+			System.out.println();
+			sm.getSimulation().step();
+			for(int i = 0; i < 25; i++) {
+				System.out.print(cells.get(i).getCurrentCellState().getState());
+			}
+			System.out.println();
+			sm.getSimulation().step();
+			for(int i = 0; i < 25; i++) {
+				System.out.print(cells.get(i).getCurrentCellState().getState());
+			}
+			System.out.println();
+			sm.getSimulation().step();
+			for(int i = 0; i < 25; i++) {
+				System.out.print(cells.get(i).getCurrentCellState().getState());
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }
