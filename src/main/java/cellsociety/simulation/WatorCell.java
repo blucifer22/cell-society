@@ -67,7 +67,6 @@ public class WatorCell extends Cell {
       roundsTillSpawn = 0;
     }
     nextCellState = state;
-    System.out.println("STATE: " + state + "\nMETADATA: " + values.toString());
   }
 
   /**
