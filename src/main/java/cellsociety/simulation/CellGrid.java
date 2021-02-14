@@ -107,6 +107,6 @@ public class CellGrid {
    * @param column - The column of the row in which to check.
    */
   private boolean inBounds(int row, int column) {
-    return row > 0 && column > 0 && grid.size() > row && grid.get(row).size() > column;
+    return row >= 0 && column >= 0 && grid.size() > row && grid.get(row).size() > column;
   }
 }
