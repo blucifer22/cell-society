@@ -10,6 +10,9 @@ package cellsociety.simulation;
  */
 public class FireCell extends Cell {
 
+  public static final int UNBURNT = 0;
+  public static final int BURNING = 1;
+  public static final int BURNT = 2;
   /**
    * The rule all firecells follow to change their states.
    *
@@ -23,7 +26,7 @@ public class FireCell extends Cell {
    * <p>The default state for FireCells is NORMAL.
    */
   public FireCell() {
-    super(new FireState());
+    super(0);
   }
 
   /**
@@ -31,7 +34,7 @@ public class FireCell extends Cell {
    *
    * @param state - The state to use for this cell.
    */
-  public FireCell(FireState state) {
+  public FireCell(int state) {
     super(state);
   }
 
@@ -45,20 +48,20 @@ public class FireCell extends Cell {
    * which is loaded in from the parsed XML.
    */
   public void computeNextCellState() {
-    if (cellState.getState() == FireState.UNBURNT) {
+    if (cellState == UNBURNT) {
       for (Cell cell : neighbors) {
-        if (cell.getCurrentCellState().getState() == FireState.BURNING) {
+        if (cell.getCurrentCellState() == BURNING) {
           catchFire();
         }
       }
-    } else if (cellState.getState() == FireState.BURNING) {
-      nextCellState = new FireState(FireState.BURNT);
+    } else if (cellState == BURNING) {
+      nextCellState = BURNT;
     }
   }
 
   private void catchFire() {
     if (Math.random() > rule.getFlammability()) {
-      nextCellState = new FireState(FireState.BURNING);
+      nextCellState = BURNING;
     }
   }
 }
