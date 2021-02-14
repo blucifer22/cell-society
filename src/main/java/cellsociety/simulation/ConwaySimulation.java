@@ -19,7 +19,7 @@ public class ConwaySimulation extends Simulation{
 		ConwayCell.rule = rule;
 		for (int[] arr : nonDefaultStates) {
 			ConwayState state = new ConwayState(ConwayState.ALIVE);
-			ConwayCell cell = (ConwayCell) cellGrid.getCell(arr[0], arr[1]);
+			ConwayCell cell = (ConwayCell) cellGrid.getCell(arr[1], arr[0]);
 			if(cell != null) cell.setCellState(state);
 		}
 	}
