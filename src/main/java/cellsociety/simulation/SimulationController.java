@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author Marc Chmielewski
  */
 public class SimulationController {
-  private static final double SECONDS_PER_STEP = 1;
+  private double secondsPerStep = 1;
 
   private final UIController uiController;
   private final SimulationFactory simFactory;
@@ -73,14 +73,23 @@ public class SimulationController {
       return;
     }
     timer = timer + elapsedTime;
-    if(timer > SECONDS_PER_STEP && stepEnabled) {
+    if(timer > secondsPerStep && stepEnabled) {
       timer = 0;
       step();
     }
   }
 
+  public void speedUpSimulation() {
+    secondsPerStep /= 2.0;
+  }
+
+  public void slowDownSimulation() {
+    secondsPerStep *= 2.0;
+  }
+
   private void clearState() {
     this.simulation = null;
+    this.secondsPerStep = 1.0;
     this.graphicalCellGrid = null;
     this.stepEnabled = false;
   }
