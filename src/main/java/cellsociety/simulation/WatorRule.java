@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Marc Chmielewski
  */
 public class WatorRule extends StateRule {
-  private static final double DEFAULT_FISH_BREEDING_CYCLE = 3;
+  private static final double DEFAULT_FISH_BREEDING_CYCLE = 4;
   private static final double DEFAULT_FISH_ENERGY_GAIN = 5;
   private static final double DEFAULT_SHARK_SPAWN_ENERGY = 10;
   private static final double DEFAULT_SHARK_ENERGY_LOSS = 1;

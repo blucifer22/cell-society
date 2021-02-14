@@ -11,11 +11,12 @@ import java.util.Set;
  * @author Marc Chmielewski
  */
 public class WatorCell extends Cell {
-  public static WatorRule rule;
   public static final int WATER = 0;
   public static final int FISH = 1;
   public static final int SHARK = 2;
-
+  public static final String ENERGY_LEVEL = "EnergyLevel";
+  public static final String ROUNDS_TILL_SPAWN = "RoundsTillSpawn";
+  public static WatorRule rule;
   private double energyLevel;
   private double roundsTillSpawn;
 
@@ -53,17 +54,20 @@ public class WatorCell extends Cell {
       energyLevel = 0;
       roundsTillSpawn = 0;
     }
+    cellState = state;
   }
 
   @Override
-  protected void setCellState(int state, Map<String, Double> values) {
+  protected void setNextCellState(int state, Map<String, Double> values) {
     if(state == FISH) {
       energyLevel = 0;
-      roundsTillSpawn = values.getOrDefault("RoundsTillSpawn", rule.getFishBreedingCycle());
+      roundsTillSpawn = values.getOrDefault(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
     } else if (state == SHARK) {
-      energyLevel = values.getOrDefault("energyLevel", rule.getSharkSpawnEnergy() / 2);
+      energyLevel = values.getOrDefault(ENERGY_LEVEL, rule.getSharkSpawnEnergy() / 2);
       roundsTillSpawn = 0;
     }
+    nextCellState = state;
+    System.out.println("STATE: " + state + "\nMETADATA: " + values.toString());
   }
 
   /**
@@ -122,7 +126,7 @@ public class WatorCell extends Cell {
 
   private void updateFishState(HashSet<Cell> unoccupiedNeighbors, int currentState) {
     // Check FISH spawn
-    if( roundsTillSpawn == 0) {
+    if(roundsTillSpawn == 0) {
       spawn(FISH, 0, unoccupiedNeighbors);
       roundsTillSpawn = rule.getFishBreedingCycle();
     }
@@ -137,9 +141,8 @@ public class WatorCell extends Cell {
     }
   }
 
-  public void setNextCellState(int state, double energyLevel) {
-    this.cellState = state;
-    this.energyLevel = energyLevel;
+  private void killFish() {
+    nextCellState = WATER;
   }
 
   private void killShark() {
@@ -147,8 +150,15 @@ public class WatorCell extends Cell {
   }
 
   private void move(Cell newCell) {
-    setNextCellState(newCell.getCurrentCellState());
-    newCell.setNextCellState(getCurrentCellState());
+    setNextCellState(WATER);
+    if(this.cellState == FISH) {
+      Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, this.roundsTillSpawn, ENERGY_LEVEL, 0.0);
+      newCell.setNextCellState(FISH, data);
+    }
+    else if(this.cellState == SHARK) {
+      Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, 0.0, ENERGY_LEVEL, this.energyLevel);
+      newCell.setNextCellState(SHARK, data);
+    }
   }
 
   public void setEnergyLevel(double energyLevel) {
@@ -161,6 +171,7 @@ public class WatorCell extends Cell {
     for(Cell neighbor : occupiedNeighbors) {
       if(neighbor.getCurrentCellState() == FISH) {
         setEnergyLevel(energyLevel + rule.getFishEnergyGain());
+        killFish();
         return neighbor;
       }
     }
@@ -175,7 +186,7 @@ public class WatorCell extends Cell {
 
   private Cell checkFishMove(Set<Cell> unoccupiedNeighbors) {
     for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == WATER) {
+      if(neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -195,8 +206,13 @@ public class WatorCell extends Cell {
     for(Cell neighbor : unoccupiedNeighbors) {
       if(neighbor.getCurrentCellState() == WATER &&
           (neighbor.getNextCellState() == WATER )) {
-        if (neighbor instanceof WatorCell) {
-          ((WatorCell) (neighbor)).setNextCellState(cellType, energyLevel);
+        if(cellType == FISH) {
+            Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
+            neighbor.setNextCellState(FISH, data);
+        }
+        else if(cellType == SHARK) {
+          Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);
+          neighbor.setNextCellState(SHARK, data);
         }
         return true;
       }

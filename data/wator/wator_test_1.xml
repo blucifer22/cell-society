@@ -14,7 +14,7 @@
     <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <FishBreedingCycle>3</FishBreedingCycle>
+    <FishBreedingCycle>4</FishBreedingCycle>
     <FishEnergyGain>5</FishEnergyGain>
     <SharkSpawnEnergy>3</SharkSpawnEnergy>
     <SharkEnergyLoss>1</SharkEnergyLoss>

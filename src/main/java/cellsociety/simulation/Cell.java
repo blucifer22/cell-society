@@ -85,7 +85,7 @@ public abstract class Cell {
       this.cellState = state;
   }
 
-  protected void setCellState(int state, Map<String, Double> values) {
+  protected void setNextCellState(int state, Map<String, Double> values) {
 
   }
 
