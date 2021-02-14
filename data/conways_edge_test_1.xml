@@ -1,0 +1,46 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Conway's Test 1</Name>
+    <Type>Conway</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>A test for an L-shaped pattern that evolves into a stable pattern</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <AliveNumberMin>2</AliveNumberMin>
+    <AliveNumberMax>3</AliveNumberMax>
+    <SpawnNumberMin>3</SpawnNumberMin>
+    <SpawnNumberMax>3</SpawnNumberMax>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+    <Cell>
+      <Row>1</Row>
+      <Column>1</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>1</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>1</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
+      <Column>1</Column>
+      <State>1</State>
+    </Cell>
+  </InitialStates>
+</xml>
