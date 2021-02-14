@@ -10,7 +10,7 @@ class TestXMLParsing {
   @Test
   public void test() {
     try {
-      File file = new File("data/test.xml");
+      File file = new File("data/conways/conways_edge_test_1.xml");
       XMLParser p = new XMLParser(file);
       Map<String, Double> params = p.getSimulationParameters();
       assertNotNull(params.get("AliveNumberMin"));
