@@ -8,8 +8,8 @@
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
-    <Height>5</Height>
-    <Width>5</Width>
+    <Height>50</Height>
+    <Width>50</Width>
   </GeometricConfiguration>
   <SimulationParameters>
     <Flammability>.5</Flammability>

@@ -8,8 +8,8 @@
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
-    <Height>5</Height>
-    <Width>5</Width>
+    <Height>50</Height>
+    <Width>50</Width>
   </GeometricConfiguration>
   <SimulationParameters>
     <AliveNumberMin>2</AliveNumberMin>
@@ -23,23 +23,23 @@
    -->
   <InitialStates>
     <Cell>
-      <Row>1</Row>
-      <Column>1</Column>
+      <Row>10</Row>
+      <Column>10</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>1</Row>
-      <Column>2</Column>
+      <Row>10</Row>
+      <Column>11</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>1</Row>
-      <Column>3</Column>
+      <Row>10</Row>
+      <Column>12</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>2</Row>
-      <Column>1</Column>
+      <Row>11</Row>
+      <Column>10</Column>
       <State>1</State>
     </Cell>
   </InitialStates>

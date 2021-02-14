@@ -40,6 +40,7 @@ public class ConwayCell extends Cell {
    */
   public void computeNextCellState() {
     int numLiveNeighbors = 0;
+    System.out.println("Neighbors: " + neighbors.size());
     for (Cell cell : neighbors) {
       if (cell.getCurrentCellState().getState() == ConwayState.ALIVE) {
         numLiveNeighbors++;
