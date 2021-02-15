@@ -10,6 +10,7 @@ import java.util.Map;
  * @author Marc Chmielewski
  */
 public class SegregationRule extends StateRule {
+
   private static final double DEFAULT_CUTOFF_PERCENTAGE = .70;
   private double cutoffPercentage;
 
@@ -36,7 +37,7 @@ public class SegregationRule extends StateRule {
    * SegrationRule constructor that provides maximum customization!
    *
    * @param cutoffPercentage The minimum percentage of this Cell's neighbors that need to be of the
-   *     same type for it not to move.
+   *                         same type for it not to move.
    */
   public SegregationRule(double cutoffPercentage) {
     this.cutoffPercentage = cutoffPercentage;
@@ -47,7 +48,7 @@ public class SegregationRule extends StateRule {
    * to move.
    *
    * @return The minimum percentage of this Cell's neighbors that need to be of the same type for it
-   *     not to move.
+   * not to move.
    */
   public double getCutoffPercentage() {
     return cutoffPercentage;

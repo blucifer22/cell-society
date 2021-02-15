@@ -1,5 +1,7 @@
 package cellsociety.simulation;
-import java.util.Collections; 
+
+import java.util.Collections;
+
 /**
  * This class handles the behavior of Cells in the Segregation simulation, and thus the state
  * transitions therein.
@@ -7,6 +9,7 @@ import java.util.Collections;
  * @author Marc Chmielewski
  */
 public class SegregationCell extends Cell {
+
   public static SegregationRule rule;
   public static final int EMPTY = 0;
   public static final int TYPE_A = 1;
@@ -43,7 +46,7 @@ public class SegregationCell extends Cell {
   public void computeNextCellState() {
     double numTypeA = 0;
     double numTypeB = 0;
-	Collections.shuffle(neighbors);
+    Collections.shuffle(neighbors);
     for (Cell cell : neighbors) {
       if (cell.getCurrentCellState() == TYPE_A) {
         numTypeA++;
@@ -75,9 +78,9 @@ public class SegregationCell extends Cell {
       if (cell.getCurrentCellState() == EMPTY
           && cell.getNextCellState() == EMPTY) {
         nextCellState = cell.getCurrentCellState();
-		    cell.setNextCellState(this.cellState);
-		    swapSuccess = true;
-		    break;
+        cell.setNextCellState(this.cellState);
+        swapSuccess = true;
+        break;
       }
     }
     if (!swapSuccess) {

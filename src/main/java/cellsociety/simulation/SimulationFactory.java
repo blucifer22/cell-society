@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class creates and configures simulations.
+ *
+ * <p>This class creates simulations based on a (properly) formatted XML file.
+ *
+ * @author Joshua Petitma
+ */
 public class SimulationFactory {
 
   private Simulation sim;
@@ -67,8 +74,8 @@ public class SimulationFactory {
       case FIRE -> new FireCell();
       case CONWAY -> new ConwayCell();
       case PERC -> new PercolationCell();
-	  case WATOR -> new WatorCell();
-	  case SEG -> new SegregationCell();
+      case WATOR -> new WatorCell();
+      case SEG -> new SegregationCell();
       default -> null;
     };
   }

@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 /**
  * @author David Coffman
  * @author Marc Chmielewski
+ * @author Joshua Petitma
  */
 public class SimulationDisplayScene extends Scene {
 

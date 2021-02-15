@@ -11,6 +11,7 @@ import java.util.Map;
  * @author Marc Chmielewski
  */
 public class WatorRule extends StateRule {
+
   private static final double DEFAULT_FISH_BREEDING_CYCLE = 2;
   private static final double DEFAULT_FISH_ENERGY_GAIN = 5;
   private static final double DEFAULT_SHARK_SPAWN_ENERGY = 10;
@@ -53,10 +54,12 @@ public class WatorRule extends StateRule {
   /**
    * WaterRule constructor that provides maximum customization!
    *
-   * @param fishBreedingCycle The number of cycles that must pass before a fish spawns another fish.
-   * @param fishEnergyGain The amount of energy that a shark gains from eating a fish.
-   * @param sharkSpawnEnergy The amount of energy that a shark needs to have to spawn another shark.
-   * @param sharkEnergyLoss The amount of energy that a shark loses per round.
+   * @param fishBreedingCycle The number of cycles that must pass before a fish spawns another
+   *                          fish.
+   * @param fishEnergyGain    The amount of energy that a shark gains from eating a fish.
+   * @param sharkSpawnEnergy  The amount of energy that a shark needs to have to spawn another
+   *                          shark.
+   * @param sharkEnergyLoss   The amount of energy that a shark loses per round.
    */
   public WatorRule(
       int fishBreedingCycle, int fishEnergyGain, int sharkSpawnEnergy, int sharkEnergyLoss) {

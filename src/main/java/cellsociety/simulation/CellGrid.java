@@ -7,7 +7,8 @@ import java.util.Map;
 /**
  * A Grid that configures cells in a certain patten and sets the neighbors for for it's held cells.
  *
- * <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
+ * @author Joshua Petitma
+ *     <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
  */
 public class CellGrid {
   public static final double DEFAULT_HEIGHT = 5;
@@ -90,14 +91,14 @@ public class CellGrid {
   }
 
   /**
-   * Returns a cell in a specific grid position.
-   * Returns null if that position is not found
-   * within the grid.
+   * Returns a cell in a specific grid position. Returns null if that position is not found within
+   * the grid.
+   *
    * @param x - The column the cell is found within
    * @param y = The row the cell is found within
    */
   protected Cell getCell(int x, int y) {
-		  return grid.get(y).get(x);
+    return grid.get(y).get(x);
   }
 
   /**

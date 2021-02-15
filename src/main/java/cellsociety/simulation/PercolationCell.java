@@ -7,6 +7,7 @@ package cellsociety.simulation;
  * @author Marc Chmielewski
  */
 public class PercolationCell extends Cell {
+
   public static PercolationRule rule;
   public static final int EMPTY = 0;
   public static final int FULL = 1;
@@ -46,7 +47,7 @@ public class PercolationCell extends Cell {
         if (cell.getCurrentCellState() == FULL) {
           countFillNeighbors++;
         }
-        if(countFillNeighbors >= rule.getFillNumber()) {
+        if (countFillNeighbors >= rule.getFillNumber()) {
           nextCellState = FULL;
           break;
         }

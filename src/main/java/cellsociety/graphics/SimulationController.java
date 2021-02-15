@@ -1,7 +1,5 @@
 package cellsociety.graphics;
 
-import cellsociety.graphics.GraphicalCellRectangularGrid;
-import cellsociety.graphics.UIController;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
 import java.io.File;
@@ -13,11 +11,11 @@ import java.util.HashMap;
  * <p>This class contains an XML parser and can create {@link cellsociety.simulation.Simulation}
  * objects.
  *
- * @author Joshua Petitma
  * @author David Coffman
  * @author Marc Chmielewski
  */
 public class SimulationController {
+
   private double secondsPerStep = 1;
 
   private final UIController uiController;
@@ -71,11 +69,11 @@ public class SimulationController {
   }
 
   public void update(double elapsedTime) {
-    if(simulation == null || graphicalCellGrid == null) {
+    if (simulation == null || graphicalCellGrid == null) {
       return;
     }
     timer = timer + elapsedTime;
-    if(timer > secondsPerStep && stepEnabled) {
+    if (timer > secondsPerStep && stepEnabled) {
       timer = 0;
       step();
     }

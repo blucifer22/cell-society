@@ -11,6 +11,7 @@ import java.util.Set;
  * @author Marc Chmielewski
  */
 public class WatorCell extends Cell {
+
   public static final int WATER = 0;
   public static final int FISH = 1;
   public static final int SHARK = 2;
@@ -42,15 +43,13 @@ public class WatorCell extends Cell {
 
   @Override
   protected void setCellState(int state) {
-    if(state == FISH) {
+    if (state == FISH) {
       energyLevel = 0;
       roundsTillSpawn = rule.getFishBreedingCycle();
-    }
-    else if(state == SHARK) {
+    } else if (state == SHARK) {
       energyLevel = rule.getSharkSpawnEnergy() / 2;
       roundsTillSpawn = 0;
-    }
-    else {
+    } else {
       energyLevel = 0;
       roundsTillSpawn = 0;
     }
@@ -59,7 +58,7 @@ public class WatorCell extends Cell {
 
   @Override
   protected void setNextCellState(int state, Map<String, Double> values) {
-    if(state == FISH) {
+    if (state == FISH) {
       energyLevel = 0;
       roundsTillSpawn = values.getOrDefault(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
     } else if (state == SHARK) {
@@ -82,9 +81,6 @@ public class WatorCell extends Cell {
    * available, spawn another fish. Else, reset the counter.
    *
    * <p>If this cell is a shark, check to see if it can move into a space that has a fish. If so,
-   *
-   *
-   *
    */
   public void computeNextCellState() {
     Set<Cell> occupiedNeighbors = new HashSet<>();
@@ -108,23 +104,23 @@ public class WatorCell extends Cell {
     energyLevel--;
 
     // Check SHARK death
-    if(energyLevel <= 0) {
+    if (energyLevel <= 0) {
       killShark(this);
       return;
     }
 
     // Check SHARK spawn
-    if(energyLevel >= rule.getSharkSpawnEnergy()) {
+    if (energyLevel >= rule.getSharkSpawnEnergy()) {
       boolean success = spawn(SHARK, energyLevel / 2,
           unoccupiedNeighbors);
-      if(success) {
+      if (success) {
         this.energyLevel /= 2;
       }
     }
 
     // Attempt to move SHARK and eat a FISH if possible
     Cell sharkMove = checkSharkMove(occupiedNeighbors, unoccupiedNeighbors);
-    if(sharkMove != null) {
+    if (sharkMove != null) {
       move(sharkMove);
     }
   }
@@ -132,17 +128,16 @@ public class WatorCell extends Cell {
   private void updateFishState(HashSet<Cell> unoccupiedNeighbors) {
 
     // Check FISH spawn
-    if(roundsTillSpawn == 0) {
+    if (roundsTillSpawn == 0) {
       spawn(FISH, 0, unoccupiedNeighbors);
       roundsTillSpawn = rule.getFishBreedingCycle(); // Reset counter regardless of success
-    }
-    else {
+    } else {
       roundsTillSpawn--;
     }
 
     // Attempt to move FISH
     Cell fishMove = checkFishMove(unoccupiedNeighbors);
-    if(fishMove != null) {
+    if (fishMove != null) {
       move(fishMove);
     }
   }
@@ -159,11 +154,10 @@ public class WatorCell extends Cell {
 
   private void move(Cell newCell) {
     this.setNextCellState(WATER);
-    if(this.cellState == FISH) {
+    if (this.cellState == FISH) {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, this.roundsTillSpawn, ENERGY_LEVEL, 0.0);
       newCell.setNextCellState(FISH, data);
-    }
-    else if(this.cellState == SHARK) {
+    } else if (this.cellState == SHARK) {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, 0.0, ENERGY_LEVEL, this.energyLevel);
       newCell.setNextCellState(SHARK, data);
     }
@@ -176,16 +170,16 @@ public class WatorCell extends Cell {
 
   private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
     // Check for fish and eat it if available
-    for(Cell neighbor : occupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == FISH) {
+    for (Cell neighbor : occupiedNeighbors) {
+      if (neighbor.getCurrentCellState() == FISH) {
         setEnergyLevel(energyLevel + rule.getFishEnergyGain());
         killFish(neighbor);
         return neighbor;
       }
     }
     // If not, settle for water
-    for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
+    for (Cell neighbor : unoccupiedNeighbors) {
+      if (neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -193,8 +187,8 @@ public class WatorCell extends Cell {
   }
 
   private Cell checkFishMove(Set<Cell> unoccupiedNeighbors) {
-    for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
+    for (Cell neighbor : unoccupiedNeighbors) {
+      if (neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -202,8 +196,8 @@ public class WatorCell extends Cell {
   }
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
-    for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState() != WATER ||
+    for (Cell cell : neighbors) {
+      if (cell.getCurrentCellState() != WATER ||
           cell.getNextCellState() != WATER) {
         occupiedNeighbors.add(cell);
       }
@@ -211,14 +205,13 @@ public class WatorCell extends Cell {
   }
 
   private boolean spawn(int cellType, double energyLevel, Set<Cell> unoccupiedNeighbors) {
-    for(Cell neighbor : unoccupiedNeighbors) {
-      if(neighbor.getCurrentCellState() == WATER &&
-          (neighbor.getNextCellState() == WATER )) {
-        if(cellType == FISH) {
-            Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
-            neighbor.setNextCellState(FISH, data);
-        }
-        else if(cellType == SHARK) {
+    for (Cell neighbor : unoccupiedNeighbors) {
+      if (neighbor.getCurrentCellState() == WATER &&
+          (neighbor.getNextCellState() == WATER)) {
+        if (cellType == FISH) {
+          Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
+          neighbor.setNextCellState(FISH, data);
+        } else if (cellType == SHARK) {
           Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);
           neighbor.setNextCellState(SHARK, data);
         }
