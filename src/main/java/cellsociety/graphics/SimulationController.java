@@ -46,6 +46,7 @@ public class SimulationController {
           simulation.getNumCols());
       graphicalCellGrid.update();
       uiController.showSimulation(this);
+	  uiController.setTitle(simulation.getName());
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
     }

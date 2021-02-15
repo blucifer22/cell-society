@@ -67,6 +67,15 @@ public class Simulation {
   }
 
   /**
+   * Returns the name of a simulation
+   *
+   * @return - The name of the simulation from within the XML file.
+   */
+  public String getName() {
+	  return this.name;
+  }
+
+  /**
    * Advances cells to their next state.
    *
    * <p>This method is usually called after calling {@link #computeState}
