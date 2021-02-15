@@ -32,7 +32,7 @@ public class UIController {
     presentLoadSimScene();
   }
 
-  public ResourceBundle loadResources(String locale) {
+  private ResourceBundle loadResources(String locale) {
     try {
       File file = new File(String.format("%s/%s.properties", DEFAULT_RESOURCE_PACKAGE, locale));
       InputStream stream = new FileInputStream(file);
