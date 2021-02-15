@@ -2,14 +2,17 @@ package cellsociety.graphics;
 
 import cellsociety.simulation.SimulationController;
 import java.io.File;
+import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class UIController {
+  private final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.graphics.English";
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
+  private ResourceBundle resources;
 
   private final Stage stage;
   private SimulationController simulationController;
@@ -20,15 +23,16 @@ public class UIController {
    *
    * @param primaryStage the JavaFX application's primary <code>Stage</code>
    */
-  public UIController(Stage primaryStage) {
+  public UIController(Stage primaryStage, String locale) {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
+    this.resources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
     presentLoadSimScene();
   }
 
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
-    this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT));
+    this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
     this.stage.show();
   }
 
@@ -43,7 +47,7 @@ public class UIController {
   }
 
   public void exitSimulation() {
-    stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT));
+    stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
   }
 
   /**
@@ -56,7 +60,7 @@ public class UIController {
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
-        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT);
+        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT, resources);
     this.stage.setScene(sds);
   }
 

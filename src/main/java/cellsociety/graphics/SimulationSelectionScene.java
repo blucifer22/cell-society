@@ -1,6 +1,7 @@
 package cellsociety.graphics;
 
 import javafx.scene.Group;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ public class SimulationSelectionScene extends Scene {
   private final Group root;
   private final double width;
   private final double height;
+  private ResourceBundle resources;
 
   /**
    * Sole constructor for <code>SimulationSelectScene</code>. Called by <code>UIController</code> to
@@ -26,22 +28,23 @@ public class SimulationSelectionScene extends Scene {
    * @param width the width of the <code>SimulationSelectScene</code>
    * @param height the height of the <code>SimulationSelectScene</code>
    */
-  public SimulationSelectionScene(UIController uiController, double width, double height) {
+  public SimulationSelectionScene(UIController uiController, double width, double height, ResourceBundle resources) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.width = width;
     this.height = height;
+	this.resources = resources;
     this.uiController = uiController;
     configureScene();
   }
 
   // Configures the scene; sets title of window and configures the "load XML" button
   private void configureScene() {
-    uiController.setTitle("Launch");
+    uiController.setTitle(resources.getString("Launch"));
     StackPane sp = new StackPane();
 
     Button fileLoadButton = new Button();
-    fileLoadButton.setText("Load Simulation XML");
+    fileLoadButton.setText(resources.getString("LoadSimulationXML"));
     fileLoadButton.setOnAction(event -> uiController.loadNewSimulation());
     sp.getChildren().add(fileLoadButton);
     sp.setPrefWidth(width);
