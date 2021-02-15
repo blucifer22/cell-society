@@ -1,7 +1,9 @@
-package cellsociety.simulation;
+package cellsociety.graphics;
 
 import cellsociety.graphics.GraphicalCellRectangularGrid;
 import cellsociety.graphics.UIController;
+import cellsociety.simulation.Simulation;
+import cellsociety.simulation.SimulationFactory;
 import java.io.File;
 import java.util.HashMap;
 

@@ -1,5 +1,6 @@
 module cellsociety {
   opens cellsociety;
+  opens cellsociety.graphics;
   opens cellsociety.util;
   opens cellsociety.simulation;
 
