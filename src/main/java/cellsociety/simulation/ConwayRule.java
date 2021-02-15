@@ -10,6 +10,7 @@ import java.util.Map;
  * @author Marc Chmielewski
  */
 public class ConwayRule extends StateRule {
+
   private static final double DEFAULT_ALIVE_NUMBER_MIN = 2;
   private static final double DEFAULT_ALIVE_NUMBER_MAX = 3;
   private static final double DEFAULT_SPAWN_NUMBER_MIN = 3;
@@ -47,13 +48,13 @@ public class ConwayRule extends StateRule {
    * ConwayRule constructor that allows for maximum customization!
    *
    * @param aliveNumberMin The minimum number of neighboring cells that must be alive to have the
-   *     current cell stay ALIVE if it is already ALIVE
+   *                       current cell stay ALIVE if it is already ALIVE
    * @param aliveNumberMax The maximum number of neighboring cells that must be alive to have the
-   *     current cell stay ALIVE if it is already ALIVE
+   *                       current cell stay ALIVE if it is already ALIVE
    * @param spawnNumberMin The minimum number of neighboring cells that can be alive to have the
-   *     current cell transition from DEAD to ALIVE
+   *                       current cell transition from DEAD to ALIVE
    * @param spawnNumberMax The maximum number of neighboring cells that can be alive to have the
-   *     current cell transition from DEAD to ALIVE
+   *                       current cell transition from DEAD to ALIVE
    */
   public ConwayRule(
       int aliveNumberMin, int aliveNumberMax, int spawnNumberMin, int spawnNumberMax) {
@@ -68,7 +69,7 @@ public class ConwayRule extends StateRule {
    * ALIVE if it is already ALIVE
    *
    * @return The minimum number of neighboring cells that must be alive to have the current cell
-   *     stay ALIVE if it is already ALIVE
+   * stay ALIVE if it is already ALIVE
    */
   public double getAliveNumberMin() {
     return aliveNumberMin;
@@ -79,7 +80,7 @@ public class ConwayRule extends StateRule {
    * ALIVE if it is already ALIVE
    *
    * @return The maximum number of neighboring cells that must be alive to have the current cell
-   *     stay ALIVE if it is already ALIVE
+   * stay ALIVE if it is already ALIVE
    */
   public double getAliveNumberMax() {
     return aliveNumberMax;
@@ -90,7 +91,7 @@ public class ConwayRule extends StateRule {
    * transition from DEAD to ALIVE
    *
    * @return The minimum number of neighboring cells that must be alive to have the current cell
-   *     transition from DEAD to ALIVE
+   * transition from DEAD to ALIVE
    */
   public double getSpawnNumberMin() {
     return spawnNumberMin;
@@ -101,7 +102,7 @@ public class ConwayRule extends StateRule {
    * transition from DEAD to ALIVE
    *
    * @return The maximum number of neighboring cells that must be alive to have the current cell
-   *     transition from DEAD to ALIVE
+   * transition from DEAD to ALIVE
    */
   public double getSpawnNumberMax() {
     return spawnNumberMax;

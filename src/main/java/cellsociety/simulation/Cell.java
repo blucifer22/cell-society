@@ -7,8 +7,9 @@ import java.util.Map;
 /**
  * A general cell type.
  *
- * <p>Cells hold state and examine their neighboring states to determine whether or not they must
- * change state.
+ * @author Joshua Petitma
+ *     <p>Cells hold state and examine their neighboring states to determine whether or not they
+ *     must change state.
  */
 public abstract class Cell {
   protected List<Cell> neighbors;
@@ -42,12 +43,12 @@ public abstract class Cell {
   /**
    * The integer encoding for this cell.
    *
-   * The integer encoding corresponds to the state
-   * of the cell.
+   * <p>The integer encoding corresponds to the state of the cell.
+   *
    * @return - An integer representing the cell's state.
    */
   public int getEncoding() {
-	  return getCurrentCellState();
+    return getCurrentCellState();
   }
 
   /**
@@ -74,20 +75,18 @@ public abstract class Cell {
    * #computeNextCellState} before calling.
    */
   protected void updateCellState() {
-      cellState = nextCellState;
+    cellState = nextCellState;
   }
 
   protected void setNextCellState(int state) {
-      nextCellState = state;
+    nextCellState = state;
   }
 
   protected void setCellState(int state) {
-      this.cellState = state;
+    this.cellState = state;
   }
 
-  protected void setNextCellState(int state, Map<String, Double> values) {
-
-  }
+  protected void setNextCellState(int state, Map<String, Double> values) {}
 
   /**
    * Adds a neighbor to the list of neighboring cells.

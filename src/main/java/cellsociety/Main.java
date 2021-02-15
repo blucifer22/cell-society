@@ -7,9 +7,15 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * The starting point for the application
+ *
+ * @author David Coffman
+ */
 public class Main extends Application {
+
   private static final double FRAME_RATE = 60;
-  private static final double FRAME_DELAY = 1.0/FRAME_RATE;
+  private static final double FRAME_DELAY = 1.0 / FRAME_RATE;
   private UIController controller;
 
   public static void main(String[] args) {

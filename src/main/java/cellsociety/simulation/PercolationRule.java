@@ -9,6 +9,7 @@ import java.util.Map;
  * @author Marc Chmielewski
  */
 public class PercolationRule extends StateRule {
+
   private static final double DEFAULT_FILL_NUMBER = 1;
 
   private double fillNumber;
@@ -35,7 +36,7 @@ public class PercolationRule extends StateRule {
    * PercolationRule constructor that allows for maximum customization!
    *
    * @param fillNumber The number of neighboring Cells that must be FULL for this Cell to transition
-   *     to FULL.
+   *                   to FULL.
    */
   public PercolationRule(int fillNumber) {
     this.fillNumber = fillNumber;
@@ -45,7 +46,7 @@ public class PercolationRule extends StateRule {
    * Get the number of neighboring Cells that must be FULL for this Cell to transition to FULL.
    *
    * @return The number of neighboring Cells that must be FULL for this Cell to transition * to
-   *     FULL.
+   * FULL.
    */
   public double getFillNumber() {
     return fillNumber;

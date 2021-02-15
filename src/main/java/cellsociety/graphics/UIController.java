@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class UIController {
+
   private final String DEFAULT_RESOURCE_PACKAGE = "data/locales/";
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
@@ -43,6 +44,7 @@ public class UIController {
     }
     return null;
   }
+
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));

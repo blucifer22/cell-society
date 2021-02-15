@@ -10,6 +10,7 @@ import java.util.Map;
  * @author Joshua Petitma
  */
 public class FireRule extends StateRule {
+
   public static final double DEFAULT_FLAMMABILITY = 0.50;
   private double flammability;
 
@@ -35,7 +36,7 @@ public class FireRule extends StateRule {
    * FireRule constructor that allows for maximum customization!
    *
    * @param flammability The probability that a neighboring Cell will catch fire if this Cell is on
-   *     fire
+   *                     fire
    */
   public FireRule(double flammability) {
     this.flammability = flammability;

@@ -1,7 +1,7 @@
 package cellsociety.graphics;
 
-import javafx.scene.Group;
 import java.util.ResourceBundle;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
  * @author David Coffman
  */
 public class SimulationSelectionScene extends Scene {
+
   private final UIController uiController;
   private final Group root;
   private final double width;
@@ -25,15 +26,16 @@ public class SimulationSelectionScene extends Scene {
    * create the first scene in the application (for loading an XML configuration).
    *
    * @param uiController the UIController to link the <code>SimulationSelectScene</code> to
-   * @param width the width of the <code>SimulationSelectScene</code>
-   * @param height the height of the <code>SimulationSelectScene</code>
+   * @param width        the width of the <code>SimulationSelectScene</code>
+   * @param height       the height of the <code>SimulationSelectScene</code>
    */
-  public SimulationSelectionScene(UIController uiController, double width, double height, ResourceBundle resources) {
+  public SimulationSelectionScene(UIController uiController, double width, double height,
+      ResourceBundle resources) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.width = width;
     this.height = height;
-	this.resources = resources;
+    this.resources = resources;
     this.uiController = uiController;
     configureScene();
   }

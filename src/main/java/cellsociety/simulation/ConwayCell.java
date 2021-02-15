@@ -7,6 +7,7 @@ package cellsociety.simulation;
  * @author Marc Chmielewski
  */
 public class ConwayCell extends Cell {
+
   public static final int DEAD = 0;
   public static final int ALIVE = 1;
   public static ConwayRule rule;
