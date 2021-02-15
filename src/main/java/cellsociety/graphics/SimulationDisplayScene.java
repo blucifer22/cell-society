@@ -1,6 +1,5 @@
 package cellsociety.graphics;
 
-import cellsociety.simulation.SimulationController;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

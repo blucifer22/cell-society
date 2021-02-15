@@ -1,7 +1,10 @@
 package cellsociety.graphics;
 
-import cellsociety.simulation.SimulationController;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,11 +12,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class UIController {
-  private final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.graphics.English";
+  private final String DEFAULT_RESOURCE_PACKAGE = "data/locales/";
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
   private ResourceBundle resources;
-
   private final Stage stage;
   private SimulationController simulationController;
 
@@ -26,10 +28,21 @@ public class UIController {
   public UIController(Stage primaryStage, String locale) {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
-    this.resources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+    this.resources = loadResources(locale);
     presentLoadSimScene();
   }
 
+  public ResourceBundle loadResources(String locale) {
+    try {
+      File file = new File(String.format("%s/%s.properties", DEFAULT_RESOURCE_PACKAGE, locale));
+      InputStream stream = new FileInputStream(file);
+      return new PropertyResourceBundle(
+          stream);
+    } catch (IOException e) {
+      notifyUserOfException(e);
+    }
+    return null;
+  }
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));

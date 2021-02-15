@@ -20,7 +20,6 @@
                 <includes>
 					<include>src/main/java/**/*.java</include>
                 </includes>
-				<exclude>src/test/</exclude>
                 <source>15</source>
                 <target>15</target>
                 <compilerArgs>
