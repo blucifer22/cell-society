@@ -42,6 +42,15 @@ public class WatorCell extends Cell {
   }
 
   @Override
+  public void poke() {
+    if (++cellState == 1) {
+      roundsTillSpawn = rule.getFishBreedingCycle();
+    } else if (cellState == 2) {
+      energyLevel = rule.getSharkSpawnEnergy() / 2;
+    }
+  }
+
+  @Override
   protected void setCellState(int state) {
     if (state == FISH) {
       energyLevel = 0;
@@ -111,8 +120,7 @@ public class WatorCell extends Cell {
 
     // Check SHARK spawn
     if (energyLevel >= rule.getSharkSpawnEnergy()) {
-      boolean success = spawn(SHARK, energyLevel / 2,
-          unoccupiedNeighbors);
+      boolean success = spawn(SHARK, energyLevel / 2, unoccupiedNeighbors);
       if (success) {
         this.energyLevel /= 2;
       }
@@ -197,8 +205,7 @@ public class WatorCell extends Cell {
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
     for (Cell cell : neighbors) {
-      if (cell.getCurrentCellState() != WATER ||
-          cell.getNextCellState() != WATER) {
+      if (cell.getCurrentCellState() != WATER || cell.getNextCellState() != WATER) {
         occupiedNeighbors.add(cell);
       }
     }
@@ -206,8 +213,7 @@ public class WatorCell extends Cell {
 
   private boolean spawn(int cellType, double energyLevel, Set<Cell> unoccupiedNeighbors) {
     for (Cell neighbor : unoccupiedNeighbors) {
-      if (neighbor.getCurrentCellState() == WATER &&
-          (neighbor.getNextCellState() == WATER)) {
+      if (neighbor.getCurrentCellState() == WATER && (neighbor.getNextCellState() == WATER)) {
         if (cellType == FISH) {
           Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, rule.getFishBreedingCycle());
           neighbor.setNextCellState(FISH, data);

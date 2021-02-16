@@ -33,6 +33,13 @@ public class SegregationCell extends Cell {
     super(state);
   }
 
+  @Override
+  public void poke() {
+    if (++cellState > 2) {
+      cellState = 0;
+    }
+  }
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
@@ -75,8 +82,7 @@ public class SegregationCell extends Cell {
   private void swapWithEmpty() {
     boolean swapSuccess = false;
     for (Cell cell : neighbors) {
-      if (cell.getCurrentCellState() == EMPTY
-          && cell.getNextCellState() == EMPTY) {
+      if (cell.getCurrentCellState() == EMPTY && cell.getNextCellState() == EMPTY) {
         nextCellState = cell.getCurrentCellState();
         cell.setNextCellState(this.cellState);
         swapSuccess = true;
