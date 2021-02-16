@@ -2,8 +2,10 @@ package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import javafx.scene.transform.Affine;
 
 
 /**
@@ -37,5 +39,18 @@ public class HexGraphicalCell extends GraphicalCell {
         3*height/4, width, height/4, width/2, 0.0);
     renderingShape.setTranslateX(x);
     renderingShape.setTranslateY(y);
+  }
+
+  @Override
+  public void applyTesselationTransform(int gridX, int gridY) {
+    Affine transform = new Affine();
+    Bounds b = this.getNode().getBoundsInParent();
+    if(gridY % 2 == 1) {
+      transform.appendTranslation(b.getWidth()*0.25, 0);
+    } else {
+      transform.appendTranslation(-b.getWidth()*0.25, 0);
+    }
+    transform.appendTranslation(0, -gridY*b.getHeight()/4.0);
+    this.getNode().getTransforms().addAll(transform);
   }
 }

@@ -71,6 +71,9 @@ public abstract class GraphicalCell {
     }
   }
 
+  public void applyTesselationTransform(int gridX, int gridY) {
+  }
+
   /**
    * Exposes the <code>GraphicalCell</code>'s rendering <code>Node</code> for insertion into a scene
    * graph.
