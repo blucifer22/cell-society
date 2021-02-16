@@ -1,8 +1,7 @@
-package cellsociety.graphics;
+package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +18,7 @@ import javafx.scene.shape.StrokeType;
  *
  * @author David Coffman
  */
-public class GraphicalCell {
+public abstract class GraphicalCell {
 
   private static final double MARGIN = 1.0;
   private final Cell simCell;
@@ -48,12 +47,11 @@ public class GraphicalCell {
    * @param width          the <code>GraphicalCell</code>'s width
    * @param height         the <code>GraphicalCell</code>'s height
    */
-  public GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
-      double width, double height) {
+  protected GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
+      Shape s) {
     this.simCell = simulationCell;
     this.colorMap = colorMap;
-    this.renderingShape = new Rectangle(x + MARGIN, y + MARGIN, width - 2.0 * MARGIN,
-        height - 2.0 * MARGIN);
+    this.renderingShape = s;
     this.renderingShape.setStroke(Color.BLACK);
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
@@ -74,11 +72,6 @@ public class GraphicalCell {
     } else {
       this.renderingShape.setFill(Color.BLACK);
     }
-  }
-
-  // Increment the model cell's state by one
-  private void poke() {
-    this.simCell.poke();
   }
 
   /**

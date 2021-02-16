@@ -1,5 +1,8 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.cells.GraphicalCell;
+import cellsociety.graphics.cells.HexGraphicalCell;
+import cellsociety.graphics.cells.RectangularGraphicalCell;
 import cellsociety.simulation.Cell;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +42,8 @@ public class GraphicalCellRectangularGrid {
       for (int j = 0; j < numCols; j++) {
         Cell c = cells.get(i * numCols + j);
         GraphicalCell gc =
-            new GraphicalCell(c, paintMap, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
+            new RectangularGraphicalCell(c, paintMap, j * cellWidth, i * cellHeight, cellWidth,
+                cellHeight);
         this.graphicalCells.add(gc);
         renderNode(gc.getNode());
       }
