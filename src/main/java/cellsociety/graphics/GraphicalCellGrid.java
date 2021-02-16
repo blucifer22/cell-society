@@ -15,12 +15,12 @@ import javafx.scene.paint.Paint;
  *
  * @author David Coffman
  */
-public class GraphicalCellRectangularGrid {
+public class GraphicalCellGrid {
 
   private final List<GraphicalCell> graphicalCells;
   private final Group root;
 
-  public GraphicalCellRectangularGrid(
+  public GraphicalCellGrid(
       List<Cell> cells,
       Map<Integer, Paint> paintMap,
       double width,
