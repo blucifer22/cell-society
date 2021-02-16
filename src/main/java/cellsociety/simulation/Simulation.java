@@ -24,7 +24,7 @@ public class Simulation {
 
   public Simulation(
       Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates) {
-    this.name = metaData.getOrDefault("Name", "UnknowName");
+    this.name = metaData.getOrDefault("Name", "UnknownName");
     this.nonDefaultStates = nonDefaultStates;
     this.config = config;
     this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);

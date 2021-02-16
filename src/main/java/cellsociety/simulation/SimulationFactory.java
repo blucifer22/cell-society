@@ -22,7 +22,8 @@ public class SimulationFactory {
   public static final String PERC = "Percolation";
   public static final String WATOR = "Wator";
   public static final String SEG = "Segregation";
-  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC, WATOR, SEG);
+  public static final String RPS = "RockPaperScissors";
+  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -64,6 +65,7 @@ public class SimulationFactory {
       case PERC -> PercolationCell.rule = new PercolationRule(rule);
       case WATOR -> WatorCell.rule = new WatorRule(rule);
       case SEG -> SegregationCell.rule = new SegregationRule(rule);
+      case RPS -> RPSCell.rule = new RPSRule(rule);
       default -> {
       }
     }
@@ -76,6 +78,7 @@ public class SimulationFactory {
       case PERC -> new PercolationCell();
       case WATOR -> new WatorCell();
       case SEG -> new SegregationCell();
+      case RPS -> new RPSCell();
       default -> null;
     };
   }
