@@ -141,4 +141,13 @@ public abstract class Cell {
   protected void setY(int posY) {
     this.posY = posY;
   }
+
+  /**
+   * Asks the cell to modify its state.
+   *
+   * When poked a cell will change its current state.
+   */
+  protected void poke() {
+
+  }
 }
