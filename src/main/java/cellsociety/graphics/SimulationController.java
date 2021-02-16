@@ -4,6 +4,8 @@ import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
 import java.io.File;
 import java.util.HashMap;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * The controller class that creates the simulation model for the view to use.
@@ -22,6 +24,7 @@ public class SimulationController {
   private final SimulationFactory simFactory;
   private Simulation simulation;
   private GraphicalCellRectangularGrid graphicalCellGrid;
+  private CountGraph graph;
 
   private double timer;
   private boolean stepEnabled;
@@ -63,6 +66,9 @@ public class SimulationController {
   public void step() {
     simulation.step();
     graphicalCellGrid.update();
+    if(graph != null) {
+      graph.update();
+    }
   }
 
   public void exitSimulation() {
@@ -86,6 +92,13 @@ public class SimulationController {
 
   public void slowDownSimulation() {
     secondsPerStep *= 2.0;
+  }
+
+  public void showVisualization() {
+    this.graph = new CountGraph(this.simulation);
+    Stage s = new Stage();
+    s.setScene(new Scene(graph, 600, 600));
+    s.show();
   }
 
   private void clearState() {

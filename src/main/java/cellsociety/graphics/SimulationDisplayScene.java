@@ -19,18 +19,19 @@ public class SimulationDisplayScene extends Scene {
 
   private final SimulationController simulationController;
   private final Group root;
-  private GraphicalCellRectangularGrid graphicalCellGrid;
-  private ResourceBundle resources;
   private final double WIDTH;
   private final double HEIGHT;
+  private final GraphicalCellRectangularGrid graphicalCellGrid;
+  private final ResourceBundle resources;
 
   public SimulationDisplayScene(
-      SimulationController simulationController, double width, double height, ResourceBundle resources) {
+      SimulationController simulationController, double width, double height,
+      ResourceBundle resources) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.simulationController = simulationController;
     this.graphicalCellGrid = simulationController.graphicalCellGridForCurrentSimulation();
-	this.resources = resources;
+    this.resources = resources;
     this.WIDTH = width;
     this.HEIGHT = height;
     buildScene();
@@ -50,9 +51,11 @@ public class SimulationDisplayScene extends Scene {
     Button slowDownButton = new Button(resources.getString("SlowDown"));
     Button pauseButton = new Button(resources.getString("Pause"));
     Button stepButton = new Button(resources.getString("Step"));
+    Button showGraphButton = new Button("Show Graph");
 
     row.getChildren()
-        .addAll(exitButton, playButton, speedUpButton, slowDownButton, pauseButton, stepButton);
+        .addAll(exitButton, playButton, speedUpButton, slowDownButton, pauseButton, stepButton,
+            showGraphButton);
 
     exitButton.setOnAction(e -> simulationController.exitSimulation());
     playButton.setOnAction(e -> simulationController.startSimulation());
@@ -60,6 +63,7 @@ public class SimulationDisplayScene extends Scene {
     slowDownButton.setOnAction(e -> simulationController.slowDownSimulation());
     pauseButton.setOnAction(e -> simulationController.pauseSimulation());
     stepButton.setOnAction(e -> simulationController.step());
+    showGraphButton.setOnAction(e -> simulationController.showVisualization());
     row.setAlignment(Pos.CENTER);
     row.setTranslateY(this.HEIGHT - 60.0);
     row.setPrefWidth(this.WIDTH);
