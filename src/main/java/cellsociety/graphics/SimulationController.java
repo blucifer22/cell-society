@@ -88,6 +88,8 @@ public class SimulationController {
     secondsPerStep *= 2.0;
   }
 
+  public void showVisualization() {  }
+
   private void clearState() {
     this.simulation = null;
     this.secondsPerStep = 1.0;
