@@ -122,4 +122,8 @@ public class Simulation {
     computeState();
     commitState();
   }
+
+  public void pokeCell(int x, int y) {
+	  cellGrid.pokeCell(x, y);
+  }
 }
