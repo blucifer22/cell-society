@@ -30,6 +30,15 @@ public class ConwayCell extends Cell {
     super(state);
   }
 
+  @Override
+  public void poke() {
+	  if (cellState == DEAD) {
+		  cellState = ALIVE;
+	  } else {
+		  cellState = DEAD;
+	  }
+  }
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.

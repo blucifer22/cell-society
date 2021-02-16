@@ -110,4 +110,8 @@ public class CellGrid {
   private boolean inBounds(int row, int column) {
     return row >= 0 && column >= 0 && grid.size() > row && grid.get(row).size() > column;
   }
+
+  protected void pokeCell(int row, int column) {
+	  grid.get(column).get(row).poke();
+  }
 }

@@ -2,7 +2,10 @@ package cellsociety.graphics;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -22,6 +25,15 @@ public class GraphicalCell {
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
   private final Shape renderingShape;
+
+  private class OnClickEventHandler implements EventHandler<MouseEvent> {
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+      GraphicalCell.this.simCell.poke();
+      GraphicalCell.this.update();
+    }
+  }
 
   /**
    * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
@@ -45,6 +57,7 @@ public class GraphicalCell {
     this.renderingShape.setStroke(Color.BLACK);
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
+    this.renderingShape.setOnMouseClicked(new OnClickEventHandler());
     update();
   }
 
@@ -61,6 +74,11 @@ public class GraphicalCell {
     } else {
       this.renderingShape.setFill(Color.BLACK);
     }
+  }
+
+  // Increment the model cell's state by one
+  private void poke() {
+    this.simCell.poke();
   }
 
   /**
