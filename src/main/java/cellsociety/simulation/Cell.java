@@ -147,7 +147,7 @@ public abstract class Cell {
    *
    * When poked a cell will change its current state.
    */
-  protected void poke() {
+  public void poke() {
 
   }
 }

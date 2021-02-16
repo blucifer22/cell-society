@@ -31,7 +31,7 @@ public class ConwayCell extends Cell {
   }
 
   @Override
-  protected void poke() {
+  public void poke() {
 	  if (cellState == DEAD) {
 		  cellState = ALIVE;
 	  } else {
