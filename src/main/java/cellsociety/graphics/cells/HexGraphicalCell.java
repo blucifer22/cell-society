@@ -2,15 +2,8 @@ package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.transform.Affine;
 
 
 /**

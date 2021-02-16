@@ -1,7 +1,6 @@
 package cellsociety.graphics;
 
 import cellsociety.graphics.cells.GraphicalCell;
-import cellsociety.graphics.cells.HexGraphicalCell;
 import cellsociety.graphics.cells.RectangularGraphicalCell;
 import cellsociety.simulation.Cell;
 import java.util.ArrayList;
