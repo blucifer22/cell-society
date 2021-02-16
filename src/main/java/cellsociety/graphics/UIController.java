@@ -30,6 +30,7 @@ public class UIController {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
     this.resources = loadResources(locale);
+    this.stage.setResizable(false);
     presentLoadSimScene();
   }
 

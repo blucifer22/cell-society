@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeType;
 
@@ -20,7 +19,6 @@ import javafx.scene.shape.StrokeType;
  */
 public abstract class GraphicalCell {
 
-  private static final double MARGIN = 1.0;
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
   private final Shape renderingShape;
@@ -44,8 +42,7 @@ public abstract class GraphicalCell {
    *                       different states
    * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
    * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
-   * @param width          the <code>GraphicalCell</code>'s width
-   * @param height         the <code>GraphicalCell</code>'s height
+   * @param s              the <code>Shape</code> rendered by the the <code>GraphicalCell</code>
    */
   protected GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
       Shape s) {

@@ -36,8 +36,6 @@ public class GraphicalCellRectangularGrid {
     double cellWidth = width / numCols;
     double cellHeight = height / numRows;
 
-    System.out.println(cellWidth + " " + cellHeight);
-
     for (int i = 0; i < numRows; i++) {
       for (int j = 0; j < numCols; j++) {
         Cell c = cells.get(i * numCols + j);
