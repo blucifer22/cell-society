@@ -1,18 +1,18 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>Segregation Test 1</Name>
-    <Type>Segregation</Type>
-    <Author>Josh</Author>
-    <Description>View the progress of segregation</Description>
+    <Name>RPS Test 1</Name>
+    <Type>RockPaperScissors</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>Test Rock Paper Scissors (RPS)</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>Rectangle</CellShape>
-    <Height>6</Height>
-    <Width>6</Width>
+    <Height>5</Height>
+    <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <CutoffPercentage>.3</CutoffPercentage>
+    <LossCount>3</LossCount>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
@@ -20,34 +20,29 @@
    -->
   <InitialStates>
     <Cell>
-      <Row>3</Row>
-      <Column>2</Column>
-      <State>2</State>
+      <Row>1</Row>
+      <Column>1</Column>
+      <State>1</State>
     </Cell>
     <Cell>
-      <Row>4</Row>
+      <Row>1</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>1</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>2</Row>
       <Column>1</Column>
-      <State>2</State>
+      <State>1</State>
     </Cell>
     <Cell>
       <Row>2</Row>
       <Column>2</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>0</Row>
-      <Column>0</Column>
       <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>0</Row>
-      <Column>1</Column>
-      <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>0</Row>
-      <Column>3</Column>
-      <State>1</State>
     </Cell>
     <Cell>
       <Row>2</Row>
@@ -56,22 +51,17 @@
     </Cell>
     <Cell>
       <Row>3</Row>
-      <Column>4</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>1</Row>
       <Column>1</Column>
-      <State>2</State>
-    </Cell>
-    <Cell>
-      <Row>1</Row>
-      <Column>3</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>1</Row>
-      <Column>4</Column>
+      <Row>3</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>3</Row>
+      <Column>3</Column>
       <State>1</State>
     </Cell>
   </InitialStates>

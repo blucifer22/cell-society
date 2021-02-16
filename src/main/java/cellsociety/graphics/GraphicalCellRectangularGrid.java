@@ -15,8 +15,8 @@ import javafx.scene.paint.Paint;
  */
 public class GraphicalCellRectangularGrid {
 
-  private List<GraphicalCell> graphicalCells;
-  private Group root;
+  private final List<GraphicalCell> graphicalCells;
+  private final Group root;
 
   public GraphicalCellRectangularGrid(
       List<Cell> cells,
