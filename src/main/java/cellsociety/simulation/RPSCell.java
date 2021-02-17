@@ -1,26 +1,27 @@
 package cellsociety.simulation;
 
+import java.util.Map;
+
 /**
  * This class handles the behavior of cells in the Rock, Paper, Scissors (RPS) simulation, and thus
  * the state transitions therein.
  *
  * @author Marc Chmielewski
  */
-public class RPSCell extends Cell{
+public class RPSCell extends Cell {
 
   public static final int ROCK = 0;
   public static final int PAPER = 1;
   public static final int SCISSORS = 2;
 
-  public static RPSRule rule;
 
   /**
    * Construct this cell with its default state.
    *
    * <p>The default state for RPSCells is ROCK.
    */
-  public RPSCell() {
-    super(ROCK);
+  public RPSCell(Map<String, Double> rules) {
+    super(ROCK, rules);
   }
 
   /**
@@ -46,36 +47,30 @@ public class RPSCell extends Cell{
     int numRock = 0;
     int numPaper = 0;
     int numScissors = 0;
-    for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState() == ROCK)
-        numRock++;
-      else if(cell.getCurrentCellState() == PAPER)
-        numPaper++;
-      else
-        numScissors++;
+    for (Cell cell : neighbors) {
+      if (cell.getCurrentCellState() == ROCK) numRock++;
+      else if (cell.getCurrentCellState() == PAPER) numPaper++;
+      else numScissors++;
     }
     switch (this.cellState) {
       case ROCK -> {
-        if(numPaper >= rule.getLossCount()) {
+        if (numPaper >= get("LossCount")) {
           this.nextCellState = PAPER;
-        }
-        else {
+        } else {
           this.nextCellState = ROCK;
         }
       }
       case PAPER -> {
-        if(numScissors >= rule.getLossCount()) {
+        if (numScissors >= get("LossCount")) {
           this.nextCellState = SCISSORS;
-        }
-        else {
+        } else {
           this.nextCellState = PAPER;
         }
       }
       case SCISSORS -> {
-        if(numRock >= rule.getLossCount()) {
+        if (numRock >= get("LossCount")) {
           this.nextCellState = ROCK;
-        }
-        else {
+        } else {
           this.nextCellState = SCISSORS;
         }
       }

@@ -1,5 +1,7 @@
 package cellsociety.simulation;
 
+import java.util.Map;
+
 /**
  * This class handles the behavior of cells in the fire spreading simulation and thus the state
  * transitions therein.
@@ -12,20 +14,15 @@ public class FireCell extends Cell {
   public static final int UNBURNT = 0;
   public static final int BURNING = 1;
   public static final int BURNT = 2;
-  /**
-   * The rule all firecells follow to change their states.
-   *
-   * <p>This value is set by the {@link cellsociety.simulation.Simulation}
-   */
-  public static FireRule rule;
 
   /**
    * Construct this cell with its default state.
    *
    * <p>The default state for FireCells is NORMAL.
    */
-  public FireCell() {
-    super(0);
+
+  public FireCell(Map<String, Double> rules) {
+    super(UNBURNT, rules);
   }
 
   /**
@@ -41,6 +38,7 @@ public class FireCell extends Cell {
   public void poke() {
     if (++cellState > 2) {
       cellState = 0;
+      nextCellState = 0;
     }
   }
 
@@ -65,7 +63,7 @@ public class FireCell extends Cell {
   }
 
   private void catchFire() {
-    if (Math.random() > rule.getFlammability()) {
+    if (Math.random() > get("Flammability")) {
       nextCellState = BURNING;
     }
   }
