@@ -32,8 +32,7 @@ public class XMLParser {
   private HashMap<String, String> simulationMetadata;
   private ArrayList<int[]> initialNonDefaultStates;
   private HashMap<String, Double> simulationParameters;
-  private int numRows;
-  private int numCols;
+  private HashMap<String, Double> simulationGeometry;
   private CellShape cellShape;
 
   /**
@@ -85,8 +84,8 @@ public class XMLParser {
         case "INITIALSTATES" -> parseInitialStates(n);
       }
     }
-    simulationParameters.put("Width", (double) numCols);
-    simulationParameters.put("Height", (double) numRows);
+    simulationParameters.put("Width", simulationGeometry.get("WIDTH"));
+    simulationParameters.put("Height", simulationGeometry.get("HEIGHT"));
   }
 
   // Parses the metadata node in the XML root
@@ -106,8 +105,7 @@ public class XMLParser {
 
   // Parses the geometric configuration node in the XML root
   private void parseGeometricConfiguration(Node gcnode) throws Exception {
-    this.numRows = -1;
-    this.numCols = -1;
+    this.simulationGeometry = new HashMap<>();
 
     for (int i = 0; i < gcnode.getChildNodes().getLength(); i++) {
       Node n = gcnode.getChildNodes().item(i);
@@ -117,14 +115,16 @@ public class XMLParser {
       try {
         switch (formattedNodeName(nodeName)) {
           case "CELLSHAPE" -> this.cellShape = CellShape.fromEncoding(childValue);
-          case "HEIGHT" -> this.numRows = Integer.parseInt(childValue);
-          case "WIDTH" -> this.numCols = Integer.parseInt(childValue);
+          case "HEIGHT" -> this.simulationGeometry.put("HEIGHT",
+              (double) Integer.parseInt(childValue));
+          case "WIDTH" -> this.simulationGeometry.put("WIDTH",
+              (double) Integer.parseInt(childValue));
         }
       } catch (Exception e) {
         throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
     }
-    if(numRows < 1 || numCols < 1) {
+    if(this.simulationGeometry.get("WIDTH") < 1 || this.simulationGeometry.get("HEIGHT") < 1) {
       throw new Exception("malformed XML: geometric configuration required; number of rows and "
           + "columns must both be >=1");
     }
@@ -193,7 +193,8 @@ public class XMLParser {
 
   private void validateConfiguration() throws Exception {
     for(int[] cellRepresentation: initialNonDefaultStates) {
-      if(cellRepresentation[0] >= this.numRows || cellRepresentation[1] >= this.numCols) {
+      if(cellRepresentation[0] >= this.simulationGeometry.get("HEIGHT") ||
+          cellRepresentation[1] >= this.simulationGeometry.get("WIDTH")) {
         throw new Exception("bad configuration: file specified a configuration for a cell that "
             + "does not exist");
       }
@@ -237,21 +238,20 @@ public class XMLParser {
   /**
    * Exposes the simulation parameter map.
    *
-   * @return the simulation parameter map.
+   * @return the simulation parameter map
    */
   public HashMap<String, Double> getSimulationParameters() {
     return simulationParameters;
   }
 
+  /**
+   * Exposes the simulation geometry map.
+   *
+   * @return the simulation geometry map
+   */
+  public HashMap<String, Double> getSimulationGeometry() { return simulationGeometry; }
+
   public CellShape getCellShape() {
     return this.cellShape;
-  }
-
-  public int getNumberOfGridRows() {
-    return this.numRows;
-  }
-
-  public int getNumberOfGridColumns() {
-    return this.numCols;
   }
 }
