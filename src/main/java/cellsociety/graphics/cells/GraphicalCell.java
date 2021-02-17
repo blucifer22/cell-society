@@ -1,14 +1,12 @@
-package cellsociety.graphics;
+package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import java.util.Map;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeType;
 
@@ -19,9 +17,8 @@ import javafx.scene.shape.StrokeType;
  *
  * @author David Coffman
  */
-public class GraphicalCell {
+public abstract class GraphicalCell {
 
-  private static final double MARGIN = 1.0;
   private final Cell simCell;
   private final Map<Integer, Paint> colorMap;
   private final Shape renderingShape;
@@ -45,15 +42,13 @@ public class GraphicalCell {
    *                       different states
    * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
    * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
-   * @param width          the <code>GraphicalCell</code>'s width
-   * @param height         the <code>GraphicalCell</code>'s height
+   * @param s              the <code>Shape</code> rendered by the the <code>GraphicalCell</code>
    */
-  public GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
-      double width, double height) {
+  protected GraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
+      Shape s) {
     this.simCell = simulationCell;
     this.colorMap = colorMap;
-    this.renderingShape = new Rectangle(x + MARGIN, y + MARGIN, width - 2.0 * MARGIN,
-        height - 2.0 * MARGIN);
+    this.renderingShape = s;
     this.renderingShape.setStroke(Color.BLACK);
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
@@ -76,9 +71,7 @@ public class GraphicalCell {
     }
   }
 
-  // Increment the model cell's state by one
-  private void poke() {
-    this.simCell.poke();
+  public void applyTesselationTransform(int gridX, int gridY) {
   }
 
   /**

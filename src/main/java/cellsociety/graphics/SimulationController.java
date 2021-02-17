@@ -23,7 +23,7 @@ public class SimulationController {
   private final UIController uiController;
   private final SimulationFactory simFactory;
   private Simulation simulation;
-  private GraphicalCellRectangularGrid graphicalCellGrid;
+  private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
 
   private double timer;
@@ -44,9 +44,9 @@ public class SimulationController {
     try {
       simFactory.loadSimulationFile(simulationConfigurationFile);
       this.simulation = simFactory.getSimulation();
-      this.graphicalCellGrid = new GraphicalCellRectangularGrid(simulation.getCells(),
-          new HashMap<>(), displayWidth, displayHeight, simulation.getNumRows(),
-          simulation.getNumCols());
+      this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(),
+          simulation.getCells(), new HashMap<>(), displayWidth, displayHeight,
+          simulation.getNumRows(), simulation.getNumCols());
       graphicalCellGrid.update();
       uiController.showSimulation(this);
 	  uiController.setTitle(simulation.getName());
@@ -108,7 +108,7 @@ public class SimulationController {
     this.stepEnabled = false;
   }
 
-  public GraphicalCellRectangularGrid graphicalCellGridForCurrentSimulation() {
+  public GraphicalCellGrid graphicalCellGridForCurrentSimulation() {
     assert this.graphicalCellGrid != null;
     return this.graphicalCellGrid;
   }

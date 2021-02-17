@@ -21,7 +21,7 @@ public class SimulationDisplayScene extends Scene {
   private final Group root;
   private final double WIDTH;
   private final double HEIGHT;
-  private final GraphicalCellRectangularGrid graphicalCellGrid;
+  private final GraphicalCellGrid graphicalCellGrid;
   private final ResourceBundle resources;
 
   public SimulationDisplayScene(

@@ -34,6 +34,7 @@ public class XMLParser {
   private HashMap<String, Double> simulationParameters;
   private int numRows;
   private int numCols;
+  private CellShape cellShape;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -56,6 +57,7 @@ public class XMLParser {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
     parseSimulationInformation();
+    validateConfiguration();
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -76,11 +78,11 @@ public class XMLParser {
       Node n = xmlRoot.getChildNodes().item(i);
       String nodeName = n.getNodeName();
       if (nodeName == null) continue;
-      switch (nodeName) {
-        case "General" -> parseMetadata(n);
-        case "GeometricConfiguration" -> parseGeometricConfiguration(n);
-        case "SimulationParameters" -> parseSimulationParameters(n);
-        case "InitialStates" -> parseInitialStates(n);
+      switch (formattedNodeName(nodeName)) {
+        case "GENERAL" -> parseMetadata(n);
+        case "GEOMETRICCONFIGURATION" -> parseGeometricConfiguration(n);
+        case "SIMULATIONPARAMETERS" -> parseSimulationParameters(n);
+        case "INITIALSTATES" -> parseInitialStates(n);
       }
     }
     simulationParameters.put("Width", (double) numCols);
@@ -95,8 +97,8 @@ public class XMLParser {
       String nodeName = n.getNodeName();
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
-      switch (nodeName) {
-        case "Name", "Type", "Author", "Description" -> metadata.put(nodeName, childValue);
+      switch (formattedNodeName(nodeName)) {
+        case "NAME", "TYPE", "AUTHOR", "DESCRIPTION" -> metadata.put(nodeName, childValue);
       }
     }
     this.simulationMetadata = metadata;
@@ -113,12 +115,13 @@ public class XMLParser {
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
       try {
-        switch (nodeName) {
-          case "Height" -> this.numRows = Integer.parseInt(childValue);
-          case "Width" -> this.numCols = Integer.parseInt(childValue);
+        switch (formattedNodeName(nodeName)) {
+          case "CELLSHAPE" -> this.cellShape = CellShape.fromEncoding(childValue);
+          case "HEIGHT" -> this.numRows = Integer.parseInt(childValue);
+          case "WIDTH" -> this.numCols = Integer.parseInt(childValue);
         }
       } catch (Exception e) {
-        throw new Exception("malformed XML: field "+nodeName+" must be an integer.");
+        throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
     }
     if(numRows < 1 || numCols < 1) {
@@ -133,7 +136,7 @@ public class XMLParser {
     for (int i = 0; i < initialGridStateNode.getChildNodes().getLength(); i++) {
       Node n = initialGridStateNode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
-      if (nodeName.equals("Cell")) {
+      if (formattedNodeName(nodeName).equals("CELL")) {
         initialNonDefaultStates.add(parseInitialCellState(n));
       }
     }
@@ -150,10 +153,10 @@ public class XMLParser {
         String childValue = primaryChildNodeValueAsString(n);
         if (nodeName == null || childValue == null) continue;
 
-        switch (nodeName) {
-          case "Row" -> ret[0] = Integer.parseInt(childValue);
-          case "Column" -> ret[1] = Integer.parseInt(childValue);
-          case "State" -> ret[2] = Integer.parseInt(childValue);
+        switch (formattedNodeName(nodeName)) {
+          case "ROW" -> ret[0] = Integer.parseInt(childValue);
+          case "COLUMN" -> ret[1] = Integer.parseInt(childValue);
+          case "STATE" -> ret[2] = Integer.parseInt(childValue);
         }
       }
       for (int j : ret) {
@@ -163,7 +166,8 @@ public class XMLParser {
       }
       return ret;
     } catch (Exception e) {
-      throw new Exception("malformed XML: one or more initial cell states are invalid.");
+      throw new Exception("malformed XML: one or more initial cell states is formatted "
+          + "incorrectly.");
     }
   }
 
@@ -180,10 +184,20 @@ public class XMLParser {
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
-        throw new Exception("malformed XML: one or more getSimulation parameters are invalid.");
+        throw new Exception("malformed XML: one or more simulation parameters is formatted "
+            + "incorrectly.");
       }
     }
     this.simulationParameters = simulationParameters;
+  }
+
+  private void validateConfiguration() throws Exception {
+    for(int[] cellRepresentation: initialNonDefaultStates) {
+      if(cellRepresentation[0] >= this.numRows || cellRepresentation[1] >= this.numCols) {
+        throw new Exception("bad configuration: file specified a configuration for a cell that "
+            + "does not exist");
+      }
+    }
   }
 
   // For a node whose children are known to be terminal nodes (i.e. nodes with a VALUE), extract
@@ -196,6 +210,10 @@ public class XMLParser {
       }
     }
     return null;
+  }
+
+  private String formattedNodeName(String s) {
+    return s.trim().toUpperCase();
   }
 
   /**
@@ -223,5 +241,17 @@ public class XMLParser {
    */
   public HashMap<String, Double> getSimulationParameters() {
     return simulationParameters;
+  }
+
+  public CellShape getCellShape() {
+    return this.cellShape;
+  }
+
+  public int getNumberOfGridRows() {
+    return this.numRows;
+  }
+
+  public int getNumberOfGridColumns() {
+    return this.numCols;
   }
 }
