@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import cellsociety.util.CellShape;
 import java.util.List;
 import java.util.Map;
 
@@ -125,5 +126,9 @@ public class Simulation {
 
   public void pokeCell(int x, int y) {
 	  cellGrid.pokeCell(x, y);
+  }
+
+  public CellShape getCellShape() {
+    return CellShape.RECTANGLE;
   }
 }

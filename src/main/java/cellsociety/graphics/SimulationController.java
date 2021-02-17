@@ -44,9 +44,9 @@ public class SimulationController {
     try {
       simFactory.loadSimulationFile(simulationConfigurationFile);
       this.simulation = simFactory.getSimulation();
-      this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCells(),
-          new HashMap<>(), displayWidth, displayHeight, simulation.getNumRows(),
-          simulation.getNumCols());
+      this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(),
+          simulation.getCells(), new HashMap<>(), displayWidth, displayHeight,
+          simulation.getNumRows(), simulation.getNumCols());
       graphicalCellGrid.update();
       uiController.showSimulation(this);
 	  uiController.setTitle(simulation.getName());
