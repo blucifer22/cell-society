@@ -12,6 +12,7 @@ import java.util.Map;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
+import javafx.scene.transform.Affine;
 
 /**
  * A Grid that configures the visual cells into a grid pattern.
@@ -51,6 +52,23 @@ public class GraphicalCellGrid {
         renderNode(gc.getNode());
       }
     }
+    centerAndScaleGrid(width, height);
+  }
+
+  private void centerAndScaleGrid(double width, double height) {
+    double widthRatio = width/root.getBoundsInParent().getWidth();
+    double heightRatio = height/root.getBoundsInParent().getHeight();
+    double scaleRatio = Math.min(widthRatio, heightRatio);
+
+    Affine scale = new Affine();
+    scale.appendScale(scaleRatio, scaleRatio, 0, 0);
+    this.root.getTransforms().addAll(scale);
+
+    double adjWidth = root.getBoundsInParent().getWidth();
+    double adjHeight = root.getBoundsInParent().getHeight();
+    Affine translate = new Affine();
+    translate.appendTranslation((width - adjWidth)/2.0, (height-adjHeight)/2.0);
+    this.root.getTransforms().addAll(translate);
   }
 
   public void update() {
