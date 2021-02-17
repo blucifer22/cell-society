@@ -78,11 +78,11 @@ public class XMLParser {
       Node n = xmlRoot.getChildNodes().item(i);
       String nodeName = n.getNodeName();
       if (nodeName == null) continue;
-      switch (nodeName) {
-        case "General" -> parseMetadata(n);
-        case "GeometricConfiguration" -> parseGeometricConfiguration(n);
-        case "SimulationParameters" -> parseSimulationParameters(n);
-        case "InitialStates" -> parseInitialStates(n);
+      switch (formattedNodeName(nodeName)) {
+        case "GENERAL" -> parseMetadata(n);
+        case "GEOMETRICCONFIGURATION" -> parseGeometricConfiguration(n);
+        case "SIMULATIONPARAMETERS" -> parseSimulationParameters(n);
+        case "INITIALSTATES" -> parseInitialStates(n);
       }
     }
     simulationParameters.put("Width", (double) numCols);
@@ -97,8 +97,8 @@ public class XMLParser {
       String nodeName = n.getNodeName();
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
-      switch (nodeName) {
-        case "Name", "Type", "Author", "Description" -> metadata.put(nodeName, childValue);
+      switch (formattedNodeName(nodeName)) {
+        case "NAME", "TYPE", "AUTHOR", "DESCRIPTION" -> metadata.put(nodeName, childValue);
       }
     }
     this.simulationMetadata = metadata;
@@ -115,10 +115,10 @@ public class XMLParser {
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
       try {
-        switch (nodeName) {
-          case "CellShape" -> this.cellShape = CellShape.fromEncoding(childValue);
-          case "Height" -> this.numRows = Integer.parseInt(childValue);
-          case "Width" -> this.numCols = Integer.parseInt(childValue);
+        switch (formattedNodeName(nodeName)) {
+          case "CELLSHAPE" -> this.cellShape = CellShape.fromEncoding(childValue);
+          case "HEIGHT" -> this.numRows = Integer.parseInt(childValue);
+          case "WIDTH" -> this.numCols = Integer.parseInt(childValue);
         }
       } catch (Exception e) {
         throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
@@ -136,7 +136,7 @@ public class XMLParser {
     for (int i = 0; i < initialGridStateNode.getChildNodes().getLength(); i++) {
       Node n = initialGridStateNode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
-      if (nodeName.equals("Cell")) {
+      if (formattedNodeName(nodeName).equals("CELL")) {
         initialNonDefaultStates.add(parseInitialCellState(n));
       }
     }
@@ -153,10 +153,10 @@ public class XMLParser {
         String childValue = primaryChildNodeValueAsString(n);
         if (nodeName == null || childValue == null) continue;
 
-        switch (nodeName) {
-          case "Row" -> ret[0] = Integer.parseInt(childValue);
-          case "Column" -> ret[1] = Integer.parseInt(childValue);
-          case "State" -> ret[2] = Integer.parseInt(childValue);
+        switch (formattedNodeName(nodeName)) {
+          case "ROW" -> ret[0] = Integer.parseInt(childValue);
+          case "COLUMN" -> ret[1] = Integer.parseInt(childValue);
+          case "STATE" -> ret[2] = Integer.parseInt(childValue);
         }
       }
       for (int j : ret) {
@@ -210,6 +210,10 @@ public class XMLParser {
       }
     }
     return null;
+  }
+
+  private String formattedNodeName(String s) {
+    return s.trim().toUpperCase();
   }
 
   /**
