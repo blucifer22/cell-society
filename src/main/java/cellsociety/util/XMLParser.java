@@ -34,6 +34,7 @@ public class XMLParser {
   private HashMap<String, Double> simulationParameters;
   private int numRows;
   private int numCols;
+  private CellShape cellShape;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -56,6 +57,7 @@ public class XMLParser {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
     parseSimulationInformation();
+    verifyConfigurationValidity();
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -114,6 +116,7 @@ public class XMLParser {
       if (nodeName == null || childValue == null) continue;
       try {
         switch (nodeName) {
+          case "CellShape" -> this.cellShape = CellShape.fromEncoding(childValue);
           case "Height" -> this.numRows = Integer.parseInt(childValue);
           case "Width" -> this.numCols = Integer.parseInt(childValue);
         }
@@ -163,7 +166,8 @@ public class XMLParser {
       }
       return ret;
     } catch (Exception e) {
-      throw new Exception("malformed XML: one or more initial cell states are invalid.");
+      throw new Exception("malformed XML: one or more initial cell states is formatted "
+          + "incorrectly.");
     }
   }
 
@@ -180,10 +184,20 @@ public class XMLParser {
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
-        throw new Exception("malformed XML: one or more getSimulation parameters are invalid.");
+        throw new Exception("malformed XML: one or more simulation parameters is formatted "
+            + "incorrectly.");
       }
     }
     this.simulationParameters = simulationParameters;
+  }
+
+  private void verifyConfigurationValidity() throws Exception {
+    for(int[] cellRepresentation: initialNonDefaultStates) {
+      if(cellRepresentation[0] >= this.numRows || cellRepresentation[1] >= this.numCols) {
+        throw new Exception("bad configuration: file specified a configuration for a cell that "
+            + "does not exist");
+      }
+    }
   }
 
   // For a node whose children are known to be terminal nodes (i.e. nodes with a VALUE), extract
@@ -223,5 +237,17 @@ public class XMLParser {
    */
   public HashMap<String, Double> getSimulationParameters() {
     return simulationParameters;
+  }
+
+  public CellShape getCellShape() {
+    return this.cellShape;
+  }
+
+  public int getNumberOfGridRows() {
+    return this.numRows;
+  }
+
+  public int getNumberOfGridColumns() {
+    return this.numCols;
   }
 }
