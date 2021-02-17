@@ -1,0 +1,26 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Wator Simulation</Name>
+    <Type>Wator</Type>
+    <Author>Josh</Author>
+    <Description>You can watch the circle of life :(</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <FishBreedingCycle>2</FishBreedingCycle>
+    <FishEnergyGain>5</FishEnergyGain>
+    <SharkSpawnEnergy>10</SharkSpawnEnergy>
+    <SharkEnergyLoss>1</SharkEnergyLoss>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+  </InitialStates>
+</xml>

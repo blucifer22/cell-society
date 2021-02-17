@@ -1,0 +1,23 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Segregation Test 1</Name>
+    <Type>Segregation</Type>
+    <Author>Josh</Author>
+    <Description>View the progress of segregation</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>6</Height>
+    <Width>6</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <CutoffPercentage>.7</CutoffPercentage>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+  </InitialStates>
+</xml>
