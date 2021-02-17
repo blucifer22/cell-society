@@ -34,6 +34,7 @@ public class SimulationDisplayScene extends Scene {
     this.resources = resources;
     this.WIDTH = width;
     this.HEIGHT = height;
+//    this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
     buildScene();
   }
 

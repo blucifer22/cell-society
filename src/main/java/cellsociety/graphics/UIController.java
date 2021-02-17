@@ -33,6 +33,7 @@ public class UIController {
     this.stage.setResizable(false);
     presentLoadSimScene();
   }
+
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
