@@ -49,7 +49,7 @@ public class SimulationFactory {
 
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
     initializeRule(config, type);
-    initializeCells(simulation, type);
+    initializeCells(simulation, type, config);
     this.sim = simulation;
   }
 
@@ -64,10 +64,10 @@ public class SimulationFactory {
         });
   }
 
-  private void initializeCells(Simulation sim, String type) {
+  private void initializeCells(Simulation sim, String type, Map<String, Double> rules) {
     List<Cell> cells = new ArrayList<>();
     for (int i = 0; i < sim.getNumCells(); i++) {
-      cells.add(createCell(type));
+      cells.add(createCell(type, rules));
     }
     try {
       sim.initialize(cells);
@@ -76,27 +76,16 @@ public class SimulationFactory {
     }
   }
 
-  private void initializeRule(Map<String, Double> rule, String type) {
-    switch (type) {
-      case FIRE -> FireCell.rule = new FireRule(rule);
-      case CONWAY -> ConwayCell.rule = new ConwayRule(rule);
-      case PERC -> PercolationCell.rule = new PercolationRule(rule);
-      case WATOR -> WatorCell.rule = new WatorRule(rule);
-      case SEG -> SegregationCell.rule = new SegregationRule(rule);
-      case RPS -> RPSCell.rule = new RPSRule(rule);
-      default -> {
-      }
-    }
-  }
+  private void initializeRule(Map<String, Double> rule, String type) {}
 
-  private Cell createCell(String type) {
+  private Cell createCell(String type, Map<String, Double> rules) {
     return switch (type) {
-      case FIRE -> new FireCell();
-      case CONWAY -> new ConwayCell();
-      case PERC -> new PercolationCell();
-      case WATOR -> new WatorCell();
-      case SEG -> new SegregationCell();
-      case RPS -> new RPSCell();
+      case FIRE -> new FireCell(rules);
+      case CONWAY -> new ConwayCell(rules);
+      case PERC -> new PercolationCell(rules);
+      case WATOR -> new WatorCell(rules);
+      case SEG -> new SegregationCell(rules);
+      case RPS -> new RPSCell(rules);
       default -> null;
     };
   }

@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public abstract class Cell {
   protected int nextCellState;
   protected int posX;
   protected int posY;
+  private Map<String, Double> rules;
 
   /**
    * Constructs a cell with the specified state.
@@ -29,6 +31,11 @@ public abstract class Cell {
   protected Cell(int cellState) {
     this.cellState = cellState;
     neighbors = new ArrayList<>();
+  }
+
+  protected Cell(int cellState, Map<String, Double> rules) {
+    this(cellState);
+    this.rules = rules;
   }
 
   /**
@@ -149,5 +156,15 @@ public abstract class Cell {
    */
   public void poke() {
 
+  }
+
+  /**
+   * Returns a specific rule from within this cell.
+   *
+   * Calling this will retrieve a rule from this
+   * cell's corresponding simulation.
+   */
+  protected double get(String key) {
+    return rules.getOrDefault(key, -1.0);
   }
 }

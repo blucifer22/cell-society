@@ -1,5 +1,7 @@
 package cellsociety.simulation;
 
+import java.util.Map;
+
 /**
  * This class handles the behavior of Cells in Conway's Game of Life, and thus the state transitions
  * therein.
@@ -10,15 +12,14 @@ public class ConwayCell extends Cell {
 
   public static final int DEAD = 0;
   public static final int ALIVE = 1;
-  public static ConwayRule rule;
 
   /**
    * Construct this cell with its default state.
    *
    * <p>The default state for ConwayCells is DEAD.
    */
-  public ConwayCell() {
-    super(DEAD);
+  public ConwayCell(Map<String, Double> rules) {
+    super(DEAD, rules);
   }
 
   /**
@@ -34,8 +35,10 @@ public class ConwayCell extends Cell {
   public void poke() {
     if (cellState == DEAD) {
       cellState = ALIVE;
+      nextCellState = ALIVE;
     } else {
       cellState = DEAD;
+      nextCellState = DEAD;
     }
   }
 
@@ -57,12 +60,12 @@ public class ConwayCell extends Cell {
       }
     }
     if (cellState == ALIVE
-        && numLiveNeighbors >= rule.getAliveNumberMin()
-        && numLiveNeighbors <= rule.getAliveNumberMax()) {
+        && numLiveNeighbors >= get("AliveNumberMin")
+        && numLiveNeighbors <= get("AliveNumberMax")) {
       nextCellState = ALIVE;
     } else if (cellState == DEAD
-        && numLiveNeighbors >= rule.getSpawnNumberMin()
-        && numLiveNeighbors <= rule.getSpawnNumberMax()) {
+        && numLiveNeighbors >= get("SpawnNumberMin")
+        && numLiveNeighbors <= get("SpawnNumberMax")) {
       nextCellState = ALIVE;
     } else {
       if (cellState != DEAD) {

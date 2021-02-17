@@ -68,6 +68,19 @@ public class Simulation {
   }
 
   /**
+   * Sets the specific simulation parameter.
+   *
+   * Modifies the current simulation to set its
+   * parameter mid-simulation.
+   *
+   * @param param - The parameter to set.
+   * @param value - The value to replace within the parameter
+   */
+  public void setParameter(String param, double value) {
+    this.config.put(param, value);
+  }
+
+  /**
    * Returns the name of a simulation
    *
    * @return - The name of the simulation from within the XML file.
