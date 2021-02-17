@@ -30,6 +30,7 @@ public class UIController {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
     this.resources = ResourceBundle.getBundle("cellsociety.graphics.English");
+    this.stage.setResizable(false);
     presentLoadSimScene();
   }
   // Loads the getSimulation loading screen onto the primary stage
