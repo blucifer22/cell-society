@@ -121,7 +121,7 @@ public class XMLParser {
           case "Width" -> this.numCols = Integer.parseInt(childValue);
         }
       } catch (Exception e) {
-        throw new Exception("malformed XML: field "+nodeName+" must be an integer.");
+        throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
     }
     if(numRows < 1 || numCols < 1) {
