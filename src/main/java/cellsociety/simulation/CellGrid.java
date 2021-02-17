@@ -82,23 +82,14 @@ public class CellGrid {
   }
 
   /**
-   * Returns the grid describing the cell configuration.
-   *
-   * @return A 2D-Array of cells configured with the constructed height and width.
-   */
-  protected List<List<Cell>> getCells() {
-    return this.grid;
-  }
-
-  /**
    * Returns a cell in a specific grid position. Returns null if that position is not found within
    * the grid.
    *
-   * @param x - The column the cell is found within
-   * @param y = The row the cell is found within
+   * @param col - The column the cell is found within
+   * @param row = The row the cell is found within
    */
-  protected Cell getCell(int x, int y) {
-    return grid.get(y).get(x);
+  protected Cell getCell(int row, int col) {
+    return grid.get(row).get(col);
   }
 
   /**
@@ -112,6 +103,6 @@ public class CellGrid {
   }
 
   protected void pokeCell(int row, int column) {
-	  grid.get(column).get(row).poke();
+    grid.get(column).get(row).poke();
   }
 }
