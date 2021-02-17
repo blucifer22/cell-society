@@ -46,9 +46,7 @@ public class HexGraphicalCell extends GraphicalCell {
     Affine transform = new Affine();
     Bounds b = this.getNode().getBoundsInParent();
     if(gridY % 2 == 1) {
-      transform.appendTranslation(b.getWidth()*0.25, 0);
-    } else {
-      transform.appendTranslation(-b.getWidth()*0.25, 0);
+      transform.appendTranslation(b.getWidth()*0.5, 0);
     }
     transform.appendTranslation(0, -gridY*b.getHeight()/4.0);
     this.getNode().getTransforms().addAll(transform);
