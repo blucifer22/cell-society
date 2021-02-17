@@ -23,7 +23,8 @@ public class SimulationFactory {
   public static final String WATOR = "Wator";
   public static final String SEG = "Segregation";
   public static final String RPS = "RockPaperScissors";
-  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
+  public static final Set<String> supportedSimulations =
+      Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -41,13 +42,25 @@ public class SimulationFactory {
     String type = metadata.get("Type");
 
     if (!supportedSimulations.contains(type)) {
-      throw new Exception("Invalid simulation type specified.");
+      throw new Exception("Invalid Simulation");
     }
+
+    verifyData(config);
 
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
     initializeRule(config, type);
     initializeCells(simulation, type);
     this.sim = simulation;
+  }
+
+  private void verifyData(Map<String, Double> config) throws IllegalArgumentException {
+    config.forEach(
+        (String key, Double value) -> {
+          if (value < 0) {
+            throw new IllegalArgumentException(
+                String.format("Invalid Parameter \n\"%s\" must be nonegative", key));
+          }
+        });
   }
 
   private void initializeCells(Simulation sim, String type) {
