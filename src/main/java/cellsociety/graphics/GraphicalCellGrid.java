@@ -3,6 +3,7 @@ package cellsociety.graphics;
 import cellsociety.graphics.cells.GraphicalCell;
 import cellsociety.graphics.cells.HexGraphicalCell;
 import cellsociety.graphics.cells.RectangularGraphicalCell;
+import cellsociety.graphics.cells.TriangularGraphicalCell;
 import cellsociety.simulation.Cell;
 import cellsociety.util.CellShape;
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class GraphicalCellGrid {
 
         switch(cellShape) {
           case HEX -> gc = new HexGraphicalCell(c, paintMap, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
-          case TRIANGLE -> {assert false;}
+          case TRIANGLE -> gc = new TriangularGraphicalCell(c, paintMap, j*cellWidth, i*cellHeight,
+              cellWidth, cellHeight);
           default -> gc = new RectangularGraphicalCell(c, paintMap, j * cellWidth,
               i * cellHeight, cellWidth, cellHeight);
         }
@@ -49,11 +51,6 @@ public class GraphicalCellGrid {
         renderNode(gc.getNode());
       }
     }
-  }
-
-  public GraphicalCellGrid(List<Cell> cells, Map<Integer, Paint> paintMap,
-      double width, double height, int numRows, int numCols) {
-    this(CellShape.RECTANGLE, cells, paintMap, width, height, numRows, numCols);
   }
 
   public void update() {

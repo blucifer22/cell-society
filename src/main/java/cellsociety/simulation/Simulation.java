@@ -129,6 +129,6 @@ public class Simulation {
   }
 
   public CellShape getCellShape() {
-    return CellShape.RECTANGLE;
+    return CellShape.TRIANGLE;
   }
 }
