@@ -57,7 +57,7 @@ public class XMLParser {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
     parseSimulationInformation();
-    verifyConfigurationValidity();
+    validateConfiguration();
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -191,7 +191,7 @@ public class XMLParser {
     this.simulationParameters = simulationParameters;
   }
 
-  private void verifyConfigurationValidity() throws Exception {
+  private void validateConfiguration() throws Exception {
     for(int[] cellRepresentation: initialNonDefaultStates) {
       if(cellRepresentation[0] >= this.numRows || cellRepresentation[1] >= this.numCols) {
         throw new Exception("bad configuration: file specified a configuration for a cell that "
