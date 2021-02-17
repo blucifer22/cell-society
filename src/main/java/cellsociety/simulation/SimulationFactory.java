@@ -45,7 +45,7 @@ public class SimulationFactory {
       throw new Exception("Invalid Simulation");
     }
 
-    verifyData(config);
+    verifyData(config, nonDefaultStates);
 
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
     initializeRule(config, type);
@@ -53,7 +53,8 @@ public class SimulationFactory {
     this.sim = simulation;
   }
 
-  private void verifyData(Map<String, Double> config) throws IllegalArgumentException {
+  private void verifyData(Map<String, Double> config, List<int[]> nonDefaultStates)
+      throws IllegalArgumentException {
     config.forEach(
         (String key, Double value) -> {
           if (value < 0) {
@@ -68,7 +69,11 @@ public class SimulationFactory {
     for (int i = 0; i < sim.getNumCells(); i++) {
       cells.add(createCell(type));
     }
-    sim.initialize(cells);
+    try {
+      sim.initialize(cells);
+    } catch (IndexOutOfBoundsException e) {
+      throw new IllegalArgumentException(String.format("Invalid Initial State Parameter"));
+    }
   }
 
   private void initializeRule(Map<String, Double> rule, String type) {
