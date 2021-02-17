@@ -23,7 +23,8 @@ public class SimulationFactory {
   public static final String WATOR = "Wator";
   public static final String SEG = "Segregation";
   public static final String RPS = "RockPaperScissors";
-  public static final Set<String> supportedSimulations = Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
+  public static final Set<String> supportedSimulations =
+      Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -41,8 +42,10 @@ public class SimulationFactory {
     String type = metadata.get("Type");
 
     if (!supportedSimulations.contains(type)) {
-      throw new Exception("Invalid simulation type specified.");
+      throw new Exception("Invalid Simulation");
     }
+
+    verifyData(config, nonDefaultStates);
 
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
     initializeRule(config, type);
@@ -50,12 +53,27 @@ public class SimulationFactory {
     this.sim = simulation;
   }
 
+  private void verifyData(Map<String, Double> config, List<int[]> nonDefaultStates)
+      throws IllegalArgumentException {
+    config.forEach(
+        (String key, Double value) -> {
+          if (value < 0) {
+            throw new IllegalArgumentException(
+                String.format("Invalid Parameter \n\"%s\" must be nonegative", key));
+          }
+        });
+  }
+
   private void initializeCells(Simulation sim, String type) {
     List<Cell> cells = new ArrayList<>();
     for (int i = 0; i < sim.getNumCells(); i++) {
       cells.add(createCell(type));
     }
-    sim.initialize(cells);
+    try {
+      sim.initialize(cells);
+    } catch (IndexOutOfBoundsException e) {
+      throw new IllegalArgumentException(String.format("Invalid Initial State Parameter"));
+    }
   }
 
   private void initializeRule(Map<String, Double> rule, String type) {

@@ -31,6 +31,13 @@ public class PercolationCell extends Cell {
     super(state);
   }
 
+  @Override
+  public void poke() {
+    if (++cellState > 2) {
+      cellState = 0;
+    }
+  }
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.

@@ -1,0 +1,23 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Percolation Simulation</Name>
+    <Type>Percolation</Type>
+    <Author>Josh</Author>
+    <Description>Allows you to watch a system percolate</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <FillNumber>1</FillNumber>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+  </InitialStates>
+</xml>

@@ -42,7 +42,7 @@ public class Simulation {
     this.cells = cells;
     this.cellGrid = new CellGrid(cells, config);
     for (int[] arr : nonDefaultStates) {
-      Cell cell = cellGrid.getCell(arr[1], arr[0]);
+      Cell cell = cellGrid.getCell(arr[0], arr[1]);
       cell.setCellState(arr[2]);
     }
   }

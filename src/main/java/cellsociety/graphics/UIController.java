@@ -29,23 +29,9 @@ public class UIController {
   public UIController(Stage primaryStage, String locale) {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
-    this.resources = loadResources(locale);
-    this.stage.setResizable(false);
+    this.resources = ResourceBundle.getBundle("cellsociety.graphics.English");
     presentLoadSimScene();
   }
-
-  private ResourceBundle loadResources(String locale) {
-    try {
-      File file = new File(String.format("%s/%s.properties", DEFAULT_RESOURCE_PACKAGE, locale));
-      InputStream stream = new FileInputStream(file);
-      return new PropertyResourceBundle(
-          stream);
-    } catch (IOException e) {
-      notifyUserOfException(e);
-    }
-    return null;
-  }
-
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
