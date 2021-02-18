@@ -21,16 +21,18 @@ public class Simulation {
   protected Map<String, String> metaData;
   private final int numRows;
   private final int numCols;
+  private CellShape cellShape;
   List<int[]> nonDefaultStates;
 
   public Simulation(
-      Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates) {
+      Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates, CellShape shape) {
     this.name = metaData.getOrDefault("Name", "UnknownName");
     this.nonDefaultStates = nonDefaultStates;
     this.config = config;
     this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);
     this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
     this.numCells = numCols * numRows;
+    this.cellShape = shape;
   }
 
   /**
@@ -40,7 +42,7 @@ public class Simulation {
    */
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
-    this.cellGrid = new CellGrid(cells, config);
+    this.cellGrid = new CellGrid(cells, config, this.cellShape);
     for (int[] arr : nonDefaultStates) {
       Cell cell = cellGrid.getCell(arr[0], arr[1]);
       cell.setCellState(arr[2]);
@@ -142,6 +144,6 @@ public class Simulation {
   }
 
   public CellShape getCellShape() {
-    return CellShape.HEX;
+    return this.cellShape;
   }
 }
