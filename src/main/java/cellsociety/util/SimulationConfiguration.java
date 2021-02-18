@@ -11,8 +11,9 @@ public class SimulationConfiguration {
   private final Map<String, Double> simulationParameters;
   private final List<int[]> initialNonDefaultCellStates;
   private String simulationName;
+  private String simulationAuthor;
   private SimulationType simulationType;
-  private String description;
+  private String simulationDescription;
   private CellShape cellShape;
   private int width;
   private int height;
@@ -23,10 +24,11 @@ public class SimulationConfiguration {
   }
 
   public void setSimulationName(String name) {
-    if (name == null) {
-      throw new NullPointerException("Simulation name must be defined.");
-    }
     this.simulationName = name;
+  }
+
+  public void setSimulationAuthor(String author) {
+    this.simulationAuthor = author;
   }
 
   public void setSimulationType(SimulationType type) {
@@ -36,11 +38,16 @@ public class SimulationConfiguration {
     this.simulationType = type;
   }
 
-  public void setDescription(String description) {
-    if (description == null) {
-      throw new NullPointerException("Simulation description must be defined.");
+  public void setSimulationType(String type) {
+    SimulationType t = SimulationType.fromStringEncoding(type);
+    if (t == null) {
+      throw new NullPointerException("Invalid simulation type.");
     }
-    this.description = description;
+    this.simulationType = t;
+  }
+
+  public void setSimulationDescription(String description) {
+    this.simulationDescription = description;
   }
 
   public void setCellShape(CellShape shape) {
@@ -97,12 +104,16 @@ public class SimulationConfiguration {
     return this.simulationName;
   }
 
+  public String getSimulationAuthor() {
+    return this.simulationAuthor;
+  }
+
   public SimulationType getSimulationType() {
     return this.simulationType;
   }
 
-  public String getDescription() {
-    return this.description;
+  public String getSimulationDescription() {
+    return this.simulationDescription;
   }
 
   public CellShape getCellShape() {

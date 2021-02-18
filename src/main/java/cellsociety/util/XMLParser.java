@@ -34,6 +34,7 @@ public class XMLParser {
   private HashMap<String, Double> simulationParameters;
   private HashMap<String, Double> simulationGeometry;
   private CellShape cellShape;
+  private final SimulationConfiguration simulationConfiguration;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -55,6 +56,7 @@ public class XMLParser {
     } catch (Exception e) {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
+    this.simulationConfiguration = new SimulationConfiguration();
     parseSimulationInformation();
     validateConfiguration();
   }
@@ -99,6 +101,12 @@ public class XMLParser {
       switch (formattedNodeName(nodeName)) {
         case "NAME", "TYPE", "AUTHOR", "DESCRIPTION" -> metadata.put(nodeName, childValue);
       }
+      switch (formattedNodeName(nodeName)) {
+        case "NAME" -> simulationConfiguration.setSimulationName(childValue);
+        case "TYPE" -> simulationConfiguration.setSimulationType(childValue);
+        case "AUTHOR" -> simulationConfiguration.setSimulationAuthor(childValue);
+        case "DESCRIPTION" -> simulationConfiguration.setSimulationDescription(childValue);
+      }
     }
     this.simulationMetadata = metadata;
   }
@@ -120,6 +128,12 @@ public class XMLParser {
           case "WIDTH" -> this.simulationGeometry.put("WIDTH",
               (double) Integer.parseInt(childValue));
         }
+        switch (formattedNodeName(nodeName)) {
+          case "CELLSHAPE" -> simulationConfiguration.setCellShape(
+              CellShape.fromEncoding(childValue));
+          case "HEIGHT" -> simulationConfiguration.setHeight(Integer.parseInt(childValue));
+          case "WIDTH" -> simulationConfiguration.setWidth(Integer.parseInt(childValue));
+        }
       } catch (Exception e) {
         throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
@@ -138,6 +152,7 @@ public class XMLParser {
       String nodeName = n.getNodeName();
       if (formattedNodeName(nodeName).equals("CELL")) {
         initialNonDefaultStates.add(parseInitialCellState(n));
+        simulationConfiguration.addInitialCellState(parseInitialCellState(n));
       }
     }
     this.initialNonDefaultStates = initialNonDefaultStates;
@@ -183,6 +198,7 @@ public class XMLParser {
           continue;
         }
         simulationParameters.put(nodeName, Double.parseDouble(childValue));
+        simulationConfiguration.addSimulationParameter(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
         throw new Exception("malformed XML: one or more simulation parameters is formatted "
             + "incorrectly.");
@@ -250,6 +266,10 @@ public class XMLParser {
    * @return the simulation geometry map
    */
   public HashMap<String, Double> getSimulationGeometry() { return simulationGeometry; }
+
+  public SimulationConfiguration getSimulationConfiguration() {
+    return this.simulationConfiguration;
+  }
 
   public CellShape getCellShape() {
     return this.cellShape;
