@@ -13,5 +13,6 @@
   </GeometricConfiguration>
   <SimulationParameters>
     <LossCount>3</LossCount>
+    <MaxState>2</MaxState>
   </SimulationParameters>
 </xml>

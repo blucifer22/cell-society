@@ -47,7 +47,7 @@ public class SimulationFactory {
     if (!supportedSimulations.contains(type)) {
       throw new Exception("Invalid Simulation");
     }
-    verifyData(config, nonDefaultStates);
+    verifyData(config, nonDefaultStates,);
 
     XMLParser defaults = parseDefault(type);
     Map<String, Double> defaultParams = defaults.getSimulationParameters();
@@ -82,6 +82,13 @@ public class SimulationFactory {
                 String.format("Invalid Parameter \n\"%s\" must be nonegative", key));
           }
         });
+    System.out.println(config);
+    double max = config.getOrDefault("MaxState", 0.0);
+    nonDefaultStates.forEach( (arr) -> {
+      if (arr[2] < 0 || arr[2] > max) {
+        throw new IllegalArgumentException(String.format("State must be between 0 and %f, found %d", max, arr[2]));
+      }
+    });
   }
 
   private void initializeCells(Simulation sim, String type, Map<String, Double> rules) {
