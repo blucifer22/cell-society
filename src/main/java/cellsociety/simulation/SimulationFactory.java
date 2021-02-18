@@ -3,6 +3,7 @@ package cellsociety.simulation;
 import cellsociety.util.CellShape;
 import cellsociety.util.XMLParser;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,11 +49,28 @@ public class SimulationFactory {
     }
     verifyData(config, nonDefaultStates);
 
+    XMLParser defaults = parseDefault(type);
+    Map<String, Double> defaultParams = defaults.getSimulationParameters();
+    setDefaultParams(config, defaultParams);
+
     CellShape shape = parser.getCellShape();
     Simulation simulation = new Simulation(metadata, config, nonDefaultStates, shape);
     initializeRule(config, type);
     initializeCells(simulation, type, config);
     this.sim = simulation;
+  }
+
+  private XMLParser parseDefault(String type) throws Exception {
+    URL url = getClass().getResource(String.format("Default%s.xml", type));
+    File defaultFile = new File(url.toURI());
+    return new XMLParser(defaultFile);
+  }
+
+  private void setDefaultParams(Map<String, Double> base, Map<String, Double> defaults) {
+    defaults.forEach(
+        (String key, Double value) -> {
+          base.putIfAbsent(key, value);
+        });
   }
 
   private void verifyData(Map<String, Double> config, List<int[]> nonDefaultStates)
