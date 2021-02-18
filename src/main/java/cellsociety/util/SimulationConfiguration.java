@@ -174,5 +174,12 @@ public class SimulationConfiguration {
 
   public enum GridGenerationType {
     NONE, NUMBER, FRACTION;
+
+    public static GridGenerationType fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return GridGenerationType.valueOf(s.trim().toUpperCase());
+    }
   }
 }
