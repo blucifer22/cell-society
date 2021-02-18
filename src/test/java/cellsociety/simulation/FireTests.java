@@ -65,8 +65,6 @@ public class FireTests {
         cellStates.set(UNBURNT, (cellStates.get(UNBURNT) + 1));
       } else if (curCell.getCurrentCellState() == BURNING) {
         cellStates.set(BURNING, (cellStates.get(BURNING) + 1));
-      } else if (curCell.getCurrentCellState() == BURNING) {
-        cellStates.set(BURNING, (cellStates.get(BURNING) + 1));
       } else if (curCell.getCurrentCellState() == BURNT) {
         cellStates.set(BURNT, (cellStates.get(BURNT) + 1));
       }
