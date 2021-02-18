@@ -33,6 +33,13 @@ public class RPSCell extends Cell {
     super(state);
   }
 
+  @Override
+  public void poke() {
+    if (++cellState > SCISSORS) {
+      cellState = ROCK;
+    }
+  }
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
