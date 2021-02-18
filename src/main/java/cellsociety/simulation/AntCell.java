@@ -15,13 +15,14 @@ public class AntCell extends Cell{
   public static final int HOME = 3;
   public static final int OBSTACLE = 4;
 
-  public static final String HOME_PHEROMONE_LEVEL = "HomePheromoneLevel";
-  public static final String FOOD_PHEROMONE_LEVEL = "FoodPheromoneLevel";
-  public static final String PHEROMONE_EVAPORATION_RATE = "PheromoneEvaporationRate";
+  private static final String TARGET_PHEROMONE_CONCENTRATION = "TargetPheromoneConcentration";
+  private static final String PHEROMONE_EVAPORATION_RATE = "PheromoneEvaporationRate";
 
   private double homePheromoneLevel;
   private double foodPheromoneLevel;
   private double pheromoneEvaporationRate;
+  private double targetPheromoneConcentration;
+  private boolean hasFood;
 
   /**
    * Construct this cell with its default state.
@@ -32,7 +33,35 @@ public class AntCell extends Cell{
     super(EMPTY, rules);
     homePheromoneLevel = 0;
     foodPheromoneLevel = 0;
-    pheromoneEvaporationRate = rules.get(PHEROMONE_EVAPORATION_RATE);
+    pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
+    targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
+  }
+
+  @Override
+  protected void setCellState(int state) {
+    switch(state) {
+      case EMPTY -> {
+        homePheromoneLevel = 0;
+        foodPheromoneLevel = 0;
+        pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
+        targetPheromoneConcentration = 0;
+        hasFood = false;
+      }
+      case ANT -> {
+        homePheromoneLevel = 0;
+        foodPheromoneLevel = 0;
+        pheromoneEvaporationRate = 0;
+        targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
+        hasFood = false;
+      }
+      default -> {
+        homePheromoneLevel = 0;
+        foodPheromoneLevel = 0;
+        pheromoneEvaporationRate = 0;
+        targetPheromoneConcentration = 0;
+        hasFood = false;
+      }
+    }
   }
 
   /**
