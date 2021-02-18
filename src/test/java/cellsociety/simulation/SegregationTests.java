@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+/**
+ * A suite of tests for the Segregation Simulation.
+ *
+ * @author Marc Chmielewski
+ */
 public class SegregationTests {
   @Test
   public void testSimpleSegregation() {

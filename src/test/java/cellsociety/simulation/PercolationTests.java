@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+/**
+ * A suite of tests for the Percolation Simulation.
+ *
+ * @author Marc Chmielewski
+ */
 public class PercolationTests {
   @Test
   public void testSimplePercolation() {

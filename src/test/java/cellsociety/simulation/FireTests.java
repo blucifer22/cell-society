@@ -10,8 +10,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A suite of tests for the Fire Simulation.
+ *
+ * @author Marc Chmielewski
+ */
 public class FireTests {
   @Test
   public void testSimpleFire() {
