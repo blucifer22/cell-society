@@ -151,7 +151,7 @@ public class SimulationConfiguration {
     this.initialNonDefaultCellStates.clear();
   }
 
-  public void validateGeometry() throws Exception {
+  public void validateConfiguration() throws Exception {
     for(int[] cellWithState: this.initialNonDefaultCellStates) {
       if(cellWithState[0] >= this.height || cellWithState[1] >= this.width) {
         throw new Exception("Invalid cell specified for simulation geometry; cell with "
@@ -159,6 +159,7 @@ public class SimulationConfiguration {
             + "grid with " + height + " rows and " + width + "columns.");
       }
     }
+    if(this.simulationType == null) throw new Exception("Simulation type must be specified.");
   }
 
   public enum SimulationType {
