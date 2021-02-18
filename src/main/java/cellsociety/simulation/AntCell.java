@@ -93,9 +93,20 @@ public class AntCell extends Cell{
         this.hasFood = 0.0;
       }
       else {
-        moveTowardsHome(move);
+        move(move);
       }
     }
+  }
+
+  private void move(AntCell move) {
+    this.nextCellState = EMPTY;
+    if(this.hasFood == 1.0) {
+      this.foodPheromoneConcentration = targetPheromoneConcentration;
+    }
+    else if(this.hasFood == 0.0) {
+      this.homePheromoneConcentration = targetPheromoneConcentration;
+    }
+    move.nextCellState = ANT;
   }
 
   private AntCell checkHomeMove(Set<AntCell> availableNeighbors) {
@@ -135,7 +146,7 @@ public class AntCell extends Cell{
         this.hasFood = 1.0;
       }
       else {
-        moveTowardsFood(move);
+        move(move);
       }
     }
   }
