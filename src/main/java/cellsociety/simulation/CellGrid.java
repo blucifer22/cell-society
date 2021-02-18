@@ -3,7 +3,6 @@ package cellsociety.simulation;
 import cellsociety.util.CellShape;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A Grid that configures cells in a certain patten and sets the neighbors for for it's held cells.
