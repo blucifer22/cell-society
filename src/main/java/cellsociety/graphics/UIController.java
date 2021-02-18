@@ -1,10 +1,6 @@
 package cellsociety.graphics;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -13,7 +9,6 @@ import javafx.stage.Stage;
 
 public class UIController {
 
-  private final String DEFAULT_RESOURCE_PACKAGE = "data/locales/";
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
   private final ResourceBundle resources;

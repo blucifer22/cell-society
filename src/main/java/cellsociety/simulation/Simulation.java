@@ -19,10 +19,9 @@ public class Simulation {
   protected String name;
   protected double numCells;
   protected Map<String, Double> config;
-  protected Map<String, String> metaData;
   private final int numRows;
   private final int numCols;
-  private CellShape cellShape;
+  private final CellShape cellShape;
   List<int[]> nonDefaultStates;
 
   public Simulation(
