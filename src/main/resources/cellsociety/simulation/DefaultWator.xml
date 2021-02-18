@@ -16,6 +16,7 @@
     <FishEnergyGain>5</FishEnergyGain>
     <SharkSpawnEnergy>10</SharkSpawnEnergy>
     <SharkEnergyLoss>1</SharkEnergyLoss>
+    <MaxState>2</MaxState>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify

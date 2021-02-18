@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * This class handles the behavior of Cells in the Segregation simulation, and thus the state
@@ -10,7 +11,6 @@ import java.util.Collections;
  */
 public class SegregationCell extends Cell {
 
-  public static SegregationRule rule;
   public static final int EMPTY = 0;
   public static final int TYPE_A = 1;
   public static final int TYPE_B = 2;
@@ -20,8 +20,8 @@ public class SegregationCell extends Cell {
    *
    * <p>The default state for SegregationCells is EMPTY.
    */
-  public SegregationCell() {
-    super(EMPTY);
+  public SegregationCell(Map<String, Double> rules) {
+    super(EMPTY, rules);
   }
 
   /**
@@ -63,14 +63,14 @@ public class SegregationCell extends Cell {
     }
     switch (this.getCurrentCellState()) {
       case TYPE_A -> {
-        if ((numTypeA / neighbors.size()) >= rule.getCutoffPercentage()) {
+        if ((numTypeA / neighbors.size()) >= get("CutoffPercentage")) {
           this.nextCellState = TYPE_A; // remains the same
         } else {
           swapWithEmpty();
         }
       }
       case TYPE_B -> {
-        if ((numTypeB / neighbors.size()) >= rule.getCutoffPercentage()) {
+        if ((numTypeB / neighbors.size()) >= get("CutoffPercentage")) {
           this.nextCellState = TYPE_B; // remains the same
         } else {
           swapWithEmpty();

@@ -1,5 +1,7 @@
 package cellsociety.simulation;
 
+import java.util.Map;
+
 /**
  * This class handles the behavior of Cells in the Percolation simulation, and thus the state
  * transitions therein.
@@ -8,7 +10,6 @@ package cellsociety.simulation;
  */
 public class PercolationCell extends Cell {
 
-  public static PercolationRule rule;
   public static final int EMPTY = 0;
   public static final int FULL = 1;
   public static final int BLOCKED = 2;
@@ -18,8 +19,8 @@ public class PercolationCell extends Cell {
    *
    * <p>The default state for PercolationCells is EMPTY.
    */
-  public PercolationCell() {
-    super(EMPTY);
+  public PercolationCell(Map<String, Double> rules) {
+    super(EMPTY, rules);
   }
 
   /**
@@ -54,7 +55,7 @@ public class PercolationCell extends Cell {
         if (cell.getCurrentCellState() == FULL) {
           countFillNeighbors++;
         }
-        if (countFillNeighbors >= rule.getFillNumber()) {
+        if (countFillNeighbors >= get("FillNumber")) {
           nextCellState = FULL;
           break;
         }

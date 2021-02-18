@@ -62,12 +62,13 @@ public abstract class GraphicalCell {
    */
   public void update() {
     //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
-    if (simCell.getEncoding() == 0) {
-      this.renderingShape.setFill(Color.WHITE);
-    } else if (simCell.getEncoding() == 1) {
-      this.renderingShape.setFill(Color.RED);
-    } else {
-      this.renderingShape.setFill(Color.BLACK);
+    switch(simCell.getEncoding()) {
+      case 1 -> this.renderingShape.setFill(Color.RED);
+      case 2 -> this.renderingShape.setFill(Color.BLACK);
+      case 3 -> this.renderingShape.setFill(Color.GREEN);
+      case 4 -> this.renderingShape.setFill(Color.BLUE);
+      case 5 -> this.renderingShape.setFill(Color.PINK);
+      default -> this.renderingShape.setFill(Color.WHITE);
     }
   }
 
