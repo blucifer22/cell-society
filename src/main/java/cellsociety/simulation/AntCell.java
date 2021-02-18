@@ -1,7 +1,9 @@
 package cellsociety.simulation;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -23,6 +25,7 @@ public class AntCell extends Cell{
   private static final String PHEROMONE_EVAPORATION_RATE = "PheromoneEvaporationRate";
   private static final String HAS_FOOD = "HasFood";
 
+  private Random rng;
   private double homePheromoneConcentration;
   private double foodPheromoneConcentration;
   private double pheromoneEvaporationRate;
@@ -41,6 +44,7 @@ public class AntCell extends Cell{
     pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
     targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
     hasFood = 0;
+    rng = new Random();
   }
 
   @Override
@@ -65,7 +69,7 @@ public class AntCell extends Cell{
    *
    */
   public void computeNextCellState() {
-    Set<Cell> availableNeighbors = findAvailableNeighbors();
+    Set<AntCell> availableNeighbors = findAvailableNeighbors();
 
     switch(cellState) {
       case EMPTY -> {
@@ -82,8 +86,8 @@ public class AntCell extends Cell{
     }
   }
 
-  private void antHasFood(Set<Cell> availableNeighbors) {
-    AntCell move = checkHomeMove();
+  private void antHasFood(Set<AntCell> availableNeighbors) {
+    AntCell move = checkHomeMove(availableNeighbors);
     if(move != null) {
       if(move.cellState == HOME) {
         this.hasFood = 0.0;
@@ -94,8 +98,38 @@ public class AntCell extends Cell{
     }
   }
 
-  private void antDoesNotHaveFood(Set<Cell> availableNeighbors) {
-    AntCell move = checkFoodMove();
+  private AntCell checkHomeMove(Set<AntCell> availableNeighbors) {
+    double maxPheromoneConcentration = 0.0;
+    AntCell moveCell = null;
+    for(AntCell cell : availableNeighbors) {
+      if(cell.cellState == HOME) { // If HOME is in range?
+        return cell;
+      }
+      else if(cell.homePheromoneConcentration > maxPheromoneConcentration) { // Most pheromones?
+        moveCell = cell;
+        maxPheromoneConcentration = cell.homePheromoneConcentration;
+      }
+    }
+    if(moveCell == null) { // If none of the above, settle for random...
+      int index = rng.nextInt(availableNeighbors.size());
+      moveCell = getRandomNeighbor(availableNeighbors, index);
+    }
+    return moveCell;
+  }
+
+  private AntCell getRandomNeighbor(Set<AntCell> neighbors, int index) {
+    int i = 0;
+    for(AntCell cell : neighbors) {
+      if(i == index) {
+        return cell;
+      }
+      i++;
+    }
+    return null;
+  }
+
+  private void antDoesNotHaveFood(Set<AntCell> availableNeighbors) {
+    AntCell move = checkFoodMove(availableNeighbors);
     if(move != null) {
       if(move.cellState == FOOD) {
         this.hasFood = 1.0;
@@ -106,13 +140,14 @@ public class AntCell extends Cell{
     }
   }
 
-  private Set<Cell> findAvailableNeighbors() {
-    Set<Cell> availableNeighbors = new HashSet<>();
+  private Set<AntCell> findAvailableNeighbors() {
+    Set<AntCell> availableNeighbors = new HashSet<>();
     for(Cell cell : neighbors) {
       if(cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE) {
-        availableNeighbors.add(cell);
+        availableNeighbors.add((AntCell)cell);
       }
     }
+    return availableNeighbors;
   }
 
   private void evaporatePheromones() {
