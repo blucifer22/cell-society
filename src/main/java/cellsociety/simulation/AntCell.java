@@ -65,8 +65,7 @@ public class AntCell extends Cell{
    *
    */
   public void computeNextCellState() {
-    Set<Cell> availableNeighbors = new HashSet<>();
-    findAvailableNeighbors(availableNeighbors);
+    Set<Cell> availableNeighbors = findAvailableNeighbors();
 
     switch(cellState) {
       case EMPTY -> {
@@ -74,26 +73,41 @@ public class AntCell extends Cell{
       }
       case ANT -> {
         if(this.hasFood == 0) { // Ant does not have food
-          AntCell move = checkFoodMove();
-          if(move != null) {
-            if(move.cellState == FOOD) {
-              this.hasFood = 1.0;
-              this.foodPheromoneConcentration = targetPheromoneConcentration;
-            }
-            else {
-
-            }
-          }
+          antDoesNotHaveFood(availableNeighbors);
         }
         else if(this.hasFood == 1) { // Ant has food
-          AntCell move = checkHomeMove();
-
+          antHasFood(availableNeighbors);
         }
       }
     }
   }
 
-  private void findAvailableNeighbors(Set<Cell> availableNeighbors) {
+  private void antHasFood(Set<Cell> availableNeighbors) {
+    AntCell move = checkHomeMove();
+    if(move != null) {
+      if(move.cellState == HOME) {
+        this.hasFood = 0.0;
+      }
+      else {
+        moveTowardsHome(move);
+      }
+    }
+  }
+
+  private void antDoesNotHaveFood(Set<Cell> availableNeighbors) {
+    AntCell move = checkFoodMove();
+    if(move != null) {
+      if(move.cellState == FOOD) {
+        this.hasFood = 1.0;
+      }
+      else {
+        moveTowardsFood(move);
+      }
+    }
+  }
+
+  private Set<Cell> findAvailableNeighbors() {
+    Set<Cell> availableNeighbors = new HashSet<>();
     for(Cell cell : neighbors) {
       if(cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE) {
         availableNeighbors.add(cell);
@@ -103,10 +117,12 @@ public class AntCell extends Cell{
 
   private void evaporatePheromones() {
     if(this.homePheromoneConcentration > 0) {
-      this.homePheromoneConcentration = Math.max(0, this.homePheromoneConcentration - this.pheromoneEvaporationRate);
+      this.homePheromoneConcentration =
+          Math.max(0, this.homePheromoneConcentration - this.pheromoneEvaporationRate);
     }
     if(this.foodPheromoneConcentration > 0) {
-      this.foodPheromoneConcentration = Math.max(0, this.foodPheromoneConcentration - this.pheromoneEvaporationRate);
+      this.foodPheromoneConcentration =
+          Math.max(0, this.foodPheromoneConcentration - this.pheromoneEvaporationRate);
     }
   }
 
