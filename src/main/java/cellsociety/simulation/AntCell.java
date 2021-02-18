@@ -15,14 +15,17 @@ public class AntCell extends Cell{
   public static final int HOME = 3;
   public static final int OBSTACLE = 4;
 
+  private static final String HOME_PHEROMONE_CONCENTRATION = "HomePheromoneConcentration";
+  private static final String FOOD_PHEROMONE_CONCENTRATION = "FoodPheromoneConcentration";
   private static final String TARGET_PHEROMONE_CONCENTRATION = "TargetPheromoneConcentration";
   private static final String PHEROMONE_EVAPORATION_RATE = "PheromoneEvaporationRate";
+  private static final String HAS_FOOD = "HasFood";
 
-  private double homePheromoneLevel;
-  private double foodPheromoneLevel;
+  private double homePheromoneConcentration;
+  private double foodPheromoneConcentration;
   private double pheromoneEvaporationRate;
   private double targetPheromoneConcentration;
-  private boolean hasFood;
+  private double hasFood;
 
   /**
    * Construct this cell with its default state.
@@ -31,8 +34,8 @@ public class AntCell extends Cell{
    */
   public AntCell(Map<String, Double> rules) {
     super(EMPTY, rules);
-    homePheromoneLevel = 0;
-    foodPheromoneLevel = 0;
+    homePheromoneConcentration = 0;
+    foodPheromoneConcentration = 0;
     pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
     targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
   }
@@ -41,27 +44,35 @@ public class AntCell extends Cell{
   protected void setCellState(int state) {
     switch(state) {
       case EMPTY -> {
-        homePheromoneLevel = 0;
-        foodPheromoneLevel = 0;
+        homePheromoneConcentration = 0;
+        foodPheromoneConcentration = 0;
         pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
         targetPheromoneConcentration = 0;
-        hasFood = false;
+        hasFood = 0;
       }
       case ANT -> {
-        homePheromoneLevel = 0;
-        foodPheromoneLevel = 0;
+        homePheromoneConcentration = 0;
+        foodPheromoneConcentration = 0;
         pheromoneEvaporationRate = 0;
         targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
-        hasFood = false;
+        hasFood = 0;
       }
       default -> {
-        homePheromoneLevel = 0;
-        foodPheromoneLevel = 0;
+        homePheromoneConcentration = 0;
+        foodPheromoneConcentration = 0;
         pheromoneEvaporationRate = 0;
         targetPheromoneConcentration = 0;
-        hasFood = false;
+        hasFood = 0;
       }
     }
+  }
+
+  @Override
+  protected void setNextCellState(int state, Map<String, Double> values) {
+    homePheromoneConcentration = values.getOrDefault(HOME_PHEROMONE_CONCENTRATION, 0.0);
+    foodPheromoneConcentration = values.getOrDefault(FOOD_PHEROMONE_CONCENTRATION, 0.0);
+    hasFood = values.getOrDefault(HAS_FOOD, 0.0);
+    nextCellState = state;
   }
 
   /**
@@ -83,11 +94,11 @@ public class AntCell extends Cell{
   }
 
   private void updatePheromoneLevels(AntCell cell) {
-    if(cell.homePheromoneLevel > 0) {
-      cell.homePheromoneLevel = Math.max(0, cell.homePheromoneLevel- cell.pheromoneEvaporationRate);
+    if(cell.homePheromoneConcentration > 0) {
+      cell.homePheromoneConcentration = Math.max(0, cell.homePheromoneConcentration - cell.pheromoneEvaporationRate);
     }
-    if(cell.foodPheromoneLevel > 0) {
-      cell.foodPheromoneLevel = Math.max(0, cell.foodPheromoneLevel- cell.pheromoneEvaporationRate);
+    if(cell.foodPheromoneConcentration > 0) {
+      cell.foodPheromoneConcentration = Math.max(0, cell.foodPheromoneConcentration - cell.pheromoneEvaporationRate);
     }
   }
 
