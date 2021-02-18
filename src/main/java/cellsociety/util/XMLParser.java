@@ -215,6 +215,7 @@ public class XMLParser {
             + "does not exist");
       }
     }
+    simulationConfiguration.validateGeometry();
   }
 
   // For a node whose children are known to be terminal nodes (i.e. nodes with a VALUE), extract
