@@ -13,6 +13,7 @@
   </GeometricConfiguration>
   <SimulationParameters>
     <FillNumber>1</FillNumber>
+    <MaxState>2</MaxState>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify

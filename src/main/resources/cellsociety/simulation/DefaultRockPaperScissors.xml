@@ -1,0 +1,18 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>RPS Test 1</Name>
+    <Type>RockPaperScissors</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>Test Rock Paper Scissors (RPS)</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <LossCount>3</LossCount>
+    <MaxState>2</MaxState>
+  </SimulationParameters>
+</xml>

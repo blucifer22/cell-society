@@ -1,7 +1,9 @@
 package cellsociety.simulation;
 
+import cellsociety.util.CellShape;
 import cellsociety.util.XMLParser;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class SimulationFactory {
 
     XMLParser parser = new XMLParser(file);
     Map<String, String> metadata = parser.getSimulationMetadata();
+
     Map<String, Double> config = parser.getSimulationParameters();
     List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
     String type = metadata.get("Type");
@@ -44,16 +47,33 @@ public class SimulationFactory {
     if (!supportedSimulations.contains(type)) {
       throw new Exception("Invalid Simulation");
     }
+    XMLParser defaults = parseDefault(type);
+    Map<String, Double> defaultParams = defaults.getSimulationParameters();
+    setDefaultParams(config, defaultParams);
 
-    verifyData(config, nonDefaultStates);
+    verifyData(config, defaultParams, nonDefaultStates);
 
-    Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
+    CellShape shape = parser.getCellShape();
+    Simulation simulation = new Simulation(metadata, config, nonDefaultStates, shape);
     initializeRule(config, type);
     initializeCells(simulation, type, config);
     this.sim = simulation;
   }
 
-  private void verifyData(Map<String, Double> config, List<int[]> nonDefaultStates)
+  private XMLParser parseDefault(String type) throws Exception {
+    URL url = getClass().getResource(String.format("Default%s.xml", type));
+    File defaultFile = new File(url.toURI());
+    return new XMLParser(defaultFile);
+  }
+
+  private void setDefaultParams(Map<String, Double> base, Map<String, Double> defaults) {
+    defaults.forEach(
+        (String key, Double value) -> {
+          base.putIfAbsent(key, value);
+        });
+  }
+
+  private void verifyData(Map<String, Double> config, Map<String, Double> defaults, List<int[]> nonDefaultStates)
       throws IllegalArgumentException {
     config.forEach(
         (String key, Double value) -> {
@@ -62,6 +82,14 @@ public class SimulationFactory {
                 String.format("Invalid Parameter \n\"%s\" must be nonegative", key));
           }
         });
+    System.out.println(config);
+    int max = (int) (double) defaults.getOrDefault("MaxState", 0.0);
+
+    nonDefaultStates.forEach( (arr) -> {
+      if (arr[2] < 0 || arr[2] > max) {
+        throw new IllegalArgumentException(String.format("State must be between 0 and %d, found %d", max, arr[2]));
+      }
+    });
   }
 
   private void initializeCells(Simulation sim, String type, Map<String, Double> rules) {

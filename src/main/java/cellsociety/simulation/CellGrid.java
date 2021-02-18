@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import cellsociety.util.CellShape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class CellGrid {
    * @param cells - The list of cells to be configured in a grid pattern.
    * @param configuration - The geometric patterns for this grid.
    */
-  public CellGrid(List<Cell> cells, Map<String, Double> configuration) {
+  public CellGrid(List<Cell> cells, Map<String, Double> configuration, CellShape shape) {
     this.grid = new ArrayList<>();
     this.configuration = configuration;
     this.platformWidth = configuration.getOrDefault("Width", DEFAULT_WIDTH);
@@ -40,7 +41,20 @@ public class CellGrid {
         grid.get(i).add(cells.get(count));
       }
     }
-    createNeighbors();
+    switch (shape) {
+      case RECTANGLE:
+        createNeighbors();
+        break;
+      case TRIANGLE:
+        createTriNeighbors();
+        break;
+      case HEX:
+        createHexNeighbors();
+        break;
+      default:
+        createNeighbors();
+        break;
+    }
   }
 
   private void createNeighbors() {
@@ -65,6 +79,55 @@ public class CellGrid {
         addCellNeighbor(cell, i, j - 1);
         addCellNeighbor(cell, i, j + 1);
       }
+    }
+  }
+
+  /** Creates triangular neighbors */
+  private void createTriNeighbors() {
+    List<Cell> row;
+    Cell cell;
+    boolean other = true;
+    for (int i = 0; i < grid.size(); i++) {
+      row = grid.get(i);
+      for (int j = 0; j < row.size(); j++) {
+        cell = row.get(j);
+        if (other) {
+          addCellNeighbor(cell, i - 1, j);
+        } else {
+          addCellNeighbor(cell, i + 1, j);
+        }
+
+        addCellNeighbor(cell, i, j - 1);
+        addCellNeighbor(cell, i, j + 1);
+        other = !other;
+      }
+      other = !other;
+    }
+  }
+
+  private void createHexNeighbors() {
+    List<Cell> row;
+    Cell cell;
+    boolean other = true;
+    for (int i = 0; i < grid.size(); i++) {
+      row = grid.get(i);
+      for (int j = 0; j < row.size(); j++) {
+        cell = row.get(j);
+
+          addCellNeighbor(cell, i - 1, j);
+          addCellNeighbor(cell, i + 1, j);
+        if (other) {
+          addCellNeighbor(cell, i + 1, j - 1);
+          addCellNeighbor(cell, i - 1, j - 1);
+        }  else {
+          addCellNeighbor(cell, i + 1, j+1);
+          addCellNeighbor(cell, i - 1, j + 1);
+        }
+
+         addCellNeighbor(cell, i, j - 1);
+         addCellNeighbor(cell, i, j + 1);
+      }
+      other = !other;
     }
   }
 
