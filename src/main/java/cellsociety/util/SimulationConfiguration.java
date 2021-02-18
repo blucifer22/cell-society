@@ -97,7 +97,17 @@ public class SimulationConfiguration {
       throw new NullPointerException("Simulation parameter names and values must be defined "
           + "(error encountered on parameter"+parameter+" with given value = "+value+").");
     }
+    if (simulationParameters.get(parameter) == null) {
+      throw new IllegalArgumentException("Simulation parameters must be defined in order to be "
+          + "updated.");
+    }
     simulationParameters.put(parameter, value);
+  }
+
+  public void addDefaultParameters(Map<String, Double> defaultParameters) {
+    for(String key: defaultParameters.keySet()) {
+      this.simulationParameters.putIfAbsent(key, defaultParameters.get(key));
+    }
   }
 
   public String getSimulationName() {
@@ -132,8 +142,7 @@ public class SimulationConfiguration {
     return Collections.unmodifiableMap(simulationParameters);
   }
 
-  public List<int[]> getInitialNonDefaultCellStates() throws Exception {
-    validateGeometry();
+  public List<int[]> getInitialNonDefaultCellStates() {
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
 
@@ -141,7 +150,7 @@ public class SimulationConfiguration {
     this.initialNonDefaultCellStates.clear();
   }
 
-  private void validateGeometry() throws Exception {
+  public void validateGeometry() throws Exception {
     for(int[] cellWithState: this.initialNonDefaultCellStates) {
       if(cellWithState[0] >= this.height || cellWithState[1] >= this.width) {
         throw new Exception("Invalid cell specified for simulation geometry; cell with "
