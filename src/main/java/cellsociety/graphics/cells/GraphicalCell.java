@@ -66,6 +66,8 @@ public abstract class GraphicalCell {
       case 1 -> this.renderingShape.setFill(Color.RED);
       case 2 -> this.renderingShape.setFill(Color.BLACK);
       case 3 -> this.renderingShape.setFill(Color.GREEN);
+      case 4 -> this.renderingShape.setFill(Color.BLUE);
+      case 5 -> this.renderingShape.setFill(Color.PINK);
       default -> this.renderingShape.setFill(Color.WHITE);
     }
   }
