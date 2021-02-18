@@ -19,7 +19,7 @@ public class SimulationSelectionScene extends Scene {
   private final Group root;
   private final double width;
   private final double height;
-  private ResourceBundle resources;
+  private final ResourceBundle resources;
 
   /**
    * Sole constructor for <code>SimulationSelectScene</code>. Called by <code>UIController</code> to

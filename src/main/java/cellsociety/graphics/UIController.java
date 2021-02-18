@@ -16,9 +16,9 @@ public class UIController {
   private final String DEFAULT_RESOURCE_PACKAGE = "data/locales/";
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
-  private ResourceBundle resources;
+  private final ResourceBundle resources;
   private final Stage stage;
-  private SimulationController simulationController;
+  private final SimulationController simulationController;
 
   /**
    * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing initial
