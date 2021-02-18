@@ -21,14 +21,6 @@ import java.util.Set;
 public class SimulationFactory {
 
   private Simulation sim;
-  public static final String FIRE = "Fire";
-  public static final String CONWAY = "Conway";
-  public static final String PERC = "Percolation";
-  public static final String WATOR = "Wator";
-  public static final String SEG = "Segregation";
-  public static final String RPS = "RockPaperScissors";
-  public static final Set<String> supportedSimulations =
-      Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
