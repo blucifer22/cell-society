@@ -17,6 +17,7 @@
     <AliveNumberMax>3</AliveNumberMax>
     <SpawnNumberMin>3</SpawnNumberMin>
     <SpawnNumberMax>3</SpawnNumberMax>
+    <MaxState>1</MaxState>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
