@@ -3,6 +3,8 @@ package cellsociety.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -29,9 +31,9 @@ import org.w3c.dom.Node;
  */
 public class XMLParser {
   private final Document doc;
-  private HashMap<String, String> simulationMetadata;
-  private ArrayList<int[]> initialNonDefaultStates;
-  private HashMap<String, Double> simulationParameters;
+  private Map<String, String> simulationMetadata;
+  private List<int[]> initialNonDefaultStates;
+  private Map<String, Double> simulationParameters;
   private int numRows;
   private int numCols;
   private CellShape cellShape;
@@ -221,7 +223,7 @@ public class XMLParser {
    *
    * @return the simulation metadata map
    */
-  public HashMap<String, String> getSimulationMetadata() {
+  public Map<String, String> getSimulationMetadata() {
     return simulationMetadata;
   }
 
@@ -230,7 +232,7 @@ public class XMLParser {
    *
    * @return the cells with non-default initial states
    */
-  public ArrayList<int[]> getInitialNonDefaultStates() {
+  public List<int[]> getInitialNonDefaultStates() {
     return initialNonDefaultStates;
   }
 
@@ -239,7 +241,7 @@ public class XMLParser {
    *
    * @return the simulation parameter map.
    */
-  public HashMap<String, Double> getSimulationParameters() {
+  public Map<String, Double> getSimulationParameters() {
     return simulationParameters;
   }
 
