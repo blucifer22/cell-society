@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,16 @@ public class Simulation {
     this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
     this.numCells = numCols * numRows;
     this.cellShape = shape;
+  }
+
+  public Simulation(SimulationConfiguration config) {
+    this.name = config.getSimulationName();
+    this.nonDefaultStates = config.getInitialNonDefaultCellStates();
+    this.config = config.getSimulationParameters();
+    this.numRows = config.getHeight();
+    this.numCols = config.getWidth();
+    this.numCells = numCols * numRows;
+    this.cellShape = config.getCellShape();
   }
 
   /**
