@@ -34,6 +34,7 @@ public class XMLParser {
   private Map<String, String> simulationMetadata;
   private List<int[]> initialNonDefaultStates;
   private Map<String, Double> simulationParameters;
+  private Map<String, Double> simulationGeometry;
   private int numRows;
   private int numCols;
   private CellShape cellShape;
@@ -269,7 +270,7 @@ public class XMLParser {
    *
    * @return the simulation geometry map
    */
-  public HashMap<String, Double> getSimulationGeometry() { return simulationGeometry; }
+  public Map<String, Double> getSimulationGeometry() { return simulationGeometry; }
 
   public SimulationConfiguration getSimulationConfiguration() {
     return this.simulationConfiguration;
