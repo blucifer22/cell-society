@@ -26,13 +26,13 @@ public class CellGrid {
    * the height defaults to {@value #DEFAULT_HEIGHT} and the width to {@value #DEFAULT_WIDTH}.
    *
    * @param cells - The list of cells to be configured in a grid pattern.
-   * @param configuration - The geometric patterns for this grid.
+   * @param gridWidth - The number of cells in each row
+   * @param gridHeight - The number of cells in each column
    */
-  public CellGrid(List<Cell> cells, Map<String, Double> configuration, CellShape shape) {
+  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape) {
     this.grid = new ArrayList<>();
-    this.configuration = configuration;
-    this.platformWidth = configuration.getOrDefault("Width", DEFAULT_WIDTH);
-    this.platformHeight = configuration.getOrDefault("Height", DEFAULT_HEIGHT);
+    this.platformWidth = gridWidth;
+    this.platformHeight = gridHeight;
     for (int i = 0, count = 0; i < platformHeight && count < cells.size(); i++) {
       grid.add(new ArrayList<>());
       for (int j = 0; j < platformWidth && count < cells.size(); j++, count++) {
@@ -42,18 +42,10 @@ public class CellGrid {
       }
     }
     switch (shape) {
-      case RECTANGLE:
-        createNeighbors();
-        break;
-      case TRIANGLE:
-        createTriNeighbors();
-        break;
-      case HEX:
-        createHexNeighbors();
-        break;
-      default:
-        createNeighbors();
-        break;
+      case RECTANGLE -> createNeighbors();
+      case TRIANGLE -> createTriNeighbors();
+      case HEX -> createHexNeighbors();
+      default -> createNeighbors();
     }
   }
 
