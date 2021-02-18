@@ -12,18 +12,12 @@ import java.util.Map;
  *     <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
  */
 public class CellGrid {
-  public static final double DEFAULT_HEIGHT = 5;
-  public static final double DEFAULT_WIDTH = 5;
   protected List<List<Cell>> grid;
-  protected Map<String, Double> configuration;
   protected double platformWidth;
   protected double platformHeight;
 
   /**
    * Constructs a rectangular grid with the specified configuration.
-   *
-   * <p>Cell grids expect the maps they are passed to contain a "width" and "height" field, if not
-   * the height defaults to {@value #DEFAULT_HEIGHT} and the width to {@value #DEFAULT_WIDTH}.
    *
    * @param cells - The list of cells to be configured in a grid pattern.
    * @param gridWidth - The number of cells in each row
@@ -42,7 +36,6 @@ public class CellGrid {
       }
     }
     switch (shape) {
-      case RECTANGLE -> createNeighbors();
       case TRIANGLE -> createTriNeighbors();
       case HEX -> createHexNeighbors();
       default -> createNeighbors();
