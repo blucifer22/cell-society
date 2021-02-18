@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import cellsociety.util.CellShape;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class SimulationFactory {
 
     XMLParser parser = new XMLParser(file);
     Map<String, String> metadata = parser.getSimulationMetadata();
+
     Map<String, Double> config = parser.getSimulationParameters();
     List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
     String type = metadata.get("Type");
@@ -44,10 +46,10 @@ public class SimulationFactory {
     if (!supportedSimulations.contains(type)) {
       throw new Exception("Invalid Simulation");
     }
-
     verifyData(config, nonDefaultStates);
 
-    Simulation simulation = new Simulation(metadata, config, nonDefaultStates);
+    CellShape shape = parser.getCellShape();
+    Simulation simulation = new Simulation(metadata, config, nonDefaultStates, shape);
     initializeRule(config, type);
     initializeCells(simulation, type, config);
     this.sim = simulation;
