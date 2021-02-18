@@ -163,7 +163,7 @@ public class SimulationConfiguration {
   }
 
   public enum SimulationType {
-    FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS;
+    FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT;
 
     public static SimulationType fromStringEncoding(String s) {
       if (s == null) {

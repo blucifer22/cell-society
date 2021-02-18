@@ -1,0 +1,24 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Foraging Ants: Test 1</Name>
+    <Type>Ant</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>A test for foraging ants</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <PheromoneEvaporationRate>1</PheromoneEvaporationRate>
+    <TargetPheronomeConcentration>100</TargetPheronomeConcentration>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+  </InitialStates>
+</xml>
