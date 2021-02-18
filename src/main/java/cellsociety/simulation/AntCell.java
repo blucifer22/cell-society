@@ -56,8 +56,6 @@ public class AntCell extends Cell{
     nextCellState = state;
   }
 
-
-
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
