@@ -1,10 +1,10 @@
 package cellsociety.simulation;
 
-
-import static cellsociety.simulation.PercolationCell.BLOCKED;
-import static cellsociety.simulation.PercolationCell.EMPTY;
-import static cellsociety.simulation.PercolationCell.FULL;
+import static cellsociety.simulation.SegregationCell.EMPTY;
+import static cellsociety.simulation.SegregationCell.TYPE_A;
+import static cellsociety.simulation.SegregationCell.TYPE_B;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -12,20 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class PercolationTests {
+public class SegregationTests {
   @Test
-  public void testSimplePercolation() {
-    Simulation simple = createSimulation("data/percolation/percolation_test_1.xml");
+  public void testSimpleSegregation() {
+    Simulation simple = createSimulation("data/segregation/segregation_test_1.xml");
 
     List<Integer> prevRound = new ArrayList<>();
     prevRound.add(EMPTY, 0);
-    prevRound.add(FULL, 0);
-    prevRound.add(BLOCKED, 0);
+    prevRound.add(TYPE_A, 0);
+    prevRound.add(TYPE_B, 0);
 
     List<Integer> curRound = new ArrayList<>();
     curRound.add(EMPTY, 0);
-    curRound.add(FULL, 0);
-    curRound.add(BLOCKED, 0);
+    curRound.add(TYPE_A, 0);
+    curRound.add(TYPE_B, 0);
 
     prevRound = getCellStates(simple.getCells());
 
@@ -34,9 +34,9 @@ public class PercolationTests {
     curRound = getCellStates(simple.getCells());
 
     for(int i = 0; i < 500; i++) {
-      assertTrue(curRound.get(EMPTY) <= prevRound.get(EMPTY));
-      assertTrue(curRound.get(FULL) >= prevRound.get(FULL));
-      assertEquals(prevRound.get(BLOCKED), curRound.get(BLOCKED));
+      assertEquals(curRound.get(EMPTY), prevRound.get(EMPTY));
+      assertEquals(curRound.get(TYPE_A), prevRound.get(TYPE_A));
+      assertEquals(prevRound.get(TYPE_B), curRound.get(TYPE_B));
       prevRound = curRound;
       simple.step();
       curRound = getCellStates(simple.getCells());
@@ -58,16 +58,16 @@ public class PercolationTests {
   private List<Integer> getCellStates(List<Cell> cells) {
     ArrayList<Integer> cellStates = new ArrayList<>();
     cellStates.add(EMPTY, 0);
-    cellStates.add(FULL, 0);
-    cellStates.add(BLOCKED, 0);
+    cellStates.add(TYPE_A, 0);
+    cellStates.add(TYPE_B, 0);
 
     for (Cell curCell : cells) {
       if (curCell.getCurrentCellState() == EMPTY) {
         cellStates.set(EMPTY, (cellStates.get(EMPTY) + 1));
-      } else if (curCell.getCurrentCellState() == FULL) {
-        cellStates.set(FULL, (cellStates.get(FULL) + 1));
-      } else if (curCell.getCurrentCellState() == BLOCKED) {
-        cellStates.set(BLOCKED, (cellStates.get(BLOCKED) + 1));
+      } else if (curCell.getCurrentCellState() == TYPE_A) {
+        cellStates.set(TYPE_A, (cellStates.get(TYPE_A) + 1));
+      } else if (curCell.getCurrentCellState() == TYPE_B) {
+        cellStates.set(TYPE_B, (cellStates.get(TYPE_B) + 1));
       }
     }
     return cellStates;
