@@ -1,6 +1,8 @@
 package cellsociety.simulation;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class handles the behavior of Cells in the Foraging Ants simulation, and thus the state
@@ -38,42 +40,22 @@ public class AntCell extends Cell{
     foodPheromoneConcentration = 0;
     pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
     targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
+    hasFood = 0;
   }
 
   @Override
   protected void setCellState(int state) {
-    switch(state) {
-      case EMPTY -> {
-        homePheromoneConcentration = 0;
-        foodPheromoneConcentration = 0;
-        pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
-        targetPheromoneConcentration = 0;
-        hasFood = 0;
-      }
-      case ANT -> {
-        homePheromoneConcentration = 0;
-        foodPheromoneConcentration = 0;
-        pheromoneEvaporationRate = 0;
-        targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
-        hasFood = 0;
-      }
-      default -> {
-        homePheromoneConcentration = 0;
-        foodPheromoneConcentration = 0;
-        pheromoneEvaporationRate = 0;
-        targetPheromoneConcentration = 0;
-        hasFood = 0;
-      }
-    }
+    hasFood = 0;
+    cellState = state;
   }
 
   @Override
   protected void setNextCellState(int state, Map<String, Double> values) {
-    homePheromoneConcentration = values.getOrDefault(HOME_PHEROMONE_CONCENTRATION, 0.0);
-    foodPheromoneConcentration = values.getOrDefault(FOOD_PHEROMONE_CONCENTRATION, 0.0);
     hasFood = values.getOrDefault(HAS_FOOD, 0.0);
     nextCellState = state;
   }
+
+
 
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
@@ -83,22 +65,48 @@ public class AntCell extends Cell{
    *
    */
   public void computeNextCellState() {
+    Set<Cell> availableNeighbors = new HashSet<>();
+    findAvailableNeighbors(availableNeighbors);
+
     switch(cellState) {
       case EMPTY -> {
-        updatePheromoneLevels(this);
+        evaporatePheromones();
       }
       case ANT -> {
-        // TODO: Implement ANT cell behavior
+        if(this.hasFood == 0) { // Ant does not have food
+          AntCell move = checkFoodMove();
+          if(move != null) {
+            if(move.cellState == FOOD) {
+              this.hasFood = 1.0;
+              this.foodPheromoneConcentration = targetPheromoneConcentration;
+            }
+            else {
+
+            }
+          }
+        }
+        else if(this.hasFood == 1) { // Ant has food
+          AntCell move = checkHomeMove();
+
+        }
       }
     }
   }
 
-  private void updatePheromoneLevels(AntCell cell) {
-    if(cell.homePheromoneConcentration > 0) {
-      cell.homePheromoneConcentration = Math.max(0, cell.homePheromoneConcentration - cell.pheromoneEvaporationRate);
+  private void findAvailableNeighbors(Set<Cell> availableNeighbors) {
+    for(Cell cell : neighbors) {
+      if(cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE) {
+        availableNeighbors.add(cell);
+      }
     }
-    if(cell.foodPheromoneConcentration > 0) {
-      cell.foodPheromoneConcentration = Math.max(0, cell.foodPheromoneConcentration - cell.pheromoneEvaporationRate);
+  }
+
+  private void evaporatePheromones() {
+    if(this.homePheromoneConcentration > 0) {
+      this.homePheromoneConcentration = Math.max(0, this.homePheromoneConcentration - this.pheromoneEvaporationRate);
+    }
+    if(this.foodPheromoneConcentration > 0) {
+      this.foodPheromoneConcentration = Math.max(0, this.foodPheromoneConcentration - this.pheromoneEvaporationRate);
     }
   }
 
