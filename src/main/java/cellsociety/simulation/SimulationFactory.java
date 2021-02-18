@@ -17,6 +17,7 @@ import java.util.Set;
  * <p>This class creates simulations based on a (properly) formatted XML file.
  *
  * @author Joshua Petitma
+ * @author David Coffman
  */
 public class SimulationFactory {
 
