@@ -13,7 +13,6 @@ import java.util.Map;
  *     and is capable of stepping simulations forward.
  */
 public class Simulation {
-  public static final double DEFAULT_CELL_NUMBER = 10;
   protected CellGrid cellGrid;
   protected List<Cell> cells;
   protected String name;
