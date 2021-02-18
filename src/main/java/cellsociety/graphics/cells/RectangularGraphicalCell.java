@@ -14,8 +14,6 @@ import javafx.scene.shape.Rectangle;
  */
 public class RectangularGraphicalCell extends GraphicalCell {
 
-  private static final double MARGIN = 1.0;
-
   /**
    * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
    * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
@@ -33,9 +31,9 @@ public class RectangularGraphicalCell extends GraphicalCell {
       double width, double height) {
     super(simulationCell, colorMap, x, y, new Rectangle());
     Rectangle rect = (Rectangle) super.getNode();
-    rect.setWidth(width-2.0*MARGIN);
-    rect.setHeight(height-2.0*MARGIN);
-    rect.setX(x+MARGIN);
-    rect.setY(y+MARGIN);
+    rect.setWidth(width);
+    rect.setHeight(height);
+    rect.setX(x);
+    rect.setY(y);
   }
 }

@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,6 @@ import java.util.Map;
  *     and is capable of stepping simulations forward.
  */
 public class Simulation {
-  public static final double DEFAULT_CELL_NUMBER = 10;
   protected CellGrid cellGrid;
   protected List<Cell> cells;
   protected String name;
@@ -23,15 +23,14 @@ public class Simulation {
   private final CellShape cellShape;
   List<int[]> nonDefaultStates;
 
-  public Simulation(
-      Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates, CellShape shape) {
-    this.name = metaData.getOrDefault("Name", "UnknownName");
-    this.nonDefaultStates = nonDefaultStates;
-    this.config = config;
-    this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);
-    this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
+  public Simulation(SimulationConfiguration config) {
+    this.name = config.getSimulationName();
+    this.nonDefaultStates = config.getInitialNonDefaultCellStates();
+    this.config = config.getSimulationParameters();
+    this.numRows = config.getHeight();
+    this.numCols = config.getWidth();
     this.numCells = numCols * numRows;
-    this.cellShape = shape;
+    this.cellShape = config.getCellShape();
   }
 
   /**
@@ -41,7 +40,7 @@ public class Simulation {
    */
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
-    this.cellGrid = new CellGrid(cells, config, this.cellShape);
+    this.cellGrid = new CellGrid(cells, numCols, numRows, this.cellShape);
     for (int[] arr : nonDefaultStates) {
       Cell cell = cellGrid.getCell(arr[0], arr[1]);
       cell.setCellState(arr[2]);

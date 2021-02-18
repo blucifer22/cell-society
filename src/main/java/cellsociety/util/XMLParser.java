@@ -1,10 +1,6 @@
 package cellsociety.util;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -31,12 +27,7 @@ import org.w3c.dom.Node;
  */
 public class XMLParser {
   private final Document doc;
-  private Map<String, String> simulationMetadata;
-  private List<int[]> initialNonDefaultStates;
-  private Map<String, Double> simulationParameters;
-  private int numRows;
-  private int numCols;
-  private CellShape cellShape;
+  private final SimulationConfiguration simulationConfiguration;
 
   /**
    * Constructor for XMLParser. Called with a String parameter indicating the filepath of the
@@ -58,8 +49,9 @@ public class XMLParser {
     } catch (Exception e) {
       throw new Exception("malformed XML file: are you sure the file you selected is an XML file?");
     }
+    this.simulationConfiguration = new SimulationConfiguration();
     parseSimulationInformation();
-    validateConfiguration();
+    simulationConfiguration.validateConfiguration();
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -87,30 +79,26 @@ public class XMLParser {
         case "INITIALSTATES" -> parseInitialStates(n);
       }
     }
-    simulationParameters.put("Width", (double) numCols);
-    simulationParameters.put("Height", (double) numRows);
   }
 
   // Parses the metadata node in the XML root
   private void parseMetadata(Node gennode) {
-    HashMap<String, String> metadata = new HashMap<>();
     for (int i = 0; i < gennode.getChildNodes().getLength(); i++) {
       Node n = gennode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
       String childValue = primaryChildNodeValueAsString(n);
       if (nodeName == null || childValue == null) continue;
       switch (formattedNodeName(nodeName)) {
-        case "NAME", "TYPE", "AUTHOR", "DESCRIPTION" -> metadata.put(nodeName, childValue);
+        case "NAME" -> simulationConfiguration.setSimulationName(childValue);
+        case "TYPE" -> simulationConfiguration.setSimulationType(childValue);
+        case "AUTHOR" -> simulationConfiguration.setSimulationAuthor(childValue);
+        case "DESCRIPTION" -> simulationConfiguration.setSimulationDescription(childValue);
       }
     }
-    this.simulationMetadata = metadata;
   }
 
   // Parses the geometric configuration node in the XML root
   private void parseGeometricConfiguration(Node gcnode) throws Exception {
-    this.numRows = -1;
-    this.numCols = -1;
-
     for (int i = 0; i < gcnode.getChildNodes().getLength(); i++) {
       Node n = gcnode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
@@ -118,31 +106,26 @@ public class XMLParser {
       if (nodeName == null || childValue == null) continue;
       try {
         switch (formattedNodeName(nodeName)) {
-          case "CELLSHAPE" -> this.cellShape = CellShape.fromEncoding(childValue);
-          case "HEIGHT" -> this.numRows = Integer.parseInt(childValue);
-          case "WIDTH" -> this.numCols = Integer.parseInt(childValue);
+          case "CELLSHAPE" -> simulationConfiguration.setCellShape(
+              CellShape.fromEncoding(childValue));
+          case "HEIGHT" -> simulationConfiguration.setHeight(Integer.parseInt(childValue));
+          case "WIDTH" -> simulationConfiguration.setWidth(Integer.parseInt(childValue));
         }
       } catch (Exception e) {
         throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
     }
-    if(numRows < 1 || numCols < 1) {
-      throw new Exception("malformed XML: geometric configuration required; number of rows and "
-          + "columns must both be >=1");
-    }
   }
 
   // Parses the initial grid state node in the XML root
   private void parseInitialStates(Node initialGridStateNode) throws Exception {
-    ArrayList<int[]> initialNonDefaultStates = new ArrayList<>();
     for (int i = 0; i < initialGridStateNode.getChildNodes().getLength(); i++) {
       Node n = initialGridStateNode.getChildNodes().item(i);
       String nodeName = n.getNodeName();
       if (formattedNodeName(nodeName).equals("CELL")) {
-        initialNonDefaultStates.add(parseInitialCellState(n));
+        simulationConfiguration.addInitialCellState(parseInitialCellState(n));
       }
     }
-    this.initialNonDefaultStates = initialNonDefaultStates;
   }
 
   // Parses an individual initial cell state node in the XML root
@@ -175,7 +158,6 @@ public class XMLParser {
 
   // Parses the getSimulation parameters node in the XML root.
   private void parseSimulationParameters(Node simParamsNode) throws Exception {
-    HashMap<String, Double> simulationParameters = new HashMap<>();
     for (int i = 0; i < simParamsNode.getChildNodes().getLength(); i++) {
       try {
         Node n = simParamsNode.getChildNodes().item(i);
@@ -184,20 +166,10 @@ public class XMLParser {
         if (childValue == null) {
           continue;
         }
-        simulationParameters.put(nodeName, Double.parseDouble(childValue));
+        simulationConfiguration.addSimulationParameter(nodeName, Double.parseDouble(childValue));
       } catch (Exception e) {
         throw new Exception("malformed XML: one or more simulation parameters is formatted "
             + "incorrectly.");
-      }
-    }
-    this.simulationParameters = simulationParameters;
-  }
-
-  private void validateConfiguration() throws Exception {
-    for(int[] cellRepresentation: initialNonDefaultStates) {
-      if(cellRepresentation[0] >= this.numRows || cellRepresentation[1] >= this.numCols) {
-        throw new Exception("bad configuration: file specified a configuration for a cell that "
-            + "does not exist");
       }
     }
   }
@@ -218,42 +190,7 @@ public class XMLParser {
     return s.trim().toUpperCase();
   }
 
-  /**
-   * Exposes the simulation metadata map.
-   *
-   * @return the simulation metadata map
-   */
-  public Map<String, String> getSimulationMetadata() {
-    return simulationMetadata;
-  }
-
-  /**
-   * Exposes the initial states of cells with non-default initial states.
-   *
-   * @return the cells with non-default initial states
-   */
-  public List<int[]> getInitialNonDefaultStates() {
-    return initialNonDefaultStates;
-  }
-
-  /**
-   * Exposes the simulation parameter map.
-   *
-   * @return the simulation parameter map.
-   */
-  public Map<String, Double> getSimulationParameters() {
-    return simulationParameters;
-  }
-
-  public CellShape getCellShape() {
-    return this.cellShape;
-  }
-
-  public int getNumberOfGridRows() {
-    return this.numRows;
-  }
-
-  public int getNumberOfGridColumns() {
-    return this.numCols;
+  public SimulationConfiguration getSimulationConfiguration() {
+    return this.simulationConfiguration;
   }
 }

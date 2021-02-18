@@ -1,6 +1,8 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration;
+import cellsociety.util.SimulationConfiguration.SimulationType;
 import cellsociety.util.XMLParser;
 import java.io.File;
 import java.net.URL;
@@ -15,18 +17,11 @@ import java.util.Set;
  * <p>This class creates simulations based on a (properly) formatted XML file.
  *
  * @author Joshua Petitma
+ * @author David Coffman
  */
 public class SimulationFactory {
 
   private Simulation sim;
-  public static final String FIRE = "Fire";
-  public static final String CONWAY = "Conway";
-  public static final String PERC = "Percolation";
-  public static final String WATOR = "Wator";
-  public static final String SEG = "Segregation";
-  public static final String RPS = "RockPaperScissors";
-  public static final Set<String> supportedSimulations =
-      Set.of(FIRE, CONWAY, PERC, WATOR, SEG, RPS);
 
   /**
    * Creates a {@link cellsociety.simulation.Simulation} with the configurations specified from an
@@ -36,63 +31,23 @@ public class SimulationFactory {
    */
   public void loadSimulationFile(File file) throws Exception {
     this.sim = null;
+    XMLParser simParser = new XMLParser(file);
+    SimulationConfiguration simConfig = simParser.getSimulationConfiguration();
 
-    XMLParser parser = new XMLParser(file);
-    Map<String, String> metadata = parser.getSimulationMetadata();
-
-    Map<String, Double> config = parser.getSimulationParameters();
-    List<int[]> nonDefaultStates = parser.getInitialNonDefaultStates();
-    String type = metadata.get("Type");
-
-    if (!supportedSimulations.contains(type)) {
-      throw new Exception("Invalid Simulation");
-    }
-    XMLParser defaults = parseDefault(type);
-    Map<String, Double> defaultParams = defaults.getSimulationParameters();
-    setDefaultParams(config, defaultParams);
-
-    verifyData(config, defaultParams, nonDefaultStates);
-
-    CellShape shape = parser.getCellShape();
-    Simulation simulation = new Simulation(metadata, config, nonDefaultStates, shape);
-    initializeRule(config, type);
-    initializeCells(simulation, type, config);
-    this.sim = simulation;
+    SimulationConfiguration defaultConfig =
+        parseDefault(simConfig.getSimulationType()).getSimulationConfiguration();
+    simConfig.addDefaultParameters(defaultConfig.getSimulationParameters());
+    this.sim = new Simulation(simConfig);
+    initializeCells(this.sim, simConfig.getSimulationType(), simConfig.getSimulationParameters());
   }
 
-  private XMLParser parseDefault(String type) throws Exception {
-    URL url = getClass().getResource(String.format("Default%s.xml", type));
+  private XMLParser parseDefault(SimulationType type) throws Exception {
+    URL url = getClass().getResource(String.format("Default%s.xml", type.name()));
     File defaultFile = new File(url.toURI());
     return new XMLParser(defaultFile);
   }
 
-  private void setDefaultParams(Map<String, Double> base, Map<String, Double> defaults) {
-    defaults.forEach(
-        (String key, Double value) -> {
-          base.putIfAbsent(key, value);
-        });
-  }
-
-  private void verifyData(Map<String, Double> config, Map<String, Double> defaults, List<int[]> nonDefaultStates)
-      throws IllegalArgumentException {
-    config.forEach(
-        (String key, Double value) -> {
-          if (value < 0) {
-            throw new IllegalArgumentException(
-                String.format("Invalid Parameter \n\"%s\" must be nonegative", key));
-          }
-        });
-    System.out.println(config);
-    int max = (int) (double) defaults.getOrDefault("MaxState", 0.0);
-
-    nonDefaultStates.forEach( (arr) -> {
-      if (arr[2] < 0 || arr[2] > max) {
-        throw new IllegalArgumentException(String.format("State must be between 0 and %d, found %d", max, arr[2]));
-      }
-    });
-  }
-
-  private void initializeCells(Simulation sim, String type, Map<String, Double> rules) {
+  private void initializeCells(Simulation sim, SimulationType type, Map<String, Double> rules) {
     List<Cell> cells = new ArrayList<>();
     for (int i = 0; i < sim.getNumCells(); i++) {
       cells.add(createCell(type, rules));
@@ -100,21 +55,18 @@ public class SimulationFactory {
     try {
       sim.initialize(cells);
     } catch (IndexOutOfBoundsException e) {
-      throw new IllegalArgumentException(String.format("Invalid Initial State Parameter"));
+      throw new IllegalArgumentException("Invalid Initial State Parameter");
     }
   }
 
-  private void initializeRule(Map<String, Double> rule, String type) {}
-
-  private Cell createCell(String type, Map<String, Double> rules) {
+  private Cell createCell(SimulationType type, Map<String, Double> rules) {
     return switch (type) {
       case FIRE -> new FireCell(rules);
       case CONWAY -> new ConwayCell(rules);
-      case PERC -> new PercolationCell(rules);
+      case PERCOLATION -> new PercolationCell(rules);
       case WATOR -> new WatorCell(rules);
-      case SEG -> new SegregationCell(rules);
-      case RPS -> new RPSCell(rules);
-      default -> null;
+      case SEGREGATION -> new SegregationCell(rules);
+      case ROCKPAPERSCISSORS -> new RPSCell(rules);
     };
   }
 
