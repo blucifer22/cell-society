@@ -17,6 +17,7 @@ public class SimulationConfiguration {
   private CellShape cellShape;
   private int width;
   private int height;
+  private GridGenerationType generationType;
 
   public SimulationConfiguration() {
     this.simulationParameters = new HashMap<>();
@@ -171,4 +172,7 @@ public class SimulationConfiguration {
     }
   }
 
+  public enum GridGenerationType {
+    NONE, NUMBER, FRACTION;
+  }
 }
