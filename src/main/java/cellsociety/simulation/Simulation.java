@@ -1,8 +1,8 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class holds all simulation data and fields.
@@ -12,26 +12,16 @@ import java.util.Map;
  *     and is capable of stepping simulations forward.
  */
 public class Simulation {
-  public static final double DEFAULT_CELL_NUMBER = 10;
   protected CellGrid cellGrid;
   protected List<Cell> cells;
-  protected String name;
-  protected double numCells;
-  protected Map<String, Double> config;
-  private final int numRows;
-  private final int numCols;
-  private final CellShape cellShape;
-  List<int[]> nonDefaultStates;
+  private final List<int[]> nonDefaultStates;
+  private final SimulationConfiguration configuration;
+  protected int numCells;
 
-  public Simulation(
-      Map<String, String> metaData, Map<String, Double> config, List<int[]> nonDefaultStates, CellShape shape) {
-    this.name = metaData.getOrDefault("Name", "UnknownName");
-    this.nonDefaultStates = nonDefaultStates;
-    this.config = config;
-    this.numCols = (int) (double) config.getOrDefault("Width", DEFAULT_CELL_NUMBER);
-    this.numRows = (int) (double) config.getOrDefault("Height", DEFAULT_CELL_NUMBER);
-    this.numCells = numCols * numRows;
-    this.cellShape = shape;
+  public Simulation(SimulationConfiguration config) {
+    this.nonDefaultStates = config.getInitialNonDefaultCellStates();
+    this.numCells = config.getHeight() * config.getWidth();
+    this.configuration = config;
   }
 
   /**
@@ -41,7 +31,8 @@ public class Simulation {
    */
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
-    this.cellGrid = new CellGrid(cells, config, this.cellShape);
+    this.cellGrid = new CellGrid(cells, configuration.getWidth(), configuration.getHeight(),
+        configuration.getCellShape());
     for (int[] arr : nonDefaultStates) {
       Cell cell = cellGrid.getCell(arr[0], arr[1]);
       cell.setCellState(arr[2]);
@@ -78,7 +69,7 @@ public class Simulation {
    * @param value - The value to replace within the parameter
    */
   public void setParameter(String param, double value) {
-    this.config.put(param, value);
+    this.configuration.updateSimulationParameter(param, value);
   }
 
   /**
@@ -87,7 +78,7 @@ public class Simulation {
    * @return - The name of the simulation from within the XML file.
    */
   public String getName() {
-	  return this.name;
+	  return this.configuration.getSimulationName();
   }
 
   /**
@@ -116,7 +107,7 @@ public class Simulation {
    * @return - The number of rows within the simulation.
    */
   public int getNumRows() {
-    return numRows;
+    return this.configuration.getHeight();
   }
 
   /**
@@ -125,7 +116,7 @@ public class Simulation {
    * @return - The number of columns within this simulation.
    */
   public int getNumCols() {
-    return numCols;
+    return this.configuration.getWidth();
   }
 
   /**
@@ -143,6 +134,6 @@ public class Simulation {
   }
 
   public CellShape getCellShape() {
-    return this.cellShape;
+    return this.configuration.getCellShape();
   }
 }

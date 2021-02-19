@@ -11,9 +11,9 @@ public class UIController {
 
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
-  private ResourceBundle resources;
+  private final ResourceBundle resources;
   private final Stage stage;
-  private SimulationController simulationController;
+  private final SimulationController simulationController;
 
   /**
    * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing initial
@@ -28,6 +28,7 @@ public class UIController {
     this.stage.setResizable(false);
     presentLoadSimScene();
   }
+
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
     this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));

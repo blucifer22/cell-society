@@ -1,6 +1,7 @@
 package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
+import java.util.List;
 import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -53,6 +54,7 @@ public abstract class GraphicalCell {
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
     this.renderingShape.setOnMouseClicked(new OnClickEventHandler());
+    this.renderingShape.getStyleClass().add(stateClassString());
     update();
   }
 
@@ -61,15 +63,13 @@ public abstract class GraphicalCell {
    * refresh their graphical appearance.
    */
   public void update() {
-    //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
-    switch(simCell.getEncoding()) {
-      case 1 -> this.renderingShape.setFill(Color.RED);
-      case 2 -> this.renderingShape.setFill(Color.BLACK);
-      case 3 -> this.renderingShape.setFill(Color.GREEN);
-      case 4 -> this.renderingShape.setFill(Color.BLUE);
-      case 5 -> this.renderingShape.setFill(Color.PINK);
-      default -> this.renderingShape.setFill(Color.WHITE);
-    }
+    List<String> styleClasses = this.renderingShape.getStyleClass();
+    styleClasses.remove(styleClasses.size()-1);
+    styleClasses.add(stateClassString());
+  }
+
+  private String stateClassString() {
+    return String.format("state%d", simCell.getEncoding());
   }
 
   public void applyTesselationTransform(int gridX, int gridY) {
