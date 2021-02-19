@@ -66,7 +66,6 @@ public class XMLParser {
   // Parses the top-level nodes within the XML root
   private void parseSimulationInformation() throws Exception {
     Node xmlRoot = getXMLRoot();
-
     for (int i = 0; i < xmlRoot.getChildNodes().getLength(); i++) {
       Node n = xmlRoot.getChildNodes().item(i);
       String nodeName = n.getNodeName();

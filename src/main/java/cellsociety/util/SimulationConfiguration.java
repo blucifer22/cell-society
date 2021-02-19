@@ -24,6 +24,7 @@ public class SimulationConfiguration {
     this.simulationParameters = new HashMap<>();
     this.randomInitialStates = new HashMap<>();
     this.initialNonDefaultCellStates = new ArrayList<>();
+    this.randomGridGenerationType = RandomGridGenerationType.NONE;
   }
 
   public void addInitialCellState(int[] cellState) {
