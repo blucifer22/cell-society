@@ -114,7 +114,7 @@ public class XMLParser {
           case "HEIGHT" -> simulationConfiguration.setHeight(Integer.parseInt(childValue));
           case "WIDTH" -> simulationConfiguration.setWidth(Integer.parseInt(childValue));
         }
-      } catch (Exception e) {
+      } catch (NumberFormatException e) {
         throw new Exception("malformed XML: field <"+nodeName+"> is formatted incorrectly.");
       }
     }
@@ -218,7 +218,7 @@ public class XMLParser {
           continue;
         }
         simulationConfiguration.addSimulationParameter(nodeName, Double.parseDouble(childValue));
-      } catch (Exception e) {
+      } catch (NumberFormatException e) {
         throw new Exception("malformed XML: one or more simulation parameters is formatted "
             + "incorrectly.");
       }
