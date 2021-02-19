@@ -176,8 +176,8 @@ public class SimulationConfiguration {
 
   public List<int[]> getInitialNonDefaultCellStates() {
     if (this.randomGridGenerationType != RandomGridGenerationType.NONE) {
-      throw new UnsupportedOperationException("Specified initial states cannot be accessed when "
-          + "the grid is generated randomly.");
+      throw new UnsupportedOperationException("Explicitly specified initial states cannot be "
+          + "accessed when the grid is generated randomly.");
     }
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
