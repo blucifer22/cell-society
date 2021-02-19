@@ -7,7 +7,7 @@
     <Description>A test for foraging ants...with ten ants :)</Description>
   </General>
   <GeometricConfiguration>
-    <CellShape>Rectangle</CellShape>
+    <CellShape>Hexagon</CellShape>
     <Height>50</Height>
     <Width>50</Width>
   </GeometricConfiguration>

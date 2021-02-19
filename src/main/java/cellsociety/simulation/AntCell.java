@@ -60,6 +60,14 @@ public class AntCell extends Cell{
     nextCellState = state;
   }
 
+  @Override
+  public void poke() {
+    if(cellState < OBSTACLE)
+      cellState++;
+    else
+      cellState = 0;
+  }
+
   /**
    * Computes the next state of this Cell by inspecting its neighbors and then determining the
    * transition accordingly.
