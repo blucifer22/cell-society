@@ -19,8 +19,8 @@ public class PercolationCell extends Cell {
    *
    * <p>The default state for PercolationCells is EMPTY.
    */
-  public PercolationCell(Map<String, Double> rules) {
-    super(EMPTY, rules);
+  public PercolationCell(Map<String, Double> params) {
+    super(EMPTY, params);
   }
 
   /**
@@ -34,8 +34,8 @@ public class PercolationCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > 2) {
-      cellState = 0;
+    if (++cellState > BLOCKED) {
+      cellState = EMPTY;
     }
   }
 
@@ -55,7 +55,7 @@ public class PercolationCell extends Cell {
         if (cell.getCurrentCellState() == FULL) {
           countFillNeighbors++;
         }
-        if (countFillNeighbors >= get("FillNumber")) {
+        if (countFillNeighbors >= getParam("FillNumber")) {
           nextCellState = FULL;
           break;
         }
