@@ -20,8 +20,8 @@ public class RPSCell extends Cell {
    *
    * <p>The default state for RPSCells is ROCK.
    */
-  public RPSCell(Map<String, Double> rules) {
-    super(ROCK, rules);
+  public RPSCell(Map<String, Double> params) {
+    super(ROCK, params);
   }
 
   /**
@@ -61,21 +61,21 @@ public class RPSCell extends Cell {
     }
     switch (this.cellState) {
       case ROCK -> {
-        if (numPaper >= get("LossCount")) {
+        if (numPaper >= getParam("LossCount")) {
           this.nextCellState = PAPER;
         } else {
           this.nextCellState = ROCK;
         }
       }
       case PAPER -> {
-        if (numScissors >= get("LossCount")) {
+        if (numScissors >= getParam("LossCount")) {
           this.nextCellState = SCISSORS;
         } else {
           this.nextCellState = PAPER;
         }
       }
       case SCISSORS -> {
-        if (numRock >= get("LossCount")) {
+        if (numRock >= getParam("LossCount")) {
           this.nextCellState = ROCK;
         } else {
           this.nextCellState = SCISSORS;

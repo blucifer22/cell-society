@@ -18,8 +18,8 @@ public class ConwayCell extends Cell {
    *
    * <p>The default state for ConwayCells is DEAD.
    */
-  public ConwayCell(Map<String, Double> rules) {
-    super(DEAD, rules);
+  public ConwayCell(Map<String, Double> params) {
+    super(DEAD, params);
   }
 
   /**
@@ -60,12 +60,12 @@ public class ConwayCell extends Cell {
       }
     }
     if (cellState == ALIVE
-        && numLiveNeighbors >= get("AliveNumberMin")
-        && numLiveNeighbors <= get("AliveNumberMax")) {
+        && numLiveNeighbors >= getParam("AliveNumberMin")
+        && numLiveNeighbors <= getParam("AliveNumberMax")) {
       nextCellState = ALIVE;
     } else if (cellState == DEAD
-        && numLiveNeighbors >= get("SpawnNumberMin")
-        && numLiveNeighbors <= get("SpawnNumberMax")) {
+        && numLiveNeighbors >= getParam("SpawnNumberMin")
+        && numLiveNeighbors <= getParam("SpawnNumberMax")) {
       nextCellState = ALIVE;
     } else {
       if (cellState != DEAD) {

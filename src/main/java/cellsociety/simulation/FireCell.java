@@ -21,8 +21,8 @@ public class FireCell extends Cell {
    * <p>The default state for FireCells is NORMAL.
    */
 
-  public FireCell(Map<String, Double> rules) {
-    super(UNBURNT, rules);
+  public FireCell(Map<String, Double> params) {
+    super(UNBURNT, params);
   }
 
   /**
@@ -63,7 +63,7 @@ public class FireCell extends Cell {
   }
 
   private void catchFire() {
-    if (Math.random() > get("Flammability")) {
+    if (Math.random() > getParam("Flammability")) {
       nextCellState = BURNING;
     }
   }
