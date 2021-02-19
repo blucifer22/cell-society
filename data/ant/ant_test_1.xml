@@ -13,7 +13,7 @@
   </GeometricConfiguration>
   <SimulationParameters>
     <PheromoneEvaporationRate>1</PheromoneEvaporationRate>
-    <TargetPheronomeConcentration>100</TargetPheronomeConcentration>
+    <TargetPheromoneConcentration>100</TargetPheromoneConcentration>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify

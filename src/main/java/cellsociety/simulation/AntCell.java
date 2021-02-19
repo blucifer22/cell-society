@@ -64,6 +64,8 @@ public class AntCell extends Cell{
    *
    */
   public void computeNextCellState() {
+    // System.out.println("Current Pheromones:\nHome Pheromone: " + this.homePheromoneConcentration
+       // + "\nFood Pheromone: " + this.foodPheromoneConcentration);
     Set<AntCell> availableNeighbors = findAvailableNeighbors();
 
     switch(cellState) {
@@ -78,6 +80,9 @@ public class AntCell extends Cell{
           antHasFood(availableNeighbors);
         }
       }
+      case FOOD -> this.nextCellState = FOOD;
+      case HOME -> this.nextCellState = HOME;
+      case OBSTACLE -> this.nextCellState = OBSTACLE;
     }
   }
 
@@ -86,6 +91,7 @@ public class AntCell extends Cell{
     if(move != null) {
       if(move.cellState == HOME) {
         this.hasFood = 0.0;
+        this.nextCellState = ANT;
       }
       else {
         move(move);
@@ -95,10 +101,14 @@ public class AntCell extends Cell{
 
   private void move(AntCell move) {
     if(this.hasFood == 1.0) {
-      this.foodPheromoneConcentration = targetPheromoneConcentration;
+      System.out.println("Old [Home Pheromone]: " + this.homePheromoneConcentration);
+      this.homePheromoneConcentration = targetPheromoneConcentration;
+      System.out.println("New [Home Pheromone]: " + this.homePheromoneConcentration);
     }
     else if(this.hasFood == 0.0) {
-      this.homePheromoneConcentration = targetPheromoneConcentration;
+      System.out.println("Old [Food Pheromone]: " + this.foodPheromoneConcentration);
+      this.foodPheromoneConcentration = targetPheromoneConcentration;
+      System.out.println("New [Food Pheromone]: " + this.foodPheromoneConcentration);
     }
     move.nextCellState = ANT;
     move.hasFood = this.hasFood;
@@ -113,7 +123,7 @@ public class AntCell extends Cell{
       if(cell.cellState == HOME) { // If HOME is in range?
         return cell;
       }
-      else if(cell.homePheromoneConcentration > maxPheromoneConcentration) { // Most pheromones?
+      else if(cell.homePheromoneConcentration > maxPheromoneConcentration) { // Most pheromones? (but not just visited)
         moveCell = cell;
         maxPheromoneConcentration = cell.homePheromoneConcentration;
       }
@@ -141,6 +151,7 @@ public class AntCell extends Cell{
     if(move != null) {
       if(move.cellState == FOOD) {
         this.hasFood = 1.0;
+        this.nextCellState = ANT;
       }
       else {
         move(move);
@@ -170,7 +181,7 @@ public class AntCell extends Cell{
   private Set<AntCell> findAvailableNeighbors() {
     Set<AntCell> availableNeighbors = new HashSet<>();
     for(Cell cell : neighbors) {
-      if(cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE) {
+      if(cell.getCurrentCellState() == EMPTY && cell.getNextCellState() == EMPTY) {
         availableNeighbors.add((AntCell)cell);
       }
     }
