@@ -37,7 +37,6 @@ public class SimulationController {
   public void loadSimulation(double displayWidth, double displayHeight) {
     clearState();
     File simulationConfigurationFile = uiController.selectSimulationFile();
-    System.out.println(simulationConfigurationFile);
     if (simulationConfigurationFile == null) {
       return;
     }

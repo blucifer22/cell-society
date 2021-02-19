@@ -54,7 +54,6 @@ public class XMLParser {
     this.simulationConfiguration = new SimulationConfiguration();
     parseSimulationInformation();
     simulationConfiguration.validateConfiguration();
-    System.out.println(simulationConfiguration.getRandomInitialStates());
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -183,7 +182,6 @@ public class XMLParser {
         Node n = randomStateCountNode.getChildNodes().item(i);
         String nodeName = n.getNodeName();
         String childValue = primaryChildNodeValueAsString(n);
-        System.out.println(nodeName);
         if (nodeName == null || childValue == null) continue;
 
         switch (formattedNodeName(nodeName)) {
