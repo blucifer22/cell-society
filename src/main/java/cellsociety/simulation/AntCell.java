@@ -88,30 +88,27 @@ public class AntCell extends Cell{
 
   private void antHasFood(Set<AntCell> availableNeighbors) {
     AntCell move = checkHomeMove(availableNeighbors);
-    if(move.cellState == HOME) {
-      this.hasFood = 0.0;
-      this.nextCellState = ANT;
-      this.previouslyVisitedCells.clear();
+    if(move != null) {
+      if(move.cellState == HOME) {
+        this.hasFood = 0.0;
+        this.nextCellState = ANT;
+        this.previouslyVisitedCells.clear();
+      }
+      else if(move.cellState == FOOD || move.cellState == ANT) {
+        this.nextCellState = ANT;
+      }
+      else {
+        move(move);
+      }
     }
-    else if(move.cellState == FOOD || move.cellState == ANT) {
-      this.nextCellState = ANT;
-    }
-    else {
-      move(move);
-    }
-
   }
 
   private void move(AntCell move) {
     if(this.hasFood == 1.0) {
-      System.out.println("Old [Home Pheromone]: " + this.homePheromoneConcentration);
       this.homePheromoneConcentration = targetPheromoneConcentration;
-      System.out.println("New [Home Pheromone]: " + this.homePheromoneConcentration);
     }
     else if(this.hasFood == 0.0) {
-      System.out.println("Old [Food Pheromone]: " + this.foodPheromoneConcentration);
       this.foodPheromoneConcentration = targetPheromoneConcentration;
-      System.out.println("New [Food Pheromone]: " + this.foodPheromoneConcentration);
     }
     this.previouslyVisitedCells.add(this);
     move.nextCellState = ANT;
@@ -141,11 +138,17 @@ public class AntCell extends Cell{
       return moveCell;
     }
 
-    // If none of the above, settle for random...
-    int index = rng.nextInt(availableNeighbors.size());
-    moveCell = getRandomNeighbor(availableNeighbors, index);
+    return getRandomCell(availableNeighbors);
+  }
 
-    return moveCell;
+  private AntCell getRandomCell(Set<AntCell> availableNeighbors) {
+    AntCell moveCell;// If none of the above, settle for random...
+    if (availableNeighbors.size() > 0) {
+      int index = rng.nextInt(availableNeighbors.size());
+      moveCell = getRandomNeighbor(availableNeighbors, index);
+      return moveCell;
+    }
+    return null;
   }
 
   private AntCell getRandomNeighbor(Set<AntCell> neighbors, int index) {
@@ -161,16 +164,18 @@ public class AntCell extends Cell{
 
   private void antDoesNotHaveFood(Set<AntCell> availableNeighbors) {
     AntCell move = checkFoodMove(availableNeighbors);
-    if(move.cellState == FOOD) {
-      this.hasFood = 1.0;
-      this.nextCellState = ANT;
-      this.previouslyVisitedCells.clear();
-    }
-    else if(move.cellState == HOME || move.cellState == ANT) {
-      this.nextCellState = ANT;
-    }
-    else {
-      move(move);
+    if(move != null) {
+      if(move.cellState == FOOD) {
+        this.hasFood = 1.0;
+        this.nextCellState = ANT;
+        this.previouslyVisitedCells.clear();
+      }
+      else if(move.cellState == HOME || move.cellState == ANT) {
+        this.nextCellState = ANT;
+      }
+      else {
+        move(move);
+      }
     }
   }
 
@@ -194,9 +199,7 @@ public class AntCell extends Cell{
     }
 
     // If none of the above, settle for random...
-    int index = rng.nextInt(availableNeighbors.size());
-    moveCell = getRandomNeighbor(availableNeighbors, index);
-    return moveCell;
+    return getRandomCell(availableNeighbors);
   }
 
   private Set<AntCell> findAvailableNeighbors() {
