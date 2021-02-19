@@ -35,8 +35,8 @@ public class SegregationCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > 2) {
-      cellState = 0;
+    if (++cellState > TYPE_B) {
+      cellState = EMPTY;
     }
   }
 

@@ -42,10 +42,17 @@ public class WatorCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState == 1) {
+    if (++cellState == FISH) {
+      energyLevel = 0;
       roundsTillSpawn = getParam("FishBreedingCycle");
-    } else if (cellState == 2) {
+    } else if (cellState == SHARK) {
       energyLevel = getParam("SharkSpawnEnergy") / 2;
+      roundsTillSpawn = 0;
+    }
+    else {
+      cellState = WATER;
+      roundsTillSpawn = 0;
+      energyLevel = 0;
     }
   }
 
