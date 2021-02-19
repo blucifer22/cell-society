@@ -200,6 +200,18 @@ public class SimulationConfiguration {
     }
   }
 
+  public GridType getGridType() {
+    return GridType.FINITE;
+  }
+
+  public List<Integer> getInactiveNeighbors() {
+    return null;
+  }
+  
+  public enum GridType {
+    FINITE, INFINITE, TOROIDAL
+  }
+
   public enum SimulationType {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT;
 
