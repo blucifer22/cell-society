@@ -212,6 +212,7 @@ public class SimulationConfiguration {
   }
 
   public enum RandomGridGenerationType {
+    // these are actually used, but only accessed through the method below
     NONE, COUNT, FRACTION;
 
     public static RandomGridGenerationType fromStringEncoding(String s) {
@@ -219,6 +220,28 @@ public class SimulationConfiguration {
         return null;
       }
       return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
+    }
+  }
+
+  public enum SimulationEdgeType {
+    NORMAL, INFINITE, TOROIDAL;
+
+    public static SimulationEdgeType fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return SimulationEdgeType.valueOf(s.trim().toUpperCase());
+    }
+  }
+
+  public enum CellNeighborhoodType {
+    SMALL, MEDIUM, LARGE;
+
+    public static CellNeighborhoodType fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return CellNeighborhoodType.valueOf(s.trim().toUpperCase());
     }
   }
 }
