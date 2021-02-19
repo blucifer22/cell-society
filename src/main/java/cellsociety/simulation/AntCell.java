@@ -202,7 +202,8 @@ public class AntCell extends Cell{
   private Set<AntCell> findAvailableNeighbors() {
     Set<AntCell> availableNeighbors = new HashSet<>();
     for(Cell cell : neighbors) {
-      if((cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE)) {
+      if((cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE &&
+          cell.getCurrentCellState() != ANT && cell.getNextCellState() != ANT)) {
         availableNeighbors.add((AntCell)cell);
       }
     }
