@@ -1,6 +1,8 @@
 package cellsociety.util;
 
+import cellsociety.util.SimulationConfiguration.RandomGridGenerationType;
 import java.io.File;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -77,6 +79,7 @@ public class XMLParser {
         case "GEOMETRICCONFIGURATION" -> parseGeometricConfiguration(n);
         case "SIMULATIONPARAMETERS" -> parseSimulationParameters(n);
         case "INITIALSTATES" -> parseInitialStates(n);
+        case "RANDOMINITIALSTATES" -> parseRandomInitialStates(n);
       }
     }
   }
@@ -146,11 +149,48 @@ public class XMLParser {
       }
       for (int j : ret) {
         if (j == -1) {
-          throw new Exception();
+          throw new Exception("All row, column, and state parameters must be specified for each "
+              + "declared non-default cell.");
         }
       }
       return ret;
-    } catch (Exception e) {
+    } catch (NumberFormatException e) {
+      throw new Exception("malformed XML: one or more initial cell states is formatted "
+          + "incorrectly.");
+    }
+  }
+
+  private void parseRandomInitialStates(Node initialRandomStateNode) throws Exception {
+    for(int i = 0; i < initialRandomStateNode.getChildNodes().getLength(); i++) {
+      Node n = initialRandomStateNode.getChildNodes().item(i);
+      String nodeName = n.getNodeName();
+      String childValue = primaryChildNodeValueAsString(n);
+
+      switch(formattedNodeName(nodeName)) {
+        case "METHOD" -> simulationConfiguration.setRandomGridGenerationType(
+            RandomGridGenerationType.fromStringEncoding(childValue));
+        case "COUNTS" -> parseRandomInitialStateCounts(n);
+      }
+    }
+  }
+
+  private void parseRandomInitialStateCounts(Node randomStateCountsNode) throws Exception {
+    try {
+      Integer state = null;
+      Double frequency = null;
+      for (int i = 0; i < randomStateCountsNode.getChildNodes().getLength(); i++) {
+        Node n = randomStateCountsNode.getChildNodes().item(i);
+        String nodeName = n.getNodeName();
+        String childValue = primaryChildNodeValueAsString(n);
+        if (nodeName == null || childValue == null) continue;
+
+        switch (formattedNodeName(nodeName)) {
+          case "STATE" -> state = Integer.parseInt(childValue);
+          case "FREQUENCY", "COUNT" -> frequency = Double.parseDouble(childValue);
+        }
+      }
+      simulationConfiguration.addInitialStateFrequency(state, frequency);
+    } catch (NumberFormatException e) {
       throw new Exception("malformed XML: one or more initial cell states is formatted "
           + "incorrectly.");
     }

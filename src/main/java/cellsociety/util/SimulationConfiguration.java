@@ -9,6 +9,7 @@ import java.util.Map;
 public class SimulationConfiguration {
 
   private final Map<String, Double> simulationParameters;
+  private final Map<Integer, Double> randomInitialStates;
   private final List<int[]> initialNonDefaultCellStates;
   private String simulationName;
   private String simulationAuthor;
@@ -17,10 +18,11 @@ public class SimulationConfiguration {
   private CellShape cellShape;
   private int width;
   private int height;
-  private GridGenerationType generationType;
+  private RandomGridGenerationType randomGridGenerationType;
 
   public SimulationConfiguration() {
     this.simulationParameters = new HashMap<>();
+    this.randomInitialStates = new HashMap<>();
     this.initialNonDefaultCellStates = new ArrayList<>();
   }
 
@@ -111,6 +113,25 @@ public class SimulationConfiguration {
     }
   }
 
+  public void setRandomGridGenerationType(RandomGridGenerationType type) {
+    if(type == null) {
+      throw new NullPointerException("A <Method> must be declared if <RandomInitialStates> are in"
+          + " use.");
+    }
+    this.randomGridGenerationType = type;
+  }
+
+  public void addInitialStateFrequency(Integer state, Double frequency) {
+    if (state == null || frequency == null) {
+      throw new NullPointerException("An initial random state frequency (or count) must be specified "
+          + "if you declare a state under the <RandomInitialStates> tag.");
+    }
+    if (randomInitialStates.putIfAbsent(state, frequency) != null) {
+      throw new IllegalArgumentException("States cannot be redefined under the "
+          + "<RandomInitialStates> tag.");
+    }
+  }
+
   public String getSimulationName() {
     return this.simulationName;
   }
@@ -143,7 +164,19 @@ public class SimulationConfiguration {
     return Collections.unmodifiableMap(simulationParameters);
   }
 
+  public Map<Integer, Double> getRandomInitialStates() {
+    if(this.randomGridGenerationType == RandomGridGenerationType.NONE) {
+      throw new UnsupportedOperationException("Random initial states cannot be accessed when the "
+          + "grid is not generated randomly.");
+    }
+    return Collections.unmodifiableMap(randomInitialStates);
+  }
+
   public List<int[]> getInitialNonDefaultCellStates() {
+    if(this.randomGridGenerationType != RandomGridGenerationType.NONE) {
+      throw new UnsupportedOperationException("Specified initial states cannot be accessed when "
+          + "the grid is generated randomly.");
+    }
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
 
@@ -173,14 +206,14 @@ public class SimulationConfiguration {
     }
   }
 
-  public enum GridGenerationType {
-    NONE, NUMBER, FRACTION;
+  public enum RandomGridGenerationType {
+    NONE, COUNT, FRACTION;
 
-    public static GridGenerationType fromStringEncoding(String s) {
+    public static RandomGridGenerationType fromStringEncoding(String s) {
       if (s == null) {
         return null;
       }
-      return GridGenerationType.valueOf(s.trim().toUpperCase());
+      return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
     }
   }
 }
