@@ -3,7 +3,6 @@ package cellsociety.graphics.cells;
 import cellsociety.simulation.Cell;
 import java.util.List;
 import java.util.Map;
-import javafx.css.StyleClass;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -64,19 +63,9 @@ public abstract class GraphicalCell {
    * refresh their graphical appearance.
    */
   public void update() {
-    //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
     List<String> styleClasses = this.renderingShape.getStyleClass();
     styleClasses.remove(styleClasses.size()-1);
     styleClasses.add(stateClassString());
-
-//    switch(simCell.getEncoding()) {
-//      case 1 -> this.renderingShape.setFill(Color.RED);
-//      case 2 -> this.renderingShape.setFill(Color.BLACK);
-//      case 3 -> this.renderingShape.setFill(Color.GREEN);
-//      case 4 -> this.renderingShape.setFill(Color.BLUE);
-//      case 5 -> this.renderingShape.setFill(Color.PINK);
-//      default -> this.renderingShape.setFill(Color.WHITE);
-//    }
   }
 
   private String stateClassString() {
