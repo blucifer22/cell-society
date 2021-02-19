@@ -67,6 +67,7 @@ public class SimulationFactory {
       case WATOR -> new WatorCell(rules);
       case SEGREGATION -> new SegregationCell(rules);
       case ROCKPAPERSCISSORS -> new RPSCell(rules);
+      case ANT -> new AntCell(rules);
     };
   }
 
