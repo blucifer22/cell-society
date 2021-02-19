@@ -1,1 +1,23 @@
+#state0 {
+  -fx-background-color: white;
+}
 
+#state1 {
+  -fx-background-color: red;
+}
+
+#state2 {
+  -fx-background-color: black;
+}
+
+#state3 {
+  -fx-background-color: green;
+}
+
+#state4 {
+  -fx-background-color: blue;
+}
+
+#state5 {
+  -fx-background-color: pink;
+}
