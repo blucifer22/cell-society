@@ -54,6 +54,7 @@ public class XMLParser {
     this.simulationConfiguration = new SimulationConfiguration();
     parseSimulationInformation();
     simulationConfiguration.validateConfiguration();
+    System.out.println(simulationConfiguration.getRandomInitialStates());
   }
 
   // Gets the XML root from the top-level document nodes.
@@ -174,14 +175,15 @@ public class XMLParser {
     }
   }
 
-  private void parseRandomInitialStateCounts(Node randomStateCountsNode) throws Exception {
+  private void parseRandomInitialStateCount(Node randomStateCountNode) throws Exception {
     try {
       Integer state = null;
       Double frequency = null;
-      for (int i = 0; i < randomStateCountsNode.getChildNodes().getLength(); i++) {
-        Node n = randomStateCountsNode.getChildNodes().item(i);
+      for (int i = 0; i < randomStateCountNode.getChildNodes().getLength(); i++) {
+        Node n = randomStateCountNode.getChildNodes().item(i);
         String nodeName = n.getNodeName();
         String childValue = primaryChildNodeValueAsString(n);
+        System.out.println(nodeName);
         if (nodeName == null || childValue == null) continue;
 
         switch (formattedNodeName(nodeName)) {
@@ -193,6 +195,17 @@ public class XMLParser {
     } catch (NumberFormatException e) {
       throw new Exception("malformed XML: one or more initial cell states is formatted "
           + "incorrectly.");
+    }
+  }
+
+  private void parseRandomInitialStateCounts(Node randomStateCountsNode) throws Exception {
+    for (int i = 0; i < randomStateCountsNode.getChildNodes().getLength(); i++) {
+      Node n = randomStateCountsNode.getChildNodes().item(i);
+      String nodeName = n.getNodeName();
+
+      switch(formattedNodeName(nodeName)) {
+        case "STATEFREQUENCY", "STATECOUNT" -> parseRandomInitialStateCount(n);
+      }
     }
   }
 
