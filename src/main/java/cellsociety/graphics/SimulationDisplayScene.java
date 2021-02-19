@@ -34,7 +34,7 @@ public class SimulationDisplayScene extends Scene {
     this.resources = resources;
     this.WIDTH = width;
     this.HEIGHT = height;
-//    this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
     buildScene();
   }
 
@@ -52,7 +52,7 @@ public class SimulationDisplayScene extends Scene {
     Button slowDownButton = new Button(resources.getString("SlowDown"));
     Button pauseButton = new Button(resources.getString("Pause"));
     Button stepButton = new Button(resources.getString("Step"));
-    Button showGraphButton = new Button("Show Graph");
+    Button showGraphButton = new Button(resources.getString("ShowGraph"));
 
     row.getChildren()
         .addAll(exitButton, playButton, speedUpButton, slowDownButton, pauseButton, stepButton,

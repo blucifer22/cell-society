@@ -1,0 +1,34 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Fire Simulation</Name>
+    <Type>Fire</Type>
+    <Author>Someone</Author>
+    <Description>Cool</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>100</Height>
+    <Width>100</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <Flammability>.65</Flammability>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>2</Count>
+      </StateCount>
+      <StateCount>
+        <State>2</State>
+        <Count>4</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>
