@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration.GridType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class CellGrid {
    * @param gridWidth - The number of cells in each row
    * @param gridHeight - The number of cells in each column
    */
-  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape) {
+  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, GridType type) {
     this.grid = new ArrayList<>();
     this.platformWidth = gridWidth;
     this.platformHeight = gridHeight;
@@ -38,6 +39,24 @@ public class CellGrid {
       case TRIANGLE -> createTriNeighbors();
       case HEX -> createHexNeighbors();
       default -> createNeighbors();
+    }
+
+    switch (type) {
+      case TOROIDAL -> collapseEdges();
+    }
+  }
+
+  private void collapseEdges() {
+    List<Cell> row;
+    int width = (int) platformWidth;
+    int height = (int) platformHeight;
+    for (int rowNum = 0; rowNum < grid.size(); rowNum++) {
+      row = grid.get(rowNum);
+      addCellNeighbor(row.get(0), rowNum, width - 1);
+    }
+    row = grid.get(0);
+    for (int col = 1; col < width - 1; col++) {
+      addCellNeighbor(row.get(col), height - 1, col);
     }
   }
 
