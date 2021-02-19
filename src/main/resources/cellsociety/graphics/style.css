@@ -1,23 +1,23 @@
-#state0 {
-  -fx-background-color: white;
+.state0 {
+  -fx-fill: white;
 }
 
-#state1 {
-  -fx-background-color: red;
+.state1 {
+  -fx-fill: red;
 }
 
-#state2 {
-  -fx-background-color: black;
+.state2 {
+  -fx-fill: black;
 }
 
-#state3 {
-  -fx-background-color: green;
+.state3 {
+  -fx-fill: green;
 }
 
-#state4 {
-  -fx-background-color: blue;
+.state4 {
+  -fx-fill: blue;
 }
 
-#state5 {
-  -fx-background-color: pink;
+.state5 {
+  -fx-fill: pink;
 }

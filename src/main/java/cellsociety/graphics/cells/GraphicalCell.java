@@ -55,6 +55,7 @@ public abstract class GraphicalCell {
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
     this.renderingShape.setOnMouseClicked(new OnClickEventHandler());
+    this.renderingShape.getStyleClass().add(stateClassString());
     update();
   }
 
@@ -66,16 +67,20 @@ public abstract class GraphicalCell {
     //this.renderingShape.setFill(colorMap.getOrDefault(simCell.getEncoding(), Color.WHITE));
     List<String> styleClasses = this.renderingShape.getStyleClass();
     styleClasses.remove(styleClasses.size()-1);
-    styleClasses.add(String.format("state%d", simCell.getEncoding()));
+    styleClasses.add(stateClassString());
 
-    switch(simCell.getEncoding()) {
-      case 1 -> this.renderingShape.setFill(Color.RED);
-      case 2 -> this.renderingShape.setFill(Color.BLACK);
-      case 3 -> this.renderingShape.setFill(Color.GREEN);
-      case 4 -> this.renderingShape.setFill(Color.BLUE);
-      case 5 -> this.renderingShape.setFill(Color.PINK);
-      default -> this.renderingShape.setFill(Color.WHITE);
-    }
+//    switch(simCell.getEncoding()) {
+//      case 1 -> this.renderingShape.setFill(Color.RED);
+//      case 2 -> this.renderingShape.setFill(Color.BLACK);
+//      case 3 -> this.renderingShape.setFill(Color.GREEN);
+//      case 4 -> this.renderingShape.setFill(Color.BLUE);
+//      case 5 -> this.renderingShape.setFill(Color.PINK);
+//      default -> this.renderingShape.setFill(Color.WHITE);
+//    }
+  }
+
+  private String stateClassString() {
+    return String.format("state%d", simCell.getEncoding());
   }
 
   public void applyTesselationTransform(int gridX, int gridY) {
