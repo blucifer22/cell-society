@@ -93,7 +93,7 @@ public class SugarCell extends Cell {
   private Set<SugarCell> findAvailableNeighbors() {
     Set<SugarCell> availableNeighbors = new HashSet<>();
     for(Cell cell : neighbors) {
-      if((cell.getCurrentCellState() != AGENT && cell.getNextCellState() != AGENT) {
+      if((cell.getCurrentCellState() != AGENT && cell.getNextCellState() != AGENT)) {
         availableNeighbors.add((SugarCell)cell);
       }
     }
