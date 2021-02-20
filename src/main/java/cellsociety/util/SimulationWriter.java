@@ -103,6 +103,9 @@ public class SimulationWriter {
     root.appendChild(initialStateElement);
 
     for(Cell c: cells) {
+      if(c.getEncoding() == 0) {
+        continue;
+      }
       Node cellElement = doc.createElement("Cell");
 
       Node rowElement = doc.createElement("Row");

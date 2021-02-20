@@ -2,15 +2,20 @@ package cellsociety.graphics;
 
 import java.io.File;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class UIController {
 
   private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
+  private final double frameDelay;
+  private final String locale;
   private final ResourceBundle resources;
   private final Stage stage;
   private final SimulationController simulationController;
@@ -21,12 +26,23 @@ public class UIController {
    *
    * @param primaryStage the JavaFX application's primary <code>Stage</code>
    */
-  public UIController(Stage primaryStage, String locale) {
+  public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
     this.simulationController = new SimulationController(this);
     this.resources = ResourceBundle.getBundle("cellsociety.graphics.English");
     this.stage.setResizable(false);
+    this.frameDelay = frameDelay;
+    this.locale = locale;
     presentLoadSimScene();
+    beginUpdates();
+  }
+
+  private void beginUpdates() {
+    KeyFrame frame = new KeyFrame(Duration.seconds(frameDelay), e -> refresh(frameDelay));
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
   }
 
   // Loads the getSimulation loading screen onto the primary stage
@@ -42,10 +58,11 @@ public class UIController {
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("CASim v0.0" + (title == null ? "" : " > " + title));
+    stage.setTitle("CASim" + (title == null ? "" : " > " + title));
   }
 
   public void exitSimulation() {
+    simulationController.pauseSimulation();
     stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
   }
 
@@ -76,7 +93,7 @@ public class UIController {
     return fc.showSaveDialog(s);
   }
 
-  public void refresh(double elapsedTime) {
+  private void refresh(double elapsedTime) {
     simulationController.update(elapsedTime);
   }
 
@@ -90,5 +107,11 @@ public class UIController {
     Alert a = new Alert(AlertType.ERROR, e.getMessage());
     e.printStackTrace();
     a.show();
+  }
+
+  public void createNewControlledStage() {
+    Stage s = new Stage();
+    new UIController(s, frameDelay, locale);
+    s.show();
   }
 }
