@@ -58,7 +58,7 @@ public class UIController {
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("CASim v0.0" + (title == null ? "" : " > " + title));
+    stage.setTitle("CASim" + (title == null ? "" : " > " + title));
   }
 
   public void exitSimulation() {
