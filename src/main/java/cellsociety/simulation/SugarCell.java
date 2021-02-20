@@ -70,13 +70,29 @@ public class SugarCell extends Cell {
     switch(cellState) {
       case PATCH -> regrowSugar();
       case AGENT -> {
-        findSugar(availableNeighbors);
+        SugarCell cellToMoveTo = findSugar(availableNeighbors);
+        if(cellToMoveTo != null) {
+          move(cellToMoveTo);
+        }
         consumeSugar();
       }
     }
   }
 
-  private void findSugar(Set<SugarCell> availableNeighbors) {
+  private void move(SugarCell cellToMoveTo) {
+    // TODO: Implement this
+  }
+
+  private SugarCell findSugar(Set<SugarCell> availableNeighbors) {
+    double maxSugar = 0;
+    SugarCell cellToMoveTo = null;
+    for(SugarCell cell : availableNeighbors) {
+      if(cell.patchSugar > maxSugar) {
+        cellToMoveTo = cell;
+        maxSugar = cell.patchSugar;
+      }
+    }
+    return cellToMoveTo;
   }
 
   private void regrowSugar() {
