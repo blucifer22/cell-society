@@ -62,6 +62,7 @@ public class UIController {
   }
 
   public void exitSimulation() {
+    simulationController.pauseSimulation();
     stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
   }
 
@@ -92,7 +93,7 @@ public class UIController {
     return fc.showSaveDialog(s);
   }
 
-  public void refresh(double elapsedTime) {
+  private void refresh(double elapsedTime) {
     simulationController.update(elapsedTime);
   }
 
