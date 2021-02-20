@@ -40,13 +40,34 @@ public class SugarCell extends Cell {
   }
 
   @Override
+  public void poke() {
+    if(++cellState > AGENT) {
+      cellState = PATCH;
+    }
+    if(cellState == AGENT) {
+      agentSugar = generateAgentSpawnSugar();
+    }
+    else if(cellState == PATCH) {
+      agentSugar = 0; // PATCHes don't have agentSugar
+      patchSugar = getParam(MAX_SUGAR_CAPACITY); // Re-up the patch sugar to max capacity
+    }
+  }
+
+  @Override
   protected void setCellState(int state) {
     super.setCellState(state);
     if (state == PATCH) {
       patchSugar = getParam(MAX_SUGAR_CAPACITY);
     } else if (state == AGENT) {
-      agentSugar = rng.nextInt((int) getParam(MAX_SUGAR_CAPACITY)) + 1; // Start the agents with random sugar (greater than 0)
+      agentSugar = generateAgentSpawnSugar();
     }
+  }
+
+  /**
+   * Start the agents with random sugar, with at least enough to avoid starving round 1
+   */
+  private double generateAgentSpawnSugar() {
+    return rng.nextInt((int) getParam(MAX_SUGAR_CAPACITY)) + sugarMetabolismRate + 1;
   }
 
   @Override
