@@ -101,13 +101,13 @@ public class SugarCell extends Cell {
     switch(cellState) {
       case PATCH -> regrowSugar();
       case AGENT -> {
-        consumeSugar();
+        metabolizeSugar();
         SugarCell cellToMoveTo = findSugar(availableNeighbors);
         if(cellToMoveTo != null && this.cellState != PATCH) {
           move(cellToMoveTo);
         }
-        else {
-          this.nextCellState = AGENT;
+        else if(this.cellState != PATCH){ // As long as we're not dead...
+          this.nextCellState = AGENT; // Don't move
         }
       }
     }
@@ -138,7 +138,7 @@ public class SugarCell extends Cell {
     this.patchSugar = Math.min(this.patchSugar + sugarRegrowthRate, getParam(MAX_SUGAR_CAPACITY));
   }
 
-  private void consumeSugar() {
+  private void metabolizeSugar() {
     this.agentSugar = Math.max(0, agentSugar - sugarMetabolismRate);
     if(this.agentSugar <= 0) { // If the AGENT is going to die
       this.nextCellState = PATCH;
