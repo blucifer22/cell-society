@@ -1,10 +1,10 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>SugarScape: Test 2</Name>
+    <Name>SugarScape: Test 3</Name>
     <Type>Sugar</Type>
     <Author>Marc Chmielewski</Author>
-    <Description>A test for SugarScape with hexagons and altered params</Description>
+    <Description>A test for SugarScape with hexagons and altered params (No regrowth!)</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>Hexagon</CellShape>
@@ -13,7 +13,7 @@
   </GeometricConfiguration>
   <SimulationParameters>
     <MaxSugarCapacity>3</MaxSugarCapacity>
-    <SugarRegrowthRate>1</SugarRegrowthRate>
+    <SugarRegrowthRate>0</SugarRegrowthRate>
     <SugarMetabolismRate>2</SugarMetabolismRate>
   </SimulationParameters>
   <!--

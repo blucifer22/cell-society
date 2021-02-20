@@ -106,6 +106,9 @@ public class SugarCell extends Cell {
         if(cellToMoveTo != null && this.cellState != PATCH) {
           move(cellToMoveTo);
         }
+        else {
+          this.nextCellState = AGENT;
+        }
       }
     }
   }

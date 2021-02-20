@@ -1,20 +1,20 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>SugarScape: Test 2</Name>
+    <Name>SugarScape: Test 5</Name>
     <Type>Sugar</Type>
     <Author>Marc Chmielewski</Author>
-    <Description>A test for SugarScape with hexagons and altered params</Description>
+    <Description>A test for SugarScape with plenty of resources, but intense clustering</Description>
   </General>
   <GeometricConfiguration>
-    <CellShape>Hexagon</CellShape>
+    <CellShape>Rectangle</CellShape>
     <Height>5</Height>
     <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <MaxSugarCapacity>3</MaxSugarCapacity>
+    <MaxSugarCapacity>5</MaxSugarCapacity>
     <SugarRegrowthRate>1</SugarRegrowthRate>
-    <SugarMetabolismRate>2</SugarMetabolismRate>
+    <SugarMetabolismRate>1</SugarMetabolismRate>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
@@ -22,43 +22,23 @@
    -->
   <InitialStates>
     <Cell>
-      <Row>0</Row>
+      <Row>4</Row>
       <Column>0</Column>
       <State>1</State>
     </Cell>
     <Cell>
-      <Row>2</Row>
-      <Column>1</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>3</Row>
-      <Column>2</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
       <Row>4</Row>
-      <Column>2</Column>
+      <Column>1</Column>
       <State>1</State>
     </Cell>
     <Cell>
       <Row>3</Row>
-      <Column>4</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>3</Row>
-      <Column>2</Column>
+      <Column>0</Column>
       <State>1</State>
     </Cell>
     <Cell>
       <Row>3</Row>
       <Column>1</Column>
-      <State>1</State>
-    </Cell>
-    <Cell>
-      <Row>2</Row>
-      <Column>4</Column>
       <State>1</State>
     </Cell>
   </InitialStates>

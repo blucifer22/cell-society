@@ -1,20 +1,20 @@
 <!DOCTYPE xml>
 <xml>
   <General>
-    <Name>SugarScape: Test 2</Name>
+    <Name>SugarScape: Test 4</Name>
     <Type>Sugar</Type>
     <Author>Marc Chmielewski</Author>
-    <Description>A test for SugarScape with hexagons and altered params</Description>
+    <Description>A test for SugarScape with triangles and altered params (High metabolism, low capacity, slow regrowth)</Description>
   </General>
   <GeometricConfiguration>
-    <CellShape>Hexagon</CellShape>
+    <CellShape>Triangle</CellShape>
     <Height>5</Height>
     <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <MaxSugarCapacity>3</MaxSugarCapacity>
-    <SugarRegrowthRate>1</SugarRegrowthRate>
-    <SugarMetabolismRate>2</SugarMetabolismRate>
+    <MaxSugarCapacity>5</MaxSugarCapacity>
+    <SugarRegrowthRate>.25</SugarRegrowthRate>
+    <SugarMetabolismRate>3</SugarMetabolismRate>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
