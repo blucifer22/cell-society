@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
@@ -46,7 +45,7 @@ public class SugarCell extends Cell {
     if (state == PATCH) {
       patchSugar = getParam(MAX_SUGAR_CAPACITY);
     } else if (state == AGENT) {
-      agentSugar = rng.nextInt((int) getParam(MAX_SUGAR_CAPACITY)); // Start the agents with random sugar
+      agentSugar = rng.nextInt((int) getParam(MAX_SUGAR_CAPACITY)) + 1; // Start the agents with random sugar (greater than 0)
     }
   }
 
@@ -63,6 +62,16 @@ public class SugarCell extends Cell {
    * transition accordingly.
    *
    * <p>SugarScape Rules are as follows:
+   *
+   * PATCHes spawn with maximum sugar capacity, and regrow sugar at a rate governed by
+   * sugarRegrowthRate.
+   *
+   * AGENTs spawn with a random amount of sugar bounded from 0 to the maximum sugar capacity of a
+   * PATCH.
+   * AGENTs consume sugar at a rate of sugarMetabolismRate, and if their sugar amount ever
+   * becomes negative they die.
+   * AGENTs greedily search for neighboring PATCHes to take sugar from, and will select
+   * those with the most sugar. If there is a tie, they will take the first available one.
    *
    */
   public void computeNextCellState() {
@@ -107,7 +116,7 @@ public class SugarCell extends Cell {
 
   private void consumeSugar() {
     this.agentSugar = Math.max(0, agentSugar - sugarMetabolismRate);
-    if(this.agentSugar <= 0) {
+    if(this.agentSugar <= 0) { // If the AGENT is going to die
       this.nextCellState = PATCH;
       this.cellState = PATCH;
     }

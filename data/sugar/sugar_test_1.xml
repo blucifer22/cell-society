@@ -12,9 +12,9 @@
     <Width>5</Width>
   </GeometricConfiguration>
   <SimulationParameters>
-    <MaxSugarCapacity>25</MaxSugarCapacity>
+    <MaxSugarCapacity>5</MaxSugarCapacity>
     <SugarRegrowthRate>1</SugarRegrowthRate>
-    <SugarMetabolismRate>5</SugarMetabolismRate>
+    <SugarMetabolismRate>2</SugarMetabolismRate>
   </SimulationParameters>
   <!--
   Initial states should only be specified for non-default states, i.e. only specify
@@ -34,6 +34,16 @@
     <Cell>
       <Row>3</Row>
       <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>2</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>4</Row>
+      <Column>4</Column>
       <State>1</State>
     </Cell>
   </InitialStates>
