@@ -4,8 +4,6 @@ import cellsociety.simulation.Cell;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -129,7 +127,6 @@ public class SimulationWriter {
 //    if(!f.createNewFile()) {
 //      throw new FileAlreadyExistsException("A file with that name already exists.");
 //    }
-
     // Adapted from tutorial at https://www.baeldung.com/java-write-xml-document-file.
     f.createNewFile();
     BufferedWriter w = new BufferedWriter(new FileWriter(f));

@@ -1,6 +1,8 @@
 package cellsociety.util;
 
+import cellsociety.util.SimulationConfiguration.CellNeighborhoodSize;
 import cellsociety.util.SimulationConfiguration.RandomGridGenerationType;
+import cellsociety.util.SimulationConfiguration.SimulationEdgeType;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -115,6 +117,10 @@ public class XMLParser {
               CellShape.fromEncoding(childValue));
           case "HEIGHT" -> simulationConfiguration.setHeight(Integer.parseInt(childValue));
           case "WIDTH" -> simulationConfiguration.setWidth(Integer.parseInt(childValue));
+          case "EDGETYPE" -> simulationConfiguration.setEdgeType(
+              SimulationEdgeType.fromStringEncoding(childValue));
+          case "NEIGHBORHOODSIZE" -> simulationConfiguration.setNeighborhoodSize(
+              CellNeighborhoodSize.fromStringEncoding(childValue));
         }
       } catch (NumberFormatException e) {
         throw new Exception("malformed XML: field <" + nodeName + "> is formatted incorrectly.");
