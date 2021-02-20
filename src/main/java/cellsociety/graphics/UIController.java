@@ -64,10 +64,16 @@ public class UIController {
   }
 
   // Opens a FileChooser window that allows the user to select the appropriate XML file
-  public File selectSimulationFile() {
+  public File fileFromOpenDialog() {
     FileChooser fc = new FileChooser();
     Stage s = new Stage();
     return fc.showOpenDialog(s);
+  }
+
+  public File fileFromSaveDialog() {
+    FileChooser fc = new FileChooser();
+    Stage s = new Stage();
+    return fc.showSaveDialog(s);
   }
 
   public void refresh(double elapsedTime) {
