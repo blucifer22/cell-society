@@ -2,6 +2,8 @@ package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
 import cellsociety.util.SimulationConfiguration;
+import cellsociety.util.SimulationWriter;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -131,6 +133,11 @@ public class Simulation {
 
   public void pokeCell(int x, int y) {
 	  cellGrid.pokeCell(x, y);
+  }
+
+  public void writeToDisk(File f) throws Exception {
+    SimulationWriter w = new SimulationWriter(this.configuration, this.cells);
+    w.writeToFile(f);
   }
 
   public CellShape getCellShape() {
