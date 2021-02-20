@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
@@ -80,7 +81,12 @@ public class SugarCell extends Cell {
   }
 
   private void move(SugarCell cellToMoveTo) {
-    // TODO: Implement this
+    this.agentSugar = this.agentSugar + this.patchSugar;
+    this.patchSugar = 0;
+    cellToMoveTo.agentSugar = this.agentSugar;
+    this.agentSugar = 0.0;
+    cellToMoveTo.nextCellState = AGENT;
+    this.nextCellState = PATCH;
   }
 
   private SugarCell findSugar(Set<SugarCell> availableNeighbors) {
