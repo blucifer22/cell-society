@@ -10,6 +10,8 @@
     <CellShape>RECTANGLE</CellShape>
     <Height>25</Height>
     <Width>25</Width>
+    <EdgeType>NORMAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
   </GeometricConfiguration>
   <SimulationParameters>
     <SpawnNumberMax>3.000000</SpawnNumberMax>

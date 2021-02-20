@@ -74,9 +74,15 @@ public class SimulationWriter {
 
     Node widthElement = doc.createElement("Width");
     widthElement.appendChild(doc.createTextNode(String.format("%d", config.getWidth())));
+    
+    Node edgeTypeElement = doc.createElement("EdgeType");
+    edgeTypeElement.appendChild(doc.createTextNode(config.getEdgeType().name()));
+
+    Node neighborhoodSizeElement = doc.createElement("NeighborhoodSize");
+    neighborhoodSizeElement.appendChild(doc.createTextNode(config.getNeighborhodSize().name()));
 
     Node[] geometricConfigurationNodes = new Node [] {cellShapeElement, heightElement,
-        widthElement};
+        widthElement, edgeTypeElement, neighborhoodSizeElement};
     for(Node n: geometricConfigurationNodes) {
       geometricConfigElement.appendChild(n);
     }
