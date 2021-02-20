@@ -115,6 +115,10 @@ public class SimulationController {
     }
   }
 
+  public void openAdditionalSimulation() {
+    uiController.createNewControlledStage();
+  }
+
   public GraphicalCellGrid graphicalCellGridForCurrentSimulation() {
     assert this.graphicalCellGrid != null;
     return this.graphicalCellGrid;
