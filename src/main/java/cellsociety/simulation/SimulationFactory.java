@@ -47,10 +47,10 @@ public class SimulationFactory {
     return new XMLParser(defaultFile);
   }
 
-  private void initializeCells(Simulation sim, SimulationType type, Map<String, Double> rules) {
+  private void initializeCells(Simulation sim, SimulationType type, Map<String, Double> params) {
     List<Cell> cells = new ArrayList<>();
     for (int i = 0; i < sim.getNumCells(); i++) {
-      cells.add(createCell(type, rules));
+      cells.add(createCell(type, params));
     }
     try {
       sim.initialize(cells);
@@ -59,15 +59,16 @@ public class SimulationFactory {
     }
   }
 
-  private Cell createCell(SimulationType type, Map<String, Double> rules) {
+  private Cell createCell(SimulationType type, Map<String, Double> params) {
     return switch (type) {
-      case FIRE -> new FireCell(rules);
-      case CONWAY -> new ConwayCell(rules);
-      case PERCOLATION -> new PercolationCell(rules);
-      case WATOR -> new WatorCell(rules);
-      case SEGREGATION -> new SegregationCell(rules);
-      case ROCKPAPERSCISSORS -> new RPSCell(rules);
-      case ANT -> new AntCell(rules);
+      case FIRE -> new FireCell(params);
+      case CONWAY -> new ConwayCell(params);
+      case PERCOLATION -> new PercolationCell(params);
+      case WATOR -> new WatorCell(params);
+      case SEGREGATION -> new SegregationCell(params);
+      case ROCKPAPERSCISSORS -> new RPSCell(params);
+      case ANT -> new AntCell(params);
+      case SUGAR -> new SugarCell(params);
     };
   }
 
