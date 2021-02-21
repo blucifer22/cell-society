@@ -38,41 +38,54 @@ public class SimulationDisplayScene extends Scene {
     buildScene();
   }
 
-  private void buildScene() {
-    ObservableList<Node> rootChildren = this.root.getChildren();
-    rootChildren.add(this.graphicalCellGrid.getNode());
+  private HBox firstButtonRow() {
+    HBox row = new HBox(10);
 
-    VBox rows = new VBox(10);
-    HBox rowOne = new HBox(10);
-    HBox rowTwo = new HBox(10);
-    Button exitButton = new Button(resources.getString("ExitSimulation"));
     Button playButton = new Button(resources.getString("Play"));
     Button speedUpButton = new Button(resources.getString("SpeedUp"));
     Button slowDownButton = new Button(resources.getString("SlowDown"));
     Button pauseButton = new Button(resources.getString("Pause"));
     Button stepButton = new Button(resources.getString("Step"));
-    Button showGraphButton = new Button(resources.getString("ShowGraph"));
-    Button saveButton = new Button(resources.getString("SaveSim"));
-    Button loadAdditionalButton = new Button(resources.getString("LoadAdditionalSimulation"));
     Button extraSettingsButton = new Button(resources.getString("ExtraSettings"));
 
-    rowOne.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
-    rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
-        stepButton, extraSettingsButton);
-
-    exitButton.setOnAction(e -> simulationController.exitSimulation());
     playButton.setOnAction(e -> simulationController.startSimulation());
     speedUpButton.setOnAction(e -> simulationController.speedUpSimulation());
     slowDownButton.setOnAction(e -> simulationController.slowDownSimulation());
     pauseButton.setOnAction(e -> simulationController.pauseSimulation());
     stepButton.setOnAction(e -> simulationController.step());
+    extraSettingsButton.setOnAction(e -> simulationController.showParametersPopout());
+
+    row.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
+        stepButton, extraSettingsButton);
+    row.setAlignment(Pos.CENTER);
+    return row;
+  }
+
+  private HBox secondButtonRow() {
+    HBox row = new HBox(10);
+
+    Button exitButton = new Button(resources.getString("ExitSimulation"));
+    Button showGraphButton = new Button(resources.getString("ShowGraph"));
+    Button saveButton = new Button(resources.getString("SaveSim"));
+    Button loadAdditionalButton = new Button(resources.getString("LoadAdditionalSimulation"));
+
+    exitButton.setOnAction(e -> simulationController.exitSimulation());
     showGraphButton.setOnAction(e -> simulationController.showVisualization());
     saveButton.setOnAction(e -> simulationController.saveSimulationToDisk());
     loadAdditionalButton.setOnAction(e -> simulationController.openAdditionalSimulation());
-    extraSettingsButton.setOnAction(e -> simulationController.showParametersPopout());
 
-    rowOne.setAlignment(Pos.CENTER);
-    rowTwo.setAlignment(Pos.CENTER);
+    row.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
+    row.setAlignment(Pos.CENTER);
+    return row;
+  }
+
+  private void buildScene() {
+    ObservableList<Node> rootChildren = this.root.getChildren();
+    rootChildren.add(this.graphicalCellGrid.getNode());
+
+    VBox rows = new VBox(10);
+    HBox rowOne = firstButtonRow();
+    HBox rowTwo = secondButtonRow();
 
     rows.getChildren().addAll(rowTwo, rowOne);
     rows.setAlignment(Pos.CENTER);
