@@ -139,8 +139,7 @@ public class SimulationConfiguration {
     return this.simulationType;
   }
 
-  public void setSimulationType(String type) {
-    SimulationType t = SimulationType.fromStringEncoding(type);
+  public void setSimulationType(SimulationType t) {
     if (t == null) {
       throw new NullPointerException("Invalid simulation type.");
     }
@@ -226,10 +225,11 @@ public class SimulationConfiguration {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
     public static SimulationType fromStringEncoding(String s) {
-      if (s == null) {
-        return null;
+      try {
+        return SimulationType.valueOf(s.trim().toUpperCase());
+      } catch (Exception e) {
+        throw new IllegalArgumentException(s+" is not a valid simulation type.");
       }
-      return SimulationType.valueOf(s.trim().toUpperCase());
     }
   }
 
@@ -238,10 +238,11 @@ public class SimulationConfiguration {
     NONE, COUNT, FRACTION;
 
     public static RandomGridGenerationType fromStringEncoding(String s) {
-      if (s == null) {
-        return null;
+      try {
+        return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
+      } catch (Exception e) {
+        throw new IllegalArgumentException(s+" is not a valid random grid generation type.");
       }
-      return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
     }
   }
 
@@ -249,10 +250,11 @@ public class SimulationConfiguration {
     NORMAL, INFINITE, TOROIDAL;
 
     public static SimulationEdgeType fromStringEncoding(String s) {
-      if (s == null) {
-        return null;
+      try {
+        return SimulationEdgeType.valueOf(s.trim().toUpperCase());
+      } catch (Exception e) {
+        throw new IllegalArgumentException(s+" is not a valid simulation edge type.");
       }
-      return SimulationEdgeType.valueOf(s.trim().toUpperCase());
     }
   }
 
@@ -260,10 +262,11 @@ public class SimulationConfiguration {
     SMALL, MEDIUM, LARGE;
 
     public static CellNeighborhoodSize fromStringEncoding(String s) {
-      if (s == null) {
-        return null;
+      try {
+        return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
+      } catch (Exception e) {
+        throw new IllegalArgumentException(s+" is not a valid cell neighborhood size.");
       }
-      return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
     }
   }
 
@@ -271,10 +274,11 @@ public class SimulationConfiguration {
     RECTANGLE, HEXAGON, TRIANGLE;
 
     public static CellShape fromStringEncoding(String s) {
-      if (s == null) {
-        return null;
+      try {
+        return CellShape.valueOf(s.trim().toUpperCase());
+      } catch (Exception e) {
+        throw new IllegalArgumentException(s+" is not a valid cell shape.");
       }
-      return CellShape.valueOf(s.trim().toUpperCase());
     }
   }
 }

@@ -3,6 +3,7 @@ package cellsociety.util;
 import cellsociety.util.SimulationConfiguration.CellNeighborhoodSize;
 import cellsociety.util.SimulationConfiguration.RandomGridGenerationType;
 import cellsociety.util.SimulationConfiguration.SimulationEdgeType;
+import cellsociety.util.SimulationConfiguration.SimulationType;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -95,7 +96,8 @@ public class XMLParser {
       }
       switch (formattedNodeName(nodeName)) {
         case "NAME" -> simulationConfiguration.setSimulationName(childValue);
-        case "TYPE" -> simulationConfiguration.setSimulationType(childValue);
+        case "TYPE" -> simulationConfiguration.setSimulationType(
+            SimulationType.fromStringEncoding(childValue));
         case "AUTHOR" -> simulationConfiguration.setSimulationAuthor(childValue);
         case "DESCRIPTION" -> simulationConfiguration.setSimulationDescription(childValue);
       }
