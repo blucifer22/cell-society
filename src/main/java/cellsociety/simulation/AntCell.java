@@ -37,12 +37,12 @@ public class AntCell extends Cell{
    *
    * <p>The default state for AntCells is EMPTY
    */
-  public AntCell(Map<String, Double> rules) {
-    super(EMPTY, rules);
+  public AntCell(Map<String, Double> params) {
+    super(EMPTY, params);
     homePheromoneConcentration = 0;
     foodPheromoneConcentration = 0;
-    pheromoneEvaporationRate = get(PHEROMONE_EVAPORATION_RATE);
-    targetPheromoneConcentration = get(TARGET_PHEROMONE_CONCENTRATION);
+    pheromoneEvaporationRate = getParam(PHEROMONE_EVAPORATION_RATE);
+    targetPheromoneConcentration = getParam(TARGET_PHEROMONE_CONCENTRATION);
     hasFood = 0;
     rng = new Random();
     previouslyVisitedCells = new ArrayList<>();
@@ -50,14 +50,14 @@ public class AntCell extends Cell{
 
   @Override
   protected void setCellState(int state) {
+    super.setCellState(state);
     hasFood = 0;
-    cellState = state;
   }
 
   @Override
   protected void setNextCellState(int state, Map<String, Double> values) {
+    super.setNextCellState(state);
     hasFood = values.getOrDefault(HAS_FOOD, 0.0);
-    nextCellState = state;
   }
 
   @Override
@@ -95,23 +95,23 @@ public class AntCell extends Cell{
   }
 
   private void antHasFood(Set<AntCell> availableNeighbors) {
-    AntCell move = checkHomeMove(availableNeighbors);
-    if(move != null) {
-      if(move.cellState == HOME) {
+    AntCell cellToMoveTo = checkHomeMove(availableNeighbors);
+    if(cellToMoveTo != null) {
+      if(cellToMoveTo.cellState == HOME) {
         this.hasFood = 0.0;
         this.nextCellState = ANT;
         this.previouslyVisitedCells.clear();
       }
-      else if(move.cellState == FOOD || move.cellState == ANT) {
+      else if(cellToMoveTo.cellState == FOOD || cellToMoveTo.cellState == ANT) {
         this.nextCellState = ANT;
       }
       else {
-        move(move);
+        move(cellToMoveTo);
       }
     }
   }
 
-  private void move(AntCell move) {
+  private void move(AntCell newCell) {
     if(this.hasFood == 1.0) {
       this.homePheromoneConcentration = targetPheromoneConcentration;
     }
@@ -119,9 +119,9 @@ public class AntCell extends Cell{
       this.foodPheromoneConcentration = targetPheromoneConcentration;
     }
     this.previouslyVisitedCells.add(this);
-    move.nextCellState = ANT;
-    move.hasFood = this.hasFood;
-    move.previouslyVisitedCells = new ArrayList<>(this.previouslyVisitedCells);
+    newCell.nextCellState = ANT;
+    newCell.hasFood = this.hasFood;
+    newCell.previouslyVisitedCells = new ArrayList<>(this.previouslyVisitedCells);
     this.previouslyVisitedCells.clear();
     this.nextCellState = EMPTY;
     this.hasFood = 0.0;

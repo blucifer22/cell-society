@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Conway's Game of Life</Name>
+    <Type>CONWAY</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>This is an edge case test for Conway's Game of Life</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>NORMAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <SpawnNumberMax>3.000000</SpawnNumberMax>
+    <SpawnNumberMin>3.000000</SpawnNumberMin>
+    <AliveNumberMin>2.000000</AliveNumberMin>
+    <AliveNumberMax>3.000000</AliveNumberMax>
+  </SimulationParameters>
+  <InitialStates/>
+</xml>

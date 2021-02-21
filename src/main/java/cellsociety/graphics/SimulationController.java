@@ -36,7 +36,7 @@ public class SimulationController {
 
   public void loadSimulation(double displayWidth, double displayHeight) {
     clearState();
-    File simulationConfigurationFile = uiController.selectSimulationFile();
+    File simulationConfigurationFile = uiController.fileFromOpenDialog();
     if (simulationConfigurationFile == null) {
       return;
     }
@@ -105,6 +105,18 @@ public class SimulationController {
     this.secondsPerStep = 1.0;
     this.graphicalCellGrid = null;
     this.stepEnabled = false;
+  }
+
+  public void saveSimulationToDisk() {
+    try {
+      simulation.writeToDisk(uiController.fileFromSaveDialog());
+    } catch(Exception e) {
+      uiController.notifyUserOfException(e);
+    }
+  }
+
+  public void openAdditionalSimulation() {
+    uiController.createNewControlledStage();
   }
 
   public GraphicalCellGrid graphicalCellGridForCurrentSimulation() {

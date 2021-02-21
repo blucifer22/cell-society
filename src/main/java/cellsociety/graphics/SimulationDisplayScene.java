@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * @author David Coffman
@@ -40,12 +41,11 @@ public class SimulationDisplayScene extends Scene {
 
   private void buildScene() {
     ObservableList<Node> rootChildren = this.root.getChildren();
-    rootChildren.add(createButtonPane());
     rootChildren.add(this.graphicalCellGrid.getNode());
-  }
 
-  private Pane createButtonPane() {
-    HBox row = new HBox(10);
+    VBox rows = new VBox(10);
+    HBox rowOne = new HBox(10);
+    HBox rowTwo = new HBox(10);
     Button exitButton = new Button(resources.getString("ExitSimulation"));
     Button playButton = new Button(resources.getString("Play"));
     Button speedUpButton = new Button(resources.getString("SpeedUp"));
@@ -53,10 +53,11 @@ public class SimulationDisplayScene extends Scene {
     Button pauseButton = new Button(resources.getString("Pause"));
     Button stepButton = new Button(resources.getString("Step"));
     Button showGraphButton = new Button(resources.getString("ShowGraph"));
+    Button saveButton = new Button(resources.getString("SaveSim"));
+    Button loadAdditionalButton = new Button("Load Additional Simulation");
 
-    row.getChildren()
-        .addAll(exitButton, playButton, speedUpButton, slowDownButton, pauseButton, stepButton,
-            showGraphButton);
+    rowOne.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
+    rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton, stepButton);
 
     exitButton.setOnAction(e -> simulationController.exitSimulation());
     playButton.setOnAction(e -> simulationController.startSimulation());
@@ -65,9 +66,17 @@ public class SimulationDisplayScene extends Scene {
     pauseButton.setOnAction(e -> simulationController.pauseSimulation());
     stepButton.setOnAction(e -> simulationController.step());
     showGraphButton.setOnAction(e -> simulationController.showVisualization());
-    row.setAlignment(Pos.CENTER);
-    row.setTranslateY(this.HEIGHT - 60.0);
-    row.setPrefWidth(this.WIDTH);
-    return row;
+    saveButton.setOnAction(e -> simulationController.saveSimulationToDisk());
+    loadAdditionalButton.setOnAction(e -> simulationController.openAdditionalSimulation());
+
+    rowOne.setAlignment(Pos.CENTER);
+    rowTwo.setAlignment(Pos.CENTER);
+
+    rows.getChildren().addAll(rowTwo, rowOne);
+    rows.setAlignment(Pos.CENTER);
+    rows.setPrefWidth(this.WIDTH);
+    rows.setTranslateY(this.HEIGHT - 80.0);
+
+    rootChildren.add(rows);
   }
 }

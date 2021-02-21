@@ -25,8 +25,8 @@ public class WatorCell extends Cell {
    *
    * <p>The default state for WatorCells is WATER.
    */
-  public WatorCell(Map<String, Double> rules) {
-    super(WATER, rules);
+  public WatorCell(Map<String, Double> params) {
+    super(WATER, params);
     energyLevel = 0;
     roundsTillSpawn = 0;
   }
@@ -42,41 +42,48 @@ public class WatorCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState == 1) {
-      roundsTillSpawn = get("FishBreedingCycle");
-    } else if (cellState == 2) {
-      energyLevel = get("SharkSpawnEnergy") / 2;
+    if (++cellState == FISH) {
+      energyLevel = 0;
+      roundsTillSpawn = getParam("FishBreedingCycle");
+    } else if (cellState == SHARK) {
+      energyLevel = getParam("SharkSpawnEnergy") / 2;
+      roundsTillSpawn = 0;
+    }
+    else {
+      cellState = WATER;
+      roundsTillSpawn = 0;
+      energyLevel = 0;
     }
   }
 
   @Override
   protected void setCellState(int state) {
+    super.setCellState(state);
     if (state == FISH) {
       energyLevel = 0;
-      roundsTillSpawn = get("FishBreedingCycle");
+      roundsTillSpawn = getParam("FishBreedingCycle");
     } else if (state == SHARK) {
-      energyLevel = get("SharkSpawnEnergy") / 2;
+      energyLevel = getParam("SharkSpawnEnergy") / 2;
       roundsTillSpawn = 0;
     } else {
       energyLevel = 0;
       roundsTillSpawn = 0;
     }
-    cellState = state;
   }
 
   @Override
   protected void setNextCellState(int state, Map<String, Double> values) {
+    super.setNextCellState(state);
     if (state == FISH) {
       energyLevel = 0;
-      roundsTillSpawn = values.getOrDefault(ROUNDS_TILL_SPAWN, get("FishBreedingCycle"));
+      roundsTillSpawn = values.getOrDefault(ROUNDS_TILL_SPAWN, getParam("FishBreedingCycle"));
     } else if (state == SHARK) {
-      energyLevel = values.getOrDefault(ENERGY_LEVEL, get("SharkSpawnEnergy") / 2);
+      energyLevel = values.getOrDefault(ENERGY_LEVEL, getParam("SharkSpawnEnergy") / 2);
       roundsTillSpawn = 0;
     } else {
       energyLevel = 0;
       roundsTillSpawn = 0;
     }
-    nextCellState = state;
   }
 
   /**
@@ -118,7 +125,7 @@ public class WatorCell extends Cell {
     }
 
     // Check SHARK spawn
-    if (energyLevel >= get("SharkSpawnEnergy")) {
+    if (energyLevel >= getParam("SharkSpawnEnergy")) {
       boolean success = spawn(SHARK, energyLevel / 2, unoccupiedNeighbors);
       if (success) {
         this.energyLevel /= 2;
@@ -137,7 +144,7 @@ public class WatorCell extends Cell {
     // Check FISH spawn
     if (roundsTillSpawn == 0) {
       spawn(FISH, 0, unoccupiedNeighbors);
-      roundsTillSpawn = get("FishBreedingCycle"); // Reset counter regardless of success
+      roundsTillSpawn = getParam("FishBreedingCycle"); // Reset counter regardless of success
     } else {
       roundsTillSpawn--;
     }
@@ -179,7 +186,7 @@ public class WatorCell extends Cell {
     // Check for fish and eat it if available
     for (Cell neighbor : occupiedNeighbors) {
       if (neighbor.getCurrentCellState() == FISH) {
-        setEnergyLevel(energyLevel + get("FishEnergyGain"));
+        setEnergyLevel(energyLevel + getParam("FishEnergyGain"));
         killFish(neighbor);
         return neighbor;
       }
@@ -214,7 +221,7 @@ public class WatorCell extends Cell {
     for (Cell neighbor : unoccupiedNeighbors) {
       if (neighbor.getCurrentCellState() == WATER && (neighbor.getNextCellState() == WATER)) {
         if (cellType == FISH) {
-          Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, get("FishBreedingCycle"));
+          Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, getParam("FishBreedingCycle"));
           neighbor.setNextCellState(FISH, data);
         } else if (cellType == SHARK) {
           Map<String, Double> data = Map.of(ENERGY_LEVEL, energyLevel);

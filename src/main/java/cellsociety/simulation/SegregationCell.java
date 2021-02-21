@@ -20,8 +20,8 @@ public class SegregationCell extends Cell {
    *
    * <p>The default state for SegregationCells is EMPTY.
    */
-  public SegregationCell(Map<String, Double> rules) {
-    super(EMPTY, rules);
+  public SegregationCell(Map<String, Double> params) {
+    super(EMPTY, params);
   }
 
   /**
@@ -35,8 +35,8 @@ public class SegregationCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > 2) {
-      cellState = 0;
+    if (++cellState > TYPE_B) {
+      cellState = EMPTY;
     }
   }
 
@@ -63,14 +63,14 @@ public class SegregationCell extends Cell {
     }
     switch (this.getCurrentCellState()) {
       case TYPE_A -> {
-        if ((numTypeA / neighbors.size()) >= get("CutoffPercentage")) {
+        if ((numTypeA / neighbors.size()) >= getParam("CutoffPercentage")) {
           this.nextCellState = TYPE_A; // remains the same
         } else {
           swapWithEmpty();
         }
       }
       case TYPE_B -> {
-        if ((numTypeB / neighbors.size()) >= get("CutoffPercentage")) {
+        if ((numTypeB / neighbors.size()) >= getParam("CutoffPercentage")) {
           this.nextCellState = TYPE_B; // remains the same
         } else {
           swapWithEmpty();

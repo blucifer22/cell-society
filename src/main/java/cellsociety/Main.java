@@ -24,13 +24,6 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    this.controller = new UIController(primaryStage, "English");
-
-    KeyFrame frame = new KeyFrame(Duration.seconds(FRAME_DELAY),
-        e -> controller.refresh(FRAME_DELAY));
-    Timeline animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
-    animation.play();
+    this.controller = new UIController(primaryStage, FRAME_DELAY, "English");
   }
 }

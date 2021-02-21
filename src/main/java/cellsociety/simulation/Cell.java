@@ -3,7 +3,6 @@ package cellsociety.simulation;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A general cell type.
@@ -18,7 +17,7 @@ public abstract class Cell {
   protected int nextCellState;
   protected int posX;
   protected int posY;
-  private Map<String, Double> rules;
+  private Map<String, Double> params;
 
   /**
    * Constructs a cell with the specified state.
@@ -33,9 +32,9 @@ public abstract class Cell {
     neighbors = new ArrayList<>();
   }
 
-  protected Cell(int cellState, Map<String, Double> rules) {
+  protected Cell(int cellState, Map<String, Double> params) {
     this(cellState);
-    this.rules = rules;
+    this.params = params;
   }
 
   /**
@@ -164,7 +163,7 @@ public abstract class Cell {
    * Calling this will retrieve a rule from this
    * cell's corresponding simulation.
    */
-  protected double get(String key) {
-    return rules.getOrDefault(key, -1.0);
+  protected double getParam(String key) {
+    return params.getOrDefault(key, -1.0);
   }
 }

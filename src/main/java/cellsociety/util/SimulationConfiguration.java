@@ -16,6 +16,8 @@ public class SimulationConfiguration {
   private String simulationDescription;
   private SimulationType simulationType;
   private RandomGridGenerationType randomGridGenerationType;
+  private SimulationEdgeType edgeType;
+  private CellNeighborhoodSize neighborhoodSize;
   private CellShape cellShape;
   private int width;
   private int height;
@@ -24,7 +26,10 @@ public class SimulationConfiguration {
     this.simulationParameters = new HashMap<>();
     this.randomInitialStates = new HashMap<>();
     this.initialNonDefaultCellStates = new ArrayList<>();
+    this.cellShape = CellShape.RECTANGLE;
     this.randomGridGenerationType = RandomGridGenerationType.NONE;
+    this.edgeType = SimulationEdgeType.NORMAL;
+    this.neighborhoodSize = CellNeighborhoodSize.MEDIUM;
   }
 
   public void addInitialCellState(int[] cellState) {
@@ -66,12 +71,40 @@ public class SimulationConfiguration {
     }
   }
 
+  public RandomGridGenerationType getRandomGridGenerationType() {
+    return this.randomGridGenerationType;
+  }
+
   public void setRandomGridGenerationType(RandomGridGenerationType type) {
     if (type == null) {
       throw new NullPointerException("A <Method> must be declared if <RandomInitialStates> are in"
           + " use.");
     }
     this.randomGridGenerationType = type;
+  }
+
+  public SimulationEdgeType getEdgeType() {
+    return this.edgeType;
+  }
+
+  public void setEdgeType(SimulationEdgeType type) {
+    if (type == null) {
+      throw new NullPointerException(
+          "An edge type must be declared when using the <EdgeType> tag.");
+    }
+    this.edgeType = type;
+  }
+
+  public CellNeighborhoodSize getNeighborhodSize() {
+    return this.neighborhoodSize;
+  }
+
+  public void setNeighborhoodSize(CellNeighborhoodSize size) {
+    if(size == null) {
+      throw new NullPointerException(
+          "A size must be specified when using the <CellNeighborhoodSize> tag.");
+    }
+    this.neighborhoodSize = size;
   }
 
   public void addInitialStateFrequency(Integer state, Double frequency) {
@@ -104,13 +137,6 @@ public class SimulationConfiguration {
 
   public SimulationType getSimulationType() {
     return this.simulationType;
-  }
-
-  public void setSimulationType(SimulationType type) {
-    if (type == null) {
-      throw new NullPointerException("Simulation type must be defined.");
-    }
-    this.simulationType = type;
   }
 
   public void setSimulationType(String type) {
@@ -183,10 +209,6 @@ public class SimulationConfiguration {
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
 
-  public void clearNonDefaultCellStates() {
-    this.initialNonDefaultCellStates.clear();
-  }
-
   public void validateConfiguration() throws Exception {
     for (int[] cellWithState : this.initialNonDefaultCellStates) {
       if (cellWithState[0] >= this.height || cellWithState[1] >= this.width) {
@@ -213,7 +235,7 @@ public class SimulationConfiguration {
   }
 
   public enum SimulationType {
-    FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT;
+    FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
     public static SimulationType fromStringEncoding(String s) {
       if (s == null) {
@@ -224,6 +246,7 @@ public class SimulationConfiguration {
   }
 
   public enum RandomGridGenerationType {
+    // these are actually used, but only accessed through the method below
     NONE, COUNT, FRACTION;
 
     public static RandomGridGenerationType fromStringEncoding(String s) {
@@ -231,6 +254,28 @@ public class SimulationConfiguration {
         return null;
       }
       return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
+    }
+  }
+
+  public enum SimulationEdgeType {
+    NORMAL, INFINITE, TOROIDAL;
+
+    public static SimulationEdgeType fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return SimulationEdgeType.valueOf(s.trim().toUpperCase());
+    }
+  }
+
+  public enum CellNeighborhoodSize {
+    SMALL, MEDIUM, LARGE;
+
+    public static CellNeighborhoodSize fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
     }
   }
 }

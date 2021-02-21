@@ -1,0 +1,25 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>SugarScape: Test 1</Name>
+    <Type>Sugar</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>A test for SugarScape</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>5</Height>
+    <Width>5</Width>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <MaxSugarCapacity>5</MaxSugarCapacity>
+    <SugarRegrowthRate>1</SugarRegrowthRate>
+    <SugarMetabolismRate>2</SugarMetabolismRate>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+  </InitialStates>
+</xml>

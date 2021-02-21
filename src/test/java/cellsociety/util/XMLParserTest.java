@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import cellsociety.util.SimulationConfiguration.SimulationType;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,9 @@ class TestXMLParsing {
       assertEquals(c.getSimulationType(), SimulationType.CONWAY);
       assertEquals(c.getSimulationAuthor(), "Marc Chmielewski");
       assertEquals(c.getSimulationDescription(), "This is an edge case test for Conway's Game of Life");
+
+      SimulationWriter w = new SimulationWriter(c, new ArrayList<>());
+      w.writeToFile(new File("src/test/java/cellsociety/util/test_output.xml"));
     } catch (Exception e) {
       e.printStackTrace();
     }
