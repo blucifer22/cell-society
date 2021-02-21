@@ -31,7 +31,6 @@ public class SimulationSelectionScene extends Scene {
   private final double width;
   private final double height;
   private ResourceBundle resources;
-  private final List<String> availableThemes = List.of("Light", "Dark");
   private Button fileLoadButton;
 
   /**
@@ -49,7 +48,6 @@ public class SimulationSelectionScene extends Scene {
     this.width = width;
     this.height = height;
     this.resources = resources;
-    Button fileLoadButton;
     this.uiController = uiController;
     configureScene();
   }
