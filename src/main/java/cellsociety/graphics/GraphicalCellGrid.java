@@ -40,10 +40,10 @@ public class GraphicalCellGrid {
         GraphicalCell gc = null;
 
         switch(cellShape) {
-          case HEX -> gc = new HexGraphicalCell(c, paintMap, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
-          case TRIANGLE -> gc = new TriangularGraphicalCell(c, paintMap, j*cellWidth, i*cellHeight,
+          case HEX -> gc = new HexGraphicalCell(c, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
+          case TRIANGLE -> gc = new TriangularGraphicalCell(c, j*cellWidth, i*cellHeight,
               cellWidth, cellHeight);
-          default -> gc = new RectangularGraphicalCell(c, paintMap, j * cellWidth,
+          default -> gc = new RectangularGraphicalCell(c, j * cellWidth,
               i * cellHeight, cellWidth, cellHeight);
         }
 
