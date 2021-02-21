@@ -73,14 +73,26 @@ public class CellGrid {
       row = grid.get(i);
       for (int j = 0; j < row.size(); j++) {
         cell = row.get(j);
+        addCellNeighbor(cell, i + 1, j);
+        addCellNeighbor(cell, i - 1, j);
+
+        addCellNeighbor(cell, i - 1, j - 1);
+        addCellNeighbor(cell, i - 1, j + 1);
+
+        addCellNeighbor(cell, i + 1, j + 1);
+        addCellNeighbor(cell, i + 1, j - 1);
         if (other) {
-          addCellNeighbor(cell, i - 1, j);
+          addCellNeighbor(cell, i - 1, j - 2);
+          addCellNeighbor(cell, i - 1, j + 2);
         } else {
-          addCellNeighbor(cell, i + 1, j);
+          addCellNeighbor(cell, i + 1, j - 2);
+          addCellNeighbor(cell, i + 1, j + 2);
         }
 
         addCellNeighbor(cell, i, j - 1);
+        addCellNeighbor(cell, i, j - 2);
         addCellNeighbor(cell, i, j + 1);
+        addCellNeighbor(cell, i, j + 2);
         other = !other;
       }
       other = !other;
