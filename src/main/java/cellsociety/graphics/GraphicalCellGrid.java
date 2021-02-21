@@ -8,10 +8,8 @@ import cellsociety.simulation.Cell;
 import cellsociety.util.CellShape;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.paint.Paint;
 import javafx.scene.transform.Affine;
 
 /**
@@ -24,8 +22,8 @@ public class GraphicalCellGrid {
   private final List<GraphicalCell> graphicalCells;
   private final Group root;
 
-  public GraphicalCellGrid(CellShape cellShape, List<Cell> cells, Map<Integer, Paint> paintMap, double width,
-      double height, int numRows, int numCols) {
+  public GraphicalCellGrid(CellShape cellShape, List<Cell> cells, double width, double height,
+      int numRows, int numCols) {
     this.root = new Group();
     this.graphicalCells = new ArrayList<>();
 
