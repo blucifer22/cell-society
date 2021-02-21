@@ -3,8 +3,8 @@
   <General>
     <Name>Fire Simulation</Name>
     <Type>FIRE</Type>
-    <Author>Someone</Author>
-    <Description>Cool</Description>
+    <Author>David Coffman</Author>
+    <Description>Test for toroidal fire simulation.</Description>
   </General>
   <GeometricConfiguration>
     <CellShape>RECTANGLE</CellShape>
