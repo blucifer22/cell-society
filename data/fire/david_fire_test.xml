@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Fire Simulation</Name>
+    <Type>FIRE</Type>
+    <Author>Someone</Author>
+    <Description>Cool</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>100</Height>
+    <Width>100</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <Flammability>0.650000</Flammability>
+    <MaxState>2.000000</MaxState>
+  </SimulationParameters>
+  <InitialStates>
+    <Cell>
+      <Row>0</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>0</Row>
+      <Column>99</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>99</Row>
+      <Column>0</Column>
+      <State>1</State>
+    </Cell>
+    <Cell>
+      <Row>99</Row>
+      <Column>99</Column>
+      <State>1</State>
+    </Cell>
+  </InitialStates>
+</xml>
