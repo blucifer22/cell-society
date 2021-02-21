@@ -137,16 +137,20 @@ public class CellGrid {
 
         addCellNeighbor(cell, i - 1, j);
         addCellNeighbor(cell, i + 1, j);
-        if (other) {
-          addCellNeighbor(cell, i + 1, j - 1);
-          addCellNeighbor(cell, i - 1, j - 1);
-        } else {
-          addCellNeighbor(cell, i + 1, j + 1);
-          addCellNeighbor(cell, i - 1, j + 1);
-        }
+        if (neighborhood > 2) {
+          if (other) {
+            addCellNeighbor(cell, i + 1, j - 1);
+            addCellNeighbor(cell, i - 1, j - 1);
+          } else {
+            addCellNeighbor(cell, i + 1, j + 1);
+            addCellNeighbor(cell, i - 1, j + 1);
+          }
 
-        addCellNeighbor(cell, i, j - 1);
-        addCellNeighbor(cell, i, j + 1);
+          if (neighborhood > 2) {
+            addCellNeighbor(cell, i, j - 1);
+            addCellNeighbor(cell, i, j + 1);
+          }
+        }
       }
       other = !other;
     }
