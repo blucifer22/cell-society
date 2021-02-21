@@ -7,7 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
  * the <code>UIController</code>.
  *
  * @author David Coffman
+ * @author Joshua Petitma
  */
 public class SimulationSelectionScene extends Scene {
 
@@ -27,7 +28,7 @@ public class SimulationSelectionScene extends Scene {
   private final Group root;
   private final double width;
   private final double height;
-  private final ResourceBundle resources;
+  private ResourceBundle resources;
   private final List<String> availableLanguages = List.of("English", "French");
   private final List<String> availableThemes = List.of("Light", "Dark");
 
@@ -70,9 +71,16 @@ public class SimulationSelectionScene extends Scene {
     Label langIcon = createIcon("icons/language.png");
     Label themeIcon = createIcon("icons/theme.png");
 
-    ChoiceBox<String> langSelect = createDropDown(availableLanguages);
-    ChoiceBox<String> themeSelect = createDropDown(availableThemes);
+    ComboBox<String> langSelect = createDropDown(availableLanguages);
+    ComboBox<String> themeSelect = createDropDown(availableThemes);
+
+    langSelect.setOnAction( e -> {
+      this.resources = ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
+      uiController.setLanguage(this.resources);
+    });
+
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
+
     return row;
   }
 
@@ -84,10 +92,11 @@ public class SimulationSelectionScene extends Scene {
     return label;
   }
 
-  private ChoiceBox<String> createDropDown(List<String> list) {
-    ChoiceBox<String> choiceBox = new ChoiceBox();
+  private ComboBox<String> createDropDown(List<String> list) {
+    ComboBox<String> choiceBox = new ComboBox();
     choiceBox.getItems().addAll(list);
     choiceBox.setValue(list.get(0));
+
     return choiceBox;
   }
 

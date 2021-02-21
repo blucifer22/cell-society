@@ -13,10 +13,11 @@ import javafx.util.Duration;
 public class UIController {
 
   private static final double WINDOW_WIDTH = 600;
+  public static final String RESOURCE_PATH = "cellsociety.graphics.";
   private static final double WINDOW_HEIGHT = 750;
   private final double frameDelay;
   private final String locale;
-  private final ResourceBundle resources;
+  private ResourceBundle resources;
   private final Stage stage;
   private final SimulationController simulationController;
 
@@ -28,13 +29,17 @@ public class UIController {
    */
   public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
-    this.resources = ResourceBundle.getBundle("cellsociety.graphics.English");
+    this.resources = ResourceBundle.getBundle(RESOURCE_PATH + "English");
     this.simulationController = new SimulationController(this, resources);
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
     this.locale = locale;
     presentLoadSimScene();
     beginUpdates();
+  }
+
+  protected void setLanguage(ResourceBundle bundle) {
+    this.resources = bundle;
   }
 
   private void beginUpdates() {
@@ -58,7 +63,7 @@ public class UIController {
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("CASim" + (title == null ? "" : " > " + title));
+    stage.setTitle("floating");
   }
 
   public void exitSimulation() {
