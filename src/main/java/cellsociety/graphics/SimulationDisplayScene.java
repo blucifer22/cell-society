@@ -53,8 +53,8 @@ public class SimulationDisplayScene extends Scene {
     Button stepButton = new Button(resources.getString("Step"));
     Button showGraphButton = new Button(resources.getString("ShowGraph"));
     Button saveButton = new Button(resources.getString("SaveSim"));
-    Button loadAdditionalButton = new Button("Load Additional Simulation");
-    Button extraSettingsButton = new Button("Extra Settings");
+    Button loadAdditionalButton = new Button(resources.getString("LoadAdditionalSimulation"));
+    Button extraSettingsButton = new Button(resources.getString("ExtraSettings"));
 
     rowOne.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
     rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
