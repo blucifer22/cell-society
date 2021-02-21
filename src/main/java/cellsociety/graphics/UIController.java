@@ -17,7 +17,7 @@ public class UIController {
   private static final double WINDOW_HEIGHT = 750;
   private final double frameDelay;
   private final String locale;
-  private ResourceBundle resources;
+  private ResourceBundle languageResources;
   private final Stage stage;
   private final SimulationController simulationController;
 
@@ -29,8 +29,8 @@ public class UIController {
    */
   public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
-    this.resources = ResourceBundle.getBundle(RESOURCE_PATH + "English");
-    this.simulationController = new SimulationController(this, resources);
+    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + "English");
+    this.simulationController = new SimulationController(this, languageResources);
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
     this.locale = locale;
@@ -39,7 +39,7 @@ public class UIController {
   }
 
   protected void setLanguage(ResourceBundle bundle) {
-    this.resources = bundle;
+    this.languageResources = bundle;
   }
 
   private void beginUpdates() {
@@ -52,7 +52,8 @@ public class UIController {
 
   // Loads the getSimulation loading screen onto the primary stage
   private void presentLoadSimScene() {
-    this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
+    this.stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT,
+        languageResources));
     this.stage.show();
   }
 
@@ -68,7 +69,8 @@ public class UIController {
 
   public void exitSimulation() {
     simulationController.pauseSimulation();
-    stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT, resources));
+    stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT,
+        languageResources));
   }
 
   /**
@@ -81,7 +83,8 @@ public class UIController {
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
-        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT, resources);
+        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
+            languageResources);
     this.stage.setScene(sds);
   }
 
