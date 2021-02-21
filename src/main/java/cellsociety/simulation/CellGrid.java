@@ -1,5 +1,6 @@
 package cellsociety.simulation;
 
+import cellsociety.util.SimulationConfiguration.CellNeighborhoodSize;
 import cellsociety.util.SimulationConfiguration.CellShape;
 import cellsociety.util.SimulationConfiguration.SimulationEdgeType;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class CellGrid {
   private double platformWidth;
   private double platformHeight;
   private SimulationEdgeType type;
+  private int neighborhood;
   /**
    * Constructs a rectangular grid with the specified configuration.
    *
@@ -24,7 +26,12 @@ public class CellGrid {
    * @param gridHeight - The number of cells in each column
    */
   public CellGrid(
-      List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, SimulationEdgeType type) {
+      List<Cell> cells,
+      int gridWidth,
+      int gridHeight,
+      CellShape shape,
+      SimulationEdgeType type,
+      CellNeighborhoodSize nSize) {
     this.grid = new ArrayList<>();
     this.platformWidth = gridWidth;
     this.platformHeight = gridHeight;
@@ -37,6 +44,14 @@ public class CellGrid {
         grid.get(i).add(cells.get(count));
       }
     }
+
+    switch (nSize) {
+      case SMALL -> this.neighborhood = 1;
+      case MEDIUM -> this.neighborhood = 2;
+      case LARGE -> this.neighborhood = 3;
+      default -> this.neighborhood = 3;
+    }
+    System.out.println(nSize);
     switch (shape) {
       case TRIANGLE -> createTriNeighbors();
       case HEXAGON -> createHexNeighbors();
@@ -51,13 +66,17 @@ public class CellGrid {
       row = grid.get(i);
       for (int j = 0; j < row.size(); j++) {
         cell = row.get(j);
-        addCellNeighbor(cell, i - 1, j);
-        addCellNeighbor(cell, i - 1, j - 1);
-        addCellNeighbor(cell, i - 1, j + 1);
+        if (neighborhood > 1) {
+          // Periphery neighbors
+          addCellNeighbor(cell, i - 1, j - 1);
+          addCellNeighbor(cell, i - 1, j + 1);
 
+          addCellNeighbor(cell, i + 1, j - 1);
+          addCellNeighbor(cell, i + 1, j + 1);
+        }
+
+        addCellNeighbor(cell, i - 1, j);
         addCellNeighbor(cell, i + 1, j);
-        addCellNeighbor(cell, i + 1, j - 1);
-        addCellNeighbor(cell, i + 1, j + 1);
 
         addCellNeighbor(cell, i, j - 1);
         addCellNeighbor(cell, i, j + 1);
@@ -74,26 +93,33 @@ public class CellGrid {
       row = grid.get(i);
       for (int j = 0; j < row.size(); j++) {
         cell = row.get(j);
+
         addCellNeighbor(cell, i + 1, j);
         addCellNeighbor(cell, i - 1, j);
+        if (neighborhood > 1) {
+          addCellNeighbor(cell, i - 1, j - 1);
+          addCellNeighbor(cell, i - 1, j + 1);
+          addCellNeighbor(cell, i + 1, j + 1);
+          addCellNeighbor(cell, i + 1, j - 1);
+        }
 
-        addCellNeighbor(cell, i - 1, j - 1);
-        addCellNeighbor(cell, i - 1, j + 1);
+        if (neighborhood > 1) {
+          if (other) {
+            addCellNeighbor(cell, i - 1, j - 2);
+            addCellNeighbor(cell, i - 1, j + 2);
+          } else {
+            addCellNeighbor(cell, i + 1, j - 2);
+            addCellNeighbor(cell, i + 1, j + 2);
+          }
+        }
 
-        addCellNeighbor(cell, i + 1, j + 1);
-        addCellNeighbor(cell, i + 1, j - 1);
-        if (other) {
-          addCellNeighbor(cell, i - 1, j - 2);
-          addCellNeighbor(cell, i - 1, j + 2);
-        } else {
-          addCellNeighbor(cell, i + 1, j - 2);
-          addCellNeighbor(cell, i + 1, j + 2);
+        if (neighborhood > 2) {
+          addCellNeighbor(cell, i, j - 2);
+          addCellNeighbor(cell, i, j + 2);
         }
 
         addCellNeighbor(cell, i, j - 1);
-        addCellNeighbor(cell, i, j - 2);
         addCellNeighbor(cell, i, j + 1);
-        addCellNeighbor(cell, i, j + 2);
         other = !other;
       }
       other = !other;
@@ -111,16 +137,20 @@ public class CellGrid {
 
         addCellNeighbor(cell, i - 1, j);
         addCellNeighbor(cell, i + 1, j);
-        if (other) {
-          addCellNeighbor(cell, i + 1, j - 1);
-          addCellNeighbor(cell, i - 1, j - 1);
-        } else {
-          addCellNeighbor(cell, i + 1, j + 1);
-          addCellNeighbor(cell, i - 1, j + 1);
-        }
+        if (neighborhood > 2) {
+          if (other) {
+            addCellNeighbor(cell, i + 1, j - 1);
+            addCellNeighbor(cell, i - 1, j - 1);
+          } else {
+            addCellNeighbor(cell, i + 1, j + 1);
+            addCellNeighbor(cell, i - 1, j + 1);
+          }
 
-        addCellNeighbor(cell, i, j - 1);
-        addCellNeighbor(cell, i, j + 1);
+          if (neighborhood > 2) {
+            addCellNeighbor(cell, i, j - 1);
+            addCellNeighbor(cell, i, j + 1);
+          }
+        }
       }
       other = !other;
     }
