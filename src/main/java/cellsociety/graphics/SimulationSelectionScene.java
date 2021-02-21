@@ -77,12 +77,12 @@ public class SimulationSelectionScene extends Scene {
     ComboBox<Language> langSelect = new ComboBox<>();
     langSelect.getItems().addAll(Language.values());
     langSelect.setValue(Language.values()[0]);
+    langSelect.setOnAction(e -> changeLanguage(langSelect.getValue()));
 
     ComboBox<Theme> themeSelect = new ComboBox<>();
     themeSelect.getItems().addAll(Theme.values());
     themeSelect.setValue(Theme.values()[0]);
-
-    langSelect.setOnAction( e -> changeLanguage(langSelect.getValue()));
+    themeSelect.setOnAction(e -> changeTheme(themeSelect.getValue()));
 
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
 
@@ -93,6 +93,10 @@ public class SimulationSelectionScene extends Scene {
     this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
     uiController.setLanguage(this.resources);
     referesh();
+  }
+
+  private void changeTheme(Theme theme) {
+
   }
 
   private void referesh() {
