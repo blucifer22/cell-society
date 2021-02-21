@@ -31,6 +31,7 @@ public class SimulationSelectionScene extends Scene {
   private ResourceBundle resources;
   private final List<String> availableLanguages = List.of("English", "French");
   private final List<String> availableThemes = List.of("Light", "Dark");
+  private Button fileLoadButton;
 
   /**
    * Sole constructor for <code>SimulationSelectScene</code>. Called by <code>UIController</code> to
@@ -47,6 +48,7 @@ public class SimulationSelectionScene extends Scene {
     this.width = width;
     this.height = height;
     this.resources = resources;
+    Button fileLoadButton;
     this.uiController = uiController;
     configureScene();
   }
@@ -55,7 +57,7 @@ public class SimulationSelectionScene extends Scene {
   private void configureScene() {
     uiController.setTitle(resources.getString("Launch"));
     BorderPane sp = new BorderPane();
-    Button fileLoadButton = new Button();
+    this.fileLoadButton = new Button();
     sp.setCenter(fileLoadButton);
     sp.setTop(createSettings());
     fileLoadButton.setText(resources.getString("LoadSimulationXML"));
@@ -77,11 +79,17 @@ public class SimulationSelectionScene extends Scene {
     langSelect.setOnAction( e -> {
       this.resources = ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
       uiController.setLanguage(this.resources);
+      referesh();
     });
 
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
 
     return row;
+  }
+
+  private void referesh() {
+    fileLoadButton.setText(resources.getString("LoadSimulationXML"));
+    uiController.setTitle(resources.getString("Launch"));
   }
 
   private Label createIcon(String name) {
