@@ -5,6 +5,7 @@ import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationWriter;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class holds all simulation data and fields.
@@ -119,6 +120,10 @@ public class Simulation {
    */
   public int getNumCols() {
     return this.configuration.getWidth();
+  }
+
+  public Map<String, Double> getSimulationParameters() {
+    return this.configuration.getSimulationParameters();
   }
 
   /**
