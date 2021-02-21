@@ -1,11 +1,19 @@
 package cellsociety.graphics;
 
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * <code>SimulationSelectScene</code> is the initial scene inside the application, instantiated by
@@ -20,17 +28,19 @@ public class SimulationSelectionScene extends Scene {
   private final double width;
   private final double height;
   private final ResourceBundle resources;
+  private final List<String> availableLanguages = List.of("English", "French");
+  private final List<String> availableThemes = List.of("Light", "Dark");
 
   /**
    * Sole constructor for <code>SimulationSelectScene</code>. Called by <code>UIController</code> to
    * create the first scene in the application (for loading an XML configuration).
    *
    * @param uiController the UIController to link the <code>SimulationSelectScene</code> to
-   * @param width        the width of the <code>SimulationSelectScene</code>
-   * @param height       the height of the <code>SimulationSelectScene</code>
+   * @param width the width of the <code>SimulationSelectScene</code>
+   * @param height the height of the <code>SimulationSelectScene</code>
    */
-  public SimulationSelectionScene(UIController uiController, double width, double height,
-      ResourceBundle resources) {
+  public SimulationSelectionScene(
+      UIController uiController, double width, double height, ResourceBundle resources) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.width = width;
@@ -43,15 +53,42 @@ public class SimulationSelectionScene extends Scene {
   // Configures the scene; sets title of window and configures the "load XML" button
   private void configureScene() {
     uiController.setTitle(resources.getString("Launch"));
-    StackPane sp = new StackPane();
-
+    BorderPane sp = new BorderPane();
     Button fileLoadButton = new Button();
+    sp.setCenter(fileLoadButton);
+    sp.setTop(createSettings());
     fileLoadButton.setText(resources.getString("LoadSimulationXML"));
     fileLoadButton.setOnAction(event -> uiController.loadNewSimulation());
-    sp.getChildren().add(fileLoadButton);
     sp.setPrefWidth(width);
     sp.setPrefHeight(height);
     renderNode(sp);
+  }
+
+  private Pane createSettings() {
+    HBox row = new HBox(20);
+    row.setAlignment(Pos.CENTER);
+    Label langIcon = createIcon("icons/language.png");
+    Label themeIcon = createIcon("icons/theme.png");
+
+    ChoiceBox<String> langSelect = createDropDown(availableLanguages);
+    ChoiceBox<String> themeSelect = createDropDown(availableThemes);
+    row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
+    return row;
+  }
+
+  private Label createIcon(String name) {
+    Label label = new Label();
+    Image labelImg = new Image(getClass().getResourceAsStream(name));
+    ImageView labelIcon = new ImageView(labelImg);
+    label.setGraphic(labelIcon);
+    return label;
+  }
+
+  private ChoiceBox<String> createDropDown(List<String> list) {
+    ChoiceBox<String> choiceBox = new ChoiceBox();
+    choiceBox.getItems().addAll(list);
+    choiceBox.setValue(list.get(0));
+    return choiceBox;
   }
 
   // Adds the Node parameter to the root Group of the Scene
