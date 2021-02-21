@@ -1,7 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
-import cellsociety.util.SimulationConfiguration.GridType;
+import cellsociety.util.SimulationConfiguration.SimulationEdgeType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class CellGrid {
   protected List<List<Cell>> grid;
   protected double platformWidth;
   protected double platformHeight;
-  protected GridType type;
+  protected SimulationEdgeType type;
   /**
    * Constructs a rectangular grid with the specified configuration.
    *
@@ -23,7 +23,7 @@ public class CellGrid {
    * @param gridWidth - The number of cells in each row
    * @param gridHeight - The number of cells in each column
    */
-  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, GridType type) {
+  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, SimulationEdgeType type) {
     this.grid = new ArrayList<>();
     this.platformWidth = gridWidth;
     this.platformHeight = gridHeight;
@@ -134,7 +134,7 @@ public class CellGrid {
    */
   private void addCellNeighbor(Cell cell, int row, int column) {
         System.out.println(this.type);
-    if (this.type == GridType.TOROIDAL) {
+    if (this.type == SimulationEdgeType.TOROIDAL) {
       if (row < 0) {
         row = grid.size() + row;
       }
