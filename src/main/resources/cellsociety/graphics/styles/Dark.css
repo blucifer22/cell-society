@@ -26,3 +26,8 @@
   -fx-background-color: black;
   -fx-text-fill: white;
 }
+
+.combo-box-base, .list-view, .list-cell {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}
