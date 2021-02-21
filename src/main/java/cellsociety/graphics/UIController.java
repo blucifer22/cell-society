@@ -148,6 +148,7 @@ public class UIController {
 
   public enum Theme {
     DEFAULT("Default"),
+    FIRE_SPREAD("Fire"),
     DARK("Dark");
 
     private final String bundleName;

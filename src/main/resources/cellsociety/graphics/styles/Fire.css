@@ -1,0 +1,15 @@
+.state0 {
+  -fx-fill: #00A000;
+}
+
+.state1 {
+  -fx-fill: #A00000;
+}
+
+.state2 {
+  -fx-fill: #974700;
+}
+
+.state3, .state4, .state5 {
+  -fx-fill: #000000;
+}
