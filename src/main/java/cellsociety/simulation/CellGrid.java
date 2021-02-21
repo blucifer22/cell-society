@@ -38,7 +38,7 @@ public class CellGrid {
     }
     switch (shape) {
       case TRIANGLE -> createTriNeighbors();
-      case HEX -> createHexNeighbors();
+      case HEXAGON -> createHexNeighbors();
       default -> createNeighbors();
     }
   }
