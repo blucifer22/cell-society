@@ -1,7 +1,5 @@
 package cellsociety.graphics;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -92,16 +90,12 @@ public class SimulationSelectionScene extends Scene {
   private void changeLanguage(Language lang) {
     this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
     uiController.setLanguage(this.resources);
-    referesh();
+    fileLoadButton.setText(resources.getString("LoadSimulationXML"));
+    uiController.setTitle(resources.getString("Launch"));
   }
 
   private void changeTheme(Theme theme) {
 
-  }
-
-  private void referesh() {
-    fileLoadButton.setText(resources.getString("LoadSimulationXML"));
-    uiController.setTitle(resources.getString("Launch"));
   }
 
   private Label createIcon(String name) {
