@@ -2,7 +2,6 @@ package cellsociety.graphics;
 
 import cellsociety.graphics.UIController.Language;
 import cellsociety.graphics.UIController.Theme;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
