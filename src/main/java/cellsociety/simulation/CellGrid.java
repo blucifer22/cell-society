@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration.GridType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class CellGrid {
   protected List<List<Cell>> grid;
   protected double platformWidth;
   protected double platformHeight;
-
+  protected GridType type;
   /**
    * Constructs a rectangular grid with the specified configuration.
    *
@@ -22,10 +23,11 @@ public class CellGrid {
    * @param gridWidth - The number of cells in each row
    * @param gridHeight - The number of cells in each column
    */
-  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape) {
+  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, GridType type) {
     this.grid = new ArrayList<>();
     this.platformWidth = gridWidth;
     this.platformHeight = gridHeight;
+    this.type = type;
     for (int i = 0, count = 0; i < platformHeight && count < cells.size(); i++) {
       grid.add(new ArrayList<>());
       for (int j = 0; j < platformWidth && count < cells.size(); j++, count++) {
@@ -48,17 +50,13 @@ public class CellGrid {
       row = grid.get(i);
       for (int j = 0; j < row.size(); j++) {
         cell = row.get(j);
-        if (inBounds(i - 1, j)) {
-          addCellNeighbor(cell, i - 1, j);
-          addCellNeighbor(cell, i - 1, j - 1);
-          addCellNeighbor(cell, i - 1, j + 1);
-        }
+        addCellNeighbor(cell, i - 1, j);
+        addCellNeighbor(cell, i - 1, j - 1);
+        addCellNeighbor(cell, i - 1, j + 1);
 
-        if (inBounds(i + 1, j)) {
-          addCellNeighbor(cell, i + 1, j);
-          addCellNeighbor(cell, i + 1, j - 1);
-          addCellNeighbor(cell, i + 1, j + 1);
-        }
+        addCellNeighbor(cell, i + 1, j);
+        addCellNeighbor(cell, i + 1, j - 1);
+        addCellNeighbor(cell, i + 1, j + 1);
 
         addCellNeighbor(cell, i, j - 1);
         addCellNeighbor(cell, i, j + 1);
@@ -98,18 +96,18 @@ public class CellGrid {
       for (int j = 0; j < row.size(); j++) {
         cell = row.get(j);
 
-          addCellNeighbor(cell, i - 1, j);
-          addCellNeighbor(cell, i + 1, j);
+        addCellNeighbor(cell, i - 1, j);
+        addCellNeighbor(cell, i + 1, j);
         if (other) {
           addCellNeighbor(cell, i + 1, j - 1);
           addCellNeighbor(cell, i - 1, j - 1);
-        }  else {
-          addCellNeighbor(cell, i + 1, j+1);
+        } else {
+          addCellNeighbor(cell, i + 1, j + 1);
           addCellNeighbor(cell, i - 1, j + 1);
         }
 
-         addCellNeighbor(cell, i, j - 1);
-         addCellNeighbor(cell, i, j + 1);
+        addCellNeighbor(cell, i, j - 1);
+        addCellNeighbor(cell, i, j + 1);
       }
       other = !other;
     }
@@ -123,6 +121,16 @@ public class CellGrid {
    * @param column - The column within the grid this cell is found
    */
   private void addCellNeighbor(Cell cell, int row, int column) {
+        System.out.println(this.type);
+    if (this.type == GridType.TOROIDAL) {
+      if (row < 0) {
+        row = grid.size() + row;
+      }
+      if (column < 0) {
+        column = grid.get(0).size() + column;
+      }
+      System.out.printf("Row: %d\n Column: %d\n", row, column);
+    }
     if (inBounds(row, column)) {
       cell.addNeighbor(grid.get(row).get(column));
     }

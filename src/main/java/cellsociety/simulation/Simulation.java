@@ -34,7 +34,7 @@ public class Simulation {
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
     this.cellGrid = new CellGrid(cells, configuration.getWidth(), configuration.getHeight(),
-        configuration.getCellShape());
+        configuration.getCellShape(), configuration.getGridType());
     for (int[] arr : nonDefaultStates) {
       Cell cell = cellGrid.getCell(arr[0], arr[1]);
       cell.setCellState(arr[2]);
