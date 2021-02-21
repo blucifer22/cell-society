@@ -29,7 +29,7 @@ public class UIController {
    */
   public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
-    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + "English");
+    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + Language.ENGLISH);
     this.simulationController = new SimulationController(this, languageResources);
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
@@ -64,7 +64,7 @@ public class UIController {
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("floating");
+    stage.setTitle(title);
   }
 
   public void exitSimulation() {
