@@ -1,9 +1,12 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.cells.ExtraSettingsPopup;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -25,6 +28,7 @@ public class SimulationController {
   private Simulation simulation;
   private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
+  private ExtraSettingsPopup parametersPopup;
 
   private double timer;
   private boolean stepEnabled;
@@ -72,6 +76,7 @@ public class SimulationController {
 
   public void exitSimulation() {
     uiController.exitSimulation();
+    parametersPopup.destroy();
   }
 
   public void update(double elapsedTime) {
@@ -98,6 +103,25 @@ public class SimulationController {
     Stage s = new Stage();
     s.setScene(new Scene(graph, 600, 600));
     s.show();
+  }
+
+  public void showParametersPopout() {
+    this.parametersPopup = new ExtraSettingsPopup(this);
+  }
+
+  public void updateSimulationParameter(String name, String value){
+    try {
+      double val = Double.parseDouble(value);
+      simulation.setParameter(name, val);
+    } catch (NumberFormatException e) {
+      uiController.notifyUserOfException(new Exception("Error: you must enter a valid number."));
+    } catch (Exception e) {
+      uiController.notifyUserOfException(e);
+    }
+  }
+
+  public Map<String, Double> getSimulationParameters() {
+    return simulation.getSimulationParameters();
   }
 
   private void clearState() {

@@ -55,9 +55,11 @@ public class SimulationDisplayScene extends Scene {
     Button showGraphButton = new Button(resources.getString("ShowGraph"));
     Button saveButton = new Button(resources.getString("SaveSim"));
     Button loadAdditionalButton = new Button("Load Additional Simulation");
+    Button extraSettingsButton = new Button("Extra Settings");
 
     rowOne.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
-    rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton, stepButton);
+    rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
+        stepButton, extraSettingsButton);
 
     exitButton.setOnAction(e -> simulationController.exitSimulation());
     playButton.setOnAction(e -> simulationController.startSimulation());
@@ -68,6 +70,7 @@ public class SimulationDisplayScene extends Scene {
     showGraphButton.setOnAction(e -> simulationController.showVisualization());
     saveButton.setOnAction(e -> simulationController.saveSimulationToDisk());
     loadAdditionalButton.setOnAction(e -> simulationController.openAdditionalSimulation());
+    extraSettingsButton.setOnAction(e -> simulationController.showParametersPopout());
 
     rowOne.setAlignment(Pos.CENTER);
     rowTwo.setAlignment(Pos.CENTER);
