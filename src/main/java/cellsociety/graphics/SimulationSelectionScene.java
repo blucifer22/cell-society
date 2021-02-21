@@ -82,16 +82,17 @@ public class SimulationSelectionScene extends Scene {
     themeSelect.getItems().addAll(Theme.values());
     themeSelect.setValue(Theme.values()[0]);
 
-    langSelect.setOnAction( e -> {
-      this.resources =
-          ResourceBundle.getBundle(UIController.RESOURCE_PATH + langSelect.getValue());
-      uiController.setLanguage(this.resources);
-      referesh();
-    });
+    langSelect.setOnAction( e -> changeLanguage(langSelect.getValue()));
 
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
 
     return row;
+  }
+
+  private void changeLanguage(Language lang) {
+    this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
+    uiController.setLanguage(this.resources);
+    referesh();
   }
 
   private void referesh() {
