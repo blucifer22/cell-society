@@ -22,9 +22,9 @@ public class CountGraph extends LineChart<Number, Number> {
     this.simulation = s;
     this.stepCount = 0;
     this.resources = resources;
-    this.getXAxis().setLabel(resources.getString("Step Number"));
-    this.getYAxis().setLabel(resources.getString("Cell Count"));
-    this.setTitle(resources.getString("Cell Counts by Tick"));
+    this.getXAxis().setLabel(resources.getString("StepNumber"));
+    this.getYAxis().setLabel(resources.getString("CellCount"));
+    this.setTitle(resources.getString("CellCountsByTick"));
   }
 
   public void update() {
