@@ -2,6 +2,7 @@ package cellsociety.graphics;
 
 import cellsociety.graphics.UIController.Language;
 import cellsociety.graphics.UIController.Theme;
+import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -95,6 +96,8 @@ public class SimulationSelectionScene extends Scene {
 
   private void changeTheme(Theme theme) {
     uiController.setTheme(theme);
+    this.getStylesheets().clear();
+    this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
   }
 
   private Label createIcon(String name) {
