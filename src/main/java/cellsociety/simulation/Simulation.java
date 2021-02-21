@@ -1,8 +1,8 @@
 package cellsociety.simulation;
 
+import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationConfiguration.CellShape;
 import cellsociety.util.SimulationConfiguration.RandomGridGenerationType;
-import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationWriter;
 import java.io.File;
 import java.util.List;
@@ -35,15 +35,23 @@ public class Simulation {
    */
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
-    this.cellGrid = new CellGrid(cells, configuration.getWidth(), configuration.getHeight(),
-        configuration.getCellShape(), configuration.getEdgeType(), configuration.getNeighborhodSize());
+    this.cellGrid =
+      new CellGrid(
+      cells,
+      configuration.getWidth(),
+      configuration.getHeight(),
+      configuration.getCellShape(),
+      configuration.getEdgeType(),
+      configuration.getNeighborhodSize());
     RandomGridGenerationType type = configuration.getRandomGridGenerationType();
     int rows = configuration.getWidth();
     int cols = configuration.getHeight();
-    if (type == RandomGridGenerationType.COUNT) {
+    if (type == RandomGridGenerationType.COUNT || type == RandomGridGenerationType.FRACTION) {
       Map<Integer, Double> freqMap = configuration.getRandomInitialStates();
-      freqMap.forEach( (Integer state, Double freq) -> {
-        for (int i = 0; i < freq; i++) {
+      freqMap.forEach(
+      (Integer state, Double freq) -> {
+        double numCells = type == RandomGridGenerationType.COUNT ? freq : rows * cols / freq;
+        for (int i = 0; i < numCells; i++) {
           int cellValue = 1;
           // keeps going till identifies empty cell
           while (cellValue != 0) {
@@ -57,21 +65,14 @@ public class Simulation {
           }
         }
       });
-    } 
-
-    else if (type == RandomGridGenerationType.FRACTION) {
-      Map<Integer, Double> freqMap = configuration.getRandomInitialStates();
-      freqMap.forEach( (Integer state, Double freq) -> {
-
-      });
-    }
-
+    } else {
       for (int[] arr : nonDefaultStates) {
         int row = arr[0];
         int col = arr[1];
         Cell cell = cellGrid.getCell(row, col);
         cell.setCellState(arr[2]);
       }
+    }
   }
 
   /**
@@ -97,8 +98,7 @@ public class Simulation {
   /**
    * Sets the specific simulation parameter.
    *
-   * Modifies the current simulation to set its
-   * parameter mid-simulation.
+   * <p>Modifies the current simulation to set its parameter mid-simulation.
    *
    * @param param - The parameter to set.
    * @param value - The value to replace within the parameter
@@ -113,7 +113,7 @@ public class Simulation {
    * @return - The name of the simulation from within the XML file.
    */
   public String getName() {
-	  return this.configuration.getSimulationName();
+    return this.configuration.getSimulationName();
   }
 
   /**
@@ -169,7 +169,7 @@ public class Simulation {
   }
 
   public void pokeCell(int x, int y) {
-	  cellGrid.pokeCell(x, y);
+    cellGrid.pokeCell(x, y);
   }
 
   public void writeToDisk(File f) throws Exception {
