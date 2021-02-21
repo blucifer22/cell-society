@@ -84,7 +84,7 @@ public class SimulationSelectionScene extends Scene {
 
     langSelect.setOnAction( e -> {
       this.resources =
-          ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
+          ResourceBundle.getBundle(UIController.RESOURCE_PATH + langSelect.getValue());
       uiController.setLanguage(this.resources);
       referesh();
     });
