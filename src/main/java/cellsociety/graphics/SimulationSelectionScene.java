@@ -1,5 +1,7 @@
 package cellsociety.graphics;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -29,7 +31,6 @@ public class SimulationSelectionScene extends Scene {
   private final double width;
   private final double height;
   private ResourceBundle resources;
-  private final List<String> availableLanguages = List.of("English", "French");
   private final List<String> availableThemes = List.of("Light", "Dark");
   private Button fileLoadButton;
 
@@ -73,11 +74,17 @@ public class SimulationSelectionScene extends Scene {
     Label langIcon = createIcon("icons/language.png");
     Label themeIcon = createIcon("icons/theme.png");
 
-    ComboBox<String> langSelect = createDropDown(availableLanguages);
-    ComboBox<String> themeSelect = createDropDown(availableThemes);
+    ComboBox<Language> langSelect = new ComboBox<>();
+    langSelect.getItems().addAll(Language.values());
+    langSelect.setValue(Language.values()[0]);
+
+    ComboBox<Theme> themeSelect = new ComboBox<>();
+    themeSelect.getItems().addAll(Theme.values());
+    themeSelect.setValue(Theme.values()[0]);
 
     langSelect.setOnAction( e -> {
-      this.resources = ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
+      this.resources =
+          ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
       uiController.setLanguage(this.resources);
       referesh();
     });
@@ -100,16 +107,41 @@ public class SimulationSelectionScene extends Scene {
     return label;
   }
 
-  private ComboBox<String> createDropDown(List<String> list) {
-    ComboBox<String> choiceBox = new ComboBox();
-    choiceBox.getItems().addAll(list);
-    choiceBox.setValue(list.get(0));
-
-    return choiceBox;
-  }
-
   // Adds the Node parameter to the root Group of the Scene
   private void renderNode(Node n) {
     root.getChildren().add(n);
+  }
+
+  public enum Language {
+    ENGLISH("English"),
+    FRENCH("French"),
+    POLISH("Polish");
+
+    private final String bundleName;
+
+    Language(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
+  }
+
+  public enum Theme {
+    LIGHT("Light"),
+    DARK("Dark");
+
+    private final String bundleName;
+
+    Theme(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
   }
 }
