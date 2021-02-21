@@ -14,8 +14,6 @@ import javafx.scene.transform.Affine;
  */
 public class HexGraphicalCell extends GraphicalCell {
 
-  private static final double MARGIN = 1.0;
-
   /**
    * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
    * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
