@@ -12,10 +12,10 @@ import java.util.List;
  *     <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
  */
 public class CellGrid {
-  protected List<List<Cell>> grid;
-  protected double platformWidth;
-  protected double platformHeight;
-  protected SimulationEdgeType type;
+  private List<List<Cell>> grid;
+  private double platformWidth;
+  private double platformHeight;
+  private SimulationEdgeType type;
   /**
    * Constructs a rectangular grid with the specified configuration.
    *
@@ -23,7 +23,8 @@ public class CellGrid {
    * @param gridWidth - The number of cells in each row
    * @param gridHeight - The number of cells in each column
    */
-  public CellGrid(List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, SimulationEdgeType type) {
+  public CellGrid(
+      List<Cell> cells, int gridWidth, int gridHeight, CellShape shape, SimulationEdgeType type) {
     this.grid = new ArrayList<>();
     this.platformWidth = gridWidth;
     this.platformHeight = gridHeight;
@@ -133,21 +134,18 @@ public class CellGrid {
    * @param column - The column within the grid this cell is found
    */
   private void addCellNeighbor(Cell cell, int row, int column) {
-        System.out.println(this.type);
+    System.out.println(this.type);
     if (this.type == SimulationEdgeType.TOROIDAL) {
       if (row < 0) {
         row = grid.size() + row;
-      }
-      else if(row >= grid.size()) {
+      } else if (row >= grid.size()) {
         row = 0;
       }
       if (column < 0) {
         column = grid.get(0).size() + column;
-      }
-      else if(column >= grid.get(0).size()) {
+      } else if (column >= grid.get(0).size()) {
         column = 0;
       }
-      System.out.printf("Row: %d\n Column: %d\n", row, column);
     }
     if (inBounds(row, column)) {
       cell.addNeighbor(grid.get(row).get(column));
