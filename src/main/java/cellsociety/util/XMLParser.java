@@ -114,7 +114,7 @@ public class XMLParser {
       try {
         switch (formattedNodeName(nodeName)) {
           case "CELLSHAPE" -> simulationConfiguration.setCellShape(
-              CellShape.fromStringEncoding(childValue));
+              SimulationConfiguration.CellShape.fromStringEncoding(childValue));
           case "HEIGHT" -> simulationConfiguration.setHeight(Integer.parseInt(childValue));
           case "WIDTH" -> simulationConfiguration.setWidth(Integer.parseInt(childValue));
           case "EDGETYPE" -> simulationConfiguration.setEdgeType(

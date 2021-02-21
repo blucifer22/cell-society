@@ -1,6 +1,6 @@
 package cellsociety.simulation;
 
-import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration.CellShape;
 import cellsociety.util.SimulationConfiguration.SimulationEdgeType;
 import java.util.ArrayList;
 import java.util.List;

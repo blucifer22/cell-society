@@ -5,7 +5,7 @@ import cellsociety.graphics.cells.HexGraphicalCell;
 import cellsociety.graphics.cells.RectangularGraphicalCell;
 import cellsociety.graphics.cells.TriangularGraphicalCell;
 import cellsociety.simulation.Cell;
-import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration.CellShape;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Group;

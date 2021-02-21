@@ -1,6 +1,6 @@
 package cellsociety.simulation;
 
-import cellsociety.util.CellShape;
+import cellsociety.util.SimulationConfiguration.CellShape;
 import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationWriter;
 import java.io.File;

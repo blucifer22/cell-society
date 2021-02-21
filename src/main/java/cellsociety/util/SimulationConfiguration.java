@@ -266,4 +266,15 @@ public class SimulationConfiguration {
       return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
     }
   }
+
+  public enum CellShape {
+    RECTANGLE, HEXAGON, TRIANGLE;
+
+    public static CellShape fromStringEncoding(String s) {
+      if (s == null) {
+        return null;
+      }
+      return CellShape.valueOf(s.trim().toUpperCase());
+    }
+  }
 }

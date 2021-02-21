@@ -1,6 +1,5 @@
 package cellsociety.simulation;
 
-import cellsociety.util.CellShape;
 import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationConfiguration.SimulationType;
 import cellsociety.util.XMLParser;
@@ -9,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * This class creates and configures simulations.
