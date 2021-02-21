@@ -94,7 +94,7 @@ public class SimulationSelectionScene extends Scene {
   }
 
   private void changeTheme(Theme theme) {
-
+    uiController.setTheme(theme);
   }
 
   private Label createIcon(String name) {

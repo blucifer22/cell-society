@@ -1,5 +1,6 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.UIController.Theme;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -26,7 +27,7 @@ public class SimulationDisplayScene extends Scene {
 
   public SimulationDisplayScene(
       SimulationController simulationController, double width, double height,
-      ResourceBundle resources) {
+      ResourceBundle resources, Theme theme) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.simulationController = simulationController;
@@ -34,7 +35,8 @@ public class SimulationDisplayScene extends Scene {
     this.resources = resources;
     this.WIDTH = width;
     this.HEIGHT = height;
-    this.getStylesheets().add(getClass().getResource("styles/default.css").toExternalForm());
+    System.out.println(theme);
+    this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
     buildScene();
   }
 

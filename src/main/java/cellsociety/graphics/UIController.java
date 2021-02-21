@@ -20,6 +20,7 @@ public class UIController {
   private ResourceBundle languageResources;
   private final Stage stage;
   private final SimulationController simulationController;
+  private Theme theme;
 
   /**
    * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing initial
@@ -34,12 +35,17 @@ public class UIController {
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
     this.locale = locale;
+    this.theme = Theme.DEFAULT;
     presentLoadSimScene();
     beginUpdates();
   }
 
   protected void setLanguage(Language lang) {
     this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + lang);
+  }
+
+  protected void setTheme(Theme theme) {
+    this.theme = theme;
   }
 
   private void beginUpdates() {
@@ -83,8 +89,8 @@ public class UIController {
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
-        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
-            languageResources);
+        new SimulationDisplayScene(this.simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
+            this.languageResources, this.theme);
     this.stage.setScene(sds);
   }
 
@@ -141,7 +147,7 @@ public class UIController {
   }
 
   public enum Theme {
-    LIGHT("Light"),
+    DEFAULT("Default"),
     DARK("Dark");
 
     private final String bundleName;

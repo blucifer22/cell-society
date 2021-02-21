@@ -1,0 +1,23 @@
+.state0 {
+  -fx-fill: gray;
+}
+
+.state1 {
+  -fx-fill: darkred;
+}
+
+.state2 {
+  -fx-fill: black;
+}
+
+.state3 {
+  -fx-fill: darkgreen;
+}
+
+.state4 {
+  -fx-fill: darkblue;
+}
+
+.state5 {
+  -fx-fill: magenta;
+}
