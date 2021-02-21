@@ -28,8 +28,8 @@ public class UIController {
    */
   public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
-    this.simulationController = new SimulationController(this);
     this.resources = ResourceBundle.getBundle("cellsociety.graphics.English");
+    this.simulationController = new SimulationController(this, resources);
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
     this.locale = locale;

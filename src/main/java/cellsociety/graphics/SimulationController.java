@@ -1,5 +1,6 @@
 package cellsociety.graphics;
 
+import java.util.ResourceBundle;
 import cellsociety.graphics.cells.ExtraSettingsPopup;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
@@ -27,13 +28,15 @@ public class SimulationController {
   private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
   private ExtraSettingsPopup parametersPopup;
+  private ResourceBundle resources;
 
   private double timer;
   private boolean stepEnabled;
 
-  public SimulationController(UIController uiController) {
+  public SimulationController(UIController uiController, ResourceBundle resources) {
     this.uiController = uiController;
     this.simFactory = new SimulationFactory();
+    this.resources = resources;
   }
 
   public void loadSimulation(double displayWidth, double displayHeight) {
@@ -99,7 +102,7 @@ public class SimulationController {
   }
 
   public void showVisualization() {
-    this.graph = new CountGraph(this.simulation);
+    this.graph = new CountGraph(this.simulation, resources);
     Stage s = new Stage();
     s.setScene(new Scene(graph, 600, 600));
     s.show();

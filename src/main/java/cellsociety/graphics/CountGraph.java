@@ -1,5 +1,6 @@
 package cellsociety.graphics;
 
+import java.util.ResourceBundle;
 import cellsociety.simulation.Cell;
 import cellsociety.simulation.Simulation;
 import java.util.HashMap;
@@ -12,16 +13,18 @@ public class CountGraph extends LineChart<Number, Number> {
 
   final HashMap<Integer, Series<Number, Number>> data;
   final Simulation simulation;
+  private ResourceBundle resources;
   int stepCount;
 
-  public CountGraph(Simulation s) {
+  public CountGraph(Simulation s, ResourceBundle resources) {
     super(new NumberAxis(), new NumberAxis());
     this.data = new HashMap<>();
     this.simulation = s;
     this.stepCount = 0;
-    this.getXAxis().setLabel("Step Number");
-    this.getYAxis().setLabel("Cell Count");
-    this.setTitle("Cell Counts by Tick");
+    this.resources = resources;
+    this.getXAxis().setLabel(resources.getString("Step Number"));
+    this.getYAxis().setLabel(resources.getString("Cell Count"));
+    this.setTitle(resources.getString("Cell Counts by Tick"));
   }
 
   public void update() {
