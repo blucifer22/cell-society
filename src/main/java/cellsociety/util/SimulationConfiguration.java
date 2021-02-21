@@ -222,10 +222,6 @@ public class SimulationConfiguration {
     }
   }
 
-  public List<Integer> getInactiveNeighbors() {
-    return null;
-  }
-
   public enum SimulationType {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
