@@ -88,7 +88,7 @@ public class SimulationSelectionScene extends Scene {
 
   private void changeLanguage(Language lang) {
     this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
-    uiController.setLanguage(this.resources);
+    uiController.setLanguage(lang);
     fileLoadButton.setText(resources.getString("LoadSimulationXML"));
     uiController.setTitle(resources.getString("Launch"));
   }

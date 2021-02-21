@@ -38,8 +38,8 @@ public class UIController {
     beginUpdates();
   }
 
-  protected void setLanguage(ResourceBundle bundle) {
-    this.languageResources = bundle;
+  protected void setLanguage(Language lang) {
+    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + lang);
   }
 
   private void beginUpdates() {
