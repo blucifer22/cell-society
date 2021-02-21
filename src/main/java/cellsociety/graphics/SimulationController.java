@@ -76,6 +76,7 @@ public class SimulationController {
 
   public void exitSimulation() {
     uiController.exitSimulation();
+    parametersPopup.destroy();
   }
 
   public void update(double elapsedTime) {
@@ -108,8 +109,15 @@ public class SimulationController {
     this.parametersPopup = new ExtraSettingsPopup(this);
   }
 
-  public void updateSimulationParameter() {
-
+  public void updateSimulationParameter(String name, String value){
+    try {
+      double val = Double.parseDouble(value);
+      simulation.setParameter(name, val);
+    } catch (NumberFormatException e) {
+      uiController.notifyUserOfException(new Exception("Error: you must enter a valid number."));
+    } catch (Exception e) {
+      uiController.notifyUserOfException(e);
+    }
   }
 
   public Map<String, Double> getSimulationParameters() {

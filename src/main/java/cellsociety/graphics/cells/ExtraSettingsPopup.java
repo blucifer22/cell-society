@@ -1,11 +1,11 @@
 package cellsociety.graphics.cells;
 
 import cellsociety.graphics.SimulationController;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -33,14 +33,20 @@ public class ExtraSettingsPopup extends Scene {
       HBox row = new HBox(10);
       row.setAlignment(Pos.CENTER_RIGHT);
       row.getChildren().add(new Text(key));
-      row.getChildren().add(new TextField());
+      TextField tf = new TextField();
+      tf.setOnKeyPressed(e -> updateSimulationParameterIfEnter(e.getCode(), key, tf.getText()));
+      row.getChildren().add(tf);
       rows.getChildren().add(row);
     }
     this.renderingGroup.getChildren().add(rows);
   }
 
-  private void updateSimulationParameter(String name, String value) {
-    simController.updateSimulationParameter();
+  private void updateSimulationParameterIfEnter(KeyCode c, String name, String value) {
+    if(c != KeyCode.ENTER) {
+      return;
+    }
+    System.out.println("ENTER!");
+    simController.updateSimulationParameter(name, value);
   }
 
   public void destroy() {
