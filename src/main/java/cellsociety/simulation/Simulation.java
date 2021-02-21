@@ -18,12 +18,10 @@ import java.util.Map;
 public class Simulation {
   private CellGrid cellGrid;
   private List<Cell> cells;
-  private final List<int[]> nonDefaultStates;
   private final SimulationConfiguration configuration;
   private int numCells;
 
   public Simulation(SimulationConfiguration config) {
-    this.nonDefaultStates = config.getInitialNonDefaultCellStates();
     this.numCells = config.getHeight() * config.getWidth();
     this.configuration = config;
   }
@@ -47,6 +45,7 @@ public class Simulation {
     if (type == RandomGridGenerationType.COUNT || type == RandomGridGenerationType.FRACTION) {
       createRandomStates(configuration.getRandomInitialStates(), type);
     } else {
+      List<int[]> nonDefaultStates = configuration.getInitialNonDefaultCellStates();
       for (int[] arr : nonDefaultStates) {
         int row = arr[0];
         int col = arr[1];
