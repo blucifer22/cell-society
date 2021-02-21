@@ -21,3 +21,8 @@
 .state5 {
   -fx-fill: magenta;
 }
+
+.button {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}
