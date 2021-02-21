@@ -29,7 +29,7 @@ public class RectangularGraphicalCell extends GraphicalCell {
    */
   public RectangularGraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
       double width, double height) {
-    super(simulationCell, colorMap, x, y, new Rectangle());
+    super(simulationCell, x, y, new Rectangle());
     Rectangle rect = (Rectangle) super.getNode();
     rect.setWidth(width);
     rect.setHeight(height);

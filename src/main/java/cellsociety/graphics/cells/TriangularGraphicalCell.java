@@ -23,7 +23,7 @@ public class TriangularGraphicalCell extends GraphicalCell {
    */
   public TriangularGraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x,
       double y, double width, double height) {
-    super(simulationCell, colorMap, x, y, new Polygon());
+    super(simulationCell, x, y, new Polygon());
     Polygon renderingShape = (Polygon) this.getNode();
     renderingShape.getPoints().addAll(0.0, 0.0, width, 0.0, width/2.0, height);
     renderingShape.setTranslateX(x);

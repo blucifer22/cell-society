@@ -33,7 +33,7 @@ public class HexGraphicalCell extends GraphicalCell {
    */
   public HexGraphicalCell(Cell simulationCell, Map<Integer, Paint> colorMap, double x, double y,
       double width, double height) {
-    super(simulationCell, colorMap, x, y, new Polygon());
+    super(simulationCell, x, y, new Polygon());
     Polygon renderingShape = (Polygon) this.getNode();
     renderingShape.getPoints().setAll(0.0, height/4.0, 0.0, 3*height/4, width/2, height, width,
         3*height/4, width, height/4, width/2, 0.0);
