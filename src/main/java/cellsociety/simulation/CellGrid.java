@@ -134,7 +134,6 @@ public class CellGrid {
    * @param column - The column within the grid this cell is found
    */
   private void addCellNeighbor(Cell cell, int row, int column) {
-    System.out.println(this.type);
     if (this.type == SimulationEdgeType.TOROIDAL) {
       if (row < 0) {
         row = grid.size() + row;

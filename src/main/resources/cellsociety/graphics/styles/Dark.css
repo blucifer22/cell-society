@@ -1,0 +1,61 @@
+.state0 {
+  -fx-fill: gray;
+}
+
+.state1 {
+  -fx-fill: red;
+}
+
+.state2 {
+  -fx-fill: black;
+}
+
+.state3 {
+  -fx-fill: green;
+}
+
+.state4 {
+  -fx-fill: blue;
+}
+
+.state5 {
+  -fx-fill: magenta;
+}
+
+.button {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}
+
+/*
+This usage IS (!) proper, but apparently occasionally throws a warning as a result of internal bugs:
+
+Feb 21, 2021 3:49:18 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Could not resolve '-fx-text-background-color' while resolving lookups for '-fx-text-fill'
+from rule '*.list-cell' in stylesheet
+jrt:/javafx.controls/com/sun/javafx/scene/control/skin/modena/modena.bss
+Feb 21, 2021 3:49:18 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: class java.lang.String cannot be cast to class
+javafx.scene.paint.Paint (java.lang.String is in module java.base of loader 'bootstrap';
+javafx.scene.paint.Paint is in module javafx.graphics@15.0.2 of loader 'platform')' while converting
+value for '-fx-background-color' from rule '*.list-cell' in stylesheet
+jrt:/javafx.controls/com/sun/javafx/scene/control/skin/modena/modena.bss
+Feb 21, 2021 3:49:18 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Could not resolve '-fx-text-background-color' while resolving lookups for '-fx-text-fill'
+from rule '*.list-cell' in stylesheet jrt:/javafx.controls/com/sun/javafx/scene/control/skin/modena/modena.bss
+Feb 21, 2021 3:49:18 PM javafx.scene.CssStyleHelper calculateValue
+WARNING: Caught 'java.lang.ClassCastException: class java.lang.String cannot be cast to class
+javafx.scene.paint.Paint (java.lang.String is in module java.base of loader 'bootstrap';
+javafx.scene.paint.Paint is in module javafx.graphics@15.0.2 of loader 'platform')' while converting
+value for '-fx-background-color' from rule '*.combo-box-popup>*.list-view>*.virtual-flow>
+*.clipped-container>*.sheet>*.list-cell:hover:filled:selected' in stylesheet
+jrt:/javafx.controls/com/sun/javafx/scene/control/skin/modena/modena.bss
+
+See https://stackoverflow.com/questions/27311222/javafx-getting-class-cast-exception-in-css-for
+-blend-mode.
+*/
+
+.combo-box-base, .list-view, .list-cell {
+  -fx-background-color: black;
+  -fx-text-fill: white;
+}

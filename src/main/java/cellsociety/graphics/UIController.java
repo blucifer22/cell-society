@@ -20,6 +20,7 @@ public class UIController {
   private ResourceBundle languageResources;
   private final Stage stage;
   private final SimulationController simulationController;
+  private Theme theme;
 
   /**
    * Sole constructor for <code>UIController</code>. Called by <code>Main</code> when doing initial
@@ -29,17 +30,22 @@ public class UIController {
    */
   public UIController(Stage primaryStage, double frameDelay, String locale) {
     this.stage = primaryStage;
-    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + "English");
+    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + Language.ENGLISH);
     this.simulationController = new SimulationController(this, languageResources);
     this.stage.setResizable(false);
     this.frameDelay = frameDelay;
     this.locale = locale;
+    this.theme = Theme.DEFAULT;
     presentLoadSimScene();
     beginUpdates();
   }
 
-  protected void setLanguage(ResourceBundle bundle) {
-    this.languageResources = bundle;
+  protected void setLanguage(Language lang) {
+    this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + lang);
+  }
+
+  protected void setTheme(Theme theme) {
+    this.theme = theme;
   }
 
   private void beginUpdates() {
@@ -64,7 +70,7 @@ public class UIController {
    * @param title the new title text to display
    */
   public void setTitle(String title) {
-    stage.setTitle("floating");
+    stage.setTitle(title);
   }
 
   public void exitSimulation() {
@@ -83,8 +89,8 @@ public class UIController {
 
   public void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
-        new SimulationDisplayScene(simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
-            languageResources);
+        new SimulationDisplayScene(this.simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
+            this.languageResources, this.theme);
     this.stage.setScene(sds);
   }
 
@@ -121,5 +127,39 @@ public class UIController {
     Stage s = new Stage();
     new UIController(s, frameDelay, locale);
     s.show();
+  }
+
+  public enum Language {
+    ENGLISH("English"),
+    FRENCH("French"),
+    POLISH("Polish");
+
+    private final String bundleName;
+
+    Language(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
+  }
+
+  public enum Theme {
+    DEFAULT("Default"),
+    FIRE_SPREAD("Fire"),
+    DARK("Dark");
+
+    private final String bundleName;
+
+    Theme(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
   }
 }
