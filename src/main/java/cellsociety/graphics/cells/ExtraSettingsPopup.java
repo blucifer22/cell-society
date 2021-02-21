@@ -33,7 +33,7 @@ public class ExtraSettingsPopup extends Scene {
       HBox row = new HBox(10);
       row.setAlignment(Pos.CENTER_RIGHT);
       row.getChildren().add(new Text(key));
-      TextField tf = new TextField();
+      TextField tf = new TextField(""+simController.getSimulationParameters().get(key));
       tf.setOnKeyPressed(e -> updateSimulationParameterIfEnter(e.getCode(), key, tf.getText()));
       row.getChildren().add(tf);
       rows.getChildren().add(row);
@@ -45,7 +45,6 @@ public class ExtraSettingsPopup extends Scene {
     if(c != KeyCode.ENTER) {
       return;
     }
-    System.out.println("ENTER!");
     simController.updateSimulationParameter(name, value);
   }
 
