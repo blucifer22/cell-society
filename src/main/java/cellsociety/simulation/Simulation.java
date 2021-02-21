@@ -16,11 +16,11 @@ import java.util.Map;
  *     and is capable of stepping simulations forward.
  */
 public class Simulation {
-  protected CellGrid cellGrid;
-  protected List<Cell> cells;
+  private CellGrid cellGrid;
+  private List<Cell> cells;
   private final List<int[]> nonDefaultStates;
   private final SimulationConfiguration configuration;
-  protected int numCells;
+  private int numCells;
 
   public Simulation(SimulationConfiguration config) {
     this.nonDefaultStates = config.getInitialNonDefaultCellStates();
@@ -44,14 +44,25 @@ public class Simulation {
       configuration.getEdgeType(),
       configuration.getNeighborhodSize());
     RandomGridGenerationType type = configuration.getRandomGridGenerationType();
-    int rows = configuration.getWidth();
-    int cols = configuration.getHeight();
     if (type == RandomGridGenerationType.COUNT || type == RandomGridGenerationType.FRACTION) {
-      Map<Integer, Double> freqMap = configuration.getRandomInitialStates();
+      createRandomStates(configuration.getRandomInitialStates(), type);
+    } else {
+      for (int[] arr : nonDefaultStates) {
+        int row = arr[0];
+        int col = arr[1];
+        Cell cell = cellGrid.getCell(row, col);
+        cell.setCellState(arr[2]);
+      }
+    }
+  }
+
+  private void createRandomStates(Map<Integer, Double> freqMap, RandomGridGenerationType type) {
+      int rows = configuration.getWidth();
+      int cols = configuration.getHeight();
       freqMap.forEach(
       (Integer state, Double freq) -> {
-        double numCells = type == RandomGridGenerationType.COUNT ? freq : rows * cols / freq;
-        for (int i = 0; i < numCells; i++) {
+        double target = type == RandomGridGenerationType.COUNT ? freq : numCells/ freq;
+        for (int i = 0; i < target; i++) {
           int cellValue = 1;
           // keeps going till identifies empty cell
           while (cellValue != 0) {
@@ -65,14 +76,6 @@ public class Simulation {
           }
         }
       });
-    } else {
-      for (int[] arr : nonDefaultStates) {
-        int row = arr[0];
-        int col = arr[1];
-        Cell cell = cellGrid.getCell(row, col);
-        cell.setCellState(arr[2]);
-      }
-    }
   }
 
   /**
