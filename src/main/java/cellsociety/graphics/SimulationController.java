@@ -6,7 +6,6 @@ import cellsociety.simulation.SimulationFactory;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -76,7 +75,9 @@ public class SimulationController {
 
   public void exitSimulation() {
     uiController.exitSimulation();
-    parametersPopup.destroy();
+    if(parametersPopup != null ) {
+      parametersPopup.destroy();
+    }
   }
 
   public void update(double elapsedTime) {
