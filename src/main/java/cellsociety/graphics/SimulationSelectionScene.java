@@ -1,5 +1,7 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.UIController.Language;
+import cellsociety.graphics.UIController.Theme;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
@@ -73,13 +75,13 @@ public class SimulationSelectionScene extends Scene {
     Label themeIcon = createIcon("icons/theme.png");
 
     ComboBox<Language> langSelect = new ComboBox<>();
-    langSelect.getItems().addAll(Language.values());
-    langSelect.setValue(Language.values()[0]);
+    langSelect.getItems().addAll(UIController.Language.values());
+    langSelect.setValue(UIController.Language.values()[0]);
     langSelect.setOnAction(e -> changeLanguage(langSelect.getValue()));
 
     ComboBox<Theme> themeSelect = new ComboBox<>();
-    themeSelect.getItems().addAll(Theme.values());
-    themeSelect.setValue(Theme.values()[0]);
+    themeSelect.getItems().addAll(UIController.Theme.values());
+    themeSelect.setValue(UIController.Theme.values()[0]);
     themeSelect.setOnAction(e -> changeTheme(themeSelect.getValue()));
 
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
@@ -111,36 +113,4 @@ public class SimulationSelectionScene extends Scene {
     root.getChildren().add(n);
   }
 
-  public enum Language {
-    ENGLISH("English"),
-    FRENCH("French"),
-    POLISH("Polish");
-
-    private final String bundleName;
-
-    Language(String s) {
-      this.bundleName = s;
-    }
-
-    @Override
-    public String toString() {
-      return this.bundleName;
-    }
-  }
-
-  public enum Theme {
-    LIGHT("Light"),
-    DARK("Dark");
-
-    private final String bundleName;
-
-    Theme(String s) {
-      this.bundleName = s;
-    }
-
-    @Override
-    public String toString() {
-      return this.bundleName;
-    }
-  }
 }

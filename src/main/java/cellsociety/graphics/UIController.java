@@ -122,4 +122,37 @@ public class UIController {
     new UIController(s, frameDelay, locale);
     s.show();
   }
+
+  public enum Language {
+    ENGLISH("English"),
+    FRENCH("French"),
+    POLISH("Polish");
+
+    private final String bundleName;
+
+    Language(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
+  }
+
+  public enum Theme {
+    LIGHT("Light"),
+    DARK("Dark");
+
+    private final String bundleName;
+
+    Theme(String s) {
+      this.bundleName = s;
+    }
+
+    @Override
+    public String toString() {
+      return this.bundleName;
+    }
+  }
 }
