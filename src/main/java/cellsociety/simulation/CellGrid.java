@@ -138,8 +138,14 @@ public class CellGrid {
       if (row < 0) {
         row = grid.size() + row;
       }
+      else if(row >= grid.size()) {
+        row = 0;
+      }
       if (column < 0) {
         column = grid.get(0).size() + column;
+      }
+      else if(column >= grid.get(0).size()) {
+        column = 0;
       }
       System.out.printf("Row: %d\n Column: %d\n", row, column);
     }
