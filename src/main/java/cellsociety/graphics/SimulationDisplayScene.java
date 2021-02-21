@@ -1,5 +1,6 @@
 package cellsociety.graphics;
 
+import cellsociety.graphics.UIController.Theme;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -26,7 +27,7 @@ public class SimulationDisplayScene extends Scene {
 
   public SimulationDisplayScene(
       SimulationController simulationController, double width, double height,
-      ResourceBundle resources) {
+      ResourceBundle resources, Theme theme) {
     super(new Group(), width, height);
     this.root = (Group) this.getRoot();
     this.simulationController = simulationController;
@@ -34,8 +35,49 @@ public class SimulationDisplayScene extends Scene {
     this.resources = resources;
     this.WIDTH = width;
     this.HEIGHT = height;
-    this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
     buildScene();
+  }
+
+  private HBox firstButtonRow() {
+    HBox row = new HBox(10);
+
+    Button playButton = new Button(resources.getString("Play"));
+    Button speedUpButton = new Button(resources.getString("SpeedUp"));
+    Button slowDownButton = new Button(resources.getString("SlowDown"));
+    Button pauseButton = new Button(resources.getString("Pause"));
+    Button stepButton = new Button(resources.getString("Step"));
+    Button extraSettingsButton = new Button(resources.getString("ExtraSettings"));
+
+    playButton.setOnAction(e -> simulationController.startSimulation());
+    speedUpButton.setOnAction(e -> simulationController.speedUpSimulation());
+    slowDownButton.setOnAction(e -> simulationController.slowDownSimulation());
+    pauseButton.setOnAction(e -> simulationController.pauseSimulation());
+    stepButton.setOnAction(e -> simulationController.step());
+    extraSettingsButton.setOnAction(e -> simulationController.showParametersPopout());
+
+    row.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
+        stepButton, extraSettingsButton);
+    row.setAlignment(Pos.CENTER);
+    return row;
+  }
+
+  private HBox secondButtonRow() {
+    HBox row = new HBox(10);
+
+    Button exitButton = new Button(resources.getString("ExitSimulation"));
+    Button showGraphButton = new Button(resources.getString("ShowGraph"));
+    Button saveButton = new Button(resources.getString("SaveSim"));
+    Button loadAdditionalButton = new Button(resources.getString("LoadAdditionalSimulation"));
+
+    exitButton.setOnAction(e -> simulationController.exitSimulation());
+    showGraphButton.setOnAction(e -> simulationController.showVisualization());
+    saveButton.setOnAction(e -> simulationController.saveSimulationToDisk());
+    loadAdditionalButton.setOnAction(e -> simulationController.openAdditionalSimulation());
+
+    row.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
+    row.setAlignment(Pos.CENTER);
+    return row;
   }
 
   private void buildScene() {
@@ -43,36 +85,8 @@ public class SimulationDisplayScene extends Scene {
     rootChildren.add(this.graphicalCellGrid.getNode());
 
     VBox rows = new VBox(10);
-    HBox rowOne = new HBox(10);
-    HBox rowTwo = new HBox(10);
-    Button exitButton = new Button(resources.getString("ExitSimulation"));
-    Button playButton = new Button(resources.getString("Play"));
-    Button speedUpButton = new Button(resources.getString("SpeedUp"));
-    Button slowDownButton = new Button(resources.getString("SlowDown"));
-    Button pauseButton = new Button(resources.getString("Pause"));
-    Button stepButton = new Button(resources.getString("Step"));
-    Button showGraphButton = new Button(resources.getString("ShowGraph"));
-    Button saveButton = new Button(resources.getString("SaveSim"));
-    Button loadAdditionalButton = new Button(resources.getString("LoadAdditionalSimulation"));
-    Button extraSettingsButton = new Button(resources.getString("ExtraSettings"));
-
-    rowOne.getChildren().addAll(exitButton, showGraphButton, saveButton, loadAdditionalButton);
-    rowTwo.getChildren().addAll(playButton, speedUpButton, slowDownButton, pauseButton,
-        stepButton, extraSettingsButton);
-
-    exitButton.setOnAction(e -> simulationController.exitSimulation());
-    playButton.setOnAction(e -> simulationController.startSimulation());
-    speedUpButton.setOnAction(e -> simulationController.speedUpSimulation());
-    slowDownButton.setOnAction(e -> simulationController.slowDownSimulation());
-    pauseButton.setOnAction(e -> simulationController.pauseSimulation());
-    stepButton.setOnAction(e -> simulationController.step());
-    showGraphButton.setOnAction(e -> simulationController.showVisualization());
-    saveButton.setOnAction(e -> simulationController.saveSimulationToDisk());
-    loadAdditionalButton.setOnAction(e -> simulationController.openAdditionalSimulation());
-    extraSettingsButton.setOnAction(e -> simulationController.showParametersPopout());
-
-    rowOne.setAlignment(Pos.CENTER);
-    rowTwo.setAlignment(Pos.CENTER);
+    HBox rowOne = firstButtonRow();
+    HBox rowTwo = secondButtonRow();
 
     rows.getChildren().addAll(rowTwo, rowOne);
     rows.setAlignment(Pos.CENTER);

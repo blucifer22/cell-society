@@ -1,6 +1,7 @@
 package cellsociety.graphics;
 
-import java.util.List;
+import cellsociety.graphics.UIController.Language;
+import cellsociety.graphics.UIController.Theme;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -29,8 +30,6 @@ public class SimulationSelectionScene extends Scene {
   private final double width;
   private final double height;
   private ResourceBundle resources;
-  private final List<String> availableLanguages = List.of("English", "French");
-  private final List<String> availableThemes = List.of("Light", "Dark");
   private Button fileLoadButton;
 
   /**
@@ -48,7 +47,6 @@ public class SimulationSelectionScene extends Scene {
     this.width = width;
     this.height = height;
     this.resources = resources;
-    Button fileLoadButton;
     this.uiController = uiController;
     configureScene();
   }
@@ -73,23 +71,32 @@ public class SimulationSelectionScene extends Scene {
     Label langIcon = createIcon("icons/language.png");
     Label themeIcon = createIcon("icons/theme.png");
 
-    ComboBox<String> langSelect = createDropDown(availableLanguages);
-    ComboBox<String> themeSelect = createDropDown(availableThemes);
+    ComboBox<Language> langSelect = new ComboBox<>();
+    langSelect.getItems().addAll(UIController.Language.values());
+    langSelect.setValue(UIController.Language.values()[0]);
+    langSelect.setOnAction(e -> changeLanguage(langSelect.getValue()));
 
-    langSelect.setOnAction( e -> {
-      this.resources = ResourceBundle.getBundle(uiController.RESOURCE_PATH + langSelect.getValue());
-      uiController.setLanguage(this.resources);
-      referesh();
-    });
+    ComboBox<Theme> themeSelect = new ComboBox<>();
+    themeSelect.getItems().addAll(UIController.Theme.values());
+    themeSelect.setValue(UIController.Theme.values()[0]);
+    themeSelect.setOnAction(e -> changeTheme(themeSelect.getValue()));
 
     row.getChildren().addAll(langIcon, langSelect, themeIcon, themeSelect);
 
     return row;
   }
 
-  private void referesh() {
+  private void changeLanguage(Language lang) {
+    this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
+    uiController.setLanguage(lang);
     fileLoadButton.setText(resources.getString("LoadSimulationXML"));
     uiController.setTitle(resources.getString("Launch"));
+  }
+
+  private void changeTheme(Theme theme) {
+    uiController.setTheme(theme);
+    this.getStylesheets().clear();
+    this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
   }
 
   private Label createIcon(String name) {
@@ -100,16 +107,9 @@ public class SimulationSelectionScene extends Scene {
     return label;
   }
 
-  private ComboBox<String> createDropDown(List<String> list) {
-    ComboBox<String> choiceBox = new ComboBox();
-    choiceBox.getItems().addAll(list);
-    choiceBox.setValue(list.get(0));
-
-    return choiceBox;
-  }
-
   // Adds the Node parameter to the root Group of the Scene
   private void renderNode(Node n) {
     root.getChildren().add(n);
   }
+
 }
