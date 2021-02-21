@@ -1,6 +1,7 @@
 package cellsociety.simulation;
 
 import cellsociety.util.SimulationConfiguration.CellShape;
+import cellsociety.util.SimulationConfiguration.RandomGridGenerationType;
 import cellsociety.util.SimulationConfiguration;
 import cellsociety.util.SimulationWriter;
 import java.io.File;
@@ -36,10 +37,41 @@ public class Simulation {
     this.cells = cells;
     this.cellGrid = new CellGrid(cells, configuration.getWidth(), configuration.getHeight(),
         configuration.getCellShape(), configuration.getEdgeType(), configuration.getNeighborhodSize());
-    for (int[] arr : nonDefaultStates) {
-      Cell cell = cellGrid.getCell(arr[0], arr[1]);
-      cell.setCellState(arr[2]);
+    RandomGridGenerationType type = configuration.getRandomGridGenerationType();
+    int rows = configuration.getWidth();
+    int cols = configuration.getHeight();
+    if (type == RandomGridGenerationType.COUNT) {
+      Map<Integer, Double> freqMap = configuration.getRandomInitialStates();
+      freqMap.forEach( (Integer state, Double freq) -> {
+        for (int i = 0; i < freq; i++) {
+          int cellValue = 1;
+          // keeps going till identifies empty cell
+          while (cellValue != 0) {
+            int row = (int) (Math.random() * rows);
+            int col = (int) (Math.random() * cols);
+            Cell cell = cellGrid.getCell(row, col);
+            if (cell.getCurrentCellState() == 0) {
+              cell.setCellState(state);
+              break;
+            }
+          }
+        }
+      });
+    } 
+
+    else if (type == RandomGridGenerationType.FRACTION) {
+      Map<Integer, Double> freqMap = configuration.getRandomInitialStates();
+      freqMap.forEach( (Integer state, Double freq) -> {
+
+      });
     }
+
+      for (int[] arr : nonDefaultStates) {
+        int row = arr[0];
+        int col = arr[1];
+        Cell cell = cellGrid.getCell(row, col);
+        cell.setCellState(arr[2]);
+      }
   }
 
   /**
