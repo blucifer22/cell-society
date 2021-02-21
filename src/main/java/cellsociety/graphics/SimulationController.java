@@ -4,7 +4,6 @@ import cellsociety.graphics.cells.ExtraSettingsPopup;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -47,7 +46,7 @@ public class SimulationController {
       simFactory.loadSimulationFile(simulationConfigurationFile);
       this.simulation = simFactory.getSimulation();
       this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(),
-          simulation.getCells(), new HashMap<>(), displayWidth, displayHeight,
+          simulation.getCells(), displayWidth, displayHeight,
           simulation.getNumRows(), simulation.getNumCols());
       graphicalCellGrid.update();
       uiController.showSimulation(this);
