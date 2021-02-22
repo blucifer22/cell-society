@@ -56,9 +56,13 @@ public class RPSCell extends Cell {
     int numPaper = 0;
     int numScissors = 0;
     for (Cell cell : getNeighbors()) {
-      if (cell.getCellState() == ROCK) numRock++;
-      else if (cell.getCellState() == PAPER) numPaper++;
-      else numScissors++;
+      if (cell.getCellState() == ROCK) {
+        numRock++;
+      } else if (cell.getCellState() == PAPER) {
+        numPaper++;
+      } else {
+        numScissors++;
+      }
     }
     switch (this.getCellState()) {
       case ROCK -> {

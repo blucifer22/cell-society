@@ -10,23 +10,25 @@ import java.util.List;
  * A Grid that configures cells in a certain patten and sets the neighbors for for it's held cells.
  *
  * @author Joshua Petitma
- *     <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
+ * <p>CellGrids use an algorithm to create the neighbors of the the passed in cells.
  */
 public class CellGrid {
-  private List<List<Cell>> grid;
-  private double platformWidth;
-  private double platformHeight;
-  private SimulationEdgeType type;
-  private int neighborhood;
+
+  private final List<List<Cell>> grid;
+  private final double platformWidth;
+  private final double platformHeight;
+  private final SimulationEdgeType type;
+  private final int neighborhood;
+
   /**
    * Constructs a rectangular grid with the specified configuration.
    *
-   * @param cells - The list of cells to be configured in a grid pattern.
-   * @param gridWidth - The number of cells in each row.
+   * @param cells      - The list of cells to be configured in a grid pattern.
+   * @param gridWidth  - The number of cells in each row.
    * @param gridHeight - The number of cells in each column.
-   * @param shape - The shape of every cell. Specifies how neighbors will be determined.
-   * @param type - The edgetype, specifies what happens at the edges of the grid.
-   * @param nSize - The size of neighborhood, determines which cells are considered neighbors.
+   * @param shape      - The shape of every cell. Specifies how neighbors will be determined.
+   * @param type       - The edgetype, specifies what happens at the edges of the grid.
+   * @param nSize      - The size of neighborhood, determines which cells are considered neighbors.
    */
   public CellGrid(
       List<Cell> cells,
@@ -86,7 +88,9 @@ public class CellGrid {
     }
   }
 
-  /** Creates triangular neighbors */
+  /**
+   * Creates triangular neighbors
+   */
   private void createTriNeighbors() {
     List<Cell> row;
     Cell cell;
@@ -161,8 +165,8 @@ public class CellGrid {
   /**
    * Safely add a cell neighbor to a specified cell.
    *
-   * @param cell - The cell that will have a new neighbor
-   * @param row - The row in the grid in which this cell is found
+   * @param cell   - The cell that will have a new neighbor
+   * @param row    - The row in the grid in which this cell is found
    * @param column - The column within the grid this cell is found
    */
   private void addCellNeighbor(Cell cell, int row, int column) {
@@ -197,7 +201,7 @@ public class CellGrid {
   /**
    * Verifies that a row and column fall within the grid bounds.
    *
-   * @param row - The row in which to check the bounds.
+   * @param row    - The row in which to check the bounds.
    * @param column - The column of the row in which to check.
    */
   private boolean inBounds(int row, int column) {
@@ -207,7 +211,7 @@ public class CellGrid {
   /**
    * Pokes a cell at a specific position.
    *
-   * @param row - The row in which the cell is located.
+   * @param row    - The row in which the cell is located.
    * @param column - The column in which the cell is located.
    */
   protected void pokeCell(int row, int column) {

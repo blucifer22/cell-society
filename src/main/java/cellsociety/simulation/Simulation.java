@@ -12,14 +12,15 @@ import java.util.Map;
  * This class holds all simulation data and fields.
  *
  * @author Joshua Petitma
- *     <p>The simulation class is a general class that holds all the cells used within a simulation
- *     and is capable of stepping simulations forward.
+ * <p>The simulation class is a general class that holds all the cells used within a simulation
+ * and is capable of stepping simulations forward.
  */
 public class Simulation {
+
+  private final SimulationConfiguration configuration;
   private CellGrid cellGrid;
   private List<Cell> cells;
-  private final SimulationConfiguration configuration;
-  private int numCells;
+  private final int numCells;
 
   /**
    * Initialize a simulation with the given configuration.
@@ -183,7 +184,7 @@ public class Simulation {
   /**
    * Pokes a specified cell to change its state.
    *
-   * @param row - The row in the grid in which this cell is found
+   * @param row    - The row in the grid in which this cell is found
    * @param column - The column in the grid in which this cell is found
    */
   public void pokeCell(int row, int column) {
