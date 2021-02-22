@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
+ * The <code>Scene</code> responsible for rendering the graphical component of a simulation.
+ *
  * @author David Coffman
  * @author Marc Chmielewski
  * @author Joshua Petitma

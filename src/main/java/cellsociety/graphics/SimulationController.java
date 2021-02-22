@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 /**
  * The controller class that creates the simulation model for the view to use.
  *
- * <p>This class contains an XML parser and can create {@link cellsociety.simulation.Simulation}
- * objects.
+ * <p>This class contains instantiates an {@link cellsociety.util.XMLParser} and can create
+ * {@link Simulation} objects via its {@link SimulationFactory}.
  *
  * @author David Coffman
  * @author Marc Chmielewski
@@ -30,7 +30,7 @@ public class SimulationController {
   private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
   private ExtraSettingsPopup parametersPopup;
-  private ResourceBundle resources;
+  private final ResourceBundle resources;
 
   private double timer;
   private boolean stepEnabled;
