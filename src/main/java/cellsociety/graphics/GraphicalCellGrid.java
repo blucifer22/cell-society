@@ -16,6 +16,22 @@ import javafx.scene.transform.Affine;
 /**
  * A class that configures {@link GraphicalCell}s into a grid pattern.
  *
+ * Usage (from {@link SimulationController}):
+ * <code>
+ *   this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(),
+ *           simulation.getCells(), displayWidth, displayHeight,
+ *           simulation.getNumRows(), simulation.getNumCols());
+ *   graphicalCellGrid.update();
+ *   uiController.showSimulation(this);
+ * </code>
+ *
+ * To summarize, a <code>GraphicalCellGrid</code> should be instantiated by a
+ * {@link SimulationController} using the appropriate geometric parameters and model cell list,
+ * then updated (to ensure that each {@link GraphicalCell} has the correct starting color).
+ * Rendering typically takes place in a {@link SimulationDisplayScene}, where the
+ * <code>GraphicalCellGrid</code>'s rendering node can be inserted into a scene graph, though
+ * this could technically be done with any scene graph using {@link GraphicalCellGrid#getNode()}.
+ *
  * @author David Coffman
  */
 public class GraphicalCellGrid {
