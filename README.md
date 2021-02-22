@@ -254,4 +254,16 @@ Extra credit:
 * David Coffman (djc70)
   * Whew. That was a long one (though I expected that after Breakout)! To Marc's point about trial-and-error -- I think we didn't fully understand the implications of some of the design choices we made in the planning phase, so we ended up having to, in many ways, both simplify but also make more complicated our approach as we progressed. At one point, we had nearly every "major" Java feature in our project: interfaces, generics, inheritance hierarchies, lambdas, nested classes....... I think all we were missing was a good batch of thread abstractions (though JFX does this behind-the scenes I suppose).  Creating working APIs early is critical, and we didn't necessarily do that... more on that in the analysis, I'm sure. 
 
-[^1]: Purely coincidentally, this order is also alphabetical :)
+* Joshua Petitma (jmp157)
+    * I enjoyed seeing the thing finally work. What really hurt us early on was not having a clear set of APIs
+    defined, it definitely made it hard for everyone to know exactly what they would get out of another part of
+    the project. Going forward I think we all will take planning a lot more strictly so that it can be easier
+    for everyone to have a clear understanding of exactly how the project works. DESPITE this however, we were
+    able to generally have a steady progression from beginning to end. Refactoring when needed only took 10
+    minutesand the design of the model and view were extensible to the point where we didn't have to make
+    any real design changes unless we thought it best to for the sake of making everything look nice.
+    Besides the planning if I were to do anything differently it'd likely be more pair programming. I did that
+    a few times a few times during this project and the benefits are immense; but I kept a list of things I
+    need to improve and things I need to really nail down so y'all aren't ready for what's next 😤.
+
+[^1]: Purely coincidentally, this order is also alphabetical by last name :)
