@@ -1,11 +1,8 @@
 package cellsociety;
 
 import cellsociety.graphics.UIController;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * The starting point for the application
