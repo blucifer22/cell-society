@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ExtraSettingsPopup extends Scene {
+
   private final SimulationController simController;
   private final Stage stage;
   private final Group renderingGroup;
@@ -29,11 +30,11 @@ public class ExtraSettingsPopup extends Scene {
   private void buildScene() {
     VBox rows = new VBox(10);
 
-    for(String key: simController.getSimulationParameters().keySet()) {
+    for (String key : simController.getSimulationParameters().keySet()) {
       HBox row = new HBox(10);
       row.setAlignment(Pos.CENTER_RIGHT);
       row.getChildren().add(new Text(key));
-      TextField tf = new TextField(""+simController.getSimulationParameters().get(key));
+      TextField tf = new TextField("" + simController.getSimulationParameters().get(key));
       tf.setOnKeyPressed(e -> updateSimulationParameterIfEnter(e.getCode(), key, tf.getText()));
       row.getChildren().add(tf);
       rows.getChildren().add(row);
@@ -42,7 +43,7 @@ public class ExtraSettingsPopup extends Scene {
   }
 
   private void updateSimulationParameterIfEnter(KeyCode c, String name, String value) {
-    if(c != KeyCode.ENTER) {
+    if (c != KeyCode.ENTER) {
       return;
     }
     simController.updateSimulationParameter(name, value);

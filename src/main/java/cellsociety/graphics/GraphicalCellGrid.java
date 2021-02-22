@@ -14,20 +14,18 @@ import javafx.scene.transform.Affine;
 
 /**
  * A class that configures {@link GraphicalCell}s into a grid pattern.
- *
+ * <p>
  * Usage (from {@link SimulationController}):
  * <code>
- *   this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(),
- *           simulation.getCells(), displayWidth, displayHeight,
- *           simulation.getNumRows(), simulation.getNumCols());
- *   graphicalCellGrid.update();
- *   uiController.showSimulation(this);
+ * this.graphicalCellGrid = new GraphicalCellGrid(simulation.getCellShape(), simulation.getCells(),
+ * displayWidth, displayHeight, simulation.getNumRows(), simulation.getNumCols());
+ * graphicalCellGrid.update(); uiController.showSimulation(this);
  * </code>
- *
- * To summarize, a <code>GraphicalCellGrid</code> should be instantiated by a
- * {@link SimulationController} using the appropriate geometric parameters and model cell list,
- * then updated (to ensure that each {@link GraphicalCell} has the correct starting color).
- * Rendering typically takes place in a {@link SimulationDisplayScene}, where the
+ * <p>
+ * To summarize, a <code>GraphicalCellGrid</code> should be instantiated by a {@link
+ * SimulationController} using the appropriate geometric parameters and model cell list, then
+ * updated (to ensure that each {@link GraphicalCell} has the correct starting color). Rendering
+ * typically takes place in a {@link SimulationDisplayScene}, where the
  * <code>GraphicalCellGrid</code>'s rendering node can be inserted into a scene graph, though
  * this could technically be done with any scene graph using {@link GraphicalCellGrid#getNode()}.
  *
@@ -39,15 +37,15 @@ public class GraphicalCellGrid {
   private final Group root;
 
   /**
-   * Sole constructor of <code>GraphicalCellGrid</code>s. Takes geometric parameters in order to
-   * lay out any of the {@link GraphicalCell} subclasses into a grid structure.
+   * Sole constructor of <code>GraphicalCellGrid</code>s. Takes geometric parameters in order to lay
+   * out any of the {@link GraphicalCell} subclasses into a grid structure.
    *
    * @param cellShape the {@link CellShape} to use when constructing the grid
-   * @param cells the model {@link Cell}s to render
-   * @param width the pixel width of the grid
-   * @param height the pixel height of the grid
-   * @param numRows the cell height of the grid
-   * @param numCols the cell width of the grid
+   * @param cells     the model {@link Cell}s to render
+   * @param width     the pixel width of the grid
+   * @param height    the pixel height of the grid
+   * @param numRows   the cell height of the grid
+   * @param numCols   the cell width of the grid
    */
   public GraphicalCellGrid(CellShape cellShape, List<Cell> cells, double width, double height,
       int numRows, int numCols) {
@@ -64,9 +62,10 @@ public class GraphicalCellGrid {
         Cell c = cells.get(i * numCols + j);
         GraphicalCell gc = null;
 
-        switch(cellShape) {
-          case HEXAGON -> gc = new HexGraphicalCell(c, j * cellWidth, i * cellHeight, cellWidth, cellHeight);
-          case TRIANGLE -> gc = new TriangularGraphicalCell(c, j*cellWidth, i*cellHeight,
+        switch (cellShape) {
+          case HEXAGON -> gc = new HexGraphicalCell(c, j * cellWidth, i * cellHeight, cellWidth,
+              cellHeight);
+          case TRIANGLE -> gc = new TriangularGraphicalCell(c, j * cellWidth, i * cellHeight,
               cellWidth, cellHeight);
           default -> gc = new RectangularGraphicalCell(c, j * cellWidth,
               i * cellHeight, cellWidth, cellHeight);
@@ -84,8 +83,8 @@ public class GraphicalCellGrid {
   // be critical for an infinite grid implementation, but also useful for GraphicalCell
   // subclasses where dimensions are difficult to calculate and auto-scaling is much simpler.
   private void centerAndScaleGrid(double width, double height) {
-    double widthRatio = width/root.getBoundsInParent().getWidth();
-    double heightRatio = height/root.getBoundsInParent().getHeight();
+    double widthRatio = width / root.getBoundsInParent().getWidth();
+    double heightRatio = height / root.getBoundsInParent().getHeight();
     double scaleRatio = Math.min(widthRatio, heightRatio);
 
     Affine scale = new Affine();
@@ -95,7 +94,7 @@ public class GraphicalCellGrid {
     double adjWidth = root.getBoundsInParent().getWidth();
     double adjHeight = root.getBoundsInParent().getHeight();
     Affine translate = new Affine();
-    translate.appendTranslation((width - adjWidth)/2.0, (height-adjHeight)/2.0);
+    translate.appendTranslation((width - adjWidth) / 2.0, (height - adjHeight) / 2.0);
     this.root.getTransforms().addAll(translate);
   }
 
