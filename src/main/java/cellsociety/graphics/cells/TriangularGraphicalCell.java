@@ -2,7 +2,6 @@ package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 
 /**
