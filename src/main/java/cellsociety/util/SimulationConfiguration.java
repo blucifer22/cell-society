@@ -42,6 +42,8 @@ public class SimulationConfiguration {
     this.randomGridGenerationType = RandomGridGenerationType.NONE;
     this.edgeType = SimulationEdgeType.NORMAL;
     this.neighborhoodSize = CellNeighborhoodSize.MEDIUM;
+    this.width = 5;
+    this.height = 5;
   }
 
   // Validates, then adds, an initial cell state in its compacted integer array format.

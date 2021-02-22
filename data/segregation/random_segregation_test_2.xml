@@ -7,7 +7,7 @@
     <Description>View the progress of random segregation on a donut</Description>
   </General>
   <GeometricConfiguration>
-    <CellShape>RECTANGLE</CellShape>
+    <CellShape>HEXAGON</CellShape>
     <Height>25</Height>
     <Width>25</Width>
     <EdgeType>TOROIDAL</EdgeType>
