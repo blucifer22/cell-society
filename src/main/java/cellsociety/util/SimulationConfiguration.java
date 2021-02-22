@@ -244,13 +244,16 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the grid width (in cells) of the simulation.
    *
-   * @return
+   * @return the grid width (in cells) of the simulation
    */
   public int getWidth() {
     return this.width;
   }
 
+  // Validates and sets the grid width (in cells) of the simulation's cell grid. Used only by the
+  // XMLParser.
   protected void setWidth(int width) {
     if (width < 1) {
       throw new IllegalArgumentException("Grid width must be >= 1 (provided value " + width + ").");
@@ -259,13 +262,16 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the grid height (in cells) of the simulation.
    *
-   * @return
+   * @return the grid height (in cells) of the simulation
    */
   public int getHeight() {
     return this.height;
   }
 
+  // Validates and sets the grid height (in cells) of the simulation's cell grid. Used only by the
+  // XMLParser.
   protected void setHeight(int height) {
     if (height < 1) {
       throw new IllegalArgumentException(
@@ -275,16 +281,20 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns an <b>unmodifiable</b> view on the simulation parameter map. Updates to the map must
+   * be performed through other methods; the returned map cannot be updated directly.
    *
-   * @return
+   * @return an <b>unmodifiable</b> view on the simulation parameter map
    */
   public Map<String, Double> getSimulationParameters() {
     return Collections.unmodifiableMap(simulationParameters);
   }
 
   /**
+   * Returns an <b>unmodifiable</b> view on the initial random state parameter map. This map cannot
+   * be updated through any <code>public</code> method.
    *
-   * @return
+   * @return an <b>unmodifiable</b> view on the initial random state parameter map
    */
   public Map<Integer, Double> getRandomInitialStates() {
     if (this.randomGridGenerationType == RandomGridGenerationType.NONE) {
@@ -295,8 +305,10 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns an <b>unmodifiable</b> view on the initial non-default states list. This list cannot
+   * be updated through any <code>public</code> method.
    *
-   * @return
+   * @return an <b>unmodifiable</b> view on the initial non-default states list
    */
   public List<int[]> getInitialNonDefaultCellStates() {
     if (this.randomGridGenerationType != RandomGridGenerationType.NONE) {
@@ -306,6 +318,8 @@ public class SimulationConfiguration {
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
 
+  // Validates the entire simulation configuration. Verifies that a type has been set and that
+  // all defined initial non-default states are defined for cells that actually exist.
   protected void validateConfiguration() throws Exception {
     for (int[] cellWithState : this.initialNonDefaultCellStates) {
       if (cellWithState[0] >= this.height || cellWithState[1] >= this.width) {
@@ -320,11 +334,21 @@ public class SimulationConfiguration {
   }
 
   /**
-   *
+   * Enumerates all simulation types.
    */
   public enum SimulationType {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
+    /**
+     * An extension of the conventional {@link Enum#name()} method that allows for excess
+     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
+     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
+     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
+     * be referenced from a <code>static</code> context.
+     *
+     * @param s the <code>String</code>
+     * @return the {@link SimulationType} corresponding to the <code>String</code> parameter
+     */
     public static SimulationType fromStringEncoding(String s) {
       try {
         return SimulationType.valueOf(s.trim().toUpperCase());
@@ -335,12 +359,38 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Enumerates all random grid generation methods.
    *
+   * <ul>
+   *   <li>{@link RandomGridGenerationType#NONE} designates that states should be loaded from
+   *   the {@link SimulationConfiguration#getInitialNonDefaultCellStates()} method rather than
+   *   randomly.
+   *   </li>
+   *   <li>{@link RandomGridGenerationType#COUNT} designates that the values of the map returned
+   *   by {@link SimulationConfiguration#getRandomInitialStates()} should be interpreted as
+   *   discrete cell counts.
+   *   </li>
+   *   <li>{@link RandomGridGenerationType#FRACTION} designates that the values of the map
+   *   returned by @link SimulationConfiguration#getRandomInitialStates()} should be interpreted
+   *   as proportions of the total number of cells.
+   *   </li>
+   * </ul>
    */
   public enum RandomGridGenerationType {
     // these are actually used, but only accessed through the method below
     NONE, COUNT, FRACTION;
 
+    /**
+     * An extension of the conventional {@link Enum#name()} method that allows for excess
+     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
+     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
+     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
+     * be referenced from a <code>static</code> context.
+     *
+     * @param s the <code>String</code>
+     * @return the {@link RandomGridGenerationType} corresponding to the <code>String</code>
+     * parameter
+     */
     public static RandomGridGenerationType fromStringEncoding(String s) {
       try {
         return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
@@ -351,11 +401,33 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Enumerates all valid simulation edge types.
    *
+   * <ul>
+   *   <li>{@link SimulationEdgeType#NORMAL} designates that edge cells should have
+   *   reduced-size neighborhoods rather than including other or creating new cells.
+   *   </li>
+   *   <li>{@link SimulationEdgeType#INFINITE} designates that the grid should expand as edge
+   *   cells become active.
+   *   </li>
+   *   <li>{@link SimulationEdgeType#TOROIDAL} designates that the cells on the grid edges
+   *   should include cells on the opposite edge as neighbors.
+   *   </li>
+   * </ul>
    */
   public enum SimulationEdgeType {
     NORMAL, INFINITE, TOROIDAL;
 
+    /**
+     * An extension of the conventional {@link Enum#name()} method that allows for excess
+     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
+     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
+     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
+     * be referenced from a <code>static</code> context.
+     *
+     * @param s the <code>String</code>
+     * @return the {@link SimulationEdgeType} corresponding to the <code>String</code> parameter
+     */
     public static SimulationEdgeType fromStringEncoding(String s) {
       try {
         return SimulationEdgeType.valueOf(s.trim().toUpperCase());
@@ -366,11 +438,23 @@ public class SimulationConfiguration {
   }
 
   /**
-   *
+   * Enumerates all cell neighborhood sizes. The meaning of this enumeration changes semantically
+   * based on the value of {@link CellShape}; see {@link cellsociety.simulation.CellGrid} for
+   * implementation details.
    */
   public enum CellNeighborhoodSize {
     SMALL, MEDIUM, LARGE;
 
+    /**
+     * An extension of the conventional {@link Enum#name()} method that allows for excess
+     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
+     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
+     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
+     * be referenced from a <code>static</code> context.
+     *
+     * @param s the <code>String</code>
+     * @return the {@link CellNeighborhoodSize} corresponding to the <code>String</code> parameter
+     */
     public static CellNeighborhoodSize fromStringEncoding(String s) {
       try {
         return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
@@ -381,11 +465,21 @@ public class SimulationConfiguration {
   }
 
   /**
-   *
+   * Enumerates all cell shapes. Used for both neighborhood determination and rendering.
    */
   public enum CellShape {
     RECTANGLE, HEXAGON, TRIANGLE;
 
+    /**
+     * An extension of the conventional {@link Enum#name()} method that allows for excess
+     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
+     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
+     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
+     * be referenced from a <code>static</code> context.
+     *
+     * @param s the <code>String</code>
+     * @return the {@link CellShape} corresponding to the <code>String</code> parameter
+     */
     public static CellShape fromStringEncoding(String s) {
       try {
         return CellShape.valueOf(s.trim().toUpperCase());
