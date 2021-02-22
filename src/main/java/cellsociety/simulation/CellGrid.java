@@ -22,8 +22,11 @@ public class CellGrid {
    * Constructs a rectangular grid with the specified configuration.
    *
    * @param cells - The list of cells to be configured in a grid pattern.
-   * @param gridWidth - The number of cells in each row
-   * @param gridHeight - The number of cells in each column
+   * @param gridWidth - The number of cells in each row.
+   * @param gridHeight - The number of cells in each column.
+   * @param shape - The shape of every cell. Specifies how neighbors will be determined.
+   * @param type - The edgetype, specifies what happens at the edges of the grid.
+   * @param nSize - The size of neighborhood, determines which cells are considered neighbors.
    */
   public CellGrid(
       List<Cell> cells,
@@ -184,8 +187,8 @@ public class CellGrid {
    * Returns a cell in a specific grid position. Returns null if that position is not found within
    * the grid.
    *
-   * @param col - The column the cell is found within
    * @param row = The row the cell is found within
+   * @param col - The column the cell is found within
    */
   protected Cell getCell(int row, int col) {
     return grid.get(row).get(col);
@@ -201,6 +204,12 @@ public class CellGrid {
     return row >= 0 && column >= 0 && grid.size() > row && grid.get(row).size() > column;
   }
 
+  /**
+   * Pokes a cell at a specific position.
+   *
+   * @param row - The row in which the cell is located.
+   * @param column - The column in which the cell is located.
+   */
   protected void pokeCell(int row, int column) {
     grid.get(column).get(row).poke();
   }
