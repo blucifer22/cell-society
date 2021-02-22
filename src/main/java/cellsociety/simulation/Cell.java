@@ -12,11 +12,11 @@ import java.util.List;
  *     must change state.
  */
 public abstract class Cell {
-  protected List<Cell> neighbors;
-  protected int cellState;
-  protected int nextCellState;
-  protected int posX;
-  protected int posY;
+  private List<Cell> neighbors;
+  private int cellState;
+  private int nextCellState;
+  private int posX;
+  private int posY;
   private Map<String, Double> params;
 
   /**
@@ -166,4 +166,21 @@ public abstract class Cell {
   protected double getParam(String key) {
     return params.getOrDefault(key, -1.0);
   }
+
+  /**
+   * Get the neighbors of this Cell
+   * @return the neighbors of this Cell
+   */
+  public List<Cell> getNeighbors() {
+    return neighbors;
+  }
+
+  public void setNeighbors(List<Cell> neighbors) {
+    this.neighbors = neighbors;
+  }
+
+  public int getCellState() {
+    return cellState;
+  }
+
 }

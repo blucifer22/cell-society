@@ -41,13 +41,14 @@ public class SugarCell extends Cell {
 
   @Override
   public void poke() {
-    if(++cellState > AGENT) {
-      cellState = PATCH;
+    super.setCellState(getCellState() + 1);
+    if(getCellState() > AGENT) {
+      super.setCellState(PATCH);
     }
-    if(cellState == AGENT) {
+    if(getCellState() == AGENT) {
       agentSugar = generateAgentSpawnSugar();
     }
-    else if(cellState == PATCH) {
+    else if(getCellState() == PATCH) {
       agentSugar = 0; // PATCHes don't have agentSugar
       patchSugar = getParam(MAX_SUGAR_CAPACITY); // Re-up the patch sugar to max capacity
     }
@@ -98,16 +99,16 @@ public class SugarCell extends Cell {
   public void computeNextCellState() {
     Set<SugarCell> availableNeighbors = findAvailableNeighbors();
 
-    switch(cellState) {
+    switch(getCellState()) {
       case PATCH -> regrowSugar();
       case AGENT -> {
         metabolizeSugar();
         SugarCell cellToMoveTo = findSugar(availableNeighbors);
-        if(cellToMoveTo != null && this.cellState != PATCH) {
+        if(cellToMoveTo != null && this.getCellState() != PATCH) {
           move(cellToMoveTo);
         }
-        else if(this.cellState != PATCH){ // As long as we're not dead...
-          this.nextCellState = AGENT; // Don't move
+        else if(this.getCellState() != PATCH){ // As long as we're not dead...
+          this.setNextCellState(AGENT); // Don't move
         }
       }
     }
@@ -118,8 +119,8 @@ public class SugarCell extends Cell {
     this.patchSugar = 0;
     cellToMoveTo.agentSugar = this.agentSugar;
     this.agentSugar = 0.0;
-    cellToMoveTo.nextCellState = AGENT;
-    this.nextCellState = PATCH;
+    cellToMoveTo.setNextCellState(AGENT);
+    this.setNextCellState(PATCH);
   }
 
   private SugarCell findSugar(Set<SugarCell> availableNeighbors) {
@@ -141,14 +142,14 @@ public class SugarCell extends Cell {
   private void metabolizeSugar() {
     this.agentSugar = Math.max(0, agentSugar - sugarMetabolismRate);
     if(this.agentSugar <= 0) { // If the AGENT is going to die
-      this.nextCellState = PATCH;
-      this.cellState = PATCH;
+      this.setNextCellState(PATCH);
+      super.setCellState(PATCH);
     }
   }
 
   private Set<SugarCell> findAvailableNeighbors() {
     Set<SugarCell> availableNeighbors = new HashSet<>();
-    for(Cell cell : neighbors) {
+    for(Cell cell : getNeighbors()) {
       if((cell.getCurrentCellState() != AGENT && cell.getNextCellState() != AGENT)) {
         availableNeighbors.add((SugarCell)cell);
       }

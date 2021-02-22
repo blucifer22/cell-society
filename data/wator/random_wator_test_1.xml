@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Toroidal Wator Simulation 1</Name>
+    <Type>WATOR</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>Just one fish and one shark!</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <SharkSpawnEnergy>3.000000</SharkSpawnEnergy>
+    <SharkEnergyLoss>1.000000</SharkEnergyLoss>
+    <FishBreedingCycle>2.000000</FishBreedingCycle>
+    <FishEnergyGain>5.000000</FishEnergyGain>
+    <MaxState>2.000000</MaxState>
+  </SimulationParameters>
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>300</Count>
+      </StateCount>
+      <StateCount>
+        <State>2</State>
+        <Count>5</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>

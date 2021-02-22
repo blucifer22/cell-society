@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Random Percolation Simulation Test 1</Name>
+    <Type>PERCOLATION</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>Allows you to watch a system (attempt to) percolate</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <FillNumber>1.000000</FillNumber>
+    <MaxState>2.000000</MaxState>
+  </SimulationParameters>
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>1</Count>
+      </StateCount>
+      <StateCount>
+        <State>2</State>
+        <Count>100</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>

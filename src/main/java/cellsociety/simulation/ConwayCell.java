@@ -33,12 +33,12 @@ public class ConwayCell extends Cell {
 
   @Override
   public void poke() {
-    if (cellState == DEAD) {
-      cellState = ALIVE;
-      nextCellState = ALIVE;
+    if (getCellState() == DEAD) {
+      setCellState(ALIVE);
+      setNextCellState(ALIVE);
     } else {
-      cellState = DEAD;
-      nextCellState = DEAD;
+      setCellState(DEAD);
+      setNextCellState(DEAD);
     }
   }
 
@@ -54,22 +54,22 @@ public class ConwayCell extends Cell {
    */
   public void computeNextCellState() {
     int numLiveNeighbors = 0;
-    for (Cell cell : neighbors) {
+    for (Cell cell : getNeighbors()) {
       if (cell.getCurrentCellState() == ALIVE) {
         numLiveNeighbors++;
       }
     }
-    if (cellState == ALIVE
+    if (getCellState() == ALIVE
         && numLiveNeighbors >= getParam("AliveNumberMin")
         && numLiveNeighbors <= getParam("AliveNumberMax")) {
-      nextCellState = ALIVE;
-    } else if (cellState == DEAD
+      setNextCellState(ALIVE);
+    } else if (getCellState() == DEAD
         && numLiveNeighbors >= getParam("SpawnNumberMin")
         && numLiveNeighbors <= getParam("SpawnNumberMax")) {
-      nextCellState = ALIVE;
+      setNextCellState(ALIVE);
     } else {
-      if (cellState != DEAD) {
-        nextCellState = DEAD;
+      if (getCellState() != DEAD) {
+        setNextCellState(DEAD);
       }
     }
   }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Random TOROIDAL RPS Test 1</Name>
+    <Type>ROCKPAPERSCISSORS</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>Test Rock Paper Scissors (RPS) with a random pattern.</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <MaxState>2.000000</MaxState>
+    <LossCount>3.000000</LossCount>
+  </SimulationParameters>
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>209</Count>
+      </StateCount>
+      <StateCount>
+        <State>2</State>
+        <Count>209</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>

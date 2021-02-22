@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Random Segregation Test 1</Name>
+    <Type>SEGREGATION</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>View the progress of random segregation on a donut</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <MaxState>2.000000</MaxState>
+    <CutoffPercentage>0.300000</CutoffPercentage>
+  </SimulationParameters>
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>200</Count>
+      </StateCount>
+      <StateCount>
+        <State>2</State>
+        <Count>200</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>
