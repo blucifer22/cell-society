@@ -11,8 +11,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /**
- * The XMLParser class generates simulation metadata, initial grid states, and simulation parameters
- * given a filepath to a getSimulation configuration XML file.
+ * The XMLParser class configures a {@link cellsociety.util.SimulationConfiguration} for use by
+ * classes in the {@link cellsociety.simulation} package. It loads simulation settings from an XML
+ * file, then sends them to a {@link cellsociety.util.SimulationConfiguration} instance for
+ * validation and storage. The {@link cellsociety.util.SimulationConfiguration} instance can then
+ * be retrieved with {@link XMLParser#getSimulationConfiguration()}.
  *
  * <p>Usage: <code>
  * try {
