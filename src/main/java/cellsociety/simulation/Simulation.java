@@ -21,6 +21,11 @@ public class Simulation {
   private final SimulationConfiguration configuration;
   private int numCells;
 
+  /**
+   * Initialize a simulation with the given configuration.
+   *
+   * @param config - The configuration the simulation will use to initialize its cells and cellgrid
+   */
   public Simulation(SimulationConfiguration config) {
     this.numCells = config.getHeight() * config.getWidth();
     this.configuration = config;
@@ -34,13 +39,13 @@ public class Simulation {
   protected void initialize(List<Cell> cells) {
     this.cells = cells;
     this.cellGrid =
-      new CellGrid(
-      cells,
-      configuration.getWidth(),
-      configuration.getHeight(),
-      configuration.getCellShape(),
-      configuration.getEdgeType(),
-      configuration.getNeighborhodSize());
+        new CellGrid(
+            cells,
+            configuration.getWidth(),
+            configuration.getHeight(),
+            configuration.getCellShape(),
+            configuration.getEdgeType(),
+            configuration.getNeighborhodSize());
     RandomGridGenerationType type = configuration.getRandomGridGenerationType();
     if (type == RandomGridGenerationType.COUNT || type == RandomGridGenerationType.FRACTION) {
       createRandomStates(configuration.getRandomInitialStates(), type);
@@ -56,25 +61,25 @@ public class Simulation {
   }
 
   private void createRandomStates(Map<Integer, Double> freqMap, RandomGridGenerationType type) {
-      int rows = configuration.getWidth();
-      int cols = configuration.getHeight();
-      freqMap.forEach(
-      (Integer state, Double freq) -> {
-        double target = type == RandomGridGenerationType.COUNT ? freq : numCells/ freq;
-        for (int i = 0; i < target; i++) {
-          int cellValue = 1;
-          // keeps going till identifies empty cell
-          while (cellValue != 0) {
-            int row = (int) (Math.random() * rows);
-            int col = (int) (Math.random() * cols);
-            Cell cell = cellGrid.getCell(row, col);
-            if (cell.getCurrentCellState() == 0) {
-              cell.setCellState(state);
-              break;
+    int rows = configuration.getWidth();
+    int cols = configuration.getHeight();
+    freqMap.forEach(
+        (Integer state, Double freq) -> {
+          double target = type == RandomGridGenerationType.COUNT ? freq : numCells / freq;
+          for (int i = 0; i < target; i++) {
+            int cellValue = 1;
+            // keeps going till identifies empty cell
+            while (cellValue != 0) {
+              int row = (int) (Math.random() * rows);
+              int col = (int) (Math.random() * cols);
+              Cell cell = cellGrid.getCell(row, col);
+              if (cell.getCurrentCellState() == 0) {
+                cell.setCellState(state);
+                break;
+              }
             }
           }
-        }
-      });
+        });
   }
 
   /**
@@ -156,6 +161,11 @@ public class Simulation {
     return this.configuration.getWidth();
   }
 
+  /**
+   * Returns a mapping of the parameters used within the simulation
+   *
+   * @return The mapping of the parameters for the simulation.
+   */
   public Map<String, Double> getSimulationParameters() {
     return this.configuration.getSimulationParameters();
   }
@@ -180,11 +190,23 @@ public class Simulation {
     cellGrid.pokeCell(row, column);
   }
 
-  public void writeToDisk(File f) throws Exception {
-    SimulationWriter w = new SimulationWriter(this.configuration, this.cells);
-    w.writeToFile(f);
+  /**
+   * Saves the current state of the simulation to enable further replay.
+   *
+   * <p>The saved file will be written in the XML configuration format.
+   *
+   * @param file - The file in which the XML configuration will be written to.
+   */
+  public void writeToDisk(File file) throws Exception {
+    SimulationWriter writer = new SimulationWriter(this.configuration, this.cells);
+    writer.writeToFile(file);
   }
 
+  /**
+   * Returns the shape of the cells used within the simulation.
+   *
+   * @return - The shape of the cells within the simulation.
+   */
   public CellShape getCellShape() {
     return this.configuration.getCellShape();
   }
