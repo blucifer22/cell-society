@@ -1,8 +1,8 @@
 package cellsociety.simulation;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A general cell type.
@@ -166,10 +166,19 @@ public abstract class Cell {
     return neighbors;
   }
 
+  /**
+   * Set the neighbors of this Cell
+   *
+   * @param neighbors the new neighbors of this Cell
+   */
   public void setNeighbors(List<Cell> neighbors) {
     this.neighbors = neighbors;
   }
 
+  /**
+   * Get the current cellState of this Cell
+   * @return the current cellState of this Cell
+   */
   public int getCellState() {
     return cellState;
   }
