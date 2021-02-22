@@ -66,7 +66,7 @@ public class ConwayTests {
     List<Integer> cellStates5 = getCellStates(glider.getCells());
     assertEquals(cellStates5, expected);
 
-    for(int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; i++) {
       glider.step();
       assertEquals(cellStates5, expected);
     }

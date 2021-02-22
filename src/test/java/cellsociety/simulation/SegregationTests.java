@@ -4,8 +4,6 @@ import static cellsociety.simulation.SegregationCell.EMPTY;
 import static cellsociety.simulation.SegregationCell.TYPE_A;
 import static cellsociety.simulation.SegregationCell.TYPE_B;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ import org.junit.jupiter.api.Test;
  * @author Marc Chmielewski
  */
 public class SegregationTests {
+
   @Test
   public void testSimpleSegregation() {
     Simulation simple = createSimulation("data/segregation/segregation_test_1.xml");
@@ -38,7 +37,7 @@ public class SegregationTests {
 
     curRound = getCellStates(simple.getCells());
 
-    for(int i = 0; i < 500; i++) {
+    for (int i = 0; i < 500; i++) {
       assertEquals(curRound.get(EMPTY), prevRound.get(EMPTY));
       assertEquals(curRound.get(TYPE_A), prevRound.get(TYPE_A));
       assertEquals(prevRound.get(TYPE_B), curRound.get(TYPE_B));
