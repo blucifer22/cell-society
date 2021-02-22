@@ -65,6 +65,7 @@ public class SimulationSelectionScene extends Scene {
     renderNode(sp);
   }
 
+  // Configure the settings pane and add it to the rendering group
   private Pane createSettings() {
     HBox row = new HBox(20);
     row.setAlignment(Pos.CENTER);
@@ -86,6 +87,8 @@ public class SimulationSelectionScene extends Scene {
     return row;
   }
 
+  // Notifies the UIController that the resource bundle language has changed.
+  // Also changes the scene's own resource bundle to match the new language.
   private void changeLanguage(Language lang) {
     this.resources = ResourceBundle.getBundle(UIController.RESOURCE_PATH + lang);
     uiController.setLanguage(lang);
@@ -93,12 +96,15 @@ public class SimulationSelectionScene extends Scene {
     uiController.setTitle(resources.getString("Launch"));
   }
 
+  // Notifies the UIController that the theme has changed.
+  // Also changes the scene's own stylesheet to match the new theme.
   private void changeTheme(Theme theme) {
     uiController.setTheme(theme);
     this.getStylesheets().clear();
     this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
   }
 
+  // Utility method used to create new icons.
   private Label createIcon(String name) {
     Label label = new Label();
     Image labelImg = new Image(getClass().getResourceAsStream(name));
