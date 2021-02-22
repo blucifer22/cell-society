@@ -1,6 +1,7 @@
 package cellsociety.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import cellsociety.util.SimulationConfiguration.SimulationType;
 import java.io.File;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class TestXMLParsing {
+
   @Test
   public void test() {
     try {
@@ -26,7 +28,8 @@ class TestXMLParsing {
       assertEquals(c.getSimulationName(), "Conway's Game of Life");
       assertEquals(c.getSimulationType(), SimulationType.CONWAY);
       assertEquals(c.getSimulationAuthor(), "Marc Chmielewski");
-      assertEquals(c.getSimulationDescription(), "This is an edge case test for Conway's Game of Life");
+      assertEquals(c.getSimulationDescription(),
+          "This is an edge case test for Conway's Game of Life");
 
       SimulationWriter w = new SimulationWriter(c, new ArrayList<>());
       w.writeToFile(new File("src/test/java/cellsociety/util/test_output.xml"));
