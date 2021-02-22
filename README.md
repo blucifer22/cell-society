@@ -56,17 +56,16 @@ time working on the code.
 - Marc Chmielewski (msc68)
   - Back-End/Model, Simulation Implementations, and Tests
 - David Coffman (djc70)
-  - Front-End and Parser
+  - Front-End, Parser, and Configurations
 - Joshua Petitma (jmp157)
-  _ General Architecture and 
+  - General Architecture, Middleware, and Utility Code
 
 ### Resources Used
 
 * **JUnit** - To create automated unit tests and verify that changes did not break code.
 * [Factory Design Pattern](https://en.wikipedia.org/wiki/Factory_(object-oriented_programming))
 * [Strategy Design Pattern](https://en.wikipedia.org/wiki/Strategy_pattern)
-
-
+* Our wonderful staff of UTAs
 
 ### Running the Program
 
@@ -89,7 +88,7 @@ Features implemented:
     * Foraging Ants
   
 
-* **THREE** different shapes of cell:
+* **THREE** different shapes of cell, with specialized neighbor behavior:
   * Rectangular
   * Hexagonal
   * Triangular
@@ -103,9 +102,9 @@ Features implemented:
   * Boundary Conditions:
     * "Standard"
     * Toroidal
-  
 
-* A basic, GUI simulation-editor:
+
+* A basic, GUI-based simulation-editor:
   * Allows the user to generate their own simulations by "poking"
   cells to change their state.
   * Saves to an XML file that can be loaded back at a later time.
@@ -130,6 +129,8 @@ Assumptions or Simplifications:
 Interesting data files:
 
 Known Bugs:
+* Presently, there are two text-fields displayed for editing parameters in Foraging Ants. 
+  The specific etiology of this is under investigation.
 
 Extra credit:
 
