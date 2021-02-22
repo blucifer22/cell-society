@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Popup that allows for simulation parameters to be changed during the simulation.
+ */
 public class ExtraSettingsPopup extends Scene {
 
   private final SimulationController simController;
