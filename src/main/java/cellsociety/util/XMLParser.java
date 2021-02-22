@@ -15,11 +15,11 @@ import org.w3c.dom.Node;
  * given a filepath to a getSimulation configuration XML file.
  *
  * <p>Usage: <code>
- * try { File f = new File("path/to/file.xml"); XMLParser p = new XMLParser(f); // may throw an
- * Exception HashMap<String, String> simulationMetadata = p.getSimulationMetadata(); HashMap<String,
- * Double> simulationParameters = p.getSimulationParameters(); ArrayList<int[]>
- * cellsWithInitialNonDefaultStates = p.getInitialNonDefaultStates(); // entry point for simulation
- * using the above values } catch (Exception e) { // pipe Exception to GUI }
+ * try {
+ *  File f = new File("path/to/file.xml");
+ *  XMLParser p = new XMLParser(f); // may throw an Exception
+ *  SimulationConfiguration config = p.getSimulationConfiguration();
+ * } catch (Exception e) { // pipe Exception to GUI }
  * </code>
  *
  * @author David Coffman
