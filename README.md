@@ -41,12 +41,6 @@ commits by marc.chmielewski@duke.edu
 
 commits by david.coffman@duke.edu
 === 9.59 days (76.69 hours)
-
-commits by jad111@duke.edu
-=== 0.25 days (2.01 hours)
-
-commits by rcd@cs.duke.edu
-=== 0.54 days (4.30 hours)
 ```
 
 A lot of time. (~80-150 hours apiece, and ~300-350 cumulatively) These times are not 100% accurate
