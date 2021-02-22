@@ -13,7 +13,6 @@ public class CountGraph extends LineChart<Number, Number> {
 
   final HashMap<Integer, Series<Number, Number>> data;
   final Simulation simulation;
-  private ResourceBundle resources;
   int stepCount;
 
   public CountGraph(Simulation s, ResourceBundle resources) {
@@ -21,7 +20,6 @@ public class CountGraph extends LineChart<Number, Number> {
     this.data = new HashMap<>();
     this.simulation = s;
     this.stepCount = 0;
-    this.resources = resources;
     this.getXAxis().setLabel(resources.getString("StepNumber"));
     this.getYAxis().setLabel(resources.getString("CellCount"));
     this.setTitle(resources.getString("CellCountsByTick"));
