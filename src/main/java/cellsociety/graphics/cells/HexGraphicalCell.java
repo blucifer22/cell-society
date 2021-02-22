@@ -15,10 +15,10 @@ import javafx.scene.transform.Affine;
 public class HexGraphicalCell extends GraphicalCell {
 
   /**
-   * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
-   * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
-   * and size of the <code>GraphicalCell</code>.
-   *  @param simulationCell the model <code>Cell</code> to render
+   * Sole constructor for <code>HexGraphicalCell</code>. Takes a model <code>Cell</code> to
+   * render and appropriate positioning and sizing information about the hexagonal rendering shape.
+   *
+   * @param simulationCell the model <code>Cell</code> to render
    * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
    * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
    * @param width          the <code>GraphicalCell</code>'s width
