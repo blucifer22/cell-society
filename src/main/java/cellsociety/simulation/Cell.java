@@ -12,9 +12,9 @@ import java.util.Map;
  *     must change state.
  */
 public abstract class Cell {
-  protected List<Cell> neighbors;
-  protected int cellState;
-  protected int nextCellState;
+  private List<Cell> neighbors;
+  private int cellState;
+  private int nextCellState;
   private int posX;
   private int posY;
   private Map<String, Double> params;
@@ -43,11 +43,6 @@ public abstract class Cell {
     this.params = params;
   }
 
-  /**
-   * Returns the current state of the cell.
-   *
-   * @return The current state of the cell.
-   */
   public int getCurrentCellState() {
     return cellState;
   }
@@ -194,5 +189,14 @@ public abstract class Cell {
    */
   protected double getParam(String key) {
     return params.getOrDefault(key, -1.0);
+  }
+
+  /**
+   * Returns the current state of the cell.
+   *
+   * @return The current state of the cell.
+   */
+  protected int getCellState() {
+    return this.cellState;
   }
 }

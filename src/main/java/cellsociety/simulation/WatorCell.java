@@ -42,15 +42,16 @@ public class WatorCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState == FISH) {
+    super.setCellState(getCellState() + 1);
+    if (getCellState() == FISH) {
       energyLevel = 0;
       roundsTillSpawn = getParam("FishBreedingCycle");
-    } else if (cellState == SHARK) {
+    } else if (getCellState() == SHARK) {
       energyLevel = getParam("SharkSpawnEnergy") / 2;
       roundsTillSpawn = 0;
     }
     else {
-      cellState = WATER;
+      super.setCellState(WATER);
       roundsTillSpawn = 0;
       energyLevel = 0;
     }
@@ -100,10 +101,10 @@ public class WatorCell extends Cell {
   public void computeNextCellState() {
     Set<Cell> occupiedNeighbors = new HashSet<>();
     findOccupiedNeighbors(occupiedNeighbors);
-    HashSet<Cell> unoccupiedNeighbors = new HashSet<>(neighbors);
+    HashSet<Cell> unoccupiedNeighbors = new HashSet<>(getNeighbors());
     unoccupiedNeighbors.removeAll(occupiedNeighbors);
 
-    switch (cellState) {
+    switch (getCellState()) {
       case FISH -> {
         updateFishState(unoccupiedNeighbors);
       }
@@ -168,10 +169,10 @@ public class WatorCell extends Cell {
 
   private void move(Cell newCell) {
     this.setNextCellState(WATER);
-    if (this.cellState == FISH) {
+    if (this.getCellState() == FISH) {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, this.roundsTillSpawn, ENERGY_LEVEL, 0.0);
       newCell.setNextCellState(FISH, data);
-    } else if (this.cellState == SHARK) {
+    } else if (this.getCellState() == SHARK) {
       Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, 0.0, ENERGY_LEVEL, this.energyLevel);
       newCell.setNextCellState(SHARK, data);
     }
@@ -210,7 +211,7 @@ public class WatorCell extends Cell {
   }
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
-    for (Cell cell : neighbors) {
+    for (Cell cell : getNeighbors()) {
       if (cell.getCurrentCellState() != WATER || cell.getNextCellState() != WATER) {
         occupiedNeighbors.add(cell);
       }

@@ -1,0 +1,34 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Conway's Game of Life: Cambridge Pulsar (Corner Edition)</Name>
+    <Type>Conway</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>This is an implementation of the Cambridge Pulsar</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <AliveNumberMin>2</AliveNumberMin>
+    <AliveNumberMax>3</AliveNumberMax>
+    <SpawnNumberMin>3</SpawnNumberMin>
+    <SpawnNumberMax>3</SpawnNumberMax>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <RandomInitialStates>
+  <Method>Count</Method>
+  <Counts>
+    <StateCount>
+      <State>1</State>
+      <Count>150</Count>
+    </StateCount>
+  </Counts>
+</RandomInitialStates>
+</xml>

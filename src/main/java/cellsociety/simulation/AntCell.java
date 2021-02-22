@@ -62,10 +62,10 @@ public class AntCell extends Cell{
 
   @Override
   public void poke() {
-    if(cellState < OBSTACLE)
-      cellState++;
+    if(getCellState() < OBSTACLE)
+      super.setCellState(getCellState() + 1);
     else
-      cellState = 0;
+      super.setCellState(0);
   }
 
   /**
@@ -78,7 +78,7 @@ public class AntCell extends Cell{
   public void computeNextCellState() {
     Set<AntCell> availableNeighbors = findAvailableNeighbors();
 
-    switch(cellState) {
+    switch(getCellState()) {
       case EMPTY -> evaporatePheromones();
       case ANT -> {
         if(this.hasFood == 0) { // Ant does not have food
@@ -88,22 +88,22 @@ public class AntCell extends Cell{
           antHasFood(availableNeighbors);
         }
       }
-      case FOOD -> this.nextCellState = FOOD;
-      case HOME -> this.nextCellState = HOME;
-      case OBSTACLE -> this.nextCellState = OBSTACLE;
+      case FOOD -> setNextCellState(FOOD);
+      case HOME -> setNextCellState(HOME);
+      case OBSTACLE -> setNextCellState(OBSTACLE);
     }
   }
 
   private void antHasFood(Set<AntCell> availableNeighbors) {
     AntCell cellToMoveTo = checkHomeMove(availableNeighbors);
     if(cellToMoveTo != null) {
-      if(cellToMoveTo.cellState == HOME) {
+      if(cellToMoveTo.getCellState() == HOME) {
         this.hasFood = 0.0;
-        this.nextCellState = ANT;
+        this.setNextCellState(ANT);
         this.previouslyVisitedCells.clear();
       }
-      else if(cellToMoveTo.cellState == FOOD || cellToMoveTo.cellState == ANT) {
-        this.nextCellState = ANT;
+      else if(cellToMoveTo.getCellState() == FOOD || cellToMoveTo.getCellState() == ANT) {
+        this.setNextCellState(ANT);
       }
       else {
         move(cellToMoveTo);
@@ -119,11 +119,11 @@ public class AntCell extends Cell{
       this.foodPheromoneConcentration = targetPheromoneConcentration;
     }
     this.previouslyVisitedCells.add(this);
-    newCell.nextCellState = ANT;
+    newCell.setNextCellState(ANT);
     newCell.hasFood = this.hasFood;
     newCell.previouslyVisitedCells = new ArrayList<>(this.previouslyVisitedCells);
     this.previouslyVisitedCells.clear();
-    this.nextCellState = EMPTY;
+    this.setNextCellState(EMPTY);
     this.hasFood = 0.0;
   }
 
@@ -132,7 +132,7 @@ public class AntCell extends Cell{
     AntCell moveCell = null;
 
     for(AntCell cell : availableNeighbors) {
-      if(cell.cellState == HOME) { // If HOME is in range?
+      if(cell.getCellState() == HOME) { // If HOME is in range?
         return cell;
       }
       else if(cell.homePheromoneConcentration > maxPheromoneConcentration
@@ -173,13 +173,13 @@ public class AntCell extends Cell{
   private void antDoesNotHaveFood(Set<AntCell> availableNeighbors) {
     AntCell move = checkFoodMove(availableNeighbors);
     if(move != null) {
-      if(move.cellState == FOOD) {
+      if(move.getCellState() == FOOD) {
         this.hasFood = 1.0;
-        this.nextCellState = ANT;
+        this.setNextCellState(ANT);
         this.previouslyVisitedCells.clear();
       }
-      else if(move.cellState == HOME || move.cellState == ANT) {
-        this.nextCellState = ANT;
+      else if(move.getCellState() == HOME || move.getCellState() == ANT) {
+        this.setNextCellState(ANT);
       }
       else {
         move(move);
@@ -192,7 +192,7 @@ public class AntCell extends Cell{
     AntCell moveCell = null;
 
     for(AntCell cell : availableNeighbors) {
-      if(cell.cellState == FOOD) { // If FOOD is in range?
+      if(cell.getCellState() == FOOD) { // If FOOD is in range?
         return cell;
       }
       else if(cell.foodPheromoneConcentration > maxPheromoneConcentration
@@ -212,7 +212,7 @@ public class AntCell extends Cell{
 
   private Set<AntCell> findAvailableNeighbors() {
     Set<AntCell> availableNeighbors = new HashSet<>();
-    for(Cell cell : neighbors) {
+    for(Cell cell : getNeighbors()) {
       if((cell.getCurrentCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE &&
           cell.getCurrentCellState() != ANT && cell.getNextCellState() != ANT)) {
         availableNeighbors.add((AntCell)cell);

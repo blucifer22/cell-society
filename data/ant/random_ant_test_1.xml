@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Random Toroidal Foraging Ants: Test 1</Name>
+    <Type>ANT</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>A random test for foraging ants</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <PheromoneEvaporationRate>5.000000</PheromoneEvaporationRate>
+    <TargetPheromoneConcentration>500.000000</TargetPheromoneConcentration>
+  </SimulationParameters>
+<RandomInitialStates>
+  <Method>Count</Method>
+  <Counts>
+    <StateCount>
+      <State>1</State>
+      <Count>50</Count>
+    </StateCount>
+    <StateCount>
+      <State>2</State>
+      <Count>25</Count>
+    </StateCount>
+    <StateCount>
+      <State>3</State>
+      <Count>25</Count>
+    </StateCount>
+    <StateCount>
+      <State>4</State>
+      <Count>100</Count>
+    </StateCount>
+  </Counts>
+</RandomInitialStates>
+</xml>

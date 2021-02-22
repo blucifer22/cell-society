@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+  <General>
+    <Name>Random SugarScape: Test 1</Name>
+    <Type>SUGAR</Type>
+    <Author>Marc Chmielewski</Author>
+    <Description>A BIG random test for SugarScape with plenty of resources, but bigger, intense clustering and higher metabolism</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>RECTANGLE</CellShape>
+    <Height>25</Height>
+    <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
+    <NeighborhoodSize>MEDIUM</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <MaxSugarCapacity>5.000000</MaxSugarCapacity>
+    <SugarRegrowthRate>1.000000</SugarRegrowthRate>
+    <SugarMetabolismRate>2.000000</SugarMetabolismRate>
+  </SimulationParameters>
+  <RandomInitialStates>
+    <Method>Count</Method>
+    <Counts>
+      <StateCount>
+        <State>1</State>
+        <Count>200</Count>
+      </StateCount>
+    </Counts>
+  </RandomInitialStates>
+</xml>

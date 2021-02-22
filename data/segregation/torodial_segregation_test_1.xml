@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xml>
   <General>
-    <Name>ToroidalSegregation Test 1</Name>
+    <Name>Toroidal Segregation Test 1</Name>
     <Type>SEGREGATION</Type>
     <Author>Marc Chmielewski</Author>
     <Description>View the progress of segregation on a donut</Description>
