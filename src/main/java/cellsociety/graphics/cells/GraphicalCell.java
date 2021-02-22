@@ -2,17 +2,17 @@ package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeType;
 
 
 /**
- * A wrapper for model <code>Cell</code>s that allows for rendering. Instantiated by a
- * <code>GraphicalCellGrid</code>.
+ * A wrapper for model {@link Cell}s that allows for rendering. Abstract and implemented by
+ * classes which provide specific shapes for rendering. Used by constructing one of its
+ * subclasses and calling {@link GraphicalCell#update()} and {@link GraphicalCell#poke()} as
+ * appropriate to a given use case.
  *
  * @author David Coffman
  */
@@ -22,16 +22,12 @@ public abstract class GraphicalCell {
   private final Shape renderingShape;
 
   /**
-   * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
-   * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
-   * and size of the <code>GraphicalCell</code>.
+   * Sole constructor for <code>GraphicalCell</code>. Takes a {@link Cell} to render,
+   * and the {@link Shape} to render it with.
    * @param simulationCell the model <code>Cell</code> to render
-   * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
-   * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
    * @param s              the <code>Shape</code> rendered by the the <code>GraphicalCell</code>
    */
-  protected GraphicalCell(Cell simulationCell, double x, double y,
-      Shape s) {
+  protected GraphicalCell(Cell simulationCell, Shape s) {
     this.simCell = simulationCell;
     this.renderingShape = s;
     this.renderingShape.setStroke(Color.BLACK);
@@ -42,6 +38,7 @@ public abstract class GraphicalCell {
     update();
   }
 
+  // Rotate the state of the cell referenced by this graphical cell.
   private void poke() {
     this.simCell.poke();
     this.update();
@@ -57,6 +54,8 @@ public abstract class GraphicalCell {
     styleClasses.add(stateClassString());
   }
 
+  // Utility method used to construct a String which is then used as a style class (in order to
+  // change the cell's appearance based on its statee)
   private String stateClassString() {
     return String.format("state%d", simCell.getEncoding());
   }

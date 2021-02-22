@@ -25,7 +25,7 @@ public class HexGraphicalCell extends GraphicalCell {
    * @param height         the <code>GraphicalCell</code>'s height
    */
   public HexGraphicalCell(Cell simulationCell, double x, double y, double width, double height) {
-    super(simulationCell, x, y, new Polygon());
+    super(simulationCell, new Polygon());
     Polygon renderingShape = (Polygon) this.getNode();
     renderingShape.getPoints().setAll(0.0, height/4.0, 0.0, 3*height/4, width/2, height, width,
         3*height/4, width, height/4, width/2, 0.0);
