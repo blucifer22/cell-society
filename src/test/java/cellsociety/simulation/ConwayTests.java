@@ -90,9 +90,9 @@ public class ConwayTests {
     cellStates.add(ALIVE, 0);
 
     for (Cell curCell : cells) {
-      if (curCell.getCurrentCellState() == DEAD) {
+      if (curCell.getCellState() == DEAD) {
         cellStates.set(DEAD, (cellStates.get(DEAD) + 1));
-      } else if (curCell.getCurrentCellState() == ALIVE) {
+      } else if (curCell.getCellState() == ALIVE) {
         cellStates.set(ALIVE, (cellStates.get(ALIVE) + 1));
       }
     }

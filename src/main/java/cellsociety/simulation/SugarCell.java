@@ -150,7 +150,7 @@ public class SugarCell extends Cell {
   private Set<SugarCell> findAvailableNeighbors() {
     Set<SugarCell> availableNeighbors = new HashSet<>();
     for(Cell cell : getNeighbors()) {
-      if((cell.getCurrentCellState() != AGENT && cell.getNextCellState() != AGENT)) {
+      if((cell.getCellState() != AGENT && cell.getNextCellState() != AGENT)) {
         availableNeighbors.add((SugarCell)cell);
       }
     }

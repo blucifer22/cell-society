@@ -61,22 +61,21 @@ public class Simulation {
   }
 
   private void createRandomStates(Map<Integer, Double> freqMap, RandomGridGenerationType type) {
-    int rows = configuration.getWidth();
-    int cols = configuration.getHeight();
-    freqMap.forEach(
-        (Integer state, Double freq) -> {
-          double target = type == RandomGridGenerationType.COUNT ? freq : numCells / freq;
-          for (int i = 0; i < target; i++) {
-            int cellValue = 1;
-            // keeps going till identifies empty cell
-            while (cellValue != 0) {
-              int row = (int) (Math.random() * rows);
-              int col = (int) (Math.random() * cols);
-              Cell cell = cellGrid.getCell(row, col);
-              if (cell.getCurrentCellState() == 0) {
-                cell.setCellState(state);
-                break;
-              }
+      int rows = configuration.getWidth();
+      int cols = configuration.getHeight();
+      freqMap.forEach(
+      (Integer state, Double freq) -> {
+        double target = type == RandomGridGenerationType.COUNT ? freq : numCells/ freq;
+        for (int i = 0; i < target; i++) {
+          int cellValue = 1;
+          // keeps going till identifies empty cell
+          while (cellValue != 0) {
+            int row = (int) (Math.random() * rows);
+            int col = (int) (Math.random() * cols);
+            Cell cell = cellGrid.getCell(row, col);
+            if (cell.getCellState() == 0) {
+              cell.setCellState(state);
+              break;
             }
           }
         });

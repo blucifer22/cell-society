@@ -42,11 +42,6 @@ public abstract class Cell {
     this(cellState);
     this.params = params;
   }
-
-  public int getCurrentCellState() {
-    return cellState;
-  }
-
   /**
    * The integer encoding for this cell.
    *
@@ -55,7 +50,7 @@ public abstract class Cell {
    * @return - An integer representing the cell's state.
    */
   public int getEncoding() {
-    return getCurrentCellState();
+    return getCellState();
   }
 
   /**
@@ -192,11 +187,19 @@ public abstract class Cell {
   }
 
   /**
-   * Returns the current state of the cell.
+   * Set the neighbors of this Cell
    *
-   * @return The current state of the cell.
+   * @param neighbors the new neighbors of this Cell
    */
-  protected int getCellState() {
-    return this.cellState;
+  public void setNeighbors(List<Cell> neighbors) {
+    this.neighbors = neighbors;
+  }
+
+  /**
+   * Get the current cellState of this Cell
+   * @return the current cellState of this Cell
+   */
+  public int getCellState() {
+    return cellState;
   }
 }
