@@ -2,15 +2,24 @@ package cellsociety.graphics.cells;
 
 import cellsociety.simulation.Cell;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 
+/**
+ * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
+ * {@link Polygon}s configured as triangles for rendering. Used after construction by calling
+ * {@link RectangularGraphicalCell#update()} as appropriate to a given use case.
+ *
+ * @author David Coffman
+ */
 public class TriangularGraphicalCell extends GraphicalCell {
 
   /**
-   * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
-   * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
-   * and size of the <code>GraphicalCell</code>.
-   *  @param simulationCell the model <code>Cell</code> to render
+   * Sole constructor for <code>RectangularGraphicalCell</code>. Takes a model <code>Cell</code> to
+   * render and appropriate positioning and sizing information about the triangular rendering
+   * shape.
+   *
+   * @param simulationCell the model <code>Cell</code> to render
    * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
    * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
    * @param width          the <code>GraphicalCell</code>'s width

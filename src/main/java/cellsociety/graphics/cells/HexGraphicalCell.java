@@ -3,12 +3,14 @@ package cellsociety.graphics.cells;
 import cellsociety.simulation.Cell;
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 
 
 /**
- * A wrapper for model <code>Cell</code>s that allows for rendering. Instantiated by a
- * <code>GraphicalCellGrid</code>.
+ * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
+ * {@link Polygon}s configured as hexagons for rendering. Used after construction by calling
+ * {@link HexGraphicalCell#update()} as appropriate to a given use case.
  *
  * @author David Coffman
  */

@@ -5,8 +5,8 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
- * A wrapper for model {@link Cell}s that allows for rendering. Abstract and implemented by
- * subclasses which provide specific shapes for rendering. Used after construction by calling
+ * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
+ * {@link Rectangle}s for rendering. Used after construction by calling
  * {@link RectangularGraphicalCell#update()} as appropriate to a given use case.
  *
  * @author David Coffman
