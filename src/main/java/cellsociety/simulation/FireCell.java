@@ -36,9 +36,10 @@ public class FireCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > BURNT) {
-      cellState = UNBURNT;
-      nextCellState = UNBURNT;
+    setCellState(getCellState() + 1);
+    if (getCellState() > BURNT) {
+      setCellState(UNBURNT);
+      setNextCellState(UNBURNT);
     }
   }
 
@@ -51,20 +52,20 @@ public class FireCell extends Cell {
    * which is loaded in from the parsed XML.
    */
   public void computeNextCellState() {
-    if (cellState == UNBURNT) {
-      for (Cell cell : neighbors) {
+    if (getCellState() == UNBURNT) {
+      for (Cell cell : getNeighbors()) {
         if (cell.getCurrentCellState() == BURNING) {
           catchFire();
         }
       }
-    } else if (cellState == BURNING) {
-      nextCellState = BURNT;
+    } else if (getCellState() == BURNING) {
+      setNextCellState(BURNT);
     }
   }
 
   private void catchFire() {
     if (Math.random() > getParam("Flammability")) {
-      nextCellState = BURNING;
+      setNextCellState(BURNING);
     }
   }
 }

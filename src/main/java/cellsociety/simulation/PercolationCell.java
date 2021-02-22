@@ -34,8 +34,9 @@ public class PercolationCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > BLOCKED) {
-      cellState = EMPTY;
+    setCellState(getCellState() + 1);
+    if (getCellState() > BLOCKED) {
+      setCellState(EMPTY);
     }
   }
 
@@ -49,21 +50,21 @@ public class PercolationCell extends Cell {
    * If the Cell is FULL, it will remain FULL.
    */
   public void computeNextCellState() {
-    if (cellState == EMPTY) {
+    if (getCellState() == EMPTY) {
       int countFillNeighbors = 0;
-      for (Cell cell : neighbors) {
+      for (Cell cell : getNeighbors()) {
         if (cell.getCurrentCellState() == FULL) {
           countFillNeighbors++;
         }
         if (countFillNeighbors >= getParam("FillNumber")) {
-          nextCellState = FULL;
+          setNextCellState(FULL);
           break;
         }
       }
-    } else if (cellState == FULL) {
-      nextCellState = FULL;
+    } else if (getCellState() == FULL) {
+      setNextCellState(FULL);
     } else {
-      nextCellState = BLOCKED;
+      setNextCellState(BLOCKED);
     }
   }
 }

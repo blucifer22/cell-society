@@ -35,8 +35,9 @@ public class RPSCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > SCISSORS) {
-      cellState = ROCK;
+    setCellState(getCellState() + 1);
+    if (getCellState() > SCISSORS) {
+      setCellState(ROCK);
     }
   }
 
@@ -54,31 +55,31 @@ public class RPSCell extends Cell {
     int numRock = 0;
     int numPaper = 0;
     int numScissors = 0;
-    for (Cell cell : neighbors) {
+    for (Cell cell : getNeighbors()) {
       if (cell.getCurrentCellState() == ROCK) numRock++;
       else if (cell.getCurrentCellState() == PAPER) numPaper++;
       else numScissors++;
     }
-    switch (this.cellState) {
+    switch (this.getCellState()) {
       case ROCK -> {
         if (numPaper >= getParam("LossCount")) {
-          this.nextCellState = PAPER;
+          this.setNextCellState(PAPER);
         } else {
-          this.nextCellState = ROCK;
+          this.setNextCellState(ROCK);
         }
       }
       case PAPER -> {
         if (numScissors >= getParam("LossCount")) {
-          this.nextCellState = SCISSORS;
+          this.setNextCellState(SCISSORS);
         } else {
-          this.nextCellState = PAPER;
+          this.setNextCellState(PAPER);
         }
       }
       case SCISSORS -> {
         if (numRock >= getParam("LossCount")) {
-          this.nextCellState = ROCK;
+          this.setNextCellState(ROCK);
         } else {
-          this.nextCellState = SCISSORS;
+          this.setNextCellState(SCISSORS);
         }
       }
     }

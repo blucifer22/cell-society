@@ -35,8 +35,9 @@ public class SegregationCell extends Cell {
 
   @Override
   public void poke() {
-    if (++cellState > TYPE_B) {
-      cellState = EMPTY;
+    setCellState(getCellState() + 1);
+    if (getCellState() > TYPE_B) {
+      setCellState(EMPTY);
     }
   }
 
@@ -53,8 +54,8 @@ public class SegregationCell extends Cell {
   public void computeNextCellState() {
     double numTypeA = 0;
     double numTypeB = 0;
-    Collections.shuffle(neighbors);
-    for (Cell cell : neighbors) {
+    Collections.shuffle(getNeighbors());
+    for (Cell cell : getNeighbors()) {
       if (cell.getCurrentCellState() == TYPE_A) {
         numTypeA++;
       } else if (cell.getCurrentCellState() == TYPE_B) {
@@ -63,15 +64,15 @@ public class SegregationCell extends Cell {
     }
     switch (this.getCurrentCellState()) {
       case TYPE_A -> {
-        if ((numTypeA / neighbors.size()) >= getParam("CutoffPercentage")) {
-          this.nextCellState = TYPE_A; // remains the same
+        if ((numTypeA / getNeighbors().size()) >= getParam("CutoffPercentage")) {
+          this.setNextCellState(TYPE_A); // remains the same
         } else {
           swapWithEmpty();
         }
       }
       case TYPE_B -> {
-        if ((numTypeB / neighbors.size()) >= getParam("CutoffPercentage")) {
-          this.nextCellState = TYPE_B; // remains the same
+        if ((numTypeB / getNeighbors().size()) >= getParam("CutoffPercentage")) {
+          this.setNextCellState(TYPE_B); // remains the same
         } else {
           swapWithEmpty();
         }
@@ -81,16 +82,16 @@ public class SegregationCell extends Cell {
 
   private void swapWithEmpty() {
     boolean swapSuccess = false;
-    for (Cell cell : neighbors) {
+    for (Cell cell : getNeighbors()) {
       if (cell.getCurrentCellState() == EMPTY && cell.getNextCellState() == EMPTY) {
-        nextCellState = cell.getCurrentCellState();
-        cell.setNextCellState(this.cellState);
+        setNextCellState(cell.getCurrentCellState());
+        cell.setNextCellState(this.getCellState());
         swapSuccess = true;
         break;
       }
     }
     if (!swapSuccess) {
-      this.nextCellState = cellState;
+      this.setNextCellState(getCellState());
     }
   }
 }
