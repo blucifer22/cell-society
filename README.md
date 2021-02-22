@@ -251,4 +251,7 @@ Extra credit:
       got a lot of practice refactoring each-others code. That being said, it was very satisfying to
       see everything come together in the end.
 
+* David Coffman (djc70)
+  * Whew. That was a long one (though I expected that after Breakout)! To Marc's point about trial-and-error -- I think we didn't fully understand the implications of some of the design choices we made in the planning phase, so we ended up having to, in many ways, both simplify but also make more complicated our approach as we progressed. At one point, we had nearly every "major" Java feature in our project: interfaces, generics, inheritance hierarchies, lambdas, nested classes....... I think all we were missing was a good batch of thread abstractions (though JFX does this behind-the scenes I suppose).  Creating working APIs early is critical, and we didn't necessarily do that... more on that in the analysis, I'm sure. 
+
 [^1]: Purely coincidentally, this order is also alphabetical :)
