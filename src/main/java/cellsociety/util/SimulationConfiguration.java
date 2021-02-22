@@ -6,6 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <code>SimulationConfiguration</code> is a data storage and error checking class. It is
+ * configured by an {@link cellsociety.util.XMLParser} and made publicly accessible to the main
+ * simulation package classes.
+ *
+ * SimulationConfigurations are
+ *
+ * @author David Coffman
+ */
 public class SimulationConfiguration {
 
   private final Map<String, Double> simulationParameters;
@@ -22,7 +31,7 @@ public class SimulationConfiguration {
   private int width;
   private int height;
 
-  public SimulationConfiguration() {
+  protected SimulationConfiguration() {
     this.simulationParameters = new HashMap<>();
     this.randomInitialStates = new HashMap<>();
     this.initialNonDefaultCellStates = new ArrayList<>();
@@ -32,7 +41,7 @@ public class SimulationConfiguration {
     this.neighborhoodSize = CellNeighborhoodSize.MEDIUM;
   }
 
-  public void addInitialCellState(int[] cellState) {
+  protected void addInitialCellState(int[] cellState) {
     assert cellState.length == 3;
     if (cellState[0] < 0 || cellState[1] < 0 || cellState[2] < 0) {
       throw new IllegalArgumentException("Invalid cell state specified (provided cell at row = " +
@@ -41,7 +50,7 @@ public class SimulationConfiguration {
     initialNonDefaultCellStates.add(cellState);
   }
 
-  public void addSimulationParameter(String parameter, Double value) {
+  protected void addSimulationParameter(String parameter, Double value) {
     if (parameter == null || value == null) {
       throw new NullPointerException("Simulation parameter names and values must be defined "
           + "(error encountered on parameter" + parameter + " with given value = " + value + ").");
@@ -53,6 +62,11 @@ public class SimulationConfiguration {
     simulationParameters.put(parameter, value);
   }
 
+  /**
+   *
+   * @param parameter
+   * @param value
+   */
   public void updateSimulationParameter(String parameter, Double value) {
     if (parameter == null || value == null) {
       throw new NullPointerException("Simulation parameter names and values must be defined "
@@ -65,17 +79,25 @@ public class SimulationConfiguration {
     simulationParameters.put(parameter, value);
   }
 
+  /**
+   *
+   * @param defaultParameters
+   */
   public void addDefaultParameters(Map<String, Double> defaultParameters) {
     for (String key : defaultParameters.keySet()) {
       this.simulationParameters.putIfAbsent(key, defaultParameters.get(key));
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public RandomGridGenerationType getRandomGridGenerationType() {
     return this.randomGridGenerationType;
   }
 
-  public void setRandomGridGenerationType(RandomGridGenerationType type) {
+  protected void setRandomGridGenerationType(RandomGridGenerationType type) {
     if (type == null) {
       throw new NullPointerException("A <Method> must be declared if <RandomInitialStates> are in"
           + " use.");
@@ -83,11 +105,15 @@ public class SimulationConfiguration {
     this.randomGridGenerationType = type;
   }
 
+  /**
+   *
+   * @return
+   */
   public SimulationEdgeType getEdgeType() {
     return this.edgeType;
   }
 
-  public void setEdgeType(SimulationEdgeType type) {
+  protected void setEdgeType(SimulationEdgeType type) {
     if (type == null) {
       throw new NullPointerException(
           "An edge type must be declared when using the <EdgeType> tag.");
@@ -95,11 +121,15 @@ public class SimulationConfiguration {
     this.edgeType = type;
   }
 
+  /**
+   *
+   * @return
+   */
   public CellNeighborhoodSize getNeighborhodSize() {
     return this.neighborhoodSize;
   }
 
-  public void setNeighborhoodSize(CellNeighborhoodSize size) {
+  protected void setNeighborhoodSize(CellNeighborhoodSize size) {
     if(size == null) {
       throw new NullPointerException(
           "A size must be specified when using the <CellNeighborhoodSize> tag.");
@@ -107,7 +137,7 @@ public class SimulationConfiguration {
     this.neighborhoodSize = size;
   }
 
-  public void addInitialStateFrequency(Integer state, Double frequency) {
+  protected void addInitialStateFrequency(Integer state, Double frequency) {
     if (state == null || frequency == null) {
       throw new NullPointerException(
           "An initial random state frequency (or count) must be specified "
@@ -119,68 +149,96 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public String getSimulationName() {
     return this.simulationName;
   }
 
-  public void setSimulationName(String name) {
+  protected void setSimulationName(String name) {
     this.simulationName = name;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getSimulationAuthor() {
     return this.simulationAuthor;
   }
 
-  public void setSimulationAuthor(String author) {
+  protected void setSimulationAuthor(String author) {
     this.simulationAuthor = author;
   }
 
+  /**
+   *
+   * @return
+   */
   public SimulationType getSimulationType() {
     return this.simulationType;
   }
 
-  public void setSimulationType(SimulationType t) {
+  protected void setSimulationType(SimulationType t) {
     if (t == null) {
       throw new NullPointerException("Invalid simulation type.");
     }
     this.simulationType = t;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getSimulationDescription() {
     return this.simulationDescription;
   }
 
-  public void setSimulationDescription(String description) {
+  protected void setSimulationDescription(String description) {
     this.simulationDescription = description;
   }
 
+  /**
+   *
+   * @return
+   */
   public CellShape getCellShape() {
     return this.cellShape;
   }
 
-  public void setCellShape(CellShape shape) {
+  protected void setCellShape(CellShape shape) {
     if (shape == null) {
       throw new NullPointerException("Cell shape must be defined.");
     }
     this.cellShape = shape;
   }
 
+  /**
+   *
+   * @return
+   */
   public int getWidth() {
     return this.width;
   }
 
-  public void setWidth(int width) {
+  protected void setWidth(int width) {
     if (width < 1) {
       throw new IllegalArgumentException("Grid width must be >= 1 (provided value " + width + ").");
     }
     this.width = width;
   }
 
+  /**
+   *
+   * @return
+   */
   public int getHeight() {
     return this.height;
   }
 
-  public void setHeight(int height) {
+  protected void setHeight(int height) {
     if (height < 1) {
       throw new IllegalArgumentException(
           "Grid height must be >= 1 (provided value" + height + ").");
@@ -188,10 +246,18 @@ public class SimulationConfiguration {
     this.height = height;
   }
 
+  /**
+   *
+   * @return
+   */
   public Map<String, Double> getSimulationParameters() {
     return Collections.unmodifiableMap(simulationParameters);
   }
 
+  /**
+   *
+   * @return
+   */
   public Map<Integer, Double> getRandomInitialStates() {
     if (this.randomGridGenerationType == RandomGridGenerationType.NONE) {
       throw new UnsupportedOperationException("Random initial states cannot be accessed when the "
@@ -200,6 +266,10 @@ public class SimulationConfiguration {
     return Collections.unmodifiableMap(randomInitialStates);
   }
 
+  /**
+   *
+   * @return
+   */
   public List<int[]> getInitialNonDefaultCellStates() {
     if (this.randomGridGenerationType != RandomGridGenerationType.NONE) {
       throw new UnsupportedOperationException("Explicitly specified initial states cannot be "
@@ -208,7 +278,7 @@ public class SimulationConfiguration {
     return Collections.unmodifiableList(initialNonDefaultCellStates);
   }
 
-  public void validateConfiguration() throws Exception {
+  protected void validateConfiguration() throws Exception {
     for (int[] cellWithState : this.initialNonDefaultCellStates) {
       if (cellWithState[0] >= this.height || cellWithState[1] >= this.width) {
         throw new Exception("Invalid cell specified for simulation geometry; cell with "
@@ -221,6 +291,9 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   */
   public enum SimulationType {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
@@ -233,6 +306,9 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   */
   public enum RandomGridGenerationType {
     // these are actually used, but only accessed through the method below
     NONE, COUNT, FRACTION;
@@ -246,6 +322,9 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   */
   public enum SimulationEdgeType {
     NORMAL, INFINITE, TOROIDAL;
 
@@ -258,6 +337,9 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   */
   public enum CellNeighborhoodSize {
     SMALL, MEDIUM, LARGE;
 
@@ -270,6 +352,9 @@ public class SimulationConfiguration {
     }
   }
 
+  /**
+   *
+   */
   public enum CellShape {
     RECTANGLE, HEXAGON, TRIANGLE;
 
