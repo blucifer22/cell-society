@@ -13,7 +13,8 @@ import java.util.Set;
  *
  * @author Marc Chmielewski
  */
-public class AntCell extends Cell{
+public class AntCell extends Cell {
+
   public static final int EMPTY = 0;
   public static final int ANT = 1;
   public static final int FOOD = 2;
@@ -25,10 +26,10 @@ public class AntCell extends Cell{
   private static final String HAS_FOOD = "HasFood";
 
   private final Random rng;
-  private double homePheromoneConcentration;
-  private double foodPheromoneConcentration;
   private final double pheromoneEvaporationRate;
   private final double targetPheromoneConcentration;
+  private double homePheromoneConcentration;
+  private double foodPheromoneConcentration;
   private double hasFood;
   private List<Cell> previouslyVisitedCells;
 
@@ -62,10 +63,11 @@ public class AntCell extends Cell{
 
   @Override
   public void poke() {
-    if(getCellState() < OBSTACLE)
+    if (getCellState() < OBSTACLE) {
       super.setCellState(getCellState() + 1);
-    else
+    } else {
       super.setCellState(0);
+    }
   }
 
   /**
@@ -73,18 +75,16 @@ public class AntCell extends Cell{
    * transition accordingly.
    *
    * <p>Foraging Ants Rules are as follows:
-   *
    */
   public void computeNextCellState() {
     Set<AntCell> availableNeighbors = findAvailableNeighbors();
 
-    switch(getCellState()) {
+    switch (getCellState()) {
       case EMPTY -> evaporatePheromones();
       case ANT -> {
-        if(this.hasFood == 0) { // Ant does not have food
+        if (this.hasFood == 0) { // Ant does not have food
           antDoesNotHaveFood(availableNeighbors);
-        }
-        else if(this.hasFood == 1) { // Ant has food
+        } else if (this.hasFood == 1) { // Ant has food
           antHasFood(availableNeighbors);
         }
       }
@@ -96,26 +96,23 @@ public class AntCell extends Cell{
 
   private void antHasFood(Set<AntCell> availableNeighbors) {
     AntCell cellToMoveTo = checkHomeMove(availableNeighbors);
-    if(cellToMoveTo != null) {
-      if(cellToMoveTo.getCellState() == HOME) {
+    if (cellToMoveTo != null) {
+      if (cellToMoveTo.getCellState() == HOME) {
         this.hasFood = 0.0;
         this.setNextCellState(ANT);
         this.previouslyVisitedCells.clear();
-      }
-      else if(cellToMoveTo.getCellState() == FOOD || cellToMoveTo.getCellState() == ANT) {
+      } else if (cellToMoveTo.getCellState() == FOOD || cellToMoveTo.getCellState() == ANT) {
         this.setNextCellState(ANT);
-      }
-      else {
+      } else {
         move(cellToMoveTo);
       }
     }
   }
 
   private void move(AntCell newCell) {
-    if(this.hasFood == 1.0) {
+    if (this.hasFood == 1.0) {
       this.homePheromoneConcentration = targetPheromoneConcentration;
-    }
-    else if(this.hasFood == 0.0) {
+    } else if (this.hasFood == 0.0) {
       this.foodPheromoneConcentration = targetPheromoneConcentration;
     }
     this.previouslyVisitedCells.add(this);
@@ -131,18 +128,18 @@ public class AntCell extends Cell{
     double maxPheromoneConcentration = 0.0;
     AntCell moveCell = null;
 
-    for(AntCell cell : availableNeighbors) {
-      if(cell.getCellState() == HOME) { // If HOME is in range?
+    for (AntCell cell : availableNeighbors) {
+      if (cell.getCellState() == HOME) { // If HOME is in range?
         return cell;
-      }
-      else if(cell.homePheromoneConcentration > maxPheromoneConcentration
-          && !this.previouslyVisitedCells.contains(cell)) { // Most pheromones? (but not just visited)
+      } else if (cell.homePheromoneConcentration > maxPheromoneConcentration
+          && !this.previouslyVisitedCells
+          .contains(cell)) { // Most pheromones? (but not just visited)
         moveCell = cell;
         maxPheromoneConcentration = cell.homePheromoneConcentration;
       }
     }
 
-    if(moveCell != null) {
+    if (moveCell != null) {
       return moveCell;
     }
 
@@ -161,8 +158,8 @@ public class AntCell extends Cell{
 
   private AntCell getRandomNeighbor(Set<AntCell> neighbors, int index) {
     int i = 0;
-    for(AntCell cell : neighbors) {
-      if(i == index) {
+    for (AntCell cell : neighbors) {
+      if (i == index) {
         return cell;
       }
       i++;
@@ -172,16 +169,14 @@ public class AntCell extends Cell{
 
   private void antDoesNotHaveFood(Set<AntCell> availableNeighbors) {
     AntCell move = checkFoodMove(availableNeighbors);
-    if(move != null) {
-      if(move.getCellState() == FOOD) {
+    if (move != null) {
+      if (move.getCellState() == FOOD) {
         this.hasFood = 1.0;
         this.setNextCellState(ANT);
         this.previouslyVisitedCells.clear();
-      }
-      else if(move.getCellState() == HOME || move.getCellState() == ANT) {
+      } else if (move.getCellState() == HOME || move.getCellState() == ANT) {
         this.setNextCellState(ANT);
-      }
-      else {
+      } else {
         move(move);
       }
     }
@@ -191,18 +186,18 @@ public class AntCell extends Cell{
     double maxPheromoneConcentration = 0.0;
     AntCell moveCell = null;
 
-    for(AntCell cell : availableNeighbors) {
-      if(cell.getCellState() == FOOD) { // If FOOD is in range?
+    for (AntCell cell : availableNeighbors) {
+      if (cell.getCellState() == FOOD) { // If FOOD is in range?
         return cell;
-      }
-      else if(cell.foodPheromoneConcentration > maxPheromoneConcentration
-          && !this.previouslyVisitedCells.contains(cell)) { // Most pheromones? (and not recently visited)
+      } else if (cell.foodPheromoneConcentration > maxPheromoneConcentration
+          && !this.previouslyVisitedCells
+          .contains(cell)) { // Most pheromones? (and not recently visited)
         moveCell = cell;
         maxPheromoneConcentration = cell.foodPheromoneConcentration;
       }
     }
 
-    if(moveCell != null) {
+    if (moveCell != null) {
       return moveCell;
     }
 
@@ -212,21 +207,21 @@ public class AntCell extends Cell{
 
   private Set<AntCell> findAvailableNeighbors() {
     Set<AntCell> availableNeighbors = new HashSet<>();
-    for(Cell cell : getNeighbors()) {
-      if((cell.getCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE &&
+    for (Cell cell : getNeighbors()) {
+      if ((cell.getCellState() != OBSTACLE && cell.getNextCellState() != OBSTACLE &&
           cell.getCellState() != ANT && cell.getNextCellState() != ANT)) {
-        availableNeighbors.add((AntCell)cell);
+        availableNeighbors.add((AntCell) cell);
       }
     }
     return availableNeighbors;
   }
 
   private void evaporatePheromones() {
-    if(this.homePheromoneConcentration > 0) {
+    if (this.homePheromoneConcentration > 0) {
       this.homePheromoneConcentration =
           Math.max(0, this.homePheromoneConcentration - this.pheromoneEvaporationRate);
     }
-    if(this.foodPheromoneConcentration > 0) {
+    if (this.foodPheromoneConcentration > 0) {
       this.foodPheromoneConcentration =
           Math.max(0, this.foodPheromoneConcentration - this.pheromoneEvaporationRate);
     }

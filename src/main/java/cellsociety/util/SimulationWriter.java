@@ -21,6 +21,7 @@ import org.w3c.dom.Node;
  * @author David Coffman
  */
 public class SimulationWriter {
+
   private final SimulationConfiguration config;
   private final List<Cell> cells;
   private final Document doc;
@@ -30,7 +31,7 @@ public class SimulationWriter {
    * which can then be written to disk with a call to {@link SimulationWriter#writeToFile(File)}.
    *
    * @param config the {@link SimulationConfiguration} to write to disk
-   * @param cells the list of {@link Cell}s to write to disk
+   * @param cells  the list of {@link Cell}s to write to disk
    * @throws Exception if the DOM tree construction fails
    */
   public SimulationWriter(SimulationConfiguration config, List<Cell> cells) throws Exception {
@@ -68,10 +69,10 @@ public class SimulationWriter {
     Node descriptionElement = doc.createElement("Description");
     descriptionElement.appendChild(doc.createTextNode(config.getSimulationDescription()));
 
-    Node[] generalElementNodes = new Node[] {nameElement, typeElement, authorElement,
+    Node[] generalElementNodes = new Node[]{nameElement, typeElement, authorElement,
         descriptionElement};
 
-    for(Node n: generalElementNodes) {
+    for (Node n : generalElementNodes) {
       generalElement.appendChild(n);
     }
   }
@@ -89,16 +90,16 @@ public class SimulationWriter {
 
     Node widthElement = doc.createElement("Width");
     widthElement.appendChild(doc.createTextNode(String.format("%d", config.getWidth())));
-    
+
     Node edgeTypeElement = doc.createElement("EdgeType");
     edgeTypeElement.appendChild(doc.createTextNode(config.getEdgeType().name()));
 
     Node neighborhoodSizeElement = doc.createElement("NeighborhoodSize");
     neighborhoodSizeElement.appendChild(doc.createTextNode(config.getNeighborhodSize().name()));
 
-    Node[] geometricConfigurationNodes = new Node [] {cellShapeElement, heightElement,
+    Node[] geometricConfigurationNodes = new Node[]{cellShapeElement, heightElement,
         widthElement, edgeTypeElement, neighborhoodSizeElement};
-    for(Node n: geometricConfigurationNodes) {
+    for (Node n : geometricConfigurationNodes) {
       geometricConfigElement.appendChild(n);
     }
   }
@@ -108,7 +109,7 @@ public class SimulationWriter {
     Node simulationParamElement = doc.createElement("SimulationParameters");
     root.appendChild(simulationParamElement);
 
-    for(String key: config.getSimulationParameters().keySet()) {
+    for (String key : config.getSimulationParameters().keySet()) {
       Node paramElement = doc.createElement(key);
       String value = String.format("%f", config.getSimulationParameters().get(key));
       paramElement.appendChild(doc.createTextNode(value));
@@ -121,8 +122,8 @@ public class SimulationWriter {
     Node initialStateElement = doc.createElement("InitialStates");
     root.appendChild(initialStateElement);
 
-    for(Cell c: cells) {
-      if(c.getEncoding() == 0) {
+    for (Cell c : cells) {
+      if (c.getEncoding() == 0) {
         continue;
       }
       Node cellElement = doc.createElement("Cell");
@@ -136,8 +137,8 @@ public class SimulationWriter {
       Node stateElement = doc.createElement("State");
       stateElement.appendChild(doc.createTextNode(String.format("%d", c.getEncoding())));
 
-      Node[] cellStateElements = new Node[] {rowElement, colElement, stateElement};
-      for(Node n: cellStateElements) {
+      Node[] cellStateElements = new Node[]{rowElement, colElement, stateElement};
+      for (Node n : cellStateElements) {
         cellElement.appendChild(n);
       }
 

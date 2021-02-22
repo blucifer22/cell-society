@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
  * @author Marc Chmielewski
  */
 public class FireTests {
+
   @Test
   public void testSimpleFire() {
     Simulation simple = createSimulation("data/fire/fire_test_1.xml");
@@ -37,7 +38,7 @@ public class FireTests {
 
     curRound = getCellStates(simple.getCells());
 
-    for(int i = 0; i < 500; i++) {
+    for (int i = 0; i < 500; i++) {
       assertTrue(curRound.get(UNBURNT) <= prevRound.get(UNBURNT));
       assertTrue(curRound.get(BURNT) >= prevRound.get(BURNT));
       prevRound = curRound;

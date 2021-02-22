@@ -8,12 +8,12 @@ import java.util.Map;
 
 /**
  * <code>SimulationConfiguration</code> is a data storage and error checking class. It is
- * configured by an {@link XMLParser} and made publicly accessible to the main
- * simulation package classes.
- *
- * After configuration, <code>SimulationConfiguration</code>s can be accessed through the
- * {@link XMLParser#getSimulationConfiguration()} method, after which any aspect of a simulation
- * can be retrieved with an appropriate getter method call.
+ * configured by an {@link XMLParser} and made publicly accessible to the main simulation package
+ * classes.
+ * <p>
+ * After configuration, <code>SimulationConfiguration</code>s can be accessed through the {@link
+ * XMLParser#getSimulationConfiguration()} method, after which any aspect of a simulation can be
+ * retrieved with an appropriate getter method call.
  *
  * @author David Coffman
  */
@@ -76,7 +76,7 @@ public class SimulationConfiguration {
    * attempt to update an undefined parameter is made.
    *
    * @param parameter the name of the parameter to be updated
-   * @param value the value to update the parameter to
+   * @param value     the value to update the parameter to
    */
   public void updateSimulationParameter(String parameter, Double value) {
     if (parameter == null || value == null) {
@@ -149,7 +149,7 @@ public class SimulationConfiguration {
 
   // Validates and sets the CellNeighborhoodSize. Used only by the XMLParser.
   protected void setNeighborhoodSize(CellNeighborhoodSize size) {
-    if(size == null) {
+    if (size == null) {
       throw new NullPointerException(
           "A size must be specified when using the <CellNeighborhoodSize> tag.");
     }
@@ -283,8 +283,8 @@ public class SimulationConfiguration {
   }
 
   /**
-   * Returns an <b>unmodifiable</b> view on the simulation parameter map. Updates to the map must
-   * be performed through other methods; the returned map cannot be updated directly.
+   * Returns an <b>unmodifiable</b> view on the simulation parameter map. Updates to the map must be
+   * performed through other methods; the returned map cannot be updated directly.
    *
    * @return an <b>unmodifiable</b> view on the simulation parameter map
    */
@@ -307,8 +307,8 @@ public class SimulationConfiguration {
   }
 
   /**
-   * Returns an <b>unmodifiable</b> view on the initial non-default states list. This list cannot
-   * be updated through any <code>public</code> method.
+   * Returns an <b>unmodifiable</b> view on the initial non-default states list. This list cannot be
+   * updated through any <code>public</code> method.
    *
    * @return an <b>unmodifiable</b> view on the initial non-default states list
    */
@@ -342,11 +342,11 @@ public class SimulationConfiguration {
     FIRE, CONWAY, PERCOLATION, WATOR, SEGREGATION, ROCKPAPERSCISSORS, ANT, SUGAR;
 
     /**
-     * An extension of the conventional {@link Enum#name()} method that allows for excess
-     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
-     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
-     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
-     * be referenced from a <code>static</code> context.
+     * An extension of the conventional {@link Enum#name()} method that allows for excess whitespace
+     * and . Note that this method is replicated for other package <code>Enum</code>s because {@link
+     * Enum} is <code>final</code>, and could not be extracted to an interface because {@link
+     * Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot be referenced from a
+     * <code>static</code> context.
      *
      * @param s the <code>String</code>
      * @return the {@link SimulationType} corresponding to the <code>String</code> parameter
@@ -355,7 +355,7 @@ public class SimulationConfiguration {
       try {
         return SimulationType.valueOf(s.trim().toUpperCase());
       } catch (Exception e) {
-        throw new IllegalArgumentException(s+" is not a valid simulation type.");
+        throw new IllegalArgumentException(s + " is not a valid simulation type.");
       }
     }
   }
@@ -383,11 +383,11 @@ public class SimulationConfiguration {
     NONE, COUNT, FRACTION;
 
     /**
-     * An extension of the conventional {@link Enum#name()} method that allows for excess
-     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
-     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
-     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
-     * be referenced from a <code>static</code> context.
+     * An extension of the conventional {@link Enum#name()} method that allows for excess whitespace
+     * and . Note that this method is replicated for other package <code>Enum</code>s because {@link
+     * Enum} is <code>final</code>, and could not be extracted to an interface because {@link
+     * Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot be referenced from a
+     * <code>static</code> context.
      *
      * @param s the <code>String</code>
      * @return the {@link RandomGridGenerationType} corresponding to the <code>String</code>
@@ -397,7 +397,7 @@ public class SimulationConfiguration {
       try {
         return RandomGridGenerationType.valueOf(s.trim().toUpperCase());
       } catch (Exception e) {
-        throw new IllegalArgumentException(s+" is not a valid random grid generation type.");
+        throw new IllegalArgumentException(s + " is not a valid random grid generation type.");
       }
     }
   }
@@ -421,11 +421,11 @@ public class SimulationConfiguration {
     NORMAL, INFINITE, TOROIDAL;
 
     /**
-     * An extension of the conventional {@link Enum#name()} method that allows for excess
-     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
-     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
-     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
-     * be referenced from a <code>static</code> context.
+     * An extension of the conventional {@link Enum#name()} method that allows for excess whitespace
+     * and . Note that this method is replicated for other package <code>Enum</code>s because {@link
+     * Enum} is <code>final</code>, and could not be extracted to an interface because {@link
+     * Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot be referenced from a
+     * <code>static</code> context.
      *
      * @param s the <code>String</code>
      * @return the {@link SimulationEdgeType} corresponding to the <code>String</code> parameter
@@ -434,7 +434,7 @@ public class SimulationConfiguration {
       try {
         return SimulationEdgeType.valueOf(s.trim().toUpperCase());
       } catch (Exception e) {
-        throw new IllegalArgumentException(s+" is not a valid simulation edge type.");
+        throw new IllegalArgumentException(s + " is not a valid simulation edge type.");
       }
     }
   }
@@ -448,11 +448,11 @@ public class SimulationConfiguration {
     SMALL, MEDIUM, LARGE;
 
     /**
-     * An extension of the conventional {@link Enum#name()} method that allows for excess
-     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
-     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
-     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
-     * be referenced from a <code>static</code> context.
+     * An extension of the conventional {@link Enum#name()} method that allows for excess whitespace
+     * and . Note that this method is replicated for other package <code>Enum</code>s because {@link
+     * Enum} is <code>final</code>, and could not be extracted to an interface because {@link
+     * Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot be referenced from a
+     * <code>static</code> context.
      *
      * @param s the <code>String</code>
      * @return the {@link CellNeighborhoodSize} corresponding to the <code>String</code> parameter
@@ -461,7 +461,7 @@ public class SimulationConfiguration {
       try {
         return CellNeighborhoodSize.valueOf(s.trim().toUpperCase());
       } catch (Exception e) {
-        throw new IllegalArgumentException(s+" is not a valid cell neighborhood size.");
+        throw new IllegalArgumentException(s + " is not a valid cell neighborhood size.");
       }
     }
   }
@@ -473,11 +473,11 @@ public class SimulationConfiguration {
     RECTANGLE, HEXAGON, TRIANGLE;
 
     /**
-     * An extension of the conventional {@link Enum#name()} method that allows for excess
-     * whitespace and . Note that this method is replicated for other package <code>Enum</code>s
-     * because {@link Enum} is <code>final</code>, and could not be extracted to an interface
-     * because {@link Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot
-     * be referenced from a <code>static</code> context.
+     * An extension of the conventional {@link Enum#name()} method that allows for excess whitespace
+     * and . Note that this method is replicated for other package <code>Enum</code>s because {@link
+     * Enum} is <code>final</code>, and could not be extracted to an interface because {@link
+     * Enum#valueOf(Class, String)} is <code>static</code>, and generics cannot be referenced from a
+     * <code>static</code> context.
      *
      * @param s the <code>String</code>
      * @return the {@link CellShape} corresponding to the <code>String</code> parameter
@@ -486,7 +486,7 @@ public class SimulationConfiguration {
       try {
         return CellShape.valueOf(s.trim().toUpperCase());
       } catch (Exception e) {
-        throw new IllegalArgumentException(s+" is not a valid cell shape.");
+        throw new IllegalArgumentException(s + " is not a valid cell shape.");
       }
     }
   }

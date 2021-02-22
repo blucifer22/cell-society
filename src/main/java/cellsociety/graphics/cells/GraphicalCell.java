@@ -21,8 +21,8 @@ public abstract class GraphicalCell {
   private final Shape renderingShape;
 
   /**
-   * Sole constructor for <code>GraphicalCell</code>. Takes a {@link Cell} to render,
-   * and the {@link Shape} to render it with.
+   * Sole constructor for <code>GraphicalCell</code>. Takes a {@link Cell} to render, and the {@link
+   * Shape} to render it with.
    *
    * @param simulationCell the model <code>Cell</code> to render
    * @param s              the <code>Shape</code> rendered by the the <code>GraphicalCell</code>
@@ -50,7 +50,7 @@ public abstract class GraphicalCell {
    */
   public void update() {
     List<String> styleClasses = this.renderingShape.getStyleClass();
-    styleClasses.remove(styleClasses.size()-1);
+    styleClasses.remove(styleClasses.size() - 1);
     styleClasses.add(stateClassString());
   }
 

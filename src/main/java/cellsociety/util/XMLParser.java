@@ -14,15 +14,13 @@ import org.w3c.dom.Node;
  * The XMLParser class configures a {@link cellsociety.util.SimulationConfiguration} for use by
  * classes in the {@link cellsociety.simulation} package. It loads simulation settings from an XML
  * file, then sends them to a {@link cellsociety.util.SimulationConfiguration} instance for
- * validation and storage. The {@link cellsociety.util.SimulationConfiguration} instance can then
- * be retrieved with {@link XMLParser#getSimulationConfiguration()}.
+ * validation and storage. The {@link cellsociety.util.SimulationConfiguration} instance can then be
+ * retrieved with {@link XMLParser#getSimulationConfiguration()}.
  *
  * <p>Usage: <code>
- * try {
- *  File f = new File("path/to/file.xml");
- *  XMLParser p = new XMLParser(f); // may throw an Exception
- *  SimulationConfiguration config = p.getSimulationConfiguration();
- * } catch (Exception e) { // pipe Exception to GUI }
+ * try { File f = new File("path/to/file.xml"); XMLParser p = new XMLParser(f); // may throw an
+ * Exception SimulationConfiguration config = p.getSimulationConfiguration(); } catch (Exception e)
+ * { // pipe Exception to GUI }
  * </code>
  *
  * @author David Coffman
@@ -265,8 +263,8 @@ public class XMLParser {
   }
 
   /**
-   * Primary data retrieval API for the XMLParser. Returns the
-   * {@link cellsociety.util.SimulationConfiguration} configured by the parser.
+   * Primary data retrieval API for the XMLParser. Returns the {@link
+   * cellsociety.util.SimulationConfiguration} configured by the parser.
    *
    * @return the simulation configuration parsed by the <code>XMLParser</code>
    */

@@ -5,9 +5,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Affine;
 
 /**
- * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
- * {@link Polygon}s configured as triangles for rendering. Used after construction by calling
- * {@link TriangularGraphicalCell#update()} as appropriate to a given use case.
+ * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses {@link
+ * Polygon}s configured as triangles for rendering. Used after construction by calling {@link
+ * TriangularGraphicalCell#update()} as appropriate to a given use case.
  *
  * @author David Coffman
  */
@@ -28,7 +28,7 @@ public class TriangularGraphicalCell extends GraphicalCell {
       double height) {
     super(simulationCell, new Polygon());
     Polygon renderingShape = (Polygon) this.getNode();
-    renderingShape.getPoints().addAll(0.0, 0.0, width, 0.0, width/2.0, height);
+    renderingShape.getPoints().addAll(0.0, 0.0, width, 0.0, width / 2.0, height);
     renderingShape.setTranslateX(x);
     renderingShape.setTranslateY(y);
   }
@@ -36,11 +36,11 @@ public class TriangularGraphicalCell extends GraphicalCell {
   @Override
   public void applyTesselationTransform(int gridX, int gridY) {
     Affine a = new Affine();
-    if((gridX + gridY) % 2 == 1) {
+    if ((gridX + gridY) % 2 == 1) {
       a.appendScale(1, -1);
       a.appendTranslation(0, -this.getNode().getBoundsInParent().getHeight());
     }
-    a.appendTranslation(-gridX/2.0*this.getNode().getBoundsInParent().getWidth(), 0);
+    a.appendTranslation(-gridX / 2.0 * this.getNode().getBoundsInParent().getWidth(), 0);
     this.getNode().getTransforms().addAll(a);
   }
 }

@@ -17,14 +17,14 @@ import javafx.util.Duration;
  */
 public class UIController {
 
-  private static final double WINDOW_WIDTH = 600;
   public static final String RESOURCE_PATH = "cellsociety.graphics.";
+  private static final double WINDOW_WIDTH = 600;
   private static final double WINDOW_HEIGHT = 750;
   private final double frameDelay;
   private final String locale;
-  private ResourceBundle languageResources;
   private final Stage stage;
   private final SimulationController simulationController;
+  private ResourceBundle languageResources;
   private Theme theme;
 
   /**
@@ -83,8 +83,8 @@ public class UIController {
 
   /**
    * Exits the current simulation by first pausing the current simulation, then destroying the
-   * currently-presented {@link SimulationDisplayScene} and replacing it with a
-   * {@link SimulationSelectionScene}.
+   * currently-presented {@link SimulationDisplayScene} and replacing it with a {@link
+   * SimulationSelectionScene}.
    */
   protected void exitSimulation() {
     simulationController.pauseSimulation();
@@ -125,8 +125,8 @@ public class UIController {
   }
 
   /**
-   * Opens a FileChooser window that allows the user to select the appropriate location for
-   * saving a file.
+   * Opens a FileChooser window that allows the user to select the appropriate location for saving a
+   * file.
    *
    * @return the {@link File} selected by the user
    */

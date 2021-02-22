@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
  * @author Marc Chmielewski
  */
 public class PercolationTests {
+
   @Test
   public void testSimplePercolation() {
     Simulation simple = createSimulation("data/percolation/percolation_test_1.xml");
@@ -38,7 +39,7 @@ public class PercolationTests {
 
     curRound = getCellStates(simple.getCells());
 
-    for(int i = 0; i < 500; i++) {
+    for (int i = 0; i < 500; i++) {
       assertTrue(curRound.get(EMPTY) <= prevRound.get(EMPTY));
       assertTrue(curRound.get(FULL) >= prevRound.get(FULL));
       assertEquals(prevRound.get(BLOCKED), curRound.get(BLOCKED));

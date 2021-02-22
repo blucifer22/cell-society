@@ -37,8 +37,8 @@ public class SimulationSelectionScene extends Scene {
    * create the first scene in the application (for loading an XML configuration).
    *
    * @param uiController the UIController to link the <code>SimulationSelectScene</code> to
-   * @param width the width of the <code>SimulationSelectScene</code>
-   * @param height the height of the <code>SimulationSelectScene</code>
+   * @param width        the width of the <code>SimulationSelectScene</code>
+   * @param height       the height of the <code>SimulationSelectScene</code>
    */
   public SimulationSelectionScene(
       UIController uiController, double width, double height, ResourceBundle resources) {
@@ -101,7 +101,7 @@ public class SimulationSelectionScene extends Scene {
   private void changeTheme(Theme theme) {
     uiController.setTheme(theme);
     this.getStylesheets().clear();
-    this.getStylesheets().add(getClass().getResource("styles/"+theme+".css").toExternalForm());
+    this.getStylesheets().add(getClass().getResource("styles/" + theme + ".css").toExternalForm());
   }
 
   // Utility method used to create new icons.

@@ -1,11 +1,11 @@
 package cellsociety.graphics;
 
-import java.util.ResourceBundle;
 import cellsociety.graphics.cells.ExtraSettingsPopup;
 import cellsociety.simulation.Simulation;
 import cellsociety.simulation.SimulationFactory;
 import java.io.File;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,17 +21,14 @@ import javafx.stage.Stage;
 public class SimulationController {
 
   private static final double GRAPH_DIM = 600;
-
-  private double secondsPerStep = 1;
-
   private final UIController uiController;
   private final SimulationFactory simFactory;
+  private final ResourceBundle resources;
+  private double secondsPerStep = 1;
   private Simulation simulation;
   private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
   private ExtraSettingsPopup parametersPopup;
-  private final ResourceBundle resources;
-
   private double timer;
   private boolean stepEnabled;
 
@@ -55,7 +52,7 @@ public class SimulationController {
           simulation.getNumRows(), simulation.getNumCols());
       graphicalCellGrid.update();
       uiController.showSimulation(this);
-	  uiController.setTitle(simulation.getName());
+      uiController.setTitle(simulation.getName());
     } catch (Exception e) {
       uiController.notifyUserOfException(e);
     }
@@ -72,14 +69,14 @@ public class SimulationController {
   public void step() {
     simulation.step();
     graphicalCellGrid.update();
-    if(graph != null) {
+    if (graph != null) {
       graph.update();
     }
   }
 
   public void exitSimulation() {
     uiController.exitSimulation();
-    if(parametersPopup != null ) {
+    if (parametersPopup != null) {
       parametersPopup.destroy();
     }
   }
@@ -114,7 +111,7 @@ public class SimulationController {
     this.parametersPopup = new ExtraSettingsPopup(this);
   }
 
-  public void updateSimulationParameter(String name, String value){
+  public void updateSimulationParameter(String name, String value) {
     try {
       double val = Double.parseDouble(value);
       simulation.setParameter(name, val);
@@ -139,7 +136,7 @@ public class SimulationController {
   public void saveSimulationToDisk() {
     try {
       simulation.writeToDisk(uiController.fileFromSaveDialog());
-    } catch(Exception e) {
+    } catch (Exception e) {
       uiController.notifyUserOfException(e);
     }
   }
