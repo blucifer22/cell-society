@@ -21,20 +21,11 @@ public abstract class GraphicalCell {
   private final Cell simCell;
   private final Shape renderingShape;
 
-  private class OnClickEventHandler implements EventHandler<MouseEvent> {
-
-    @Override
-    public void handle(MouseEvent mouseEvent) {
-      GraphicalCell.this.simCell.poke();
-      GraphicalCell.this.update();
-    }
-  }
-
   /**
    * Sole constructor for <code>GraphicalCell</code>. Takes a model <code>Cell</code> to render, a
    * <code>Map</code> indicating the appropriate <code>Paint</code> for each state, and the location
    * and size of the <code>GraphicalCell</code>.
-   *  @param simulationCell the model <code>Cell</code> to render
+   * @param simulationCell the model <code>Cell</code> to render
    * @param x              the x-position of the <code>GraphicalCell</code>'s top left corner
    * @param y              the y-position of the <code>GraphicalCell</code>'s top left corner
    * @param s              the <code>Shape</code> rendered by the the <code>GraphicalCell</code>
@@ -46,9 +37,14 @@ public abstract class GraphicalCell {
     this.renderingShape.setStroke(Color.BLACK);
     this.renderingShape.setStrokeWidth(1.0);
     this.renderingShape.setStrokeType(StrokeType.INSIDE);
-    this.renderingShape.setOnMouseClicked(new OnClickEventHandler());
+    this.renderingShape.setOnMouseClicked(e -> poke());
     this.renderingShape.getStyleClass().add(stateClassString());
     update();
+  }
+
+  private void poke() {
+    this.simCell.poke();
+    this.update();
   }
 
   /**
