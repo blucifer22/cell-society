@@ -99,8 +99,17 @@ Features implemented:
         * Toroidal
 
 
-* Robust error handling for input XML files (see `XMLParser`).
-    * // TODO: Explain error handling details
+* Robust error handling for input XML files (see `XMLParser`). Errors are handled primarily by `SimulationConfiguration` and `XMLParser`; in each of the following cases, an user-friendly error message is displayed to the user in an `Error` box:
+    * A `DocumentBuilder` fails to parse an input file (which happens when the file is empty or non-XML).
+    * A `<Type>` (simulation type) is not defined
+    * A `<SimulationParameter>` is defined multiple times
+    * An initial state is defined for a cell outside of the bounds of the grid (defined width and height)
+    * A negative width or height is defined
+    * A simulation parameter element is declared but no value is given (i.e. `<ParameterName></ParameterName>`)
+    * A file indicates that random initial states should be used, but no counts or frequencies for random state generations are provided
+    * An invalid simulation type is provided
+    * An invalid cell shape is provided
+
 
 * Several visualization options for the simulations, including:
     * Multiple simulation CellGrids at once
