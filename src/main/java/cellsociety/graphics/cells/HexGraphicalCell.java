@@ -5,7 +5,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Affine;
 
-
 /**
  * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
  * {@link Polygon}s configured as hexagons for rendering. Used after construction by calling

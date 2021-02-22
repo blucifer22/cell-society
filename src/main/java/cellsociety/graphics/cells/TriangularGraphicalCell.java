@@ -7,7 +7,7 @@ import javafx.scene.transform.Affine;
 /**
  * A wrapper for model {@link Cell}s that allows for rendering. This implementation uses
  * {@link Polygon}s configured as triangles for rendering. Used after construction by calling
- * {@link RectangularGraphicalCell#update()} as appropriate to a given use case.
+ * {@link TriangularGraphicalCell#update()} as appropriate to a given use case.
  *
  * @author David Coffman
  */
