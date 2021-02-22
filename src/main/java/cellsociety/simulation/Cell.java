@@ -15,8 +15,8 @@ public abstract class Cell {
   protected List<Cell> neighbors;
   protected int cellState;
   protected int nextCellState;
-  protected int posX;
-  protected int posY;
+  private int posX;
+  private int posY;
   private Map<String, Double> params;
 
   /**
