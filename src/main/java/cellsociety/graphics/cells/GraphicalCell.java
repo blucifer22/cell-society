@@ -10,9 +10,8 @@ import javafx.scene.shape.StrokeType;
 
 /**
  * A wrapper for model {@link Cell}s that allows for rendering. Abstract and implemented by
- * classes which provide specific shapes for rendering. Used by constructing one of its
- * subclasses and calling {@link GraphicalCell#update()} and {@link GraphicalCell#poke()} as
- * appropriate to a given use case.
+ * subclasses which provide specific shapes for rendering. Used by constructing one of its
+ * subclasses and calling {@link GraphicalCell#update()} as appropriate to a given use case.
  *
  * @author David Coffman
  */
