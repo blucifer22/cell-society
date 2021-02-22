@@ -8,10 +8,12 @@ import java.util.Map;
 
 /**
  * <code>SimulationConfiguration</code> is a data storage and error checking class. It is
- * configured by an {@link cellsociety.util.XMLParser} and made publicly accessible to the main
+ * configured by an {@link XMLParser} and made publicly accessible to the main
  * simulation package classes.
  *
- * SimulationConfigurations are
+ * After configuration, <code>SimulationConfiguration</code>s can be accessed through the
+ * {@link XMLParser#getSimulationConfiguration()} method, after which any aspect of a simulation
+ * can be retrieved with an appropriate getter method call.
  *
  * @author David Coffman
  */
@@ -31,6 +33,7 @@ public class SimulationConfiguration {
   private int width;
   private int height;
 
+  // SimulationConfiguration constructor; protected as it should only be called by the XMLParser.
   protected SimulationConfiguration() {
     this.simulationParameters = new HashMap<>();
     this.randomInitialStates = new HashMap<>();
@@ -41,6 +44,7 @@ public class SimulationConfiguration {
     this.neighborhoodSize = CellNeighborhoodSize.MEDIUM;
   }
 
+  // Validates, then adds, an initial cell state in its compacted integer array format.
   protected void addInitialCellState(int[] cellState) {
     assert cellState.length == 3;
     if (cellState[0] < 0 || cellState[1] < 0 || cellState[2] < 0) {
@@ -50,6 +54,9 @@ public class SimulationConfiguration {
     initialNonDefaultCellStates.add(cellState);
   }
 
+  // Validates, then adds, a simulation parameter to the simulation parameters map. Throws an
+  // exception if a simulation parameter has been added twice, or if the parameter is null (as
+  // this would result in removal of the parameter).
   protected void addSimulationParameter(String parameter, Double value) {
     if (parameter == null || value == null) {
       throw new NullPointerException("Simulation parameter names and values must be defined "
@@ -63,9 +70,11 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Updates a defined simulation parameter. Throws an exception if an undefined parameter if an
+   * attempt to update an undefined parameter is made.
    *
-   * @param parameter
-   * @param value
+   * @param parameter the name of the parameter to be updated
+   * @param value the value to update the parameter to
    */
   public void updateSimulationParameter(String parameter, Double value) {
     if (parameter == null || value == null) {
@@ -80,8 +89,10 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Incorporates a map of default parameters into the parameter map. Adds map parameters only if
+   * they are not already defined.
    *
-   * @param defaultParameters
+   * @param defaultParameters the map of default parameters to incorporate
    */
   public void addDefaultParameters(Map<String, Double> defaultParameters) {
     for (String key : defaultParameters.keySet()) {
@@ -90,13 +101,15 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the {@link RandomGridGenerationType} assigned by the {@link XMLParser}.
    *
-   * @return
+   * @return the {@link RandomGridGenerationType} assigned by the {@link XMLParser}
    */
   public RandomGridGenerationType getRandomGridGenerationType() {
     return this.randomGridGenerationType;
   }
 
+  // Validates and sets the RandomGridGenerationType. Used only by the XMLParser.
   protected void setRandomGridGenerationType(RandomGridGenerationType type) {
     if (type == null) {
       throw new NullPointerException("A <Method> must be declared if <RandomInitialStates> are in"
@@ -106,13 +119,15 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the {@link SimulationEdgeType} assigned by the {@link XMLParser}.
    *
-   * @return
+   * @return the {@link SimulationEdgeType} assigned by the {@link XMLParser}
    */
   public SimulationEdgeType getEdgeType() {
     return this.edgeType;
   }
 
+  // Validates and sets the SimulationEdgeType. Used only by the XMLParser.
   protected void setEdgeType(SimulationEdgeType type) {
     if (type == null) {
       throw new NullPointerException(
@@ -122,13 +137,15 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the {@link CellNeighborhoodSize} assigned by the {@link XMLParser}.
    *
-   * @return
+   * @return the {@link CellNeighborhoodSize} assigned by the {@link XMLParser}
    */
   public CellNeighborhoodSize getNeighborhodSize() {
     return this.neighborhoodSize;
   }
 
+  // Validates and sets the CellNeighborhoodSize. Used only by the XMLParser.
   protected void setNeighborhoodSize(CellNeighborhoodSize size) {
     if(size == null) {
       throw new NullPointerException(
@@ -137,6 +154,7 @@ public class SimulationConfiguration {
     this.neighborhoodSize = size;
   }
 
+  // Adds an initial state frequency map entry. Used when RandomGridGenerationType is not NONE.
   protected void addInitialStateFrequency(Integer state, Double frequency) {
     if (state == null || frequency == null) {
       throw new NullPointerException(
@@ -150,37 +168,43 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns the name of the simulation.
    *
-   * @return
+   * @return the name of the simulation.
    */
   public String getSimulationName() {
     return this.simulationName;
   }
 
+  // Sets the name of the simulation. Used only by the XMLParser.
   protected void setSimulationName(String name) {
     this.simulationName = name;
   }
 
   /**
+   * Returns the author of the simulation.
    *
-   * @return
+   * @return the author of the simulation.
    */
   public String getSimulationAuthor() {
     return this.simulationAuthor;
   }
 
+  // Sets the author of the simulation. Used only by the XMLParser.
   protected void setSimulationAuthor(String author) {
     this.simulationAuthor = author;
   }
 
   /**
+   * Returns the {@link SimulationType} of the simulation.
    *
-   * @return
+   * @return the {@link SimulationType} of the simulation
    */
   public SimulationType getSimulationType() {
     return this.simulationType;
   }
 
+  // Validates and sets the SimulationType of the simulation. Used only by the XMLParser.
   protected void setSimulationType(SimulationType t) {
     if (t == null) {
       throw new NullPointerException("Invalid simulation type.");
@@ -189,25 +213,29 @@ public class SimulationConfiguration {
   }
 
   /**
+   * Returns a description of the simulation.
    *
-   * @return
+   * @return a description of the simulation
    */
   public String getSimulationDescription() {
     return this.simulationDescription;
   }
 
+  // Validates and sets the description for the simulation. Used only by the XMLParser.
   protected void setSimulationDescription(String description) {
     this.simulationDescription = description;
   }
 
   /**
+   * Returns the {@link CellShape} for the simulation.
    *
-   * @return
+   * @return the {@link CellShape} for the simulation
    */
   public CellShape getCellShape() {
     return this.cellShape;
   }
 
+  // Validates and sets the CellShape for the simulation. Used only by the XMLParser.
   protected void setCellShape(CellShape shape) {
     if (shape == null) {
       throw new NullPointerException("Cell shape must be defined.");
