@@ -1,8 +1,8 @@
 package cellsociety.simulation;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A general cell type.
@@ -32,6 +32,12 @@ public abstract class Cell {
     neighbors = new ArrayList<>();
   }
 
+  /**
+   * Construct a cell.
+   *
+   * @param cellState - The initial integer representation of the cell
+   * @param params - The rules the cell uses to detrmine its next state.
+   */
   protected Cell(int cellState, Map<String, Double> params) {
     this(cellState);
     this.params = params;
@@ -88,10 +94,22 @@ public abstract class Cell {
     nextCellState = state;
   }
 
+  /**
+   * Sets the next state of the current cell.
+   *
+   * @param state - The cell state to turn this cell into.
+   */
   protected void setCellState(int state) {
     this.cellState = state;
   }
 
+  /**
+   * Sets the next state of the cell while also passing a list of values it may use to initialize
+   * itself.
+   *
+   * @param state - The state to become
+   * @param values - The values the cell can use to do its internal calculations.
+   */
   protected void setNextCellState(int state, Map<String, Double> values) {}
 
   /**
@@ -151,17 +169,14 @@ public abstract class Cell {
   /**
    * Asks the cell to modify its state.
    *
-   * When poked a cell will change its current state.
+   * <p>When poked a cell will change its current state.
    */
-  public void poke() {
-
-  }
+  public void poke() {}
 
   /**
    * Returns a specific rule from within this cell.
    *
-   * Calling this will retrieve a rule from this
-   * cell's corresponding simulation.
+   * <p>Calling this will retrieve a rule from this cell's corresponding simulation.
    */
   protected double getParam(String key) {
     return params.getOrDefault(key, -1.0);
