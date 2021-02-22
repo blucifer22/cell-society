@@ -67,11 +67,11 @@ public class SegregationTests {
     cellStates.add(TYPE_B, 0);
 
     for (Cell curCell : cells) {
-      if (curCell.getCurrentCellState() == EMPTY) {
+      if (curCell.getCellState() == EMPTY) {
         cellStates.set(EMPTY, (cellStates.get(EMPTY) + 1));
-      } else if (curCell.getCurrentCellState() == TYPE_A) {
+      } else if (curCell.getCellState() == TYPE_A) {
         cellStates.set(TYPE_A, (cellStates.get(TYPE_A) + 1));
-      } else if (curCell.getCurrentCellState() == TYPE_B) {
+      } else if (curCell.getCellState() == TYPE_B) {
         cellStates.set(TYPE_B, (cellStates.get(TYPE_B) + 1));
       }
     }

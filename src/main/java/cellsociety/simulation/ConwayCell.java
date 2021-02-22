@@ -55,7 +55,7 @@ public class ConwayCell extends Cell {
   public void computeNextCellState() {
     int numLiveNeighbors = 0;
     for (Cell cell : getNeighbors()) {
-      if (cell.getCurrentCellState() == ALIVE) {
+      if (cell.getCellState() == ALIVE) {
         numLiveNeighbors++;
       }
     }

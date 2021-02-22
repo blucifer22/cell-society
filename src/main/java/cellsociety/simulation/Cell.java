@@ -38,15 +38,6 @@ public abstract class Cell {
   }
 
   /**
-   * Returns the current state of the cell.
-   *
-   * @return The current state of the cell.
-   */
-  public int getCurrentCellState() {
-    return cellState;
-  }
-
-  /**
    * The integer encoding for this cell.
    *
    * <p>The integer encoding corresponds to the state of the cell.
@@ -54,7 +45,7 @@ public abstract class Cell {
    * @return - An integer representing the cell's state.
    */
   public int getEncoding() {
-    return getCurrentCellState();
+    return getCellState();
   }
 
   /**

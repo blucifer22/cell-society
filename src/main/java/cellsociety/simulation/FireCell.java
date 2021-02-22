@@ -54,7 +54,7 @@ public class FireCell extends Cell {
   public void computeNextCellState() {
     if (getCellState() == UNBURNT) {
       for (Cell cell : getNeighbors()) {
-        if (cell.getCurrentCellState() == BURNING) {
+        if (cell.getCellState() == BURNING) {
           catchFire();
         }
       }
