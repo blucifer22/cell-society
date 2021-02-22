@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 /**
  * Popup that allows for simulation parameters to be changed during the simulation.
+ *
+ * @author David Coffman
  */
 public class ExtraSettingsPopup extends Scene {
 
