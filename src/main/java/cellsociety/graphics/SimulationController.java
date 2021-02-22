@@ -20,6 +20,8 @@ import javafx.stage.Stage;
  */
 public class SimulationController {
 
+  private static final double GRAPH_DIM = 600;
+
   private double secondsPerStep = 1;
 
   private final UIController uiController;
@@ -104,7 +106,7 @@ public class SimulationController {
   public void showVisualization() {
     this.graph = new CountGraph(this.simulation, resources);
     Stage s = new Stage();
-    s.setScene(new Scene(graph, 600, 600));
+    s.setScene(new Scene(graph, GRAPH_DIM, GRAPH_DIM));
     s.show();
   }
 

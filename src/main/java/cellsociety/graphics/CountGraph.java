@@ -9,6 +9,20 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+/**
+ * <code>CountGraph</code> is a line chart that can be created from the application by pressing
+ * the "show graph" button.
+ *
+ * Usage (from {@link SimulationController#showVisualization()}):
+ * <code>
+ *     this.graph = new CountGraph(this.simulation, resources);
+ *     Stage s = new Stage();
+ *     s.setScene(new Scene(graph, GRAPH_WIDTH, GRAPH_HEIGHT));
+ *     s.show();
+ * </code>
+ *
+ * @author David Coffman
+ */
 public class CountGraph extends LineChart<Number, Number> {
 
   private final HashMap<Integer, Series<Number, Number>> data;
