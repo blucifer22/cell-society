@@ -51,7 +51,6 @@ public class CellGrid {
       case LARGE -> this.neighborhood = 3;
       default -> this.neighborhood = 3;
     }
-    System.out.println(nSize);
     switch (shape) {
       case TRIANGLE -> createTriNeighbors();
       case HEXAGON -> createHexNeighbors();

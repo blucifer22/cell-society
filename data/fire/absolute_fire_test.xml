@@ -1,0 +1,29 @@
+<!DOCTYPE xml>
+<xml>
+  <General>
+    <Name>Fire Simulation</Name>
+    <Type>Fire</Type>
+    <Author>Joshua Petitma</Author>
+    <Description>I'm no cleptomaniac, but everything must burn.</Description>
+  </General>
+  <GeometricConfiguration>
+    <CellShape>Rectangle</CellShape>
+    <Height>10</Height>
+    <Width>10</Width>
+    <NeighborhoodSize>Medium</NeighborhoodSize>
+  </GeometricConfiguration>
+  <SimulationParameters>
+    <Flammability>0</Flammability>
+  </SimulationParameters>
+  <!--
+  Initial states should only be specified for non-default states, i.e. only specify
+  initially live cells.
+   -->
+  <InitialStates>
+    <Cell>
+      <Row>3</Row>
+      <Column>3</Column>
+      <State>1</State>
+    </Cell>
+</InitialStates>
+</xml>
