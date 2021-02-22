@@ -53,17 +53,28 @@ A lot of time. These times are not 100% accurate but shows that collectively we 
 time working on the code.
 
 ### Primary Roles
+- Marc Chmielewski (msc68)
+  - Back-End/Model, Simulation Implementations, and Tests
+- David Coffman (djc70)
+  - Front-End and Parser
+- Joshua Petitma (jmp157)
+  _ General Architecture and 
 
 ### Resources Used
 
-**JUnit** - To create automated unit tests and verify that changes did not break code.
+* **JUnit** - To create automated unit tests and verify that changes did not break code.
+* [Factory Design Pattern](https://en.wikipedia.org/wiki/Factory_(object-oriented_programming))
+* [Strategy Design Pattern](https://en.wikipedia.org/wiki/Strategy_pattern)
+
+
 
 ### Running the Program
 
 Main class: `cellsociety.Main`
 
 Data files needed: To load a simulation the configurations can be found within `/data/`. All other
-files needed to run are nested within the `/sr/main/resources/` directory.
+files needed to run are nested within the `/sr/main/resources/` directory, though the user should 
+not need to explicitly edit or even view these.
 
 Features implemented:
 
@@ -76,7 +87,29 @@ Features implemented:
     * Rock-Paper-Scissors
     * SugarScape
     * Foraging Ants
-    
+  
+
+* **THREE** different shapes of cell:
+  * Rectangular
+  * Hexagonal
+  * Triangular
+  
+  
+* **THREE** different neighborhood types and **TWO** different boundary conditions:
+  * Neighborhoods:  
+    * SMALL
+    * MEDIUM
+    * LARGE
+  * Boundary Conditions:
+    * "Standard"
+    * Toroidal
+  
+
+* A basic, GUI simulation-editor:
+  * Allows the user to generate their own simulations by "poking"
+  cells to change their state.
+  * Saves to an XML file that can be loaded back at a later time.
+
 
 * Localization for:
     * English
