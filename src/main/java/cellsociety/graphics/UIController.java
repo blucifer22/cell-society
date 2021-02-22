@@ -132,7 +132,8 @@ public class UIController {
   public enum Language {
     ENGLISH("English"),
     FRENCH("French"),
-    POLISH("Polish");
+    POLISH("Polish"),
+    SPANISH("Spanish");
 
     private final String bundleName;
 
