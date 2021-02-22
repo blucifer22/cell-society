@@ -29,6 +29,13 @@ public class CountGraph extends LineChart<Number, Number> {
   private final Simulation simulation;
   private int stepCount;
 
+  /**
+   * Instantiates a <code>CountGraph</code>. Requires a data source ({@link Simulation}) to check
+   * for cells, as well as a resource bundle for localization.
+   *
+   * @param s the {@link Simulation} from which to source update data
+   * @param resources the localized <code>ResourceBundle</code>
+   */
   public CountGraph(Simulation s, ResourceBundle resources) {
     super(new NumberAxis(), new NumberAxis());
     this.data = new HashMap<>();
@@ -39,6 +46,11 @@ public class CountGraph extends LineChart<Number, Number> {
     this.setTitle(resources.getString("CellCountsByTick"));
   }
 
+  /**
+   * Notifies the <code>CountGraph</code> that a state update has occurred in the data source
+   * simulation. Checks the data source simulation for current state counts and updates the
+   * graph's data <code>Series</code> objects accordingly.
+   */
   public void update() {
     List<Cell> cells = simulation.getCells();
     HashMap<Integer, Integer> stepCounts = new HashMap<>();
