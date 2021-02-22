@@ -32,11 +32,16 @@ public abstract class Cell {
     neighbors = new ArrayList<>();
   }
 
+  /**
+   * Construct a cell.
+   *
+   * @param cellState - The initial integer representation of the cell
+   * @param params - The rules the cell uses to detrmine its next state.
+   */
   protected Cell(int cellState, Map<String, Double> params) {
     this(cellState);
     this.params = params;
   }
-
   /**
    * The integer encoding for this cell.
    *
@@ -75,14 +80,31 @@ public abstract class Cell {
     cellState = nextCellState;
   }
 
+  /**
+   * Advances the current cell state to what is assigned as its next cell state.
+   *
+   * @param state - The state which the cell will become on the next generation
+   */
   protected void setNextCellState(int state) {
     nextCellState = state;
   }
 
+  /**
+   * Sets the next state of the current cell.
+   *
+   * @param state - The cell state to turn this cell into.
+   */
   protected void setCellState(int state) {
     this.cellState = state;
   }
 
+  /**
+   * Sets the next state of the cell while also passing a list of values it may use to initialize
+   * itself.
+   *
+   * @param state - The state to become
+   * @param values - The values the cell can use to do its internal calculations.
+   */
   protected void setNextCellState(int state, Map<String, Double> values) {}
 
   /**
@@ -142,28 +164,26 @@ public abstract class Cell {
   /**
    * Asks the cell to modify its state.
    *
-   * When poked a cell will change its current state.
+   * <p>When poked a cell will change its current state.
    */
-  public void poke() {
+  public void poke() {}
 
+  /**
+   * Retrieves the list of current neighbors the cell uses to set its state.
+   *
+   * @return - A list of cells that this cell uses to calculate its next state
+   */
+  protected List<Cell> getNeighbors() {
+    return this.neighbors;
   }
 
   /**
    * Returns a specific rule from within this cell.
    *
-   * Calling this will retrieve a rule from this
-   * cell's corresponding simulation.
+   * <p>Calling this will retrieve a rule from this cell's corresponding simulation.
    */
   protected double getParam(String key) {
     return params.getOrDefault(key, -1.0);
-  }
-
-  /**
-   * Get the neighbors of this Cell
-   * @return the neighbors of this Cell
-   */
-  public List<Cell> getNeighbors() {
-    return neighbors;
   }
 
   /**
@@ -182,5 +202,4 @@ public abstract class Cell {
   public int getCellState() {
     return cellState;
   }
-
 }
