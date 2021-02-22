@@ -146,27 +146,30 @@ Assumptions or Simplifications:
 
 
 * **Conway's Game of Life**
-    * None
+    * NONE
 
 
 * **Fire**
-    * None
+    * NONE
 
 
 * **Percolation**
-    * None
+    * NONE
 
 
 * **RPS**
-    * None
+    * NONE
 
 * **Segregation**
-    * None
+    * NONE
 
 * **SugarScape**
     * Sugar starts off uniformly distributed across all `PATCH`es
     * Sugar is randomly distributed among all `AGENT`s
     * `AGENT`s cannot co-habitate cells
+
+* **Wa-Tor**
+    * NONE
 
 Interesting data files:
 
@@ -181,27 +184,49 @@ Interesting data files:
         * Converges to the shortest path with enough time!
 
 * **Conway's Game of Life**
-    * None
-
+    * `conways_test_5.xml`
+        * The classic Cambridge Pulsar
+    * `conways_edge_test_1.xml`
+        * A cool glider that wraps around the edges in a toroidal fashion.
+    * `conways_edge_test_2.xml`
+        * A Cambridge Pulsar that's about to go supernova
 
 * **Fire**
-    * None
+    * `random_fire_test.xml`
+        * A random fire test, best experienced with the `FIRE` style
+    * `absolute_medium_fire_test.xml`
+        * A fire test that demonstrates medium neighborhoods
+    * `fire_test_4.xml`
+        * A very large fire test that looks super cool with the `FIRE` theme
 
 
 * **Percolation**
-    * None
+    * `percolation_test_5.xml` and `toroidal_percolation_test_1.xml`
+        * Two apparently identical percolation setups that demonstrate the difference between normal
+          and toroidal edge behavior.
 
 
 * **RPS**
-    * None
+    * `RPS_test_7.xml` and `toroidal_RPS_test_1.xml`
+        * Two identical configurations that generate very different types of spiral as a result of
+          different edge behavior.
+    * `random_RPS_test_1.xml`
+        * Interesting emergent spirals!
 
 * **Segregation**
-    * None
+    * `random_segregation_test_2.xml`
+        * Tends to show interesting clumping behaviors. Tweaking from hexagons to rectangles
+          generally converges a bit faster.
 
 * **SugarScape**
-    * Sugar starts off uniformly distributed across all `PATCH`es
-    * Sugar is randomly distributed among all `AGENT`s
-    * `AGENT`s cannot co-habitate cells
+    * `random_sugar_test_1.xml`
+        * Tends to show an initial high-death rate, followed by an equilibrium
+
+
+* **Wa-Tor**
+    * `random_wator_test_2.xml`
+        * Demonstrates the equilibrium boom-bust cycle expected in the Lotka–Volterra equations.
+          Very similar behavior as the Isle Royale population study
 
 Known Bugs:
 
@@ -211,5 +236,16 @@ Known Bugs:
 Extra credit:
 
 ### Impressions
+
+* Marc Chmielewski (msc68)
+    * Overall, this assignment was an interesting way to introduce a number of different software
+      design patterns and practice working in a distributed (and remote!) team environment. In
+      working primarily on the back-end, establishing APIs early, and communicating them to the
+      group was key to ensuring that everything would be able to talk to each other in the end. CA
+      are a particularly interesting case-study as they lend themselves to a number of OOP
+      design-patterns, so choosing between them was a bit of a trial-and-error process. We spent a
+      good bit of time working through a number of architectural revisions, which meant that we all
+      got a lot of practice refactoring each-others code. That being said, it was very satisfying to
+      see everything come together in the end.
 
 [^1]: Purely coincidentally, this order is also alphabetical :)

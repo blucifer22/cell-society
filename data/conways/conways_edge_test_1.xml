@@ -10,6 +10,7 @@
     <CellShape>Rectangle</CellShape>
     <Height>25</Height>
     <Width>25</Width>
+    <EdgeType>TOROIDAL</EdgeType>
   </GeometricConfiguration>
   <SimulationParameters>
     <AliveNumberMin>2</AliveNumberMin>
