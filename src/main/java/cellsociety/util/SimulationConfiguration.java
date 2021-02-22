@@ -30,6 +30,8 @@ public class SimulationConfiguration {
     this.randomGridGenerationType = RandomGridGenerationType.NONE;
     this.edgeType = SimulationEdgeType.NORMAL;
     this.neighborhoodSize = CellNeighborhoodSize.MEDIUM;
+    this.width = 5;
+    this.height = 5;
   }
 
   public void addInitialCellState(int[] cellState) {

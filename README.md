@@ -111,7 +111,7 @@ Features implemented:
 * A basic, GUI-based simulation-editor:
     * Allows the user to generate their own simulations by "poking"
       cells to change their state.
-        * Saves to an XML file that can be loaded back at a later time (see `simulation writer`).
+        * Saves to an XML file that can be loaded back at a later time (see `SimulationWriter`).
     * The ability to create random simulation configurations is also implemented.
     * The ability to dynamically change simulation parameters with text-fields
 
