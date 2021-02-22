@@ -12,7 +12,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.transform.Affine;
 
-// TODO: Finish this Javadoc!
 /**
  * A class that configures {@link GraphicalCell}s into a grid pattern.
  *
