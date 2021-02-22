@@ -170,8 +170,14 @@ public class Simulation {
     commitState();
   }
 
-  public void pokeCell(int x, int y) {
-    cellGrid.pokeCell(x, y);
+  /**
+   * Pokes a specified cell to change its state.
+   *
+   * @param row - The row in the grid in which this cell is found
+   * @param column - The column in the grid in which this cell is found
+   */
+  public void pokeCell(int row, int column) {
+    cellGrid.pokeCell(row, column);
   }
 
   public void writeToDisk(File f) throws Exception {
