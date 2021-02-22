@@ -10,7 +10,7 @@
     <CellShape>Rectangle</CellShape>
     <Height>10</Height>
     <Width>10</Width>
-    <NeighborhoodSize>Medium</NeighborhoodSize>
+    <NeighborhoodSize>Small</NeighborhoodSize>
   </GeometricConfiguration>
   <SimulationParameters>
     <Flammability>0</Flammability>
