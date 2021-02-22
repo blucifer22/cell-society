@@ -90,6 +90,11 @@ public abstract class Cell {
     cellState = nextCellState;
   }
 
+  /**
+   * Advances the current cell state to what is assigned as its next cell state.
+   *
+   * @param state - The state which the cell will become on the next generation
+   */
   protected void setNextCellState(int state) {
     nextCellState = state;
   }
@@ -172,6 +177,15 @@ public abstract class Cell {
    * <p>When poked a cell will change its current state.
    */
   public void poke() {}
+
+  /**
+   * Retrieves the list of current neighbors the cell uses to set its state.
+   *
+   * @return - A list of cells that this cell uses to calculate its next state
+   */
+  protected List<Cell> getNeighbors() {
+    return this.neighbors;
+  }
 
   /**
    * Returns a specific rule from within this cell.
