@@ -186,7 +186,7 @@ public class WatorCell extends Cell {
   private Cell checkSharkMove(Set<Cell> occupiedNeighbors, Set<Cell> unoccupiedNeighbors) {
     // Check for fish and eat it if available
     for (Cell neighbor : occupiedNeighbors) {
-      if (neighbor.getCurrentCellState() == FISH) {
+      if (neighbor.getCellState() == FISH) {
         setEnergyLevel(energyLevel + getParam("FishEnergyGain"));
         killFish(neighbor);
         return neighbor;
@@ -194,7 +194,7 @@ public class WatorCell extends Cell {
     }
     // If not, settle for water
     for (Cell neighbor : unoccupiedNeighbors) {
-      if (neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
+      if (neighbor.getCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -203,7 +203,7 @@ public class WatorCell extends Cell {
 
   private Cell checkFishMove(Set<Cell> unoccupiedNeighbors) {
     for (Cell neighbor : unoccupiedNeighbors) {
-      if (neighbor.getCurrentCellState() == WATER && neighbor.getNextCellState() == WATER) {
+      if (neighbor.getCellState() == WATER && neighbor.getNextCellState() == WATER) {
         return neighbor;
       }
     }
@@ -212,7 +212,7 @@ public class WatorCell extends Cell {
 
   private void findOccupiedNeighbors(Set<Cell> occupiedNeighbors) {
     for (Cell cell : getNeighbors()) {
-      if (cell.getCurrentCellState() != WATER || cell.getNextCellState() != WATER) {
+      if (cell.getCellState() != WATER || cell.getNextCellState() != WATER) {
         occupiedNeighbors.add(cell);
       }
     }
@@ -220,7 +220,7 @@ public class WatorCell extends Cell {
 
   private boolean spawn(int cellType, double energyLevel, Set<Cell> unoccupiedNeighbors) {
     for (Cell neighbor : unoccupiedNeighbors) {
-      if (neighbor.getCurrentCellState() == WATER && (neighbor.getNextCellState() == WATER)) {
+      if (neighbor.getCellState() == WATER && (neighbor.getNextCellState() == WATER)) {
         if (cellType == FISH) {
           Map<String, Double> data = Map.of(ROUNDS_TILL_SPAWN, getParam("FishBreedingCycle"));
           neighbor.setNextCellState(FISH, data);

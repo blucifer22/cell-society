@@ -56,13 +56,13 @@ public class SegregationCell extends Cell {
     double numTypeB = 0;
     Collections.shuffle(getNeighbors());
     for (Cell cell : getNeighbors()) {
-      if (cell.getCurrentCellState() == TYPE_A) {
+      if (cell.getCellState() == TYPE_A) {
         numTypeA++;
-      } else if (cell.getCurrentCellState() == TYPE_B) {
+      } else if (cell.getCellState() == TYPE_B) {
         numTypeB++;
       }
     }
-    switch (this.getCurrentCellState()) {
+    switch (this.getCellState()) {
       case TYPE_A -> {
         if ((numTypeA / getNeighbors().size()) >= getParam("CutoffPercentage")) {
           this.setNextCellState(TYPE_A); // remains the same
@@ -83,8 +83,8 @@ public class SegregationCell extends Cell {
   private void swapWithEmpty() {
     boolean swapSuccess = false;
     for (Cell cell : getNeighbors()) {
-      if (cell.getCurrentCellState() == EMPTY && cell.getNextCellState() == EMPTY) {
-        setNextCellState(cell.getCurrentCellState());
+      if (cell.getCellState() == EMPTY && cell.getNextCellState() == EMPTY) {
+        setNextCellState(cell.getCellState());
         cell.setNextCellState(this.getCellState());
         swapSuccess = true;
         break;

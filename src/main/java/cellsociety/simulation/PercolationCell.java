@@ -53,7 +53,7 @@ public class PercolationCell extends Cell {
     if (getCellState() == EMPTY) {
       int countFillNeighbors = 0;
       for (Cell cell : getNeighbors()) {
-        if (cell.getCurrentCellState() == FULL) {
+        if (cell.getCellState() == FULL) {
           countFillNeighbors++;
         }
         if (countFillNeighbors >= getParam("FillNumber")) {

@@ -67,11 +67,11 @@ public class PercolationTests {
     cellStates.add(BLOCKED, 0);
 
     for (Cell curCell : cells) {
-      if (curCell.getCurrentCellState() == EMPTY) {
+      if (curCell.getCellState() == EMPTY) {
         cellStates.set(EMPTY, (cellStates.get(EMPTY) + 1));
-      } else if (curCell.getCurrentCellState() == FULL) {
+      } else if (curCell.getCellState() == FULL) {
         cellStates.set(FULL, (cellStates.get(FULL) + 1));
-      } else if (curCell.getCurrentCellState() == BLOCKED) {
+      } else if (curCell.getCellState() == BLOCKED) {
         cellStates.set(BLOCKED, (cellStates.get(BLOCKED) + 1));
       }
     }

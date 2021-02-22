@@ -68,7 +68,7 @@ public class Simulation {
             int row = (int) (Math.random() * rows);
             int col = (int) (Math.random() * cols);
             Cell cell = cellGrid.getCell(row, col);
-            if (cell.getCurrentCellState() == 0) {
+            if (cell.getCellState() == 0) {
               cell.setCellState(state);
               break;
             }

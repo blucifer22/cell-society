@@ -27,7 +27,7 @@ class TestGrids {
     sim.step();
 
     List<Cell> cells = sim.getCells();
-    long onFire = cells.stream().filter(c -> c.getCurrentCellState() == BURNING).count();
+    long onFire = cells.stream().filter(c -> c.getCellState() == BURNING).count();
     assertEquals(8, onFire);
   }
 
@@ -46,7 +46,7 @@ class TestGrids {
     sim.step();
 
     List<Cell> cells = sim.getCells();
-    long onFire = cells.stream().filter(c -> c.getCurrentCellState() == BURNING).count();
+    long onFire = cells.stream().filter(c -> c.getCellState() == BURNING).count();
     assertEquals(4, onFire);
   }
 }
