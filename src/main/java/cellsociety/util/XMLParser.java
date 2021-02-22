@@ -141,7 +141,8 @@ public class XMLParser {
     }
   }
 
-  // Parses an individual initial cell state node in the XML root
+  // Parses an individual initial cell state node (extract the value from <Row>, <Column>, and
+  // <State>) in the <InitialStates> tree
   private int[] parseInitialCellState(Node initialCellStateNode) throws Exception {
     try {
       int[] ret = new int[]{-1, -1, -1};
@@ -172,6 +173,7 @@ public class XMLParser {
     }
   }
 
+  // Parse the <InitialStates> element
   private void parseRandomInitialStates(Node initialRandomStateNode) throws Exception {
     for (int i = 0; i < initialRandomStateNode.getChildNodes().getLength(); i++) {
       Node n = initialRandomStateNode.getChildNodes().item(i);
@@ -186,6 +188,8 @@ public class XMLParser {
     }
   }
 
+  // Parse the initial random state count (<Frequency>, <Count>, <State>) tags from the
+  // a <StateFrequency> or <StateCount> sub-tree
   private void parseRandomInitialStateCount(Node randomStateCountNode) throws Exception {
     try {
       Integer state = null;
@@ -210,6 +214,7 @@ public class XMLParser {
     }
   }
 
+  // Parse the <StateFrequency> or <StateCount> subtrees, if present
   private void parseRandomInitialStateCounts(Node randomStateCountsNode) throws Exception {
     for (int i = 0; i < randomStateCountsNode.getChildNodes().getLength(); i++) {
       Node n = randomStateCountsNode.getChildNodes().item(i);
@@ -251,10 +256,17 @@ public class XMLParser {
     return null;
   }
 
+  // Helper method used to retrieve a non-case-or-whitespace-sensitive version of a Node's name
   private String formattedNodeName(String s) {
     return s.trim().toUpperCase();
   }
 
+  /**
+   * Primary data retrieval API for the XMLParser. Returns the
+   * {@link cellsociety.util.SimulationConfiguration} configured by the parser.
+   *
+   * @return the simulation configuration parsed by the <code>XMLParser</code>
+   */
   public SimulationConfiguration getSimulationConfiguration() {
     return this.simulationConfiguration;
   }
