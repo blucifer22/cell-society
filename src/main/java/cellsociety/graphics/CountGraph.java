@@ -11,9 +11,9 @@ import javafx.scene.chart.XYChart;
 
 public class CountGraph extends LineChart<Number, Number> {
 
-  final HashMap<Integer, Series<Number, Number>> data;
-  final Simulation simulation;
-  int stepCount;
+  private final HashMap<Integer, Series<Number, Number>> data;
+  private final Simulation simulation;
+  private int stepCount;
 
   public CountGraph(Simulation s, ResourceBundle resources) {
     super(new NumberAxis(), new NumberAxis());
