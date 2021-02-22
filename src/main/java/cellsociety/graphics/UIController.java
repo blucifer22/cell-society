@@ -10,6 +10,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Application UI controller class.
+ *
+ * @author David Coffman
+ */
 public class UIController {
 
   private static final double WINDOW_WIDTH = 600;
@@ -40,14 +45,17 @@ public class UIController {
     beginUpdates();
   }
 
+  // Sets the application's language setting
   protected void setLanguage(Language lang) {
     this.languageResources = ResourceBundle.getBundle(RESOURCE_PATH + lang);
   }
 
+  // Sets the application's theme setting
   protected void setTheme(Theme theme) {
     this.theme = theme;
   }
 
+  // Begins updates to components instantiated by the UIController
   private void beginUpdates() {
     KeyFrame frame = new KeyFrame(Duration.seconds(frameDelay), e -> refresh(frameDelay));
     Timeline animation = new Timeline();
@@ -69,11 +77,16 @@ public class UIController {
    *
    * @param title the new title text to display
    */
-  public void setTitle(String title) {
+  protected void setTitle(String title) {
     stage.setTitle(title);
   }
 
-  public void exitSimulation() {
+  /**
+   * Exits the current simulation by first pausing the current simulation, then destroying the
+   * currently-presented {@link SimulationDisplayScene} and replacing it with a
+   * {@link SimulationSelectionScene}.
+   */
+  protected void exitSimulation() {
     simulationController.pauseSimulation();
     stage.setScene(new SimulationSelectionScene(this, WINDOW_WIDTH, WINDOW_HEIGHT,
         languageResources));
@@ -83,30 +96,47 @@ public class UIController {
    * Allows instantiated <code>Scene</code>s -- namely <code>SimSelectScene</code>s -- to request to
    * start a getSimulation based on an input file.
    */
-  public void loadNewSimulation() {
+  protected void loadNewSimulation() {
     simulationController.loadSimulation(600, 600);
   }
 
-  public void showSimulation(SimulationController simulationController) {
+  /**
+   * Shows a simulation to the user by instantiating a new {@link SimulationDisplayScene} and
+   * setting it as the primary stage's active scene.
+   *
+   * @param simulationController
+   */
+  protected void showSimulation(SimulationController simulationController) {
     SimulationDisplayScene sds =
         new SimulationDisplayScene(this.simulationController, WINDOW_WIDTH, WINDOW_HEIGHT,
             this.languageResources, this.theme);
     this.stage.setScene(sds);
   }
 
-  // Opens a FileChooser window that allows the user to select the appropriate XML file
-  public File fileFromOpenDialog() {
+  /**
+   * Opens a FileChooser window that allows the user to select the appropriate XML file.
+   *
+   * @return the {@link File} selected by the user
+   */
+  protected File fileFromOpenDialog() {
     FileChooser fc = new FileChooser();
     Stage s = new Stage();
     return fc.showOpenDialog(s);
   }
 
-  public File fileFromSaveDialog() {
+  /**
+   * Opens a FileChooser window that allows the user to select the appropriate location for
+   * saving a file.
+   *
+   * @return the {@link File} selected by the user
+   */
+  protected File fileFromSaveDialog() {
     FileChooser fc = new FileChooser();
     Stage s = new Stage();
     return fc.showSaveDialog(s);
   }
 
+  // Sends a refresh notice to the SimulationController.
   private void refresh(double elapsedTime) {
     simulationController.update(elapsedTime);
   }
@@ -117,18 +147,26 @@ public class UIController {
    *
    * @param e the <code>Exception</code> to notify the user about
    */
-  public void notifyUserOfException(Exception e) {
+  protected void notifyUserOfException(Exception e) {
     Alert a = new Alert(AlertType.ERROR, e.getMessage());
     e.printStackTrace();
     a.show();
   }
 
-  public void createNewControlledStage() {
+  /**
+   * Instantiates a new <code>UIController</code>, creates a new stage, and shows that stage.
+   * Effectively opens a second instance of the application. Used to show multiple simulations
+   * concurrently.
+   */
+  protected void createNewControlledStage() {
     Stage s = new Stage();
     new UIController(s, frameDelay, locale);
     s.show();
   }
 
+  /**
+   * Enumerates all languages usable in the application.
+   */
   public enum Language {
     ENGLISH("English"),
     FRENCH("French"),
@@ -147,6 +185,9 @@ public class UIController {
     }
   }
 
+  /**
+   * Enumerates all themes usable in the application.
+   */
   public enum Theme {
     DEFAULT("Default"),
     FIRE_SPREAD("Fire"),

@@ -12,13 +12,15 @@ import javafx.stage.Stage;
 /**
  * The controller class that creates the simulation model for the view to use.
  *
- * <p>This class contains an XML parser and can create {@link cellsociety.simulation.Simulation}
- * objects.
+ * <p>This class contains instantiates an {@link cellsociety.util.XMLParser} and can create
+ * {@link Simulation} objects via its {@link SimulationFactory}.
  *
  * @author David Coffman
  * @author Marc Chmielewski
  */
 public class SimulationController {
+
+  private static final double GRAPH_DIM = 600;
 
   private double secondsPerStep = 1;
 
@@ -28,7 +30,7 @@ public class SimulationController {
   private GraphicalCellGrid graphicalCellGrid;
   private CountGraph graph;
   private ExtraSettingsPopup parametersPopup;
-  private ResourceBundle resources;
+  private final ResourceBundle resources;
 
   private double timer;
   private boolean stepEnabled;
@@ -104,7 +106,7 @@ public class SimulationController {
   public void showVisualization() {
     this.graph = new CountGraph(this.simulation, resources);
     Stage s = new Stage();
-    s.setScene(new Scene(graph, 600, 600));
+    s.setScene(new Scene(graph, GRAPH_DIM, GRAPH_DIM));
     s.show();
   }
 

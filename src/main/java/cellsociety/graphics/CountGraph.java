@@ -9,24 +9,48 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+/**
+ * <code>CountGraph</code> is a line chart that can be created from the application by pressing
+ * the "show graph" button.
+ *
+ * Usage (from {@link SimulationController#showVisualization()}):
+ * <code>
+ *     this.graph = new CountGraph(this.simulation, resources);
+ *     Stage s = new Stage();
+ *     s.setScene(new Scene(graph, GRAPH_WIDTH, GRAPH_HEIGHT));
+ *     s.show();
+ * </code>
+ *
+ * @author David Coffman
+ */
 public class CountGraph extends LineChart<Number, Number> {
 
-  final HashMap<Integer, Series<Number, Number>> data;
-  final Simulation simulation;
-  private ResourceBundle resources;
-  int stepCount;
+  private final HashMap<Integer, Series<Number, Number>> data;
+  private final Simulation simulation;
+  private int stepCount;
 
+  /**
+   * Instantiates a <code>CountGraph</code>. Requires a data source ({@link Simulation}) to check
+   * for cells, as well as a resource bundle for localization.
+   *
+   * @param s the {@link Simulation} from which to source update data
+   * @param resources the localized <code>ResourceBundle</code>
+   */
   public CountGraph(Simulation s, ResourceBundle resources) {
     super(new NumberAxis(), new NumberAxis());
     this.data = new HashMap<>();
     this.simulation = s;
     this.stepCount = 0;
-    this.resources = resources;
     this.getXAxis().setLabel(resources.getString("StepNumber"));
     this.getYAxis().setLabel(resources.getString("CellCount"));
     this.setTitle(resources.getString("CellCountsByTick"));
   }
 
+  /**
+   * Notifies the <code>CountGraph</code> that a state update has occurred in the data source
+   * simulation. Checks the data source simulation for current state counts and updates the
+   * graph's data <code>Series</code> objects accordingly.
+   */
   public void update() {
     List<Cell> cells = simulation.getCells();
     HashMap<Integer, Integer> stepCounts = new HashMap<>();
